@@ -1,22 +1,78 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 public class Runner {
 
 	private JPanel panel;
+	private Timer timer;
+	private static final int REFRESH_RATE = 100;
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
 
 	public static void main(String[] args) {
 		new Runner().init();
 	}
 
 	private void init() {
+		JFrame frame = new JFrame("Role Playing Game");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel = new JPanel() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				
+			}
+		};
+
+		// frame doesn't get minimized
+		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		// frame gets placed a little way from top and left side
+		frame.setLocation(WIDTH/10, HEIGHT/10);
+		// background is a dark green color
+		panel.setBackground(new Color(25, 0, 75));
 		// map the keystrokes that the panel detects to the game
 		mapKeyStrokesToActions(panel);
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent me) {
+				//clickedAt(me);
+				//to-do
+
+			}
+		});
+
+		frame.add(panel);
+		frame.pack();
+		frame.setVisible(true);
+
+		// this timer controls the actions in the game and then repaints after each update to data
+		timer = new Timer(REFRESH_RATE, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				panel.repaint();
+			}
+		});
+		timer.start();
 	}
 
 	private void mapKeyStrokesToActions(JPanel panel) {
