@@ -23,6 +23,7 @@ public class RPGRunner {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
 	Player p;
+	Enemy e;
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
@@ -30,7 +31,8 @@ public class RPGRunner {
 	private void init() {
 		JFrame frame = new JFrame("Role Playing Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		p = new Player();
+		p = new Player(50,50,50,50);
+		e = new Enemy(100,100,100,100);
 		panel = new JPanel() {
 
 			@Override
