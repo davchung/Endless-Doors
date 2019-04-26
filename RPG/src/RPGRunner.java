@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
-public class Runner {
-	//this is a comment
+public class RPGRunner {
+
 	private JPanel panel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 100;
@@ -24,7 +24,7 @@ public class Runner {
 	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
 
 	public static void main(String[] args) {
-		new Runner().init();
+		new RPGRunner().init();
 	}
 
 	private void init() {
