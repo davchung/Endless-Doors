@@ -49,7 +49,7 @@ public class Runner {
 		// frame gets placed a little way from top and left side
 		frame.setLocation(WIDTH/10, HEIGHT/10);
 		// background is a dark green color
-		panel.setBackground(new Color(25, 0, 75));
+		panel.setBackground(new Color(250, 250, 250));
 		// map the keystrokes that the panel detects to the game
 		mapKeyStrokesToActions(panel);
 		panel.addMouseListener(new MouseAdapter() {
