@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
-public class RPGRunner {
+public class RPGRunner implements KeyListener {
 
 	private JPanel panel;
 	private Timer timer;
@@ -46,8 +48,6 @@ public class RPGRunner {
 		frame.setLocation(WIDTH/10, HEIGHT/10);
 		// background
 		panel.setBackground(new Color(250, 250, 250));
-		// map the keystrokes that the panel detects to the game
-		mapKeyStrokesToActions(panel);
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
@@ -60,6 +60,7 @@ public class RPGRunner {
 		frame.add(panel);
 		frame.pack();
 		frame.setVisible(true);
+		frame.addKeyListener(this);
 
 		// this timer controls the actions in the game and then repaints after each update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
@@ -71,80 +72,24 @@ public class RPGRunner {
 		timer.start();
 	}
 
-	private void mapKeyStrokesToActions(JPanel panel) {
-
-		// A map is an Data storage interface which defines
-		// an association of a key with a value
-		// to "add" to a map you use the "put" method
-		// to "get" from a map you use "get(key)" and the 
-		// value associated with the key is returned (or null)
-		ActionMap map = panel.getActionMap();
-		InputMap inMap = panel.getInputMap();
-
-		// code below associates pressing the up arrow with the command "up"
-		// essentially creating the command "up" being broadcast any time the 
-		// up key is hit
-		inMap.put(KeyStroke.getKeyStroke("pressed UP"), "up");
-		inMap.put(KeyStroke.getKeyStroke("pressed W"), "up");
-		// code below associates the "up" action with anything in the 
-		// actionPerformed method.  Right now, it just prints something
-		map.put("up", new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hit("up");
-			}
-		});
-
-		inMap.put(KeyStroke.getKeyStroke("LEFT"),"left");
-		inMap.put(KeyStroke.getKeyStroke("A"),"left");
-		map.put("left",new AbstractAction(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hit("left");
-			}
-		});
-
-		inMap.put(KeyStroke.getKeyStroke("DOWN"),"down");
-		inMap.put(KeyStroke.getKeyStroke("S"),"down");
-		map.put("down",new AbstractAction(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hit("down");
-			}
-		});
-
-		inMap.put(KeyStroke.getKeyStroke("RIGHT"),"right");
-		inMap.put(KeyStroke.getKeyStroke("D"),"right");
-		map.put("right",new AbstractAction(){
-
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hit("right");
-			}
-		});
-
-		inMap.put(KeyStroke.getKeyStroke("SPACE"),"space");
-		map.put("space",new AbstractAction(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				hit("space");
-			}
-		});
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public  void hit(String s) {
-		keyHit(s);
-		panel.repaint();
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if('w'==e.getKeyChar())
+			System.out.println("w");
 	}
 
-	// What do you want to do when a key is hit?
-	public void keyHit(String s) {
-		System.out.println("Key hit: "+s);
-		p.moveX(10);
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+		
 	}
+
+	
 
 }
