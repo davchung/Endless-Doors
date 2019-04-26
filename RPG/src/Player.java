@@ -1,8 +1,8 @@
 
-public class Player extends GameObject{
+public class Player extends GameObject {
 
 	public Player() {
-		//to-do
+		super(50, 50, 50, 50);
 	}
 
 }

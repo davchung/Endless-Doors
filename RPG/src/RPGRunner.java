@@ -22,7 +22,7 @@ public class RPGRunner {
 	private static final int REFRESH_RATE = 100;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
-
+	Player p;
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
@@ -30,14 +30,16 @@ public class RPGRunner {
 	private void init() {
 		JFrame frame = new JFrame("Role Playing Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		p = new Player();
 		panel = new JPanel() {
 
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
+				p.draw(g);
 			}
 		};
-
+		
 		// frame doesn't get minimized
 		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// frame gets placed a little way from top and left side
@@ -87,11 +89,6 @@ public class RPGRunner {
 		// code below associates the "up" action with anything in the 
 		// actionPerformed method.  Right now, it just prints something
 		map.put("up", new AbstractAction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				hit("up");
@@ -101,10 +98,6 @@ public class RPGRunner {
 		inMap.put(KeyStroke.getKeyStroke("LEFT"),"left");
 		inMap.put(KeyStroke.getKeyStroke("A"),"left");
 		map.put("left",new AbstractAction(){
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,10 +108,6 @@ public class RPGRunner {
 		inMap.put(KeyStroke.getKeyStroke("DOWN"),"down");
 		inMap.put(KeyStroke.getKeyStroke("S"),"down");
 		map.put("down",new AbstractAction(){
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -129,10 +118,7 @@ public class RPGRunner {
 		inMap.put(KeyStroke.getKeyStroke("RIGHT"),"right");
 		inMap.put(KeyStroke.getKeyStroke("D"),"right");
 		map.put("right",new AbstractAction(){
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
+
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -142,10 +128,6 @@ public class RPGRunner {
 
 		inMap.put(KeyStroke.getKeyStroke("SPACE"),"space");
 		map.put("space",new AbstractAction(){
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -162,6 +144,7 @@ public class RPGRunner {
 	// What do you want to do when a key is hit?
 	public void keyHit(String s) {
 		System.out.println("Key hit: "+s);
+		p.moveX(10);
 	}
 
 }
