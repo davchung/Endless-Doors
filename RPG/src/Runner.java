@@ -16,7 +16,7 @@ import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 public class Runner {
-
+	//this is a comment
 	private JPanel panel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 100;
@@ -32,15 +32,9 @@ public class Runner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel() {
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				
 			}
 		};
 
@@ -48,7 +42,7 @@ public class Runner {
 		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// frame gets placed a little way from top and left side
 		frame.setLocation(WIDTH/10, HEIGHT/10);
-		// background is a dark green color
+		// background
 		panel.setBackground(new Color(250, 250, 250));
 		// map the keystrokes that the panel detects to the game
 		mapKeyStrokesToActions(panel);
