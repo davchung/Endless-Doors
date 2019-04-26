@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class GameObject {
+public abstract class GameObject {
 
 	private static double locX;
 	private static double locY;

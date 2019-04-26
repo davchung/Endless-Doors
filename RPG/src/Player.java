@@ -1,8 +1,8 @@
 
 public class Player extends GameObject {
 
-	public Player() {
-		super(50, 50, 50, 50);
+	public Player(int x, int y, double w, double h) {
+		super(x, y, w, h);
 	}
 
 }
