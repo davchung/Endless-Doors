@@ -2,12 +2,12 @@ import java.awt.*;
 
 public class GameObject {
 
-	private static double locX;
-	private static double locY;
-	private final double WIDTH;
-	private final double HEIGHT;
+	private static double locX, locY;
+	private final double WIDTH, HEIGHT;
+	private Image image;
+	public final static String PATH_PREFIX = "img/";
 
-	public GameObject(int x, int y, double w, double h) {
+	public GameObject(double x, double y, double w, double h, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
@@ -15,13 +15,16 @@ public class GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.fillRoundRect((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, 100, 100);
+		if(image != null) {
+			g.drawImage(image, (int)locX, (int)locY, null);
+		}
+
 	}
-	
+
 	public void moveX(int howmuch) {
 		locX += howmuch;
 	}
-	
+
 	public void moveY(int howmuch) {
 		locY += howmuch;
 	}
