@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -26,6 +27,8 @@ public class RPGRunner implements KeyListener {
 	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
 	Player p;
 	Enemy e;
+	private ArrayList<String> keys = new ArrayList<String>();
+
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
@@ -75,20 +78,22 @@ public class RPGRunner implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
-		if('w'==e.getKeyChar())
-			System.out.println("w");
+		if(!keys.contains(""+e.getKeyChar()))
+			keys.add(""+e.getKeyChar());
+		System.out.println(keys);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		if(keys.contains(""+e.getKeyChar()))
+			keys.remove(""+e.getKeyChar());
+		System.out.println(keys);
 		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
 		
 	}
 
