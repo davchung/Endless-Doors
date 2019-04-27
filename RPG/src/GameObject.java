@@ -1,28 +1,47 @@
 import java.awt.*;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public abstract class GameObject {
 
-	private static double locX;
-	private static double locY;
-	private final double WIDTH;
-	private final double HEIGHT;
+	private static double locX, locY;
+	private final double WIDTH, HEIGHT;
+	private Image image;
+	public final static String PATH_PREFIX = "img/";
 
-	public GameObject(int x, int y, double w, double h) {
+	public GameObject(double x, double y, double w, double h, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
+		image = getImage(s);
 	}
 
+	protected Image getImage(String fn) {
+		Image img = null;
+		fn = PATH_PREFIX + fn;
+		try {
+
+			img = ImageIO.read(this.getClass().getResource(fn));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
 	public void draw(Graphics g) {
-		g.fillRoundRect((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, 100, 100);
+		if(image != null) {
+			g.drawImage(image, (int)locX, (int)locY, (int)WIDTH, (int)HEIGHT, null);
+		}
 	}
-	
-	public void moveX(int howmuch) {
-		locX += howmuch;
+
+	public void moveX(int howMuch) {
+		locX += howMuch;
 	}
-	
-	public void moveY(int howmuch) {
-		locY += howmuch;
+
+	public void moveY(int howMuch) {
+		locY += howMuch;
 	}
 }

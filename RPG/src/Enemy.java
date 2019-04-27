@@ -2,20 +2,19 @@ import java.awt.*;
 
 public class Enemy extends GameObject {
 
-	private static double locX;
-	private static double locY;
-	private final double WIDTH;
-	private final double HEIGHT;
+	// I don't know if the stuff that I commented out are needed, because that code is already in the superclass GameObject
+	
+	/*private static double locX, locY;
+	private final double WIDTH, HEIGHT;
+	private Image image;*/
 
-	public Enemy(int x, int y, double w, double h) {
-		super(x, y, w, h);
-		locX = x;
+	public Enemy(double x, double y, double w, double h, String s) {
+		super(x, y, w, h, s);
+		/*locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
+		image = super.getImage(s);*/
 	}
 
-	public void draw(Graphics g) {
-		g.drawRect((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
-	}
 }
