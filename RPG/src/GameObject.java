@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public abstract class GameObject {
 
@@ -12,20 +15,33 @@ public abstract class GameObject {
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
+		image = getImage(s);
 	}
 
+	protected Image getImage(String fn) {
+		Image img = null;
+		fn = PATH_PREFIX + fn;
+		try {
+
+			img = ImageIO.read(this.getClass().getResource(fn));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+	
 	public void draw(Graphics g) {
 		if(image != null) {
 			g.drawImage(image, (int)locX, (int)locY, null);
 		}
-
 	}
 
-	public void moveX(int howmuch) {
-		locX += howmuch;
+	public void moveX(int howMuch) {
+		locX += howMuch;
 	}
 
-	public void moveY(int howmuch) {
-		locY += howmuch;
+	public void moveY(int howMuch) {
+		locY += howMuch;
 	}
 }
