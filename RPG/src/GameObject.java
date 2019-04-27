@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 
 public abstract class GameObject {
 
-	private static double locX, locY;
+	private double locX, locY;
 	private final double WIDTH, HEIGHT;
 	private Image image;
 	public final static String PATH_PREFIX = "img/";
@@ -37,11 +37,11 @@ public abstract class GameObject {
 		}
 	}
 
-	public void moveX(int howMuch) {
+	public void moveX(double howMuch) {
 		locX += howMuch;
 	}
 
-	public void moveY(int howMuch) {
+	public void moveY(double howMuch) {
 		locY += howMuch;
 	}
 }

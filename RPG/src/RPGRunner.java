@@ -22,10 +22,10 @@ public class RPGRunner implements KeyListener {
 
 	private JPanel panel;
 	private Timer timer;
-	private static final int REFRESH_RATE = 100;
+	private static final int REFRESH_RATE = 5;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
-	Player p;
+	Player player;
 	Enemy e;
 	private ArrayList<String> keys = new ArrayList<String>();
 
@@ -36,14 +36,16 @@ public class RPGRunner implements KeyListener {
 	private void init() {
 		JFrame frame = new JFrame("Role Playing Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		p = new Player(50,50,50,50);
+		player = new Player(50,50,50,50);
 		e = new Enemy(100,100,100,100);
 		panel = new JPanel() {
 
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				p.draw(g);
+				
+				e.draw(g);
+				player.draw(g);
 			}
 		};
 		
@@ -72,23 +74,41 @@ public class RPGRunner implements KeyListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				panel.repaint();
+				direction();
 			}
+
+			
 		});
 		timer.start();
 	}
 
+	private void direction() {
+		if (keys.contains("w")) {
+			player.moveY(-1.7);
+		}
+		if (keys.contains("a")) {
+			player.moveX(-1.7);
+		}
+		if (keys.contains("s")) {
+			player.moveY(1.7);
+		}
+		if (keys.contains("d")) {
+			player.moveX(1.7);
+		}
+		
+	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(!keys.contains(""+e.getKeyChar()))
 			keys.add(""+e.getKeyChar());
-		System.out.println(keys);
+	
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(keys.contains(""+e.getKeyChar()))
 			keys.remove(""+e.getKeyChar());
-		System.out.println(keys);
+	
 		
 	}
 

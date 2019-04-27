@@ -8,8 +8,8 @@ public class Enemy extends GameObject {
 	private final double WIDTH, HEIGHT;
 	private Image image;*/
 
-	public Enemy(double x, double y, double w, double h, String s) {
-		super(x, y, w, h, s);
+	public Enemy(double x, double y, double w, double h) {
+		super(x, y, w, h, "enemy.png");
 		/*locX = x;
 		locY = y;
 		WIDTH = w;
