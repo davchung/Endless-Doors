@@ -19,8 +19,8 @@ import javax.swing.Timer;
 
 public class RPGRunner implements KeyListener {
 
-	private Player player = new Player(50.0, 50.0, 50.0, 50.0, "player.png");
-	private Enemy enemy = new Enemy(100.0, 100.0, 50.0, 50.0, "enemy.png");
+	private Player player = new Player(25.0, 25.0, 75.0, 100.0, "player.png");
+	private Enemy enemy = new Enemy(200.0, 200.0, 80.0, 105.0, "enemy.png");
 
 	private JPanel panel;
 	private Timer timer;
@@ -46,6 +46,7 @@ public class RPGRunner implements KeyListener {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				player.draw(g);
+				enemy.draw(g);
 			}
 		};
 

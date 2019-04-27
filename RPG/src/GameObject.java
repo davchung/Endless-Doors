@@ -33,7 +33,7 @@ public abstract class GameObject {
 	
 	public void draw(Graphics g) {
 		if(image != null) {
-			g.drawImage(image, (int)locX, (int)locY, null);
+			g.drawImage(image, (int)locX, (int)locY, (int)WIDTH, (int)HEIGHT, null);
 		}
 	}
 
