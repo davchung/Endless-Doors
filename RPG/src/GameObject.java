@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 public abstract class GameObject {
@@ -30,10 +29,10 @@ public abstract class GameObject {
 		}
 		return img;
 	}
-	
+
 	public void draw(Graphics g) {
-		if(image != null) {
-			g.drawImage(image, (int)locX, (int)locY, (int)WIDTH, (int)HEIGHT, null);
+		if (image != null) {
+			g.drawImage(image, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
 		}
 	}
 
