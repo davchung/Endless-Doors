@@ -11,7 +11,8 @@ public class RPGRunner implements KeyListener {
 	private Timer timer;
 	//currently 200 times per second, i think? 1000 ticks/5 
 	private static final int REFRESH_RATE = 5;
-	int ticks = 0;
+	private int ticks = 0;
+	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int) (screenSize.getWidth() * 3 / 4),
 			HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
@@ -76,16 +77,16 @@ public class RPGRunner implements KeyListener {
 
 	private void controls() {
 		if (keys.contains("w")) {
-			player.moveY(-1.7);
+			player.moveY(-speed);
 		}
 		if (keys.contains("a")) {
-			player.moveX(-1.7);
+			player.moveX(-speed);
 		}
 		if (keys.contains("s")) {
-			player.moveY(1.7);
+			player.moveY(speed);
 		}
 		if (keys.contains("d")) {
-			player.moveX(1.7);
+			player.moveX(speed);
 		}
 
 
