@@ -88,13 +88,11 @@ public class RPGRunner implements KeyListener {
 			player.moveX(1.7);
 		}
 
-<<<<<<< HEAD
+
 		if (keys.contains("j")) {
 			player.attack(keys,ticks);
 		}
 
-=======
->>>>>>> 78e09f58269446eb60f8fd5a2dfc6e53e442989b
 	}
 
 	@Override
