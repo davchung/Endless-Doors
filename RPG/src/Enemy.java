@@ -2,17 +2,17 @@ import java.awt.*;
 
 public class Enemy extends GameObject {
 
-	private static double locX;
-	private static double locY;
-	private final double WIDTH;
-	private final double HEIGHT;
+	private static double locX, locY;
+	private final double WIDTH, HEIGHT;
+	private Image image;
 
-	public Enemy(int x, int y, double w, double h) {
-		super(x, y, w, h);
+	public Enemy(double x, double y, double w, double h, String s) {
+		super(x, y, w, h, s);
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
+		image = super.getImage(s);
 	}
 
 	public void draw(Graphics g) {

@@ -19,13 +19,15 @@ import javax.swing.Timer;
 
 public class RPGRunner implements KeyListener {
 
+	private Player player = new Player(50.0, 50.0, 50.0, 50.0, "player.png");
+	private Enemy enemy = new Enemy(100.0, 100.0, 50.0, 50.0, "enemy.png");
+
 	private JPanel panel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 100;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int)(screenSize.getWidth()*3/4), HEIGHT = (int)(screenSize.getHeight()*3/4);
-	Player p;
-	Enemy e;
+
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
@@ -33,27 +35,29 @@ public class RPGRunner implements KeyListener {
 	private void init() {
 		JFrame frame = new JFrame("Role Playing Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		p = new Player(50,50,50,50);
-		e = new Enemy(100,100,100,100);
 		panel = new JPanel() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				p.draw(g);
+				player.draw(g);
 			}
 		};
-		
+
 		// frame doesn't get minimized
 		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// frame gets placed a little way from top and left side
 		frame.setLocation(WIDTH/10, HEIGHT/10);
-		// background
+		// background color is white
 		panel.setBackground(new Color(250, 250, 250));
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
-				//clickedAt(me);
 				//to-do
 
 			}
@@ -77,7 +81,7 @@ public class RPGRunner implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -88,10 +92,8 @@ public class RPGRunner implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
-		
-	}
 
-	
+
+	}
 
 }
