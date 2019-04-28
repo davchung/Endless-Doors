@@ -19,7 +19,7 @@ public class RPGRunner implements KeyListener {
 	
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
-	Map m = new Map(1);
+	Map m = new Map(5);
 	private Player player;
 	public static void main(String[] args) {
 		new RPGRunner().init();

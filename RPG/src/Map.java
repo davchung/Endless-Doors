@@ -12,7 +12,8 @@ public class Map {
 	static final File dir = new File("src/img/randimg");// goes to the file directory randimg
 	private ArrayList<Image> randImg;//gets every image in the folder randimg
 	private int amount, imgW, imgH;// amount is how many times each img in randImg gets draw
-
+	boolean drawOnce = false;
+	
 	public Map(int x) {
 		amount = x;
 		imgW = 50;
@@ -32,7 +33,8 @@ public class Map {
 	}
 
 	public void draw(Graphics g) {
-		randGen(g);
+		if(!drawOnce)
+			randGen(g);
 	}
 
 	private void randGen(Graphics g) {
@@ -41,5 +43,6 @@ public class Map {
 				g.drawImage(i, (int)(Math.random() * (r.WIDTH - imgW)), (int)(Math.random() * (r.HEIGHT - imgH)), imgW, imgH, null);
 			}
 		}
+		drawOnce = true;
 	}
 }
