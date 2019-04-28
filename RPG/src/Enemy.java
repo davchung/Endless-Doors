@@ -1,12 +1,6 @@
 import java.awt.*;
 
 public class Enemy extends GameObject {
-
-<<<<<<< HEAD
-	public Enemy(double x, double y, double w, double h) {
-		super(x, y, w, h, "enemy.png");
-	
-=======
 	// I don't know if the stuff that I commented out are needed, because that code
 	// is already in the superclass GameObject
 
@@ -20,7 +14,7 @@ public class Enemy extends GameObject {
 		/*
 		 * locX = x; locY = y; WIDTH = w; HEIGHT = h; image = super.getImage(s);
 		 */
->>>>>>> 78e09f58269446eb60f8fd5a2dfc6e53e442989b
+
 	}
 
 }
