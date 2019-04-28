@@ -10,8 +10,8 @@ public class Map {
 	RPGRunner r;
 	private Image image;
 	static final File dir = new File("src/img/randimg");// goes to the file directory randimg
-	private ArrayList<Image> randImg;
-	private int amount, imgW, imgH;//// amount is how many times each img in randImg gets draw
+	private ArrayList<Image> randImg;//gets every image in the folder randimg
+	private int amount, imgW, imgH;// amount is how many times each img in randImg gets draw
 
 	public Map(int x) {
 		amount = x;
