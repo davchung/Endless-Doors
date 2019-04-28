@@ -22,7 +22,7 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void init() {
-		JFrame frame = new JFrame("Role Playing Game");
+		JFrame frame = new JFrame("RPG");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(100, 100, 100, 100);
