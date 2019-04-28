@@ -16,11 +16,12 @@ public class RPGRunner implements KeyListener {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int) (screenSize.getWidth() * 3 / 4),
 			HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
-	
+
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	Map m = new Map(5);
 	private Player player;
+
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
@@ -38,7 +39,7 @@ public class RPGRunner implements KeyListener {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				m.draw(g);
-				for (GameObject go:objects) {
+				for (GameObject go : objects) {
 					go.draw(g);
 				}
 			}
@@ -96,7 +97,7 @@ public class RPGRunner implements KeyListener {
 		if (keys.contains("j")) {
 			player.attack(keys, ticks);
 		}
-		for (GameObject e:objects) {
+		for (GameObject e : objects) {
 			if (player.equals(e))
 				continue;
 			if (player.collides(e)) {

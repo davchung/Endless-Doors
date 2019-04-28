@@ -7,9 +7,7 @@ public class Player extends GameObject {
 	}
 
 	public void attack(ArrayList<String> keys, int ticks) {
-		
-		
+
 	}
-	
 
 }
