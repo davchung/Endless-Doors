@@ -9,17 +9,17 @@ public class RPGRunner implements KeyListener {
 
 	private JPanel panel;
 	private Timer timer;
-	//currently 200 times per second, i think? 1000 ticks/5 
+	// currently 200 times per second, i think? 1000 ticks/5
 	private static final int REFRESH_RATE = 5;
 	private int ticks = 0;
 	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int) (screenSize.getWidth() * 3 / 4),
 			HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
-	Player player;
-	Enemy e;
+	
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
-
+	private Player player;
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
@@ -28,15 +28,18 @@ public class RPGRunner implements KeyListener {
 		JFrame frame = new JFrame("Role Playing Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
-		e = new Enemy(100, 100, 100, 100);
+		Enemy e = new Enemy(100, 100, 100, 100);
+		objects.add(player);
+		objects.add(e);
 		panel = new JPanel() {
 
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 
-				e.draw(g);
-				player.draw(g);
+				for (GameObject go:objects) {
+					go.draw(g);
+				}
 			}
 		};
 
@@ -63,7 +66,7 @@ public class RPGRunner implements KeyListener {
 		// this timer controls the actions in the game and then repaints after each
 		// update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				panel.repaint();
@@ -89,9 +92,15 @@ public class RPGRunner implements KeyListener {
 			player.moveX(speed);
 		}
 
-
 		if (keys.contains("j")) {
-			player.attack(keys,ticks);
+			player.attack(keys, ticks);
+		}
+		for (GameObject e:objects) {
+			if (player.equals(e))
+				continue;
+			if (player.collides(e)) {
+				System.out.println("Collided");
+			}
 		}
 
 	}
