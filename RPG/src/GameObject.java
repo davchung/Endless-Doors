@@ -5,9 +5,10 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	private double locX, locY;
-	private final double WIDTH, HEIGHT;
+	private double WIDTH, HEIGHT;
 	private Image image;
 	public final static String PATH_PREFIX = "img/";
+	private Rectangle current;
 
 	public GameObject(double x, double y, double w, double h, String s) {
 		locX = x;
@@ -15,6 +16,7 @@ public abstract class GameObject {
 		WIDTH = w;
 		HEIGHT = h;
 		image = getImage(s);
+		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 
 	protected Image getImage(String fn) {
@@ -38,9 +40,22 @@ public abstract class GameObject {
 
 	public void moveX(double howMuch) {
 		locX += howMuch;
+		current.x = (int) locX;
 	}
 
 	public void moveY(double howMuch) {
 		locY += howMuch;
+		current.y = (int) locY;
+	}
+
+	public boolean collides(GameObject other) {
+		if (current.contains(other.getRect())) {
+			return true;
+		}
+		return false;
+	}
+
+	public Rectangle getRect() {
+		return current;
 	}
 }
