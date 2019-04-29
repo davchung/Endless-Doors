@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -30,13 +29,13 @@ public class Map {
 			} catch (final IOException e) {
 			}
 		}
-		randGenChests("chest.png");
+		randGenChests();
 	}
 
-	private void randGenChests(String s) {
+	private void randGenChests() {
 		for (int c = 0; c < numChest; c++) {
 			eObjs.add(new Chest((Math.random() * (r.WIDTH - imgW)), (Math.random() * (r.HEIGHT - imgH)), imgW,
-					imgH, 100,s));
+					imgH, 100));
 		}
 		
 	}
