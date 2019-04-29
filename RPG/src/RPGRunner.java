@@ -43,6 +43,8 @@ public class RPGRunner implements KeyListener {
 				panel.setBackground(new Color(105, 206, 236));
 				for (GameObject go : objects) {
 					go.draw(g);
+					//draw player last so that player is on top of everything else
+					player.draw(g);
 				}
 			}
 		};
