@@ -15,12 +15,13 @@ public class RPGRunner implements KeyListener {
 	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int) (screenSize.getWidth() * 3 / 4),
-			HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
+							HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
 
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	Map m = new Map(5);
 	private Player player;
+	private Enemy e;
 
 	public static void main(String[] args) {
 		new RPGRunner().init();
@@ -29,8 +30,8 @@ public class RPGRunner implements KeyListener {
 	private void init() {
 		JFrame frame = new JFrame("RPG");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		player = new Player(50, 50, 50, 50);
-		Enemy e = new Enemy(100, 100, 100, 100);
+		player = new Player(50, 50, 55, 80);
+		e = new Enemy(200, 200, 90, 95);
 		objects.add(player);
 		objects.add(e);
 		panel = new JPanel() {
@@ -81,16 +82,16 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void controls() {
-		if (keys.contains("w")) {
+		if (keys.contains("w") || keys.contains("W")) {
 			player.moveY(-speed);
 		}
-		if (keys.contains("a")) {
+		if (keys.contains("a") || keys.contains("A")) {
 			player.moveX(-speed);
 		}
-		if (keys.contains("s")) {
+		if (keys.contains("s") || keys.contains("S")) {
 			player.moveY(speed);
 		}
-		if (keys.contains("d")) {
+		if (keys.contains("d") || keys.contains("D")) {
 			player.moveX(speed);
 		}
 
