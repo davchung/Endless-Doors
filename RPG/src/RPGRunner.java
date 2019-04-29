@@ -32,15 +32,15 @@ public class RPGRunner implements KeyListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 55, 80);
 		e = new Enemy(200, 200, 90, 95);
-		objects.add(player);
-		objects.add(e);
 		objects.addAll(m.getObjs());
+		objects.add(e);
+		objects.add(player);
 		panel = new JPanel() {
 
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				m.draw(g);
+				panel.setBackground(new Color(105, 206, 236));
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
