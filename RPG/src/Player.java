@@ -10,5 +10,11 @@ public class Player extends GameObject {
 	public void attack(ArrayList<String> keys, int ticks) {
 
 	}
+	public void setDirection(int dir) {
+		direction = dir;
+	}
+	public int getDirection() {
+		return direction;
+	}
 
 }
