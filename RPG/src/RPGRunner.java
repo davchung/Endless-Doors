@@ -43,6 +43,8 @@ public class RPGRunner implements KeyListener {
 				m.draw(g);
 				for (GameObject go : objects) {
 					go.draw(g);
+					//draw player last so that player is on top of everything else
+					player.draw(g);
 				}
 			}
 		};
