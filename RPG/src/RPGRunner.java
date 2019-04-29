@@ -15,11 +15,11 @@ public class RPGRunner implements KeyListener {
 	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH = (int) (screenSize.getWidth() * 3 / 4),
-							HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
+			HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
 
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
-	Map m = new Map(5);
+	Map m = new Map(10, 5);
 	private Player player;
 	private Enemy e;
 

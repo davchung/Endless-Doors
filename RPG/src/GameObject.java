@@ -18,7 +18,7 @@ public abstract class GameObject {
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
-	
+
 	public GameObject(double x, double y, double w, double h, Image i) {
 		locX = x;
 		locY = y;
