@@ -34,6 +34,7 @@ public class RPGRunner implements KeyListener {
 		e = new Enemy(200, 200, 90, 95);
 		objects.add(player);
 		objects.add(e);
+		objects.addAll(m.getObjs());
 		panel = new JPanel() {
 
 			@Override

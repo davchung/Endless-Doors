@@ -10,8 +10,8 @@ public class Map {
 	RPGRunner r;
 	private Image image;
 	static final File dir = new File("src/img/randimg");// goes to the file directory randimg
-	private ArrayList<Image> randImg;// gets every image in the folder randimg
-	private int amount, imgW, imgH;// amount is how many times each img in randImg gets draw
+	private ArrayList<GameObject> eObjs;// gets every image in the folder randimg
+	private double amount, imgW, imgH;// amount is how many times each img in randImg gets draw
 
 	public Map(int x) {
 		amount = x;
@@ -21,27 +21,32 @@ public class Map {
 	}
 
 	private void getAllImg() {
-		randImg = new ArrayList<Image>();
+		eObjs = new ArrayList<GameObject>();
 		Image img = null;
 		for (final File f : dir.listFiles()) {// every file in randimg folder
 			try {
-				randImg.add(ImageIO.read(f));// adds every file to randImg
+				randGen(ImageIO.read(f));//takes in every image and adds it to list
 			} catch (final IOException e) {
 			}
 		}
 	}
 
 	public void draw(Graphics g) {
-		randGen(g);
-	}
-
-	private void randGen(Graphics g) {
-		for (Image i : randImg) {
-			for (int c = 0; c < amount; c++) {
-				g.drawImage(i, (int) (Math.random() * (r.WIDTH - imgW)), (int) (Math.random() * (r.HEIGHT - imgH)),
-						imgW, imgH, null);
-			}
+		for(GameObject e: eObjs) {
+			e.draw(g);
 		}
-
 	}
+	
+	public ArrayList<GameObject> getObjs(){
+		return eObjs;
+	}
+
+	private void randGen(Image i) {
+		for (int c = 0; c < amount; c++) {
+			eObjs.add(new Environment((Math.random() * (r.WIDTH - imgW)), (Math.random() * (r.HEIGHT - imgH)), imgW,
+					imgH, i));
+		}
+	}
+
+
 }
