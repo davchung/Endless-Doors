@@ -83,16 +83,16 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void controls() {
-		if (keys.contains("w") || keys.contains("W")) {
+		if (keys.contains("w") || keys.contains("W") || keys.contains("up")) {
 			player.moveY(-speed);
 		}
-		if (keys.contains("a") || keys.contains("A")) {
+		if (keys.contains("a") || keys.contains("A") || keys.contains("left")) {
 			player.moveX(-speed);
 		}
-		if (keys.contains("s") || keys.contains("S")) {
+		if (keys.contains("s") || keys.contains("S") || keys.contains("down")) {
 			player.moveY(speed);
 		}
-		if (keys.contains("d") || keys.contains("D")) {
+		if (keys.contains("d") || keys.contains("D") || keys.contains("right")) {
 			player.moveX(speed);
 		}
 
@@ -111,16 +111,40 @@ public class RPGRunner implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (!keys.contains("" + e.getKeyChar()))
+		if (!keys.contains("" + e.getKeyChar())) {
 			keys.add("" + e.getKeyChar());
-
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				keys.add("up");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				keys.add("left");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				keys.add("down");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				keys.add("right");
+			}
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (keys.contains("" + e.getKeyChar()))
+		if (keys.contains("" + e.getKeyChar())) {
 			keys.remove("" + e.getKeyChar());
-
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				keys.remove("up");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				keys.remove("left");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				keys.remove("down");
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				keys.remove("right");
+			}
+		}
 	}
 
 	@Override
