@@ -115,7 +115,9 @@ public class RPGRunner implements KeyListener {
 		}
 
 		if (keys.contains("j")) {
-			player.attack(right,down, ticks);
+			if(player.attack(ticks)) {
+				Attack a = new Attack((int)player.getLocX()+25,(int)player.getLocY()+25,right,down,ticks);
+			}
 		}
 		a.update(Math.abs(down)+Math.abs(right));
 		for (GameObject e : objects) {
