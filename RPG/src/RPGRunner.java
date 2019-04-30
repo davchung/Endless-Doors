@@ -37,7 +37,6 @@ public class RPGRunner implements KeyListener {
 		objects.addAll(m.getObjs());
 		objects.add(e);
 		objects.add(player);
-		enemyMovement();
 		panel = new JPanel() {
 
 			@Override
@@ -80,6 +79,7 @@ public class RPGRunner implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				panel.repaint();
 				controls();
+				enemyMovement();
 				ticks++;
 			}
 
@@ -91,6 +91,18 @@ public class RPGRunner implements KeyListener {
 		double x = 0, y = 0;
 		if (e.getLocX() - player.getLocX() > 0) {
 			x = -1.0;
+		}
+		else {
+			x = 1.0;
+		}
+		if (e.getLocY() - player.getLocY() > 0) {
+			y = -1.0;
+		}
+		else {
+			y = 1.0;
+		}
+		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
+			System.out.println("Enemy collided with Player.");
 		}
 		e.moveTowardPlayer(x, y);
 	}
@@ -115,7 +127,13 @@ public class RPGRunner implements KeyListener {
 		}
 
 		if (keys.contains("j")) {
+<<<<<<< HEAD
 			//player.attack(right,down, ticks);
+=======
+			if(player.attack(ticks)) {
+				Attack a = new Attack((int)player.getLocX()+25,(int)player.getLocY()+25,right,down,ticks);
+			}
+>>>>>>> 6dcf7f8eae8556633d2fce21bfef713ed76bee15
 		}
 		a.update(Math.abs(down)+Math.abs(right), ticks);
 		for (GameObject e : objects) {
