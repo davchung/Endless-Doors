@@ -85,21 +85,26 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void controls() {
+		int down = 0, right=0;
 		if (keys.contains("w") || keys.contains("W")) {
 			player.moveY(-speed);
+			down-=1;
 		}
 		if (keys.contains("a") || keys.contains("A")) {
 			player.moveX(-speed);
+			right-=1;
 		}
 		if (keys.contains("s") || keys.contains("S")) {
 			player.moveY(speed);
+			down+=1;
 		}
 		if (keys.contains("d") || keys.contains("D")) {
 			player.moveX(speed);
+			right+=1;
 		}
 
 		if (keys.contains("j")) {
-			player.attack(keys, ticks);
+			player.attack(right,down, ticks);
 		}
 		for (GameObject e : objects) {
 			if (player.equals(e))
