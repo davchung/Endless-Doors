@@ -22,6 +22,7 @@ public class RPGRunner implements KeyListener {
 	Map m = new Map(10, 5);
 	Animation a = new Animation();
 	private Player player;
+	public Player getPlayer() { return player; }
 	private Enemy e;
 
 	public static void main(String[] args) {
