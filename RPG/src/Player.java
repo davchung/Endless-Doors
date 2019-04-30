@@ -10,13 +10,12 @@ public class Player extends GameObject {
 	public void setDirection(int dir) {
 		direction = dir;
 	}
-	public int getDirection() {
-		return direction;
-	}
 
 	public void attack(int right, int down, int ticks) {
-		
-		
+		if (cooldown>=ticks)
+			return;
+		cooldown = ticks+100;
+		System.out.println("attacked");
 	}
 
 }
