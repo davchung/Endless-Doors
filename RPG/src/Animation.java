@@ -40,7 +40,7 @@ public class Animation {
 		aObjs.add(addOn);
 	}
 
-	public void update(int ticks) {
+	public void update(int check) {
 		
 	}
 }
