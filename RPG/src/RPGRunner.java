@@ -32,11 +32,12 @@ public class RPGRunner implements KeyListener {
 	private void init() {
 		JFrame frame = new JFrame("RPG");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		player = new Player(50, 50, 55, 80);
+		player = new Player(50, 50, 50, 50);
 		e = new Enemy(200, 200, 90, 95);
 		objects.addAll(m.getObjs());
 		objects.add(e);
 		objects.add(player);
+		enemyMovement();
 		panel = new JPanel() {
 
 			@Override
@@ -84,6 +85,14 @@ public class RPGRunner implements KeyListener {
 
 		});
 		timer.start();
+	}
+
+	private void enemyMovement() {
+		double x = 0, y = 0;
+		if (e.getLocX() - player.getLocX() > 0) {
+			x = -1.0;
+		}
+		e.moveTowardPlayer(x, y);
 	}
 
 	private void controls() {
