@@ -20,6 +20,7 @@ public class RPGRunner implements KeyListener {
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	Map m = new Map(10, 5);
+	Animation a;
 	private Player player;
 	public Player getPlayer() { return player; }
 	private Enemy e;
@@ -107,6 +108,7 @@ public class RPGRunner implements KeyListener {
 		if (keys.contains("j")) {
 			player.attack(right,down, ticks);
 		}
+		updat
 		for (GameObject e : objects) {
 			if (player.equals(e))
 				continue;

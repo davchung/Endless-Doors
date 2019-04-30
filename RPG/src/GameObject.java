@@ -69,4 +69,6 @@ public abstract class GameObject {
 	public Rectangle getRect() {
 		return current;
 	}
+	
+
 }
