@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -8,7 +9,7 @@ public abstract class GameObject {
 	public double getLocX() { return locX; }
 	public double getLocY() { return locY; }
 	private double WIDTH, HEIGHT;
-	private Image image;
+	private BufferedImage image;
 	public final static String PATH_PREFIX = "img/";
 	private Rectangle current;
 
@@ -21,7 +22,7 @@ public abstract class GameObject {
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 
-	public GameObject(double x, double y, double w, double h, Image i) {
+	public GameObject(double x, double y, double w, double h, BufferedImage i) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
@@ -30,8 +31,8 @@ public abstract class GameObject {
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 
-	protected Image getImage(String fn) {
-		Image img = null;
+	protected BufferedImage getImage(String fn) {
+		BufferedImage img = null;
 		fn = PATH_PREFIX + fn;
 		try {
 
