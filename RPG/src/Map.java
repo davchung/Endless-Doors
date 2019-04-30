@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -8,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Map {
 
 	RPGRunner r;
-	private Image image;
+	private BufferedImage image;
 	static final File dir = new File("src/img/randimg");// goes to the file directory randimg
 	private ArrayList<GameObject> eObjs;// gets every image in the folder randimg
 	private double numEnv, numChest, imgW, imgH;// amount is how many times each img in randImg gets draw
@@ -50,7 +51,7 @@ public class Map {
 		return eObjs;
 	}
 
-	private void randGen(Image i) {
+	private void randGen(BufferedImage i) {
 		for (int c = 0; c < numEnv; c++) {
 			eObjs.add(new Environment((Math.random() * (r.WIDTH - imgW)), (Math.random() * (r.HEIGHT - imgH)), imgW,
 					imgH, i));
