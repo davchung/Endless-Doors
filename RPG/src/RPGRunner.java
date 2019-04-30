@@ -85,16 +85,16 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void controls() {
-		if (keys.contains("w") || keys.contains("W") || keys.contains("up")) {
+		if (keys.contains("w") || keys.contains("W")) {
 			player.moveY(-speed);
 		}
-		if (keys.contains("a") || keys.contains("A") || keys.contains("left")) {
+		if (keys.contains("a") || keys.contains("A")) {
 			player.moveX(-speed);
 		}
-		if (keys.contains("s") || keys.contains("S") || keys.contains("down")) {
+		if (keys.contains("s") || keys.contains("S")) {
 			player.moveY(speed);
 		}
-		if (keys.contains("d") || keys.contains("D") || keys.contains("right")) {
+		if (keys.contains("d") || keys.contains("D")) {
 			player.moveX(speed);
 		}
 
@@ -105,7 +105,7 @@ public class RPGRunner implements KeyListener {
 			if (player.equals(e))
 				continue;
 			if (player.collides(e)) {
-				System.out.println("Collided");
+				System.out.println("Collided with " + e);
 			}
 		}
 
@@ -115,18 +115,6 @@ public class RPGRunner implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if (!keys.contains("" + e.getKeyChar())) {
 			keys.add("" + e.getKeyChar());
-			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				keys.add("up");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				keys.add("left");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				keys.add("down");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				keys.add("right");
-			}
 		}
 	}
 
@@ -134,18 +122,6 @@ public class RPGRunner implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		if (keys.contains("" + e.getKeyChar())) {
 			keys.remove("" + e.getKeyChar());
-			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				keys.remove("up");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				keys.remove("left");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				keys.remove("down");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				keys.remove("right");
-			}
 		}
 	}
 
