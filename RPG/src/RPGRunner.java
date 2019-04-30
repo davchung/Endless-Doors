@@ -21,6 +21,7 @@ public class RPGRunner implements KeyListener {
 	private ArrayList<String> keys = new ArrayList<String>();
 	Map m = new Map(10, 5);
 	private Player player;
+	public Player getPlayer() { return player; }
 	private Enemy e;
 
 	public static void main(String[] args) {

@@ -5,6 +5,8 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	private double locX, locY;
+	public double getLocX() { return locX; }
+	public double getLocY() { return locY; }
 	private double WIDTH, HEIGHT;
 	private Image image;
 	public final static String PATH_PREFIX = "img/";
