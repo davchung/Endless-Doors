@@ -37,6 +37,7 @@ public class RPGRunner implements KeyListener {
 		objects.addAll(m.getObjs());
 		objects.add(e);
 		objects.add(player);
+		enemyMovement();
 		panel = new JPanel() {
 
 			@Override
@@ -84,6 +85,14 @@ public class RPGRunner implements KeyListener {
 
 		});
 		timer.start();
+	}
+
+	private void enemyMovement() {
+		double x = 0, y = 0;
+		if (e.getLocX() - player.getLocX() > 0) {
+			x = -1.0;
+		}
+		e.moveTowardPlayer(x, y);
 	}
 
 	private void controls() {
