@@ -22,7 +22,11 @@ public class RPGRunner implements KeyListener {
 	Map m = new Map(10, 5);
 	Animation a = new Animation();
 	private Player player;
-	public Player getPlayer() { return player; }
+
+	public Player getPlayer() {
+		return player;
+	}
+
 	private Enemy e;
 
 	public static void main(String[] args) {
@@ -45,7 +49,7 @@ public class RPGRunner implements KeyListener {
 				panel.setBackground(new Color(105, 210, 235));
 				for (GameObject go : objects) {
 					go.draw(g);
-					//draw player last so that player is on top of everything else
+					// draw player last so that player is on top of everything else
 					player.draw(g);
 				}
 			}
@@ -91,14 +95,12 @@ public class RPGRunner implements KeyListener {
 		double x = 0, y = 0;
 		if (e.getLocX() - player.getLocX() > 0) {
 			x = -1.0;
-		}
-		else {
+		} else {
 			x = 1.0;
 		}
 		if (e.getLocY() - player.getLocY() > 0) {
 			y = -1.0;
-		}
-		else {
+		} else {
 			y = 1.0;
 		}
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
@@ -108,34 +110,31 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void controls() {
-		int down = 0, right=0;
+		int down = 0, right = 0;
 		if (keys.contains("w") || keys.contains("W")) {
 			player.moveY(-speed);
-			down-=1;
+			down -= 1;
 		}
 		if (keys.contains("a") || keys.contains("A")) {
 			player.moveX(-speed);
-			right-=1;
+			right -= 1;
 		}
 		if (keys.contains("s") || keys.contains("S")) {
 			player.moveY(speed);
-			down+=1;
+			down += 1;
 		}
 		if (keys.contains("d") || keys.contains("D")) {
 			player.moveX(speed);
-			right+=1;
+			right += 1;
 		}
-
+		
 		if (keys.contains("j")) {
-<<<<<<< HEAD
-			//player.attack(right,down, ticks);
-=======
-			if(player.attack(ticks)) {
-				Attack a = new Attack((int)player.getLocX()+25,(int)player.getLocY()+25,right,down,ticks);
+			if (player.attack(ticks)) {
+				Attack a = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, right, down, ticks);
 			}
->>>>>>> 6dcf7f8eae8556633d2fce21bfef713ed76bee15
 		}
-		a.update(Math.abs(down)+Math.abs(right), ticks);
+		a.update(Math.abs(down) + Math.abs(right), ticks);
+
 		for (GameObject e : objects) {
 			if (player.equals(e))
 				continue;
