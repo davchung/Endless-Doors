@@ -11,11 +11,10 @@ public class Animation {
 	private BufferedImage[] addOn;
 	private BufferedImage startWith;
 	private double imgH, imgW;
-	private int rows = 1, cols = 8;
-
+	private int rows = 4, cols = 8;
+	RPGRunner r;
 	public Animation() {
-		imgW = 50;
-		imgH = 50;
+		addOn = new BufferedImage[rows*cols];
 		getAllImg();
 	}
 
@@ -24,12 +23,14 @@ public class Animation {
 		for (final File f : dir.listFiles()) {
 			try {
 				startWith = ImageIO.read(f);
+				imgH = startWith.getHeight()/rows;
+				imgW = startWith.getWidth()/cols;
 				addTo();
-			} catch (final IOException e) {
+			} catch (IOException e) {
 			}
 		}
-
 	}
+
 
 	private void addTo() {
 		for (int i = 0; i < rows; i++) {
@@ -40,6 +41,10 @@ public class Animation {
 		}
 		aObjs.add(addOn);
 	}
+	
+	public BufferedImage getFirstImage() {
+		return (aObjs.get(0))[0];
+	}
 
 	public void update(int check, int ticks) {
 		if (check != 0) {
@@ -47,31 +52,33 @@ public class Animation {
 			ticks = ticks % 8;
 			switch (ticks) {
 			case 0:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[0]);
 				break;
 			case 1:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[1]);
 				break;
 			case 2:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[2]);
 				break;
 			case 3:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[3]);
 				break;
 			case 4:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[4]);
 				break;
 			case 5:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[5]);
 				break;
 			case 6:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[6]);
 				break;
 			case 7:
-				
+				r.getPlayer().setBufferedImage((aObjs.get(0))[7]);
 				break;
 			}
 
 		}
 	}
+
+
 }
