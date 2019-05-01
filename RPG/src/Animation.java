@@ -22,8 +22,8 @@ public class Animation {
 		aObjs = new ArrayList<BufferedImage[]>();
 		for (final File f : dir.listFiles()) {
 			try {
-				startWith = ImageIO.read(f);
-				imgH = startWith.getHeight()/rows;
+				startWith = ImageIO.read(f); //all the images in the folder
+				imgH = startWith.getHeight()/rows; //get image height/width
 				imgW = startWith.getWidth()/cols;
 				addTo();
 			} catch (IOException e) {
@@ -33,13 +33,13 @@ public class Animation {
 
 
 	private void addTo() {
-		for (int i = 0; i < rows; i++) {
+		for (int i = 0; i < rows; i++) { //for every row and col add part of the image to addon
 			for (int j = 0; j < cols; j++) {
 				addOn[(i * cols) + j] = startWith.getSubimage((int) (j * imgW), (int) (i * imgH), (int) imgW,
 						(int) imgH);
 			}
 		}
-		aObjs.add(addOn);
+		aObjs.add(addOn); //add all the image's parts to the main list and cycle to next image
 	}
 	
 	public BufferedImage getFirstImage() {
@@ -52,10 +52,10 @@ public class Animation {
 			ticks = ticks % 8;
 			switch (ticks) {
 			case 0:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[0]);
+				r.getPlayer().setBufferedImage((aObjs.get(0))[0]); //after some time, make player's image to 1st stage run
 				break;
 			case 1:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[1]);
+				r.getPlayer().setBufferedImage((aObjs.get(0))[1]);//then 2nd stage run, etc
 				break;
 			case 2:
 				r.getPlayer().setBufferedImage((aObjs.get(0))[2]);
