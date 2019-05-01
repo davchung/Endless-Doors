@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Animation {
-	static final File dir = new File("src/img/animations");
+
+	static final File dir = new File("src/img/animations/");
 	private ArrayList<BufferedImage[]> aObjs;
 	private BufferedImage[] addOn;
 	private BufferedImage startWith;
 	private double imgH, imgW;
 	private int rows = 4, cols = 8;
 	private RPGRunner r;
+
 	public Animation() {
 		addOn = new BufferedImage[rows*cols];
 		getAllImg();
@@ -41,7 +43,7 @@ public class Animation {
 		}
 		aObjs.add(addOn); //add all the image's parts to the main list and cycle to next image
 	}
-	
+
 	public BufferedImage getFirstImage() {
 		return (aObjs.get(0))[0];
 	}
