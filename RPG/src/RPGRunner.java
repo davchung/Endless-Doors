@@ -94,14 +94,14 @@ public class RPGRunner implements KeyListener {
 	private void enemyMovement() {
 		double x = 0, y = 0;
 		if (e.getLocX() - player.getLocX() > 0) {
-			x = -1.0;
+			x = -0.5;
 		} else {
-			x = 1.0;
+			x = 0.5;
 		}
 		if (e.getLocY() - player.getLocY() > 0) {
-			y = -1.0;
+			y = -0.5;
 		} else {
-			y = 1.0;
+			y = 0.5;
 		}
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
 			System.out.println("Enemy collided with Player.");

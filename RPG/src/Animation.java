@@ -12,7 +12,7 @@ public class Animation {
 	private BufferedImage startWith;
 	private double imgH, imgW;
 	private int rows = 4, cols = 8;
-	RPGRunner r;
+	private RPGRunner r;
 	public Animation() {
 		addOn = new BufferedImage[rows*cols];
 		getAllImg();
@@ -33,9 +33,9 @@ public class Animation {
 
 
 	private void addTo() {
-		for (int i = 0; i < rows; i++) { //for every row and col add part of the image to addon
-			for (int j = 0; j < cols; j++) {
-				addOn[(i * cols) + j] = startWith.getSubimage((int) (j * imgW), (int) (i * imgH), (int) imgW,
+		for (int r = 0; r < rows; r++) { //for every row and col add part of the image to addon
+			for (int c = 0; c < cols; c++) {
+				addOn[(r * cols) + c] = startWith.getSubimage((int) (c * imgW), (int) (r * imgH), (int) imgW,
 						(int) imgH);
 			}
 		}
