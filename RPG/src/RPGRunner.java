@@ -37,7 +37,7 @@ public class RPGRunner implements KeyListener {
 		JFrame frame = new JFrame("RPG");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
-		e = new Enemy(500, 500, 90, 95);
+		e = new Enemy(500, 500, 75, 75);
 		objects.addAll(m.getObjs());
 		objects.add(e);
 		objects.add(player);
@@ -63,7 +63,6 @@ public class RPGRunner implements KeyListener {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
-				// clickedAt(me);
 				// to-do
 
 			}
@@ -93,14 +92,14 @@ public class RPGRunner implements KeyListener {
 	private void enemyMovement() {
 		double x = 0, y = 0;
 		if (e.getLocX() - player.getLocX() > 0) {
-			x = -0.5;
+			x = -e.getSpeed();
 		} else {
-			x = 0.5;
+			x = e.getSpeed();
 		}
 		if (e.getLocY() - player.getLocY() > 0) {
-			y = -0.5;
+			y = -e.getSpeed();
 		} else {
-			y = 0.5;
+			y = e.getSpeed();
 		}
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
 			// System.out.println("Enemy collided with Player.");
