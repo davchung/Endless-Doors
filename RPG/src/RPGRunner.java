@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 
@@ -11,7 +12,7 @@ public class RPGRunner implements KeyListener {
 
 	private Player player;
 	private JPanel startPanel;
-	private Image startImg;
+	private BufferedImage startImg;
 	private JPanel mainPanel;
 	private Timer timer;
 	// currently 200 times per second, i think? 1000 ticks/5
@@ -19,8 +20,8 @@ public class RPGRunner implements KeyListener {
 	private int ticks = 0;
 	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static final int WIDTH = (int) (screenSize.getWidth() * 3 / 4),
-			HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
+	public static final int SCREEN_WIDTH = (int) (screenSize.getWidth() * 3 / 4),
+			SCREEN_HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
 
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -55,15 +56,15 @@ public class RPGRunner implements KeyListener {
 				//startPanel.setBackground(new Color(250, 250, 250));
 				g.drawImage(startImg, 0, 0, 100, 100, null);
 				g.drawString("Click anywhere to begin game.", 100, 50);
-				System.out.println(WIDTH+" "+HEIGHT);
+				System.out.println(SCREEN_WIDTH+" "+SCREEN_HEIGHT);
 			}
 		};
 
 		// frame doesn't get minimized
-		startPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		startFrame.add(startPanel);
 		// frame gets placed a little way from top and left side
-		startFrame.setLocation(WIDTH / 10, HEIGHT / 10);
+		startFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
 		startFrame.pack();
 		startFrame.setVisible(true);
 		startFrame.addKeyListener(this);
@@ -109,10 +110,10 @@ public class RPGRunner implements KeyListener {
 		};
 
 		// frame doesn't get minimized
-		mainPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		mainPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(WIDTH / 10, HEIGHT / 10);
+		mainFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 		mainFrame.addKeyListener(this);

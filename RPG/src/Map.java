@@ -35,7 +35,7 @@ public class Map {
 
 	private void randGenChests() {
 		for (int c = 0; c < numChest; c++) {
-			eObjs.add(new Chest((Math.random() * (r.WIDTH - imgW)), (Math.random() * (r.HEIGHT - imgH)), imgW,
+			eObjs.add(new Chest((Math.random() * (r.SCREEN_WIDTH - imgW)), (Math.random() * (r.SCREEN_HEIGHT - imgH)), imgW,
 					imgH, 100));
 		}
 		
@@ -53,7 +53,7 @@ public class Map {
 
 	private void randGen(BufferedImage i) {
 		for (int c = 0; c < numEnv; c++) {
-			eObjs.add(new Environment((Math.random() * (r.WIDTH - imgW)), (Math.random() * (r.HEIGHT - imgH)), imgW,
+			eObjs.add(new Environment((Math.random() * (r.SCREEN_WIDTH - imgW)), (Math.random() * (r.SCREEN_HEIGHT - imgH)), imgW,
 					imgH, i));
 		}
 	}
