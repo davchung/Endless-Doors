@@ -26,7 +26,6 @@ public class RPGRunner implements KeyListener {
 	private ArrayList<String> keys = new ArrayList<String>();
 	private Map m = new Map(10, 5);
 	private Animation a = new Animation();
-	private Player player;
 	private Attack attack;
 	// what direction the player was last facing
 	private int lastR, lastD;
