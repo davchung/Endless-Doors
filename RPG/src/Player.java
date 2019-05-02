@@ -8,11 +8,9 @@ public class Player extends GameObject {
 	//directions go clockwise, 0 is north, 7 is north-west
 	private int direction = 0;
 	private int cooldown = 0;
-	private static Animation a = new Animation();
-	private static  BufferedImage i = a.getFirstImage();
-	
+	private Animation a = new Animation();
 	public Player(double x, double y, double w, double h) {
-		super(x, y, w, h, i);
+		super(x, y, w, h, "player.png");
 		a = new Animation();
 	}
 	public void setDirection(int dir) {
@@ -28,8 +26,6 @@ public class Player extends GameObject {
 		
 	}
 	
-	public void setBufferedImage(BufferedImage b) {
-		i = b;
-	}
+	
 
 }

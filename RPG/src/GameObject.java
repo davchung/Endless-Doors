@@ -50,6 +50,9 @@ public abstract class GameObject {
 			g.drawImage(image, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
 		}
 	}
+	public void setBufferedImage(BufferedImage b) {
+		image = b;
+	}
 
 	public void moveX(double howMuch) {
 		locX += howMuch;

@@ -7,79 +7,72 @@ import javax.imageio.ImageIO;
 
 public class Animation {
 
-	static final File dir = new File("src/img/animations/");
-	private ArrayList<BufferedImage[]> aObjs;
-	private BufferedImage[] addOn;
+	File run = new File("src/img/animations/playerRun.png");
+	private BufferedImage[] running;
 	private BufferedImage startWith;
 	private double imgH, imgW;
-	private int rows = 4, cols = 8;
-	private RPGRunner r;
 
 	public Animation() {
-		addOn = new BufferedImage[rows*cols];
+		running = new BufferedImage[8];
 		getAllImg();
 	}
 
 	private void getAllImg() {
-		aObjs = new ArrayList<BufferedImage[]>();
-		for (final File f : dir.listFiles()) {
-			try {
-				startWith = ImageIO.read(f); //all the images in the folder
-				imgH = startWith.getHeight()/rows; //get image height/width
-				imgW = startWith.getWidth()/cols;
-				addTo();
-			} catch (IOException e) {
-			}
-		}
+		
+				try {
+					startWith = ImageIO.read(run);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} //all the images in the folder
+				imgH = startWith.getHeight()/1; //get image height/width
+				imgW = startWith.getWidth()/8;
+				for (int i=0;i<running.length;i++) {
+					running[i]=startWith.getSubimage((int)(i*imgW), 0, (int)imgW, (int)imgH);
+				}
+
+			
 	}
 
-
-	private void addTo() {
-		for (int r = 0; r < rows; r++) { //for every row and col add part of the image to addon
-			for (int c = 0; c < cols; c++) {
-				addOn[(r * cols) + c] = startWith.getSubimage((int) (c * imgW), (int) (r * imgH), (int) imgW,
-						(int) imgH);
-			}
-		}
-		aObjs.add(addOn); //add all the image's parts to the main list and cycle to next image
-	}
 
 	public BufferedImage getFirstImage() {
-		return (aObjs.get(0))[0];
+		return running[0];
 	}
 
-	public void update(int check, int ticks) {
+	public BufferedImage update(int check, int ticks) {
 		if (check != 0) {
 			ticks = ticks / 25;
 			ticks = ticks % 8;
-			switch (ticks) {
-			case 0:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[0]); //after some time, make player's image to 1st stage run
-				break;
-			case 1:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[1]);//then 2nd stage run, etc
-				break;
-			case 2:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[2]);
-				break;
-			case 3:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[3]);
-				break;
-			case 4:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[4]);
-				break;
-			case 5:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[5]);
-				break;
-			case 6:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[6]);
-				break;
-			case 7:
-				r.getPlayer().setBufferedImage((aObjs.get(0))[7]);
-				break;
-			}
+			return(running[ticks]);
+//			switch (ticks) {
+//			case 0:
+//				r.getPlayer().setBufferedImage(running[0]); //after some time, make player's image to 1st stage run
+//				break;
+//			case 1:
+//				r.getPlayer().setBufferedImage(running[1]);//then 2nd stage run, etc
+//				break;
+//			case 2:
+//				r.getPlayer().setBufferedImage(running[2]);
+//				break;
+//			case 3:
+//				r.getPlayer().setBufferedImage(running[3]);
+//				break;
+//			case 4:
+//				r.getPlayer().setBufferedImage(running[4]);
+//				break;
+//			case 5:
+//				r.getPlayer().setBufferedImage(running[5]);
+//				break;
+//			case 6:
+//				r.getPlayer().setBufferedImage(running[0]);
+//				break;
+//			case 7:
+//				r.getPlayer().setBufferedImage(running[7]);
+//				break;
+//			}
 
 		}
+		return getFirstImage();
 	}
 
 

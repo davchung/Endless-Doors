@@ -132,8 +132,8 @@ public class RPGRunner implements KeyListener {
 				Attack a = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, right, down, ticks);
 			}
 		}
-		a.update(Math.abs(down) + Math.abs(right), ticks); // IF YOU WANT TO RUN SOMETHING COMMENT THIS LINE OUT
-
+		//a.update(Math.abs(down) + Math.abs(right), ticks); // IF YOU WANT TO RUN SOMETHING COMMENT THIS LINE OUT
+		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right), ticks));
 		for (GameObject e : objects) {
 			if (player.equals(e))
 				continue;
