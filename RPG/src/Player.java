@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Player extends GameObject {	
 	//directions go clockwise, 0 is north, 7 is north-west
-	private int direction = 0;
+	private int direction = 0; 
 	private int cooldown = 0;
 	private Animation a = new Animation();
 	public Player(double x, double y, double w, double h) {

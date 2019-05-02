@@ -22,6 +22,9 @@ public class RPGRunner implements KeyListener {
 	private Map m = new Map(10, 5);
 	private Animation a = new Animation();
 	private Player player;
+	private Attack attack;
+	// what direction the player was last facing
+	private int lastR, lastD;
 
 	public Player getPlayer() {
 		return player;
@@ -49,9 +52,16 @@ public class RPGRunner implements KeyListener {
 				panel.setBackground(new Color(152, 251, 152));
 				for (GameObject go : objects) {
 					go.draw(g);
-					// draw player last so that player is on top of everything else
-					player.draw(g);
 				}
+				for (GameObject go : objects) {
+					if (go instanceof Enemy) {
+						go.draw(g);
+					}
+				}
+				if (attack != null && !attack.expire(ticks)) {
+					attack.draw(g);
+				}
+				player.draw(g);
 			}
 		};
 
@@ -109,35 +119,46 @@ public class RPGRunner implements KeyListener {
 
 	private void controls() {
 		int down = 0, right = 0;
-		if (keys.contains("w") || keys.contains("W")) {
-			player.moveY(-speed);
-			down -= 1;
-		}
-		if (keys.contains("a") || keys.contains("A")) {
-			player.moveX(-speed);
-			right -= 1;
-		}
-		if (keys.contains("s") || keys.contains("S")) {
-			player.moveY(speed);
-			down += 1;
-		}
-		if (keys.contains("d") || keys.contains("D")) {
-			player.moveX(speed);
-			right += 1;
-		}
-
-		if (keys.contains("j")) {
-			if (player.attack(ticks)) {
-				Attack a = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, right, down, ticks);
+		if (attack==null||attack.expire(ticks+40)) {
+			if (keys.contains("w") || keys.contains("W")) {
+				player.moveY(-speed);
+				down -= 1;
+			}
+			if (keys.contains("a") || keys.contains("A")) {
+				player.moveX(-speed);
+				right -= 1;
+			}
+			if (keys.contains("s") || keys.contains("S")) {
+				player.moveY(speed);
+				down += 1;
+			}
+			if (keys.contains("d") || keys.contains("D")) {
+				player.moveX(speed);
+				right += 1;
+			}
+			if (!(down == 0 && right == 0)) {
+				lastR = right;
+				lastD = down;
+			}
+			if (keys.contains("j")) {
+				if (player.attack(ticks)) {
+					attack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks);
+				}
 			}
 		}
-		//a.update(Math.abs(down) + Math.abs(right), ticks); // IF YOU WANT TO RUN SOMETHING COMMENT THIS LINE OUT
 		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right), ticks));
 		for (GameObject e : objects) {
-			if (player.equals(e))
+			if (player.equals(e)||attack!=null&&attack.equals(e))
 				continue;
 			if (player.collides(e)) {
 				// System.out.println("Collided with " + e);
+			}
+			if(e instanceof Enemy) {
+				if (((Enemy) e).getHealth()<=0)
+					objects.remove(e);
+			}
+			if(attack!=null&&attack.collides(e)) {
+				e.hit();
 			}
 		}
 

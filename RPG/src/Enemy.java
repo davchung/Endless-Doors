@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Enemy extends GameObject {
-	
+	int health = 20;
 	private double speed = 0.5;
 	public double getSpeed() { return this.speed; }
 
@@ -14,5 +14,10 @@ public class Enemy extends GameObject {
 		moveY(y);
 		
 	}
-
+	public void hit() {
+		health-=10;
+	}
+	public int getHealth() {
+		return health;
+	}
 }

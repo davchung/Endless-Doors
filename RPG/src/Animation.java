@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class Animation {
 
-	File run = new File("src/img/animations/playerRun.png");
+	File runRight = new File("src/img/animations/playerRun.png");
 	private BufferedImage[] running;
 	private BufferedImage startWith;
 	private double imgH, imgW;
@@ -20,7 +20,7 @@ public class Animation {
 	private void getAllImg() {
 		
 				try {
-					startWith = ImageIO.read(run);
+					startWith = ImageIO.read(runRight);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
