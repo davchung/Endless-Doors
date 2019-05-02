@@ -15,7 +15,6 @@ public class RPGRunner implements KeyListener {
 	private BufferedImage startImg;
 	private JPanel mainPanel;
 	private Timer timer;
-	// currently 200 times per second, i think? 1000 ticks/5
 	private static final int REFRESH_RATE = 5;
 	private int ticks = 0;
 	private double speed = 1.7;
@@ -53,10 +52,11 @@ public class RPGRunner implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//startPanel.setBackground(new Color(250, 250, 250));
-				g.drawImage(startImg, 0, 0, 100, 100, null);
+				g.drawImage(startImg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
+				g.setColor(new Color(250, 250, 250));
+				g.fillRect(100, 40, 500, 10);
+				g.setColor(new Color(0, 0, 0));
 				g.drawString("Click anywhere to begin game.", 100, 50);
-				System.out.println(SCREEN_WIDTH+" "+SCREEN_HEIGHT);
 			}
 		};
 
@@ -67,13 +67,11 @@ public class RPGRunner implements KeyListener {
 		startFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
 		startFrame.pack();
 		startFrame.setVisible(true);
-		startFrame.addKeyListener(this);
-
-
+		
 		startPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
-				startFrame.setEnabled(false);
+				startFrame.setVisible(false);
 				beginGame();
 
 			}
@@ -82,6 +80,7 @@ public class RPGRunner implements KeyListener {
 
 	private void beginGame() {
 		JFrame mainFrame = new JFrame("Role-Playing Game");
+		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
@@ -115,7 +114,6 @@ public class RPGRunner implements KeyListener {
 		// frame gets placed a little way from top and left side
 		mainFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
 		mainFrame.pack();
-		mainFrame.setVisible(true);
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
 		// update to data
