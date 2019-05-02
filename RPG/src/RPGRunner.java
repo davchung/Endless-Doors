@@ -46,7 +46,7 @@ public class RPGRunner implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				panel.setBackground(new Color(105, 210, 235));
+				panel.setBackground(new Color(152, 251, 152));
 				for (GameObject go : objects) {
 					go.draw(g);
 					// draw player last so that player is on top of everything else
@@ -60,7 +60,6 @@ public class RPGRunner implements KeyListener {
 		// frame gets placed a little way from top and left side
 		frame.setLocation(WIDTH / 10, HEIGHT / 10);
 		// background
-		panel.setBackground(new Color(250, 250, 250));
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
@@ -104,7 +103,7 @@ public class RPGRunner implements KeyListener {
 			y = 0.5;
 		}
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
-			//System.out.println("Enemy collided with Player.");
+			// System.out.println("Enemy collided with Player.");
 		}
 		e.moveTowardPlayer(x, y);
 	}
@@ -127,19 +126,19 @@ public class RPGRunner implements KeyListener {
 			player.moveX(speed);
 			right += 1;
 		}
-		
+
 		if (keys.contains("j")) {
 			if (player.attack(ticks)) {
 				Attack a = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, right, down, ticks);
 			}
 		}
-		a.update(Math.abs(down) + Math.abs(right), ticks); //IF YOU WANT TO RUN SOMETHING COMMENT THIS LINE OUT
+		a.update(Math.abs(down) + Math.abs(right), ticks); // IF YOU WANT TO RUN SOMETHING COMMENT THIS LINE OUT
 
 		for (GameObject e : objects) {
 			if (player.equals(e))
 				continue;
 			if (player.collides(e)) {
-				//System.out.println("Collided with " + e);
+				// System.out.println("Collided with " + e);
 			}
 		}
 
