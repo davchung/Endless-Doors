@@ -41,7 +41,7 @@ public class Animation {
 
 	public BufferedImage update(int check, int ticks) {
 		if (check != 0) {
-			ticks = ticks / 25;
+			ticks = ticks / 12; //smaller = faster
 			ticks = ticks % 8;
 			return(running[ticks]);
 //			switch (ticks) {
