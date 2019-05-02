@@ -36,9 +36,7 @@ public abstract class GameObject {
 		BufferedImage img = null;
 		fn = PATH_PREFIX + fn;
 		try {
-			System.out.println(fn);
 			img = ImageIO.read(this.getClass().getResource(fn));
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +70,7 @@ public abstract class GameObject {
 	}
 	public void hit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

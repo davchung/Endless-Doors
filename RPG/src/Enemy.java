@@ -1,4 +1,3 @@
-import java.awt.*;
 
 public class Enemy extends GameObject {
 	int health = 20;
@@ -12,7 +11,7 @@ public class Enemy extends GameObject {
 	protected void moveTowardPlayer(double x, double y) {
 		moveX(x);
 		moveY(y);
-		
+
 	}
 	public void hit() {
 		health-=10;

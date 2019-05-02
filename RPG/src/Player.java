@@ -1,8 +1,3 @@
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 public class Player extends GameObject {	
 	//directions go clockwise, 0 is north, 7 is north-west
@@ -23,9 +18,7 @@ public class Player extends GameObject {
 		cooldown = ticks+100;
 		System.out.println("attacked");
 		return true;
-		
+
 	}
-	
-	
 
 }
