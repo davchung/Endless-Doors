@@ -2,8 +2,12 @@ import java.awt.*;
 
 public class Enemy extends GameObject {
 	int health = 20;
+	int hittable = 0;
 	private double speed = 0.5;
-	public double getSpeed() { return this.speed; }
+
+	public double getSpeed() {
+		return this.speed;
+	}
 
 	public Enemy(double x, double y, double w, double h) {
 		super(x, y, w, h, "enemy.png");
@@ -12,11 +16,18 @@ public class Enemy extends GameObject {
 	protected void moveTowardPlayer(double x, double y) {
 		moveX(x);
 		moveY(y);
+
+	}
+
+	public void hit(int ticks) {
+		if (ticks > hittable) {
+			health -= 10;
+			hittable = ticks + 80;
+			return;
+		}
 		
 	}
-	public void hit() {
-		health-=10;
-	}
+
 	public int getHealth() {
 		return health;
 	}

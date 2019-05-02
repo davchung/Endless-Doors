@@ -70,9 +70,5 @@ public abstract class GameObject {
 		}
 		return false;
 	}
-	public void hit() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

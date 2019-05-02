@@ -101,6 +101,7 @@ public class RPGRunner implements KeyListener {
 						go.draw(g);
 					}
 				}
+				
 				if (attack != null && !attack.expire(ticks)) {
 					attack.draw(g);
 				}
@@ -124,11 +125,35 @@ public class RPGRunner implements KeyListener {
 				mainPanel.repaint();
 				controls();
 				enemyMovement();
+				collision();
 				ticks++;
 			}
 
 		});
 		timer.start();
+	}
+
+	protected void collision() {
+		if (attack!=null&&attack.expire(ticks)){
+			attack = null;
+		}
+		for (GameObject e : objects) {
+			if (player.equals(e)||attack!=null&&attack.equals(e))
+				continue;
+			if (player.collides(e)) {
+				System.out.println("Collided with " + e);
+			}
+			//tests if any enemy collides with the attack
+			if(e instanceof Enemy) {
+				if (((Enemy) e).getHealth()<=0)
+					objects.remove(e);
+				if(attack!=null&&attack.collides(e)) {
+					((Enemy)e).hit(ticks);
+				}
+			}
+			
+		}
+		
 	}
 
 	private void enemyMovement() {
@@ -179,20 +204,6 @@ public class RPGRunner implements KeyListener {
 			}
 		}
 		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right), ticks));
-		for (GameObject e : objects) {
-			if (player.equals(e)||attack!=null&&attack.equals(e))
-				continue;
-			if (player.collides(e)) {
-				System.out.println("Collided with " + e);
-			}
-			if(e instanceof Enemy) {
-				if (((Enemy) e).getHealth()<=0)
-					objects.remove(e);
-			}
-			if(attack!=null&&attack.collides(e)) {
-				e.hit();
-			}
-		}
 
 	}
 
