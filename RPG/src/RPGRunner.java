@@ -1,13 +1,19 @@
-
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
 
 public class RPGRunner implements KeyListener {
 
-	private JPanel panel;
+	private Player player;
+	private JFrame frame = new JFrame("RPG");
+	private JPanel startPanel;
+	private Image startImg;
+	private JPanel mainPanel;
 	private Timer timer;
 	// currently 200 times per second, i think? 1000 ticks/5
 	private static final int REFRESH_RATE = 5;
@@ -29,27 +35,60 @@ public class RPGRunner implements KeyListener {
 	public Player getPlayer() {
 		return player;
 	}
-
 	private Enemy e;
 
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
-
+	
 	private void init() {
-		JFrame frame = new JFrame("RPG");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		try {
+			startImg = ImageIO.read(this.getClass().getResource("img/startImg.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		startPanel = new JPanel() {
+
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				startPanel.setBackground(new Color(250, 250, 250));
+				g.drawImage(startImg, 0, 0, WIDTH, HEIGHT, null);
+				g.drawString("Click anywhere to begin game.", 100, 50);
+			}
+		};
+		
+		// frame doesn't get minimized
+		startPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		frame.add(startPanel);
+		// frame gets placed a little way from top and left side
+		frame.setLocation(WIDTH / 10, HEIGHT / 10);
+		frame.pack();
+		frame.setVisible(true);
+		frame.addKeyListener(this);
+		
+		startPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent me) {
+				beginGame();
+
+			}
+		});
+	}
+
+	private void beginGame() {
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
 		objects.addAll(m.getObjs());
 		objects.add(e);
 		objects.add(player);
-		panel = new JPanel() {
+		mainPanel = new JPanel() {
 
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				panel.setBackground(new Color(152, 251, 152));
+				mainPanel.setBackground(new Color(152, 251, 152));
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
@@ -66,30 +105,15 @@ public class RPGRunner implements KeyListener {
 		};
 
 		// frame doesn't get minimized
-		panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		// frame gets placed a little way from top and left side
-		frame.setLocation(WIDTH / 10, HEIGHT / 10);
-		// background
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent me) {
-				// to-do
-
-			}
-		});
-
-		frame.add(panel);
-		frame.pack();
-		frame.setVisible(true);
-		frame.addKeyListener(this);
-
+		mainPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		frame.add(mainPanel);
 		// this timer controls the actions in the game and then repaints after each
 		// update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				panel.repaint();
+				mainPanel.repaint();
 				controls();
 				enemyMovement();
 				ticks++;
@@ -112,7 +136,7 @@ public class RPGRunner implements KeyListener {
 			y = e.getSpeed();
 		}
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
-			// System.out.println("Enemy collided with Player.");
+			System.out.println("Enemy collided with Player.");
 		}
 		e.moveTowardPlayer(x, y);
 	}
@@ -151,7 +175,7 @@ public class RPGRunner implements KeyListener {
 			if (player.equals(e)||attack!=null&&attack.equals(e))
 				continue;
 			if (player.collides(e)) {
-				// System.out.println("Collided with " + e);
+				System.out.println("Collided with " + e);
 			}
 			if(e instanceof Enemy) {
 				if (((Enemy) e).getHealth()<=0)
