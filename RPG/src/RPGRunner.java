@@ -3,7 +3,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
@@ -49,14 +48,20 @@ public class RPGRunner implements KeyListener {
 		}
 		startPanel = new JPanel() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(startImg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
 				g.setColor(new Color(250, 250, 250));
-				g.fillRect(100, 40, 500, 10);
+				g.fillRect(55, (SCREEN_HEIGHT/2)-75, 955, 100);
 				g.setColor(new Color(0, 0, 0));
-				g.drawString("Click anywhere to begin game.", 100, 50);
+				g.setFont(new Font("Times New Roman", 0, 75));
+				g.drawString("Click anywhere to begin game.", 65, SCREEN_HEIGHT/2);
 			}
 		};
 
@@ -67,7 +72,7 @@ public class RPGRunner implements KeyListener {
 		startFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
 		startFrame.pack();
 		startFrame.setVisible(true);
-		
+
 		startPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
@@ -88,6 +93,11 @@ public class RPGRunner implements KeyListener {
 		objects.add(e);
 		objects.add(player);
 		mainPanel = new JPanel() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void paintComponent(Graphics g) {

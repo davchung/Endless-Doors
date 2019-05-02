@@ -1,4 +1,3 @@
-import java.awt.*;
 
 public class Enemy extends GameObject {
 	int health = 20;

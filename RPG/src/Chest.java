@@ -1,4 +1,3 @@
-import java.awt.*;
 
 public class Chest extends GameObject{
 	
@@ -6,7 +5,15 @@ public class Chest extends GameObject{
 	
 	public Chest(double x, double y, double w, double h, double gold) {
 		super(x, y, w, h, "chest.png");
-		amountOfGold = gold;
+		setAmountOfGold(gold);
+	}
+
+	public double getAmountOfGold() {
+		return amountOfGold;
+	}
+
+	public void setAmountOfGold(double amountOfGold) {
+		this.amountOfGold = amountOfGold;
 	}
 	
 }

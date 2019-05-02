@@ -3,7 +3,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
 import javax.imageio.ImageIO;
 
 public class Map {
@@ -35,10 +34,10 @@ public class Map {
 
 	private void randGenChests() {
 		for (int c = 0; c < numChest; c++) {
-			eObjs.add(new Chest((Math.random() * (r.SCREEN_WIDTH - imgW)), (Math.random() * (r.SCREEN_HEIGHT - imgH)), imgW,
+			eObjs.add(new Chest((Math.random() * (RPGRunner.SCREEN_WIDTH - imgW)), (Math.random() * (RPGRunner.SCREEN_HEIGHT - imgH)), imgW,
 					imgH, 100));
 		}
-		
+
 	}
 
 	public void draw(Graphics g) {
@@ -53,7 +52,7 @@ public class Map {
 
 	private void randGen(BufferedImage i) {
 		for (int c = 0; c < numEnv; c++) {
-			eObjs.add(new Environment((Math.random() * (r.SCREEN_WIDTH - imgW)), (Math.random() * (r.SCREEN_HEIGHT - imgH)), imgW,
+			eObjs.add(new Environment((Math.random() * (RPGRunner.SCREEN_WIDTH - imgW)), (Math.random() * (RPGRunner.SCREEN_HEIGHT - imgH)), imgW,
 					imgH, i));
 		}
 	}
