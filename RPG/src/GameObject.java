@@ -12,6 +12,7 @@ public abstract class GameObject {
 	private BufferedImage image;
 	public final static String PATH_PREFIX = "img/";
 	private Rectangle current;
+	public Rectangle getRect() { return current; }
 
 	public GameObject(double x, double y, double w, double h, String s) {
 		locX = x;
@@ -66,10 +67,5 @@ public abstract class GameObject {
 		}
 		return false;
 	}
-
-	public Rectangle getRect() {
-		return current;
-	}
-	
 
 }

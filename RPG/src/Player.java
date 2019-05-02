@@ -9,7 +9,7 @@ public class Player extends GameObject {
 	private int direction = 0;
 	private int cooldown = 0;
 	private static Animation a = new Animation();
-	private static BufferedImage i = a.getFirstImage();
+	private static  BufferedImage i = a.getFirstImage();
 	
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h, i);

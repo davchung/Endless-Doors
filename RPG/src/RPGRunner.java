@@ -19,8 +19,8 @@ public class RPGRunner implements KeyListener {
 
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
-	Map m = new Map(10, 5);
-	Animation a = new Animation();
+	private Map m = new Map(10, 5);
+	private Animation a = new Animation();
 	private Player player;
 
 	public Player getPlayer() {
@@ -37,7 +37,7 @@ public class RPGRunner implements KeyListener {
 		JFrame frame = new JFrame("RPG");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
-		e = new Enemy(200, 200, 90, 95);
+		e = new Enemy(500, 500, 90, 95);
 		objects.addAll(m.getObjs());
 		objects.add(e);
 		objects.add(player);
@@ -94,17 +94,17 @@ public class RPGRunner implements KeyListener {
 	private void enemyMovement() {
 		double x = 0, y = 0;
 		if (e.getLocX() - player.getLocX() > 0) {
-			x = -1.0;
+			x = -0.5;
 		} else {
-			x = 1.0;
+			x = 0.5;
 		}
 		if (e.getLocY() - player.getLocY() > 0) {
-			y = -1.0;
+			y = -0.5;
 		} else {
-			y = 1.0;
+			y = 0.5;
 		}
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
-			System.out.println("Enemy collided with Player.");
+			//System.out.println("Enemy collided with Player.");
 		}
 		e.moveTowardPlayer(x, y);
 	}
@@ -139,7 +139,7 @@ public class RPGRunner implements KeyListener {
 			if (player.equals(e))
 				continue;
 			if (player.collides(e)) {
-				System.out.println("Collided with " + e);
+				//System.out.println("Collided with " + e);
 			}
 		}
 
