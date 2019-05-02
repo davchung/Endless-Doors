@@ -10,7 +10,6 @@ import javax.swing.Timer;
 public class RPGRunner implements KeyListener {
 
 	private Player player;
-	private JFrame frame = new JFrame("RPG");
 	private JPanel startPanel;
 	private Image startImg;
 	private JPanel mainPanel;
@@ -40,9 +39,10 @@ public class RPGRunner implements KeyListener {
 	public static void main(String[] args) {
 		new RPGRunner().init();
 	}
-	
+
 	private void init() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame startFrame = new JFrame("Welcome to RPG!");
+		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
 			startImg = ImageIO.read(this.getClass().getResource("img/startImg.png"));
 		} catch (IOException e) {
@@ -53,24 +53,27 @@ public class RPGRunner implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				startPanel.setBackground(new Color(250, 250, 250));
-				g.drawImage(startImg, 0, 0, WIDTH, HEIGHT, null);
+				//startPanel.setBackground(new Color(250, 250, 250));
+				g.drawImage(startImg, 0, 0, 100, 100, null);
 				g.drawString("Click anywhere to begin game.", 100, 50);
+				System.out.println(WIDTH+" "+HEIGHT);
 			}
 		};
-		
+
 		// frame doesn't get minimized
 		startPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		frame.add(startPanel);
+		startFrame.add(startPanel);
 		// frame gets placed a little way from top and left side
-		frame.setLocation(WIDTH / 10, HEIGHT / 10);
-		frame.pack();
-		frame.setVisible(true);
-		frame.addKeyListener(this);
-		
+		startFrame.setLocation(WIDTH / 10, HEIGHT / 10);
+		startFrame.pack();
+		startFrame.setVisible(true);
+		startFrame.addKeyListener(this);
+
+
 		startPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
+				startFrame.setEnabled(false);
 				beginGame();
 
 			}
@@ -78,6 +81,8 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void beginGame() {
+		JFrame mainFrame = new JFrame("Role-Playing Game");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
 		objects.addAll(m.getObjs());
@@ -106,7 +111,12 @@ public class RPGRunner implements KeyListener {
 
 		// frame doesn't get minimized
 		mainPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		frame.add(mainPanel);
+		mainFrame.add(mainPanel);
+		// frame gets placed a little way from top and left side
+		mainFrame.setLocation(WIDTH / 10, HEIGHT / 10);
+		mainFrame.pack();
+		mainFrame.setVisible(true);
+		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
 		// update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
