@@ -13,7 +13,7 @@ public class RPGRunner implements KeyListener {
 	private JPanel mainPanel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 5;
-	private int ticks = 0;
+	public static int ticks = 0;
 	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int SCREEN_WIDTH = (int) (screenSize.getWidth() * 3 / 4),
