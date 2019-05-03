@@ -2,7 +2,7 @@
 public class Enemy extends GameObject {
 	int health = 20;
 	int hittable = 0;
-	private double speed = 0.5;
+	private double speed = 1.5;
 
 	public double getSpeed() {
 		return this.speed;
@@ -21,7 +21,7 @@ public class Enemy extends GameObject {
 	public void hit() {
 		if (RPGRunner.ticks > hittable) {
 			health -= 10;
-			hittable = RPGRunner.ticks + 81;
+			hittable = RPGRunner.ticks + 26;
 			return;
 		}
 
