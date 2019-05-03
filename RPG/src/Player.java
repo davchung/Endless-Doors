@@ -20,7 +20,6 @@ public class Player extends GameObject {
 		if (cooldown>=ticks)
 			return false;
 		cooldown = ticks+50;
-		System.out.println("attacked");
 		return true;
 
 	}
