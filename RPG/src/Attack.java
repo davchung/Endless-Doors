@@ -12,8 +12,8 @@ public class Attack extends GameObject{
 		super.moveY(d*50-25);
 	}
 
-	public boolean expire(int ticks){
-		if (ticks>expire) {
+	public boolean expire(){
+		if (RPGRunner.ticks>expire) {
 			return true;
 		}
 		return false;

@@ -59,7 +59,7 @@ public class RPGRunner implements KeyListener {
 					}
 				}
 				
-				if (attack != null && !attack.expire(ticks)) {
+				if (attack != null && !attack.expire()) {
 					attack.draw(g);
 				}
 				//player.draw(g);
@@ -92,7 +92,7 @@ public class RPGRunner implements KeyListener {
 	}
 
 	protected void collision() {
-		if (attack!=null&&attack.expire(ticks)){
+		if (attack!=null&&attack.expire()){
 			attack = null;
 		}
 		for (GameObject e : objects) {
@@ -134,7 +134,7 @@ public class RPGRunner implements KeyListener {
 
 	private void controls() {
 		int down = 0, right = 0;
-		if (attack==null||attack.expire(ticks+10)) {
+		if (attack==null||attack.expire()) {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-speed);
 				down -= 1;
@@ -164,7 +164,7 @@ public class RPGRunner implements KeyListener {
 				}
 			}
 		}
-		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right), ticks));
+		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right)));
 
 	}
 
