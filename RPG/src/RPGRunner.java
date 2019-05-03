@@ -175,6 +175,14 @@ public class RPGRunner implements KeyListener {
 		if (!keys.contains("" + e.getKeyChar())) {
 			keys.add("" + e.getKeyChar());
 		}
+
+		if(keys.contains("p")) {
+			if(timer.isRunning()) {
+				timer.stop();
+			} else {
+				timer.start();
+			}
+		}
 	}
 
 	@Override
