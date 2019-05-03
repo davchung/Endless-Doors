@@ -38,7 +38,7 @@ public class Animation {
 
 	public BufferedImage update(int check) {
 		if (check != 0) {
-			int ticks = RPGRunner.ticks / 12; //smaller = faster
+			int ticks = RPGRunner.ticks / 10; //smaller = faster
 			ticks = ticks % 8;
 			return(running[ticks]);
 
