@@ -10,8 +10,6 @@ import javax.swing.Timer;
 public class RPGRunner implements KeyListener {
 
 	private Player player;
-	private JPanel startPanel;
-	private BufferedImage startImg;
 	private JPanel mainPanel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 5;
@@ -28,62 +26,13 @@ public class RPGRunner implements KeyListener {
 	private Attack attack;
 	// what direction the player was last facing
 	private int lastR, lastD;
+	private int facing;
 
 	public Player getPlayer() {
 		return player;
 	}
 	private Enemy e;
-
-	public static void main(String[] args) {
-		new RPGRunner().init();
-	}
-
-	private void init() {
-		JFrame startFrame = new JFrame("Welcome to RPG!");
-		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		try {
-			startImg = ImageIO.read(this.getClass().getResource("img/startImg.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		startPanel = new JPanel() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				g.drawImage(startImg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
-				g.setColor(new Color(250, 250, 250));
-				g.fillRect(55, (SCREEN_HEIGHT/2)-75, 955, 100);
-				g.setColor(new Color(0, 0, 0));
-				g.setFont(new Font("Times New Roman", 0, 75));
-				g.drawString("Click anywhere to begin game.", 65, SCREEN_HEIGHT/2);
-			}
-		};
-
-		// frame doesn't get minimized
-		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-		startFrame.add(startPanel);
-		// frame gets placed a little way from top and left side
-		startFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
-		startFrame.pack();
-		startFrame.setVisible(true);
-
-		startPanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent me) {
-				startFrame.setVisible(false);
-				beginGame();
-
-			}
-		});
-	}
-
-	private void beginGame() {
+	public void beginGame() {
 		JFrame mainFrame = new JFrame("Role-Playing Game");
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,7 +64,8 @@ public class RPGRunner implements KeyListener {
 				if (attack != null && !attack.expire(ticks)) {
 					attack.draw(g);
 				}
-				player.draw(g);
+				//player.draw(g);
+				player.draw(g,facing);
 			}
 		};
 
@@ -203,9 +153,12 @@ public class RPGRunner implements KeyListener {
 				player.moveX(speed);
 				right += 1;
 			}
-			if (!(down == 0 && right == 0)) {
+			if (down != 0 || right != 0) {
 				lastR = right;
 				lastD = down;
+			}
+			if (right!=0) {
+				facing = right;
 			}
 			if (keys.contains("j")) {
 				if (player.attack(ticks)) {
