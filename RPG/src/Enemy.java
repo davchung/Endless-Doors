@@ -21,7 +21,7 @@ public class Enemy extends GameObject {
 	public void hit(int ticks) {
 		if (ticks > hittable) {
 			health -= 10;
-			hittable = ticks + 80;
+			hittable = ticks + 81;
 			return;
 		}
 		

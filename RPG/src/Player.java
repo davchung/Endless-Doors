@@ -1,9 +1,11 @@
+import java.awt.Graphics;
 
 public class Player extends GameObject {	
 	//directions go clockwise, 0 is north, 7 is north-west
 	private int direction = 0; 
 	private int cooldown = 0;
 	private static Animation a = new Animation();
+	double width, height;
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h, a.getFirstImage());
 		a = new Animation();
@@ -20,5 +22,7 @@ public class Player extends GameObject {
 		return true;
 
 	}
+	
+
 
 }

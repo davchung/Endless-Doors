@@ -5,11 +5,11 @@ import javax.imageio.ImageIO;
 
 public abstract class GameObject {
 
-	private double locX, locY;
+	protected double locX, locY;
 	public double getLocX() { return locX; }
 	public double getLocY() { return locY; }
-	private double WIDTH, HEIGHT;
-	private BufferedImage image;
+	protected double WIDTH, HEIGHT;
+	protected BufferedImage image;
 	public final static String PATH_PREFIX = "img/";
 	private Rectangle current;
 	public Rectangle getRect() { return current; }
@@ -31,7 +31,6 @@ public abstract class GameObject {
 		image = i;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
-
 	protected BufferedImage getImage(String fn) {
 		BufferedImage img = null;
 		fn = PATH_PREFIX + fn;
