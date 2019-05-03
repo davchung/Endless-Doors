@@ -24,10 +24,22 @@ public class Enemy extends GameObject {
 			hittable = RPGRunner.ticks + 81;
 			return;
 		}
-		
+
 	}
 
 	public int getHealth() {
 		return health;
+	}
+
+	@Override
+	public void moveX(double howMuch) {
+		if (RPGRunner.ticks > hittable)
+			super.moveX(howMuch);
+	}
+
+	@Override
+	public void moveY(double howMuch) {
+		if (RPGRunner.ticks > hittable)
+			super.moveY(howMuch);
 	}
 }
