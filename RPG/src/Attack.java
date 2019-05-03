@@ -7,7 +7,7 @@ public class Attack extends GameObject{
 		locY=y;
 		r=right;
 		d=down;
-		expire=ticks+80;
+		expire=ticks+40;
 		super.moveX(r*50-25);
 		super.moveY(d*50-25);
 	}

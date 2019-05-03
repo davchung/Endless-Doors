@@ -13,11 +13,9 @@ public class RPGRunner implements KeyListener {
 	private JPanel mainPanel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 5;
-	private int ticks = 0;
+	public static int ticks = 0;
 	private double speed = 1.7;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static final int SCREEN_WIDTH = (int) (screenSize.getWidth() * 3 / 4),
-			SCREEN_HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
 
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -70,10 +68,10 @@ public class RPGRunner implements KeyListener {
 		};
 
 		// frame doesn't get minimized
-		mainPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
+		mainFrame.setLocation(StartGame.SCREEN_WIDTH / 10, StartGame.SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
@@ -101,14 +99,14 @@ public class RPGRunner implements KeyListener {
 			if (player.equals(e)||attack!=null&&attack.equals(e))
 				continue;
 			if (player.collides(e)) {
-				System.out.println("Collided with " + e);
+				//System.out.println("Collided with " + e);
 			}
 			//tests if any enemy collides with the attack
 			if(e instanceof Enemy) {
 				if (((Enemy) e).getHealth()<=0)
 					objects.remove(e);
 				if(attack!=null&&attack.collides(e)) {
-					((Enemy)e).hit(ticks);
+					((Enemy)e).hit();
 				}
 			}
 			
@@ -136,7 +134,7 @@ public class RPGRunner implements KeyListener {
 
 	private void controls() {
 		int down = 0, right = 0;
-		if (attack==null||attack.expire(ticks+40)) {
+		if (attack==null||attack.expire(ticks+10)) {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-speed);
 				down -= 1;
