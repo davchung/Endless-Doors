@@ -43,10 +43,10 @@ public class Map {
 
 	private void putWalls() {
 		for(int x = 0; x < rooms.get(randomRoom).getWidth(); x+= wallWidth) {
-			for(int y = 0; x < rooms.get(randomRoom).getHeight(); x+= wallHeight) {
+			for(int y = 0; y < rooms.get(randomRoom).getHeight(); y+= wallHeight) {
 				int c = rooms.get(randomRoom).getRGB(x,y);
                 Color color = new Color(c);
-                if(color.getBlue() <= 0 && color.getRed() <= 0 && color.getGreen() <= 0) {
+                if(color.getBlue() == 0 && color.getRed() == 0 && color.getGreen() == 0) {
                 	eObjs.add(new Wall(x,y,wallWidth, wallHeight,100));
                 }
 			}
