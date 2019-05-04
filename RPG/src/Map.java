@@ -27,6 +27,8 @@ public class Map {
 		imgH = 50;
 		getAllImg();
 		getAllRooms();
+		randomRoom = (int)(Math.random()*numberOfRooms);
+		putWalls();
 	}
 
 	private void getAllRooms() {
@@ -40,14 +42,11 @@ public class Map {
 	}
 
 	private void putWalls() {
-		System.out.println(rooms.get(randomRoom).getWidth());
 		for(int x = 0; x < rooms.get(randomRoom).getWidth(); x+= wallWidth) {
 			for(int y = 0; x < rooms.get(randomRoom).getHeight(); x+= wallHeight) {
 				int c = rooms.get(randomRoom).getRGB(x,y);
-				System.out.println(x + " " + y);
                 Color color = new Color(c);
                 if(color.getBlue() <= 0 && color.getRed() <= 0 && color.getGreen() <= 0) {
-                	System.out.println("here");
                 	eObjs.add(new Wall(x,y,wallWidth, wallHeight,100));
                 }
 			}
@@ -74,8 +73,6 @@ public class Map {
 	}
 
 	public void drawWalls(Graphics g) {
-		randomRoom = (int)(Math.random()*numberOfRooms);
-		putWalls();
 		for (GameObject e : eObjs) {
 			if(e instanceof Wall) {
 				e.draw(g);
