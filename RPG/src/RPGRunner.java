@@ -53,6 +53,7 @@ public class RPGRunner implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
+				m.drawWalls(g);
 				for (GameObject go : objects) {
 					if (go instanceof Enemy) {
 						go.draw(g);
