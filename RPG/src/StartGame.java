@@ -13,11 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class StartGame {
+	RPGRunner r;
 	private JPanel startPanel;
 	private BufferedImage startImg;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static final int SCREEN_WIDTH = (int) (screenSize.getWidth() * 3 / 4),
-			SCREEN_HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
+	public static int SCREEN_WIDTH = (int) (screenSize.getWidth() * 3 / 4);
+	public static int SCREEN_HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
 
 	public static void main(String[] args) {
 		new StartGame().init();
@@ -62,7 +63,9 @@ public class StartGame {
 			@Override
 			public void mousePressed(MouseEvent me) {
 				startFrame.setVisible(false);
-				new RPGRunner().beginGame();
+				SCREEN_WIDTH = 800;
+				SCREEN_HEIGHT = 800;
+				(new RPGRunner()).beginGame();
 
 			}
 		});
