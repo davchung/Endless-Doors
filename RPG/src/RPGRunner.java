@@ -29,7 +29,12 @@ public class RPGRunner implements KeyListener {
 	public Player getPlayer() {
 		return player;
 	}
+
 	private Enemy e;
+	public Enemy getEnemy() {
+		return e;
+	}
+
 	public void beginGame() {
 		JFrame mainFrame = new JFrame("Role-Playing Game");
 		mainFrame.setVisible(true);
@@ -58,7 +63,7 @@ public class RPGRunner implements KeyListener {
 						go.draw(g);
 					}
 				}
-				
+
 				if (attack != null && !attack.expire()) {
 					attack.draw(g);
 				}
@@ -109,9 +114,9 @@ public class RPGRunner implements KeyListener {
 					((Enemy)e).hit();
 				}
 			}
-			
+
 		}
-		
+
 	}
 
 	private void enemyMovement() {
@@ -130,70 +135,75 @@ public class RPGRunner implements KeyListener {
 			System.out.println("Enemy collided with Player.");
 		}
 		e.moveTowardPlayer(x, y);
-	}
-
-	private void controls() {
-		int down = 0, right = 0;
-		if (attack==null||attack.expire()) {
-			if (keys.contains("w") || keys.contains("W")) {
-				player.moveY(-speed);
-				down -= 1;
-			}
-			if (keys.contains("a") || keys.contains("A")) {
-				player.moveX(-speed);
-				right -= 1;
-			}
-			if (keys.contains("s") || keys.contains("S")) {
-				player.moveY(speed);
-				down += 1;
-			}
-			if (keys.contains("d") || keys.contains("D")) {
-				player.moveX(speed);
-				right += 1;
-			}
-			if (down != 0 || right != 0) {
-				lastR = right;
-				lastD = down;
-			}
-			if (right!=0) {
-				facing = right;
-			}
-			if (keys.contains("j")) {
-				if (player.attack(ticks)) {
-					attack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks);
-				}
-			}
-		}
-		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right)));
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (!keys.contains("" + e.getKeyChar())) {
-			keys.add("" + e.getKeyChar());
-		}
-
-		if(keys.contains("p")) {
-			if(timer.isRunning()) {
-				timer.stop();
-			} else {
-				timer.start();
+		for (GameObject i: objects) {
+			if (e.collides(i) && (i instanceof Wall)) {
+				e.moveTowardPlayer(-x, -y);
 			}
 		}
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if (keys.contains("" + e.getKeyChar())) {
-			keys.remove("" + e.getKeyChar());
+private void controls() {
+	int down = 0, right = 0;
+	if (attack==null||attack.expire()) {
+		if (keys.contains("w") || keys.contains("W")) {
+			player.moveY(-speed);
+			down -= 1;
+		}
+		if (keys.contains("a") || keys.contains("A")) {
+			player.moveX(-speed);
+			right -= 1;
+		}
+		if (keys.contains("s") || keys.contains("S")) {
+			player.moveY(speed);
+			down += 1;
+		}
+		if (keys.contains("d") || keys.contains("D")) {
+			player.moveX(speed);
+			right += 1;
+		}
+		if (down != 0 || right != 0) {
+			lastR = right;
+			lastD = down;
+		}
+		if (right!=0) {
+			facing = right;
+		}
+		if (keys.contains("j")) {
+			if (player.attack(ticks)) {
+				attack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks);
+			}
 		}
 	}
+	player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right)));
 
-	@Override
-	public void keyTyped(KeyEvent e) {
+}
 
+@Override
+public void keyPressed(KeyEvent e) {
+	if (!keys.contains("" + e.getKeyChar())) {
+		keys.add("" + e.getKeyChar());
 	}
+
+	if(keys.contains("p")) {
+		if(timer.isRunning()) {
+			timer.stop();
+		} else {
+			timer.start();
+		}
+	}
+}
+
+@Override
+public void keyReleased(KeyEvent e) {
+	if (keys.contains("" + e.getKeyChar())) {
+		keys.remove("" + e.getKeyChar());
+	}
+}
+
+@Override
+public void keyTyped(KeyEvent e) {
+
+}
 
 
 }
