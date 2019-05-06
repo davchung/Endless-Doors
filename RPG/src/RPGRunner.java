@@ -92,6 +92,7 @@ public class RPGRunner implements KeyListener {
 	}
 
 	protected void collision() {
+		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
 		if (attack!=null&&attack.expire()){
 			attack = null;
 		}
@@ -104,13 +105,22 @@ public class RPGRunner implements KeyListener {
 			//tests if any enemy collides with the attack
 			if(e instanceof Enemy) {
 				if (((Enemy) e).getHealth()<=0)
-					objects.remove(e);
+					toRemove.add(e);
+					//objects.remove(e);
 				if(attack!=null&&attack.collides(e)) {
 					((Enemy)e).hit();
 				}
 			}
+			if(e instanceof Wall) {
+				if (((Wall) e).getHealth()<=0)
+					toRemove.add(e);
+				if(attack!=null&&attack.collides(e)) {
+					((Wall)e).hit();
+				}
+			}
 			
 		}
+		objects.removeAll(toRemove);
 		
 	}
 
