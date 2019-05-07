@@ -16,7 +16,8 @@ public class RPGRunner implements KeyListener {
 	public static int ticks = 0;
 	private double speed = 3.5;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+	private ArrayList<Wall> walls = new ArrayList<Wall>();
+	private ArrayList <Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	private Map m = new Map(10, 5);
