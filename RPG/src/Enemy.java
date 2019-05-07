@@ -13,12 +13,6 @@ public class Enemy extends GameObject {
 		super(x, y, w, h, "enemy.png", false);
 	}
 
-	protected void moveTowardPlayer(double x, double y) {
-		moveX(x);
-		moveY(y);
-
-	}
-
 	public void hit() {
 		if (RPGRunner.ticks > hittable) {
 			health -= 10;
