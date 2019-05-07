@@ -156,11 +156,6 @@ public class RPGRunner implements KeyListener {
 		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
 			System.out.println("Enemy collided with Player.");
 		}
-		for (GameObject i: objects) {
-			if (e.collides(i) && (i instanceof Wall)) {
-				e.moveX()
-			}
-		}
 	}
 
 private void controls() {
