@@ -1,7 +1,8 @@
 
 public class Enemy extends GameObject {
-	int health = 20;
-	int hittable = 0;
+	private int health = 20;
+	public int getHealth() { return this.health; }
+	private int hittable = 0;
 	private double speed = 1.5;
 
 	public double getSpeed() {
@@ -25,10 +26,6 @@ public class Enemy extends GameObject {
 			return;
 		}
 
-	}
-
-	public int getHealth() {
-		return health;
 	}
 
 	@Override

@@ -5,7 +5,8 @@ public class Player extends GameObject {
 	private int direction = 0; 
 	private int cooldown = 0;
 	private static Animation a = new Animation();
-	int width, height;
+	private int width, height;
+	
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h, a.getFirstImage());
 		a = new Animation();
@@ -13,7 +14,7 @@ public class Player extends GameObject {
 		height = (int)h;
 	}
 	public void setDirection(int dir) {
-		direction = dir;
+		this.direction = dir;
 	}
 
 	public boolean attack(int ticks) {

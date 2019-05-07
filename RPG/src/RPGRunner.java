@@ -69,6 +69,7 @@ public class RPGRunner implements KeyListener {
 				}
 				//player.draw(g);
 				player.draw(g,facing);
+				g.drawString("Enemy health: " + e.getHealth(), 500, 25);
 			}
 		};
 
