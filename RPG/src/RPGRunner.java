@@ -42,7 +42,8 @@ public class RPGRunner implements KeyListener {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
-		objects.addAll(m.getObjs());
+		objects.addAll(m.getEObjs());
+		walls.addAll(m.getWalls());
 		objects.add(e);
 		objects.add(player);
 		mainPanel = new JPanel() {
@@ -59,11 +60,15 @@ public class RPGRunner implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
-				for (GameObject go : objects) {
-					if (go instanceof Enemy) {
-						go.draw(g);
-					}
+				
+				for (GameObject go : walls) {
+					go.draw(g);
 				}
+				
+				for (GameObject go : enemies) {
+					go.draw(g);
+				}
+				
 
 				if (attack != null && !attack.expire()) {
 					attack.draw(g);
