@@ -6,31 +6,46 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	protected double locX, locY;
-	public double getLocX() { return locX; }
-	public double getLocY() { return locY; }
+
+	public double getLocX() {
+		return locX;
+	}
+
+	public double getLocY() {
+		return locY;
+	}
+
 	protected double WIDTH, HEIGHT;
 	protected BufferedImage image;
 	public final static String PATH_PREFIX = "img/";
 	private Rectangle current;
-	public Rectangle getRect() { return current; }
 
-	public GameObject(double x, double y, double w, double h, String s) {
+	public Rectangle getRect() {
+		return current;
+	}
+
+	public boolean throughable;
+
+	public GameObject(double x, double y, double w, double h, String s, boolean through) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
+		throughable = through;
 	}
 
-	public GameObject(double x, double y, double w, double h, BufferedImage i) {
+	public GameObject(double x, double y, double w, double h, BufferedImage i, boolean through) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		image = i;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
+		throughable = through;
 	}
+
 	protected BufferedImage getImage(String fn) {
 		BufferedImage img = null;
 		fn = PATH_PREFIX + fn;
@@ -47,6 +62,7 @@ public abstract class GameObject {
 			g.drawImage(image, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
 		}
 	}
+
 	public void setBufferedImage(BufferedImage b) {
 		image = b;
 	}
@@ -67,6 +83,5 @@ public abstract class GameObject {
 		}
 		return false;
 	}
-
 
 }

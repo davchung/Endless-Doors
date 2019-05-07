@@ -8,7 +8,7 @@ public class Player extends GameObject {
 	private int width, height;
 	
 	public Player(double x, double y, double w, double h) {
-		super(x, y, w, h, a.getFirstImage());
+		super(x, y, w, h, a.getFirstImage(), true);
 		a = new Animation();
 		width= (int)w;
 		height = (int)h;

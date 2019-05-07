@@ -2,7 +2,7 @@
 public class Attack extends GameObject{
 	int locX, locY, r, d, expire;
 	public Attack (int x, int y, int right, int down,int ticks) {
-		super (x ,y, 50, 50, "attack.png");
+		super (x ,y, 50, 50, "attack.png", true);
 		locX=x;
 		locY=y;
 		r=right;
