@@ -156,7 +156,9 @@ public class RPGRunner implements KeyListener {
 		e.moveTowardPlayer(x, y);
 		for (GameObject i : objects) {
 			if (e.collides(i) && (i instanceof Wall)) {
+
 				e.moveTowardPlayer(-x, -y);
+
 			}
 		}
 	}
