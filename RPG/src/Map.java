@@ -74,11 +74,12 @@ public class Map {
 
 	}
 
-	public ArrayList<GameObject> getObjs() {
-		ArrayList<GameObject> retur = new ArrayList<GameObject>();
-		retur.addAll(eObjs);
-		retur.addAll(walls);
-		return retur;
+	public ArrayList<GameObject> getEObjs() {
+		return eObjs;
+	}
+	
+	public ArrayList<Wall> getWalls(){
+		return walls;
 	}
 
 	private void randGen(BufferedImage i) {
