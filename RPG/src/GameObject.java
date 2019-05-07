@@ -76,6 +76,13 @@ public abstract class GameObject {
 		locY += howMuch;
 		current.y = (int) locY;
 	}
+	
+	public double getCX() {
+		return this.locX+.5*this.WIDTH;
+	}
+	public double getCY() {
+		return this.locY+.5*this.HEIGHT;
+	}
 
 	public boolean collides(GameObject other) {
 		if (current.intersects(other.getRect())) {
