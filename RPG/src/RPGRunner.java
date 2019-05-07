@@ -112,7 +112,13 @@ public class RPGRunner implements KeyListener {
 			if (player.equals(e)||attack!=null&&attack.equals(e))
 				continue;
 			if (player.collides(e) && !e.throughable) {
-				//WHAT AM I SUPPOSDE TO DO HERE
+				double dx = player.getCX()-e.getCX();
+				double dy = player.getCY()-e.getCY();
+				double m = Math.sqrt(dx*dx+dy*dy);
+				dx = speed*dx/m;
+				dy = speed*dy/m;
+				player.moveX(dx);
+				player.moveY(dy);
 			}
 			//tests if any enemy collides with the attack
 			if(e instanceof Enemy) {
