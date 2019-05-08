@@ -17,7 +17,7 @@ public class RPGRunner implements KeyListener {
 	private double speed = 3.5;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
-	private ArrayList <Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	private Map m = new Map(10, 5);
@@ -32,6 +32,7 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private Enemy e;
+
 	public Enemy getEnemy() {
 		return e;
 	}
@@ -43,7 +44,7 @@ public class RPGRunner implements KeyListener {
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
 		objects.addAll(m.getEObjs());
-		walls.addAll(m.getWalls());
+		objects.addAll(m.getWalls());
 		objects.add(e);
 		objects.add(player);
 		mainPanel = new JPanel() {
@@ -60,21 +61,17 @@ public class RPGRunner implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
-
-				for (GameObject go : walls) {
-					go.draw(g);
+				for (GameObject go : objects) {
+					if (go instanceof Enemy) {
+						go.draw(g);
+					}
 				}
-
-				for (GameObject go : enemies) {
-					go.draw(g);
-				}
-
 
 				if (attack != null && !attack.expire()) {
 					attack.draw(g);
 				}
-				//player.draw(g);
-				player.draw(g,facing);
+				// player.draw(g);
+				player.draw(g, facing);
 				g.drawString("Enemy health: " + e.getHealth(), 500, 25);
 			}
 		};
@@ -105,35 +102,35 @@ public class RPGRunner implements KeyListener {
 
 	protected void collision() {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
-		if (attack!=null&&attack.expire()){
+		if (attack != null && attack.expire()) {
 			attack = null;
 		}
 		for (GameObject e : objects) {
-			if (player.equals(e)||attack!=null&&attack.equals(e))
+			if (player.equals(e) || attack != null && attack.equals(e))
 				continue;
 			if (player.collides(e) && !e.throughable) {
-				double dx = player.getCX()-e.getCX();
-				double dy = player.getCY()-e.getCY();
-				double m = Math.sqrt(dx*dx+dy*dy);
-				dx = speed*dx/m;
-				dy = speed*dy/m;
+				double dx = player.getCX() - e.getCX();
+				double dy = player.getCY() - e.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = speed * dx / m;
+				dy = speed * dy / m;
 				player.moveX(dx);
 				player.moveY(dy);
 			}
-			//tests if any enemy collides with the attack
-			if(e instanceof Enemy) {
-				if (((Enemy) e).getHealth()<=0)
+			// tests if any enemy collides with the attack
+			if (e instanceof Enemy) {
+				if (((Enemy) e).getHealth() <= 0)
 					toRemove.add(e);
-				//objects.remove(e);
-				if(attack!=null&&attack.collides(e)) {
-					((Enemy)e).hit();
+				// objects.remove(e);
+				if (attack != null && attack.collides(e)) {
+					((Enemy) e).hit();
 				}
 			}
-			if(e instanceof Wall) {
-				if (((Wall) e).getHealth()<=0)
+			if (e instanceof Wall) {
+				if (((Wall) e).getHealth() <= 0)
 					toRemove.add(e);
-				if(attack!=null&&attack.collides(e)) {
-					((Wall)e).hit();
+				if (attack != null && attack.collides(e)) {
+					((Wall) e).hit();
 				}
 			}
 
@@ -143,29 +140,43 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void enemyMovement() {
-		if (e.getLocX() - player.getLocX() > 0) {
-			e.moveX(-e.getSpeed());
-		} else {
-			e.moveX(e.getSpeed());
-		}
-		if (e.getLocY() - player.getLocY() > 0) {
-			e.moveY(-e.getSpeed());
-		} else {
-			e.moveY(e.getSpeed());
-		}
-		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
+		double x = 0, y = 0;
+		x = (player.getCX() - e.getCX());
+//		if (e.getCX() - player.getCX() > 0) {
+//			x = -e.getSpeed();
+//		} else {
+//			x = e.getSpeed();
+//		}
+		y = (player.getCY() - e.getCY());
+//		if (e.getCY() - player.getCY() > 0) {
+//			y = -e.getSpeed();
+//		} else {
+//			y = e.getSpeed();
+//		}
+		double mag = Math.sqrt(x * x + y * y);
+		x = e.getSpeed() * x / mag;
+		y = e.getSpeed() * y / mag;
+		if (e.getCX() - player.getCX() == 0 && e.getCY() - player.getCY() == 0) {
 			System.out.println("Enemy collided with Player.");
 		}
-		for (GameObject i: objects) {
+		e.moveX(x);
+		e.moveY(y);
+		for (GameObject i : objects) {
 			if (e.collides(i) && (i instanceof Wall)) {
-
+				double dx = e.getCX() - i.getCX();
+				double dy = e.getCY() - i.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = e.getSpeed() * dx / m;
+				dy = e.getSpeed() * dy / m;
+				e.moveX(dx);
+				e.moveY(dy);
 			}
 		}
 	}
 
 	private void controls() {
 		int down = 0, right = 0;
-		if (attack==null||attack.expire()) {
+		if (attack == null || attack.expire()) {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-speed);
 				down -= 1;
@@ -186,7 +197,7 @@ public class RPGRunner implements KeyListener {
 				lastR = right;
 				lastD = down;
 			}
-			if (right!=0) {
+			if (right != 0) {
 				facing = right;
 			}
 			if (keys.contains("j")) {
@@ -205,8 +216,8 @@ public class RPGRunner implements KeyListener {
 			keys.add("" + e.getKeyChar());
 		}
 
-		if(keys.contains("p")) {
-			if(timer.isRunning()) {
+		if (keys.contains("p")) {
+			if (timer.isRunning()) {
 				timer.stop();
 			} else {
 				timer.start();
@@ -225,6 +236,5 @@ public class RPGRunner implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
-
 
 }
