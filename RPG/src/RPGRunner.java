@@ -43,7 +43,8 @@ public class RPGRunner implements KeyListener {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
-		objects.addAll(m.getObjs());
+		objects.addAll(m.getEObjs());
+		objects.addAll(m.getWalls());
 		objects.add(e);
 		objects.add(player);
 		mainPanel = new JPanel() {
@@ -71,7 +72,7 @@ public class RPGRunner implements KeyListener {
 				}
 				// player.draw(g);
 				player.draw(g, facing);
-				g.drawString("Enemy health: " + e.getHealth(), 500, 25);
+				g.drawString("Enemy health: " + e.getHealth(), 650, 70);
 			}
 		};
 
@@ -140,27 +141,41 @@ public class RPGRunner implements KeyListener {
 
 	private void enemyMovement() {
 		double x = 0, y = 0;
-		if (e.getLocX() - player.getLocX() > 0) {
-			x = -e.getSpeed();
-		} else {
-			x = e.getSpeed();
-		}
-		if (e.getLocY() - player.getLocY() > 0) {
-			y = -e.getSpeed();
-		} else {
-			y = e.getSpeed();
-		}
-		if (e.getLocX() - player.getLocX() == 0 && e.getLocY() - player.getLocY() == 0) {
+		x = (player.getCX() - e.getCX());
+		//		if (e.getCX() - player.getCX() > 0) {
+		//			x = -e.getSpeed();
+		//		} else {
+		//			x = e.getSpeed();
+		//		}
+		y = (player.getCY() - e.getCY());
+		//		if (e.getCY() - player.getCY() > 0) {
+		//			y = -e.getSpeed();
+		//		} else {
+		//			y = e.getSpeed();
+		//		}
+		double mag = Math.sqrt(x * x + y * y);
+		x = e.getSpeed() * x / mag;
+		y = e.getSpeed() * y / mag;
+		if (e.getCX() - player.getCX() == 0 && e.getCY() - player.getCY() == 0) {
 			System.out.println("Enemy collided with Player.");
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		e.moveTowardPlayer(x, y);
+=======
+		e.moveX(x);
+		e.moveY(y);
+>>>>>>> 4cf5b19c8bf1b8053fd540139907d32d6c1c4d8c
 		for (GameObject i : objects) {
 			if (e.collides(i) && (i instanceof Wall)) {
-
-				e.moveTowardPlayer(-x, -y);
-
+				double dx = e.getCX() - i.getCX();
+				double dy = e.getCY() - i.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = e.getSpeed() * dx / m;
+				dy = e.getSpeed() * dy / m;
+				e.moveX(dx);
+				e.moveY(dy);
 			}
 		}
 >>>>>>> 09834abda428d927c08a29cbf9578e885adf4cac

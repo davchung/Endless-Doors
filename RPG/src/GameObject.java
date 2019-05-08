@@ -76,7 +76,7 @@ public abstract class GameObject {
 		locY += howMuch;
 		current.y = (int) locY;
 	}
-	
+
 	public double getCX() {
 		return this.locX+.5*this.WIDTH;
 	}

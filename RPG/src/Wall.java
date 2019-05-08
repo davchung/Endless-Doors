@@ -8,7 +8,7 @@ public class Wall extends Environment {
 		super(x, y, w, h, "wall.png", false);
 		this.health = health;
 	}
-	
+
 	public void hit() {
 		if (RPGRunner.ticks > hittable) {
 			health -= 10;

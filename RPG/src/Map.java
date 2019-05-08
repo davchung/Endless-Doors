@@ -75,11 +75,11 @@ public class Map {
 	}
 
 	public ArrayList<GameObject> getEObjs() {
-		return eObjs;
+		return this.eObjs;
 	}
-	
+
 	public ArrayList<Wall> getWalls(){
-		return walls;
+		return this.walls;
 	}
 
 	private void randGen(BufferedImage i) {
