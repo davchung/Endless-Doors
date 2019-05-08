@@ -6,13 +6,19 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	protected double locX, locY;
-
+	protected double pastX, pastY; //how much they moved in their last frame
 	public double getLocX() {
 		return locX;
 	}
 
 	public double getLocY() {
 		return locY;
+	}
+	public double getPastX() {
+		return pastX;
+	}
+	public double getPastY() {
+		return pastY;
 	}
 
 	protected double WIDTH, HEIGHT;
@@ -70,6 +76,7 @@ public abstract class GameObject {
 	public void moveX(double howMuch) {
 		locX += howMuch;
 		current.x = (int) locX;
+		pastX = howMuch;
 	}
 
 	public void moveY(double howMuch) {

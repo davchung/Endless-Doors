@@ -43,7 +43,7 @@ public class RPGRunner implements KeyListener {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		e = new Enemy(500, 500, 75, 75);
-		objects.addAll(m.getEObjs());
+		//objects.addAll(m.getEObjs());
 		objects.addAll(m.getWalls());
 		objects.add(e);
 		objects.add(player);
@@ -176,7 +176,7 @@ public class RPGRunner implements KeyListener {
 
 	private void controls() {
 		int down = 0, right = 0;
-		if (attack == null || attack.expire()) {
+		if (attack == null) {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-speed);
 				down -= 1;
