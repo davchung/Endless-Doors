@@ -1,8 +1,8 @@
 
 public class Attack extends GameObject{
 	int locX, locY, r, d, expire;
-	public Attack (int x, int y, int right, int down,int ticks) {
-		super (x ,y, 50, 50, "attack.png", true);
+	public Attack (int x, int y, int right, int down, int ticks, String s) {
+		super (x ,y, 50, 50, s, true);
 		locX=x;
 		locY=y;
 		r=right;
