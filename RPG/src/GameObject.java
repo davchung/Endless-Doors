@@ -4,13 +4,24 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class GameObject {
+	
+	private int health = 20;
+	public int getHealth() { return this.health; }
+	public void incrementHealth(int amount) { this.health += amount; }
 
+	private int hittable = 0;
+	public int getHittable() {
+		return hittable;
+	}
+	public void setHittable(int amount) {
+		this.hittable = amount;
+	}
+	
 	protected double locX, locY;
 	protected double pastX, pastY; //how much they moved in their last frame
 	public double getLocX() {
 		return locX;
 	}
-
 	public double getLocY() {
 		return locY;
 	}
@@ -31,6 +42,7 @@ public abstract class GameObject {
 	}
 
 	public boolean throughable;
+	private int cooldown = 0;
 
 	public GameObject(double x, double y, double w, double h, String s, boolean through) {
 		locX = x;
@@ -96,6 +108,22 @@ public abstract class GameObject {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean attack(int ticks) {
+		if (cooldown>=ticks)
+			return false;
+		cooldown = ticks+40;
+		return true;
+	}
+	
+	public void hit() {
+		if (RPGRunner.ticks > hittable) {
+			health -= 10;
+			hittable = RPGRunner.ticks + 26;
+			return;
+		}
+
 	}
 
 }

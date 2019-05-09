@@ -1,9 +1,13 @@
 import java.awt.Graphics;
 
-public class Player extends GameObject {	
+public class Player extends GameObject {
+	/* Is this "direction" stuff actually necessary?
 	//directions go clockwise, 0 is north, 7 is north-west
-	private int direction = 0; 
-	private int cooldown = 0;
+	private int direction = 0;
+	public void setDirection(int dir) {
+		this.direction = dir;
+	}
+	*/
 	private static Animation a = new Animation();
 	private int width, height;
 
@@ -13,34 +17,23 @@ public class Player extends GameObject {
 		width = (int)w;
 		height = (int)h;
 	}
-	public void setDirection(int dir) {
-		this.direction = dir;
-	}
-
-	public boolean attack(int ticks) {
-		if (cooldown>=ticks)
-			return false;
-		cooldown = ticks+40;
-		return true;
-
-	}
 
 	public void draw(Graphics g, int r, int d) {
 		int dx = 0, dy = 0;
 		if (r<0)
-			dx= width;
+			dx = width;
 		if(d<0)
-			dy =height;
+			dy = height;
 
-		g.drawImage(super.image, (int)super.locX+dx, (int)super.locY+dy, (int)(-1*super.WIDTH),(int)(d*super.HEIGHT),null);
+		g.drawImage(super.image, (int)super.locX+dx, (int)super.locY+dy, (int)(-1*super.WIDTH), (int)(d*super.HEIGHT), null);
 	}
 	public void draw(Graphics g, int r) {
 		int dx = 0; 
 		if (r<0)
-			dx= width;
+			dx = width;
 
 
-		g.drawImage(super.image, (int)super.locX+dx, (int)super.locY, (int)(r*super.WIDTH),(int) super.HEIGHT,null);
+		g.drawImage(super.image, (int)super.locX+dx, (int)super.locY, (int)(r*super.WIDTH), (int)super.HEIGHT, null);
 	}
 
 }
