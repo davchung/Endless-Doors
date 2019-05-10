@@ -154,6 +154,7 @@ public class RPGRunner implements KeyListener {
 	}
 
 	private void enemyMovement() {
+
 		double x = 0, y = 0;
 		x = (player.getCX() - e.getCX());
 		//		if (e.getCX() - player.getCX() > 0) {
@@ -180,16 +181,48 @@ public class RPGRunner implements KeyListener {
 		e.moveX(x);
 		e.moveY(y);
 
-		for (GameObject i : objects) {
-			if (e.collides(i) && (i instanceof Wall)) {
-				double dx = e.getCX() - i.getCX();
-				double dy = e.getCY() - i.getCY();
-				double m = Math.sqrt(dx * dx + dy * dy);
-				dx = e.getSpeed() * dx / m;
-				dy = e.getSpeed() * dy / m;
-				e.moveX(dx);
-				e.moveY(dy);
+		for(GameObject e: objects) {
+			if(e instanceof Enemy) {
+				double x = 0, y = 0;
+				x = (player.getCX() - e.getCX());
+				//		if (e.getCX() - player.getCX() > 0) {
+				//			x = -e.getSpeed();
+				//		} else {
+				//			x = e.getSpeed();
+				//		}
+				y = (player.getCY() - e.getCY());
+				//		if (e.getCY() - player.getCY() > 0) {
+				//			y = -e.getSpeed();
+				//		} else {
+				//			y = e.getSpeed();
+				//		}
+				double mag = Math.sqrt(x * x + y * y);
+				x = ((Enemy)e).getSpeed() * x / mag;
+				y = ((Enemy)e).getSpeed() * y / mag;
+				if (((Enemy)e).collides(player)) {
+					System.out.println("flag1");
+					if (e.attack(ticks)) {
+						System.out.println("flag2");
+						enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, lastR, lastD, ticks, "ax.png");
+					}
+				}
+				e.moveX(x);
+				e.moveY(y);
+
+
+				for (GameObject i : objects) {
+					if (e.collides(i) && (i instanceof Wall)) {
+						double dx = e.getCX() - i.getCX();
+						double dy = e.getCY() - i.getCY();
+						double m = Math.sqrt(dx * dx + dy * dy);
+						dx = ((Enemy)e).getSpeed() * dx / m;
+						dy = ((Enemy)e).getSpeed() * dy / m;
+						e.moveX(dx);
+						e.moveY(dy);
+					}
+				}
 			}
+			
 		}
 	}
 
