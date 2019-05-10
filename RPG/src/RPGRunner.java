@@ -29,10 +29,10 @@ public class RPGRunner implements KeyListener {
 		return player;
 	}
 
-	private Enemy e;
+	private Enemy test;
 
 	public Enemy getEnemy() {
-		return e;
+		return test;
 	}
 
 	public void beginGame() {
@@ -40,11 +40,11 @@ public class RPGRunner implements KeyListener {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
-		e = new Enemy(500, 500, 50, 50);
+		test = new Enemy(500, 500, 50, 50);
 		//objects.addAll(m.getEObjs());
 		objects.addAll(m.getWalls());
-		objects.add(e);
-		enemies.add(e);
+		objects.add(test);
+		enemies.add(test);
 		objects.add(player);
 		mainPanel = new JPanel() {
 
@@ -74,7 +74,7 @@ public class RPGRunner implements KeyListener {
 				}
 
 				player.draw(g, facing);
-				g.drawString("Enemy health: " + e.getHealth(), 670, 70);
+				g.drawString("Enemy health: " + test.getHealth(), 670, 70);
 			}
 		};
 
@@ -151,6 +151,8 @@ public class RPGRunner implements KeyListener {
 
 		}
 		objects.removeAll(toRemove);
+		enemies.removeAll(toRemove);
+		walls.removeAll(toRemove);
 
 	}
 
@@ -160,17 +162,7 @@ public class RPGRunner implements KeyListener {
 			objects.remove(e);
 				double x = 0, y = 0;
 				x = (player.getCX() - e.getCX());
-				//		if (e.getCX() - player.getCX() > 0) {
-				//			x = -e.getSpeed();
-				//		} else {
-				//			x = e.getSpeed();
-				//		}
 				y = (player.getCY() - e.getCY());
-				//		if (e.getCY() - player.getCY() > 0) {
-				//			y = -e.getSpeed();
-				//		} else {
-				//			y = e.getSpeed();
-				//		}
 				double mag = Math.sqrt(x * x + y * y);
 				x = (e).getSpeed() * x / mag;
 				y = (e).getSpeed() * y / mag;
