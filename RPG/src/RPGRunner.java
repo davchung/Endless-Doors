@@ -44,6 +44,7 @@ public class RPGRunner implements KeyListener {
 		//objects.addAll(m.getEObjs());
 		objects.addAll(m.getWalls());
 		objects.add(e);
+		enemies.add(e);
 		objects.add(player);
 		mainPanel = new JPanel() {
 
@@ -155,8 +156,8 @@ public class RPGRunner implements KeyListener {
 
 	private void enemyMovement() {
 
-		for(GameObject e: objects) {
-			if(e instanceof Enemy) {
+		for(Enemy e: enemies) {
+			objects.remove(e);
 				double x = 0, y = 0;
 				x = (player.getCX() - e.getCX());
 				//		if (e.getCX() - player.getCX() > 0) {
@@ -171,9 +172,9 @@ public class RPGRunner implements KeyListener {
 				//			y = e.getSpeed();
 				//		}
 				double mag = Math.sqrt(x * x + y * y);
-				x = ((Enemy)e).getSpeed() * x / mag;
-				y = ((Enemy)e).getSpeed() * y / mag;
-				if (((Enemy)e).collides(player)) {
+				x = (e).getSpeed() * x / mag;
+				y = (e).getSpeed() * y / mag;
+				if ((e).collides(player)) {
 					System.out.println("flag1");
 					if (e.attack(ticks)) {
 						System.out.println("flag2");
@@ -194,8 +195,9 @@ public class RPGRunner implements KeyListener {
 						e.moveX(dx);
 						e.moveY(dy);
 					}
-				}
+				
 			}
+			objects.add(e);
 			
 		}
 	}
