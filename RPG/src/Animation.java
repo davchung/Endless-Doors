@@ -13,6 +13,9 @@ public class Animation {
 		running = new BufferedImage[8];
 		getAllImg();
 	}
+	public Animation(String name) {
+		
+	}
 
 	private void getAllImg() {
 
