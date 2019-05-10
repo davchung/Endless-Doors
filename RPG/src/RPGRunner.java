@@ -174,7 +174,7 @@ public class RPGRunner implements KeyListener {
 			System.out.println("flag1");
 			if (e.attack(ticks)) {
 				System.out.println("flag2");
-				enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, lastR, lastD, ticks, "ax.png");
+				enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_cleaver.png");
 			}
 		}
 		e.moveX(x);
@@ -221,7 +221,7 @@ public class RPGRunner implements KeyListener {
 			}
 			if (keys.contains("j") || keys.contains("J")) {
 				if (player.attack(ticks)) {
-					playerAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sword.png");
+					playerAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png");
 				}
 			}
 		}
