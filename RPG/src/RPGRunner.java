@@ -25,7 +25,7 @@ public class RPGRunner implements KeyListener {
 	private int lastR, lastD;
 	private int facing;
 	private boolean wallDamaged = false;
-	private Wall damagedWall;
+	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
 
 	public Player getPlayer() {
 		return player;
@@ -77,10 +77,15 @@ public class RPGRunner implements KeyListener {
 					enemyAttack.draw(g);
 				}
 
-				g.drawString("Enemy health: " + test.getHealth(), 670, 70);
+				g.drawString("Player health: " + player.getHealth(), 670, 70);
+				g.drawString("Enemy health: " + test.getHealth(), 670, 90);
 				if (wallDamaged == true) {
 					g.setColor(new Color(255, 0, 0));
-					g.drawString(""+damagedWall.getHealth(), (int)damagedWall.getCX()-10, (int)damagedWall.getCY());
+					for (Wall dw: damagedWalls) {
+						if (dw.getHealth() < 100 && dw.getHealth() > 0) {
+							g.drawString(""+dw.getHealth(), (int)dw.getCX()-5, (int)dw.getCY());
+						}
+					}
 				}
 			}
 		};
@@ -144,14 +149,9 @@ public class RPGRunner implements KeyListener {
 					toRemove.add(e);
 				// both playerAttack and enemyAttack can damage walls
 				if ((playerAttack != null && playerAttack.collides(e)) || (enemyAttack != null && enemyAttack.collides(e))) {
-					damagedWall = (Wall)e;
-					damagedWall.hit();
-					if (damagedWall.getHealth() < 100 && damagedWall.getHealth() > 0) {
-						wallDamaged = true;
-					}
-					else {
-						wallDamaged = false;
-					}
+					((Wall)e).hit();
+					damagedWalls.add((Wall)e);
+					wallDamaged = true;
 				}
 			}
 
@@ -183,7 +183,7 @@ public class RPGRunner implements KeyListener {
 			y = (e).getSpeed() * y / mag;
 			if ((e).collides(player)) {
 				if (e.attack(ticks)) {
-					enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png");
+					enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png", 50, 50);
 				}
 			}
 			e.moveX(x);
@@ -235,7 +235,7 @@ public class RPGRunner implements KeyListener {
 			}
 			if (keys.contains("j") || keys.contains("J")) {
 				if (player.attack(ticks)) {
-					playerAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png");
+					playerAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png", 50, 50);
 				}
 			}
 		}
