@@ -1,13 +1,7 @@
 import java.awt.Graphics;
 
 public class Player extends GameObject {
-	/* Is this "direction" stuff actually necessary?
-	//directions go clockwise, 0 is north, 7 is north-west
-	private int direction = 0;
-	public void setDirection(int dir) {
-		this.direction = dir;
-	}
-	*/
+	
 	private static Animation a = new Animation();
 	private int width, height;
 

@@ -17,6 +17,9 @@ public abstract class GameObject {
 		this.hittable = amount;
 	}
 	
+	private int damage = 10;
+	public int getDamage() { return this.damage; }
+	
 	protected double locX, locY;
 	protected double pastX, pastY; //how much they moved in their last frame
 	public double getLocX() {
@@ -117,9 +120,9 @@ public abstract class GameObject {
 		return true;
 	}
 	
-	public void hit() {
+	public void hit(int damage) {
 		if (RPGRunner.ticks > hittable) {
-			health -= 10;
+			health -= damage;
 			hittable = RPGRunner.ticks + 26;
 			return;
 		}

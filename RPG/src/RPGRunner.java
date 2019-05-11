@@ -26,6 +26,8 @@ public class RPGRunner implements KeyListener {
 	private int facing;
 	private boolean wallDamaged = false;
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
+	private boolean enemyHit = false;
+	private boolean playerHit = false;
 
 	public Player getPlayer() {
 		return player;
@@ -43,7 +45,6 @@ public class RPGRunner implements KeyListener {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
 		test = new Enemy(500, 500, 50, 50);
-		//objects.addAll(m.getEObjs());
 		objects.addAll(m.getWalls());
 		objects.add(test);
 		enemies.add(test);
@@ -77,15 +78,28 @@ public class RPGRunner implements KeyListener {
 					enemyAttack.draw(g);
 				}
 
-				g.drawString("Player health: " + player.getHealth(), 670, 70);
-				g.drawString("Enemy health: " + test.getHealth(), 670, 90);
+				g.drawString("Player health: " + player.getHealth(), 675, 65);
+				g.drawString("Enemy health: " + test.getHealth(), 675, 85);
+
+				g.setColor(new Color(255, 0, 0));
 				if (wallDamaged == true) {
-					g.setColor(new Color(255, 0, 0));
 					for (Wall dw: damagedWalls) {
 						if (dw.getHealth() < 100 && dw.getHealth() > 0) {
-							g.drawString(""+dw.getHealth(), (int)dw.getCX()-5, (int)dw.getCY());
+							g.drawString(""+dw.getHealth(), (int)dw.getCX()-8, (int)dw.getCY());
 						}
 					}
+				}
+				if (enemyHit == true) {
+					if (test.getHealth() > 0) {
+						g.drawString("-"+player.getDamage(), (int)test.getCX()-5, (int)test.getCY());
+					}
+					enemyHit = false;
+				}
+				if (playerHit == true) {
+					if (test.getHealth() > 0) {
+						g.drawString("-"+test.getDamage(), (int)player.getCX()-5, (int)player.getCY());
+					}
+					playerHit = false;
 				}
 			}
 		};
@@ -141,7 +155,8 @@ public class RPGRunner implements KeyListener {
 				if (((Enemy) e).getHealth() <= 0)
 					toRemove.add(e);
 				if (playerAttack != null && playerAttack.collides(e)) {
-					((Enemy) e).hit();
+					((Enemy) e).hit(player.getDamage());
+					enemyHit = true;
 				}
 			}
 			if (e instanceof Wall) {
@@ -160,7 +175,8 @@ public class RPGRunner implements KeyListener {
 				if (((Player) e).getHealth() <= 0)
 					toRemove.add(e);
 				if (enemyAttack != null && enemyAttack.collides(e)) {
-					((Player) e).hit();
+					((Player) e).hit(test.getDamage());
+					playerHit = true;
 				}
 			}
 
