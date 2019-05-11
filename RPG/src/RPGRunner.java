@@ -24,6 +24,8 @@ public class RPGRunner implements KeyListener {
 	// what direction the player was last facing
 	private int lastR, lastD;
 	private int facing;
+	private boolean wallDamaged = false;
+	private Wall damagedWall;
 
 	public Player getPlayer() {
 		return player;
@@ -57,6 +59,7 @@ public class RPGRunner implements KeyListener {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				mainPanel.setBackground(new Color(150, 250, 150));
+
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
@@ -65,6 +68,7 @@ public class RPGRunner implements KeyListener {
 						go.draw(g);
 					}
 				}
+				player.draw(g, facing);
 
 				if (playerAttack != null && !playerAttack.expire()) {
 					playerAttack.draw(g);
@@ -73,8 +77,11 @@ public class RPGRunner implements KeyListener {
 					enemyAttack.draw(g);
 				}
 
-				player.draw(g, facing);
 				g.drawString("Enemy health: " + test.getHealth(), 670, 70);
+				if (wallDamaged == true) {
+					g.setColor(new Color(255, 0, 0));
+					g.drawString(""+damagedWall.getHealth(), (int)damagedWall.getCX()-10, (int)damagedWall.getCY());
+				}
 			}
 		};
 
@@ -110,7 +117,7 @@ public class RPGRunner implements KeyListener {
 		if (enemyAttack != null && enemyAttack.expire()) {
 			enemyAttack = null;
 		}
-		
+
 		for (GameObject e : objects) {
 			if (player.equals(e) || playerAttack != null && playerAttack.equals(e))
 				continue;
@@ -123,7 +130,7 @@ public class RPGRunner implements KeyListener {
 				player.moveX(dx);
 				player.moveY(dy);
 			}
-			
+
 			// tests if any enemy collides with the playerAttack
 			if (e instanceof Enemy) {
 				if (((Enemy) e).getHealth() <= 0)
@@ -135,11 +142,19 @@ public class RPGRunner implements KeyListener {
 			if (e instanceof Wall) {
 				if (((Wall) e).getHealth() <= 0)
 					toRemove.add(e);
-				if (playerAttack != null && playerAttack.collides(e)) {
-					((Wall) e).hit();
+				// both playerAttack and enemyAttack can damage walls
+				if ((playerAttack != null && playerAttack.collides(e)) || (enemyAttack != null && enemyAttack.collides(e))) {
+					damagedWall = (Wall)e;
+					damagedWall.hit();
+					if (damagedWall.getHealth() < 100 && damagedWall.getHealth() > 0) {
+						wallDamaged = true;
+					}
+					else {
+						wallDamaged = false;
+					}
 				}
 			}
-			
+
 			// tests if the player collides with the enemyAttack
 			if (e instanceof Player) {
 				if (((Player) e).getHealth() <= 0)
@@ -160,37 +175,35 @@ public class RPGRunner implements KeyListener {
 
 		for(Enemy e: enemies) {
 			objects.remove(e);
-				double x = 0, y = 0;
-				x = (player.getCX() - e.getCX());
-				y = (player.getCY() - e.getCY());
-				double mag = Math.sqrt(x * x + y * y);
-				x = (e).getSpeed() * x / mag;
-				y = (e).getSpeed() * y / mag;
-				if ((e).collides(player)) {
-					System.out.println("flag1");
-					if (e.attack(ticks)) {
-						System.out.println("flag2");
-						enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, lastR, lastD, ticks, "ax.png");
-					}
+			double x = 0, y = 0;
+			x = (player.getCX() - e.getCX());
+			y = (player.getCY() - e.getCY());
+			double mag = Math.sqrt(x * x + y * y);
+			x = (e).getSpeed() * x / mag;
+			y = (e).getSpeed() * y / mag;
+			if ((e).collides(player)) {
+				if (e.attack(ticks)) {
+					enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png");
 				}
-				e.moveX(x);
-				e.moveY(y);
+			}
+			e.moveX(x);
+			e.moveY(y);
 
 
-				for (GameObject i : objects) {
-					if (e.collides(i) && (i instanceof Wall)) {
-						double dx = e.getCX() - i.getCX();
-						double dy = e.getCY() - i.getCY();
-						double m = Math.sqrt(dx * dx + dy * dy);
-						dx = ((Enemy)e).getSpeed() * dx / m;
-						dy = ((Enemy)e).getSpeed() * dy / m;
-						e.moveX(dx);
-						e.moveY(dy);
-					}
-				
+			for (GameObject i : objects) {
+				if (e.collides(i) && (i instanceof Wall)) {
+					double dx = e.getCX() - i.getCX();
+					double dy = e.getCY() - i.getCY();
+					double m = Math.sqrt(dx * dx + dy * dy);
+					dx = ((Enemy)e).getSpeed() * dx / m;
+					dy = ((Enemy)e).getSpeed() * dy / m;
+					e.moveX(dx);
+					e.moveY(dy);
+				}
+
 			}
 			objects.add(e);
-			
+
 		}
 	}
 

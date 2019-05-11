@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class StartGame {
-	RPGRunner r;
 	private JPanel startPanel;
 	private BufferedImage startImg;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

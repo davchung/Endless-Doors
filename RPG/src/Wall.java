@@ -1,10 +1,11 @@
 
 public class Wall extends Environment {
 
-	double health = 20;
-	int hittable = 0;
+	private int health = 20;
+	public int getHealth() { return this.health; }
+	private int hittable = 0;
 
-	public Wall(double x, double y, double w, double h, double health) {
+	public Wall(double x, double y, double w, double h, int health) {
 		super(x, y, w, h, "wall.png", false);
 		this.health = health;
 	}
@@ -18,7 +19,4 @@ public class Wall extends Environment {
 
 	}
 
-	public int getHealth() {
-		return (int) health;
-	}
 }
