@@ -4,17 +4,23 @@ import javax.imageio.ImageIO;
 
 public class Player extends GameObject {
 	
-	private static Animation a = new Animation();
+	
 	private static Animation knight = new Animation("knight_f_idle",4);
 	private int width, height;
+	private int right,down;
 
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h, knight.getFirst(), true);
-		a = new Animation();
 		width = (int)w;
 		height = (int)h;
 	}
 
+	public void setR(int r) {
+		right = r;
+	}
+	public void setD(int d) {
+		down = d;
+	}
 	public void draw(Graphics g, int r, int d) {
 		int dx = 0, dy = 0;
 		if (r<0)

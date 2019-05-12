@@ -248,6 +248,8 @@ public class RPGRunner implements KeyListener {
 			if (down != 0 || right != 0) {
 				lastR = right;
 				lastD = down;
+				player.setR(right);
+				player.setD(down);
 			}
 			if (right != 0) {
 				facing = right;
