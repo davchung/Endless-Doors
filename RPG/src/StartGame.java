@@ -29,14 +29,13 @@ public class StartGame {
 	}
 
 	public void init() {
-		AudioInputStream audioIn;
 		try {
+			AudioInputStream audioIn;
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.loop(10000);
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		JFrame startFrame = new JFrame("Welcome to RPG!");
