@@ -24,6 +24,7 @@ public class rpgGame implements KeyListener {
 	private Attack pAttack; // player attack
 	private Attack eAttack; // enemy attack
 	private Wall builtWall;
+	private int numWalls = 0;
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -124,7 +125,7 @@ public class rpgGame implements KeyListener {
 					g.setFont(new Font("Arial", 0, 20));
 					g.drawString("W A S D to move the character.", 150, 300);
 					g.drawString("J to attack.", 150, 325);
-					g.drawString("K to build. (will be implemented later on)", 150, 350);
+					g.drawString("K to build.", 150, 350);
 					g.drawString("I to check inventory. (will be implemented later on)", 150, 375);
 					g.drawString("? to view the Help Page.", 150, 425);
 					g.drawString("P to pause/play and to exit the Help Page.", 150, 450);
@@ -241,7 +242,7 @@ public class rpgGame implements KeyListener {
 			y = (e).getSpeed() * y / mag;
 			if ((e).collides(player)) {
 				if (e.attack(ticks)) {
-					eAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png");
+					eAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "flame.png");
 				}
 			}
 			e.moveX(x);
