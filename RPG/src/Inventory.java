@@ -27,8 +27,8 @@ public class Inventory extends GameGui {
 		g.setColor(new Color(145, 130, 10));
 		super.draw(g);
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Times New Roman", 0, 40));
-		g.drawString("INVENTORY", (int) (locX + WIDTH * 1 / 2), 0);
+		g.setFont(new Font("Times New Roman", 0, 30));
+		g.drawString("INVENTORY", (int) (locX + WIDTH * 1 / 2), (int)locY);
 		g.drawString("Walls: " + numWalls, 100, (int) (locY + HEIGHT * 1 / 4));
 		g.drawString("Gold: ___ (to be implemented later on)", 100, (int) (locY + HEIGHT * 1 / 4 +25));
 		RPGGame.pause();

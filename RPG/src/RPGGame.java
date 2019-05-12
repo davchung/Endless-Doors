@@ -64,7 +64,7 @@ public class RPGGame implements KeyListener {
 	public static void setEnemyAttack(Attack atk) {
 		RPGGame.eAttack = atk;
 	}
-	
+
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
@@ -81,7 +81,7 @@ public class RPGGame implements KeyListener {
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
 
-		
+
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -250,7 +250,7 @@ public class RPGGame implements KeyListener {
 				return true;
 		}
 		return false;
-		
+
 	}
 
 	// this allows the player to be controlled by W A S D
@@ -261,28 +261,28 @@ public class RPGGame implements KeyListener {
 				player.moveY(-pSpeed);
 				down -= 1;
 				while(wallCollision(player)) {
-					player.moveY(pSpeed/20);	
+					player.moveY(pSpeed/20);
 				}
 			}
 			if (keys.contains("a") || keys.contains("A")) {
 				player.moveX(-pSpeed);
 				right -= 1;
 				while(wallCollision(player)) {
-					player.moveX(pSpeed/20);	
+					player.moveX(pSpeed/20);
 				}
 			}
 			if (keys.contains("s") || keys.contains("S")) {
 				player.moveY(pSpeed);
 				down += 1;
 				while(wallCollision(player)) {
-					player.moveY(-pSpeed/20);	
+					player.moveY(-pSpeed/20);
 				}
 			}
 			if (keys.contains("d") || keys.contains("D")) {
 				player.moveX(pSpeed);
 				right += 1;
 				while(wallCollision(player)) {
-					player.moveX(-pSpeed/20);	
+					player.moveX(-pSpeed/20);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -311,7 +311,7 @@ public class RPGGame implements KeyListener {
 					objects.add(builtWall);
 				}
 			}
-			
+
 			// this allows the uppercase K key to control placing bombs
 			if (keys.contains("K")) {
 				// to be implemented later on
@@ -319,7 +319,7 @@ public class RPGGame implements KeyListener {
 		}
 	}
 
-	
+
 	public static void pause() {
 		if (timer.isRunning()) {
 			timer.stop();
