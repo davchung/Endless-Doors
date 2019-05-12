@@ -34,7 +34,7 @@ public class StartGame {
 	public void init() {
 		AudioInputStream audioIn;
 		try {
-			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/BGM.wav"));
+			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			clip.loop(10000);
