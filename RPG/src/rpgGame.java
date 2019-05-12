@@ -18,9 +18,9 @@ public class rpgGame implements KeyListener {
 	private double pSpeed = 3.0; // player speed
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
-	private Enemy test;
+	private Enemy enemy;
 	private Map m = new Map(10, 5);
-	private Attack playerAttack;
+	private Attack pAttack; // player attack
 	private Attack enemyAttack;
 	private Wall builtWall;
 	
@@ -42,7 +42,7 @@ public class rpgGame implements KeyListener {
 		return this.player;
 	}
 	public Enemy getEnemy() {
-		return this.test;
+		return this.enemy;
 	}
 
 	public void beginGame() {
@@ -50,10 +50,10 @@ public class rpgGame implements KeyListener {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player = new Player(50, 50, 50, 50);
-		test = new Enemy(500, 500, 50, 50);
+		enemy = new Enemy(500, 500, 50, 50);
 		objects.addAll(m.getWalls());
-		objects.add(test);
-		enemies.add(test);
+		objects.add(enemy);
+		enemies.add(enemy);
 		objects.add(player);
 		mainPanel = new JPanel() {
 
@@ -77,15 +77,15 @@ public class rpgGame implements KeyListener {
 				}
 				player.draw(g, facing);
 
-				if (playerAttack != null && !playerAttack.expire()) {
-					playerAttack.draw(g);
+				if (pAttack != null && !pAttack.expire()) {
+					pAttack.draw(g);
 				}
 				if (enemyAttack != null && !enemyAttack.expire()) {
 					enemyAttack.draw(g);
 				}
 
 				g.drawString("Player health: " + player.getHealth(), 675, 65);
-				g.drawString("Enemy health: " + test.getHealth(), 675, 85);
+				g.drawString("Enemy health: " + enemy.getHealth(), 675, 85);
 
 				g.setColor(new Color(255, 0, 0));
 				if (wallDamaged == true) {
@@ -96,14 +96,14 @@ public class rpgGame implements KeyListener {
 					}
 				}
 				if (enemyHit == true) {
-					if (test.getHealth() > 0) {
-						g.drawString("-"+player.getDamage(), (int)test.getCX()-5, (int)test.getCY());
+					if (enemy.getHealth() > 0) {
+						g.drawString("-"+player.getDamage(), (int)enemy.getCX()-5, (int)enemy.getCY());
 					}
 					enemyHit = false;
 				}
 				if (playerHit == true) {
-					if (test.getHealth() > 0) {
-						g.drawString("-"+test.getDamage(), (int)player.getCX()-5, (int)player.getCY());
+					if (enemy.getHealth() > 0) {
+						g.drawString("-"+enemy.getDamage(), (int)player.getCX()-5, (int)player.getCY());
 					}
 					playerHit = false;
 				}
@@ -159,15 +159,15 @@ public class rpgGame implements KeyListener {
 
 	protected void collision() {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
-		if (playerAttack != null && playerAttack.expire()) {
-			playerAttack = null;
+		if (pAttack != null && pAttack.expire()) {
+			pAttack = null;
 		}
 		if (enemyAttack != null && enemyAttack.expire()) {
 			enemyAttack = null;
 		}
 
 		for (GameObject e : objects) {
-			if (player.equals(e) || playerAttack != null && playerAttack.equals(e))
+			if (player.equals(e) || pAttack != null && pAttack.equals(e))
 				continue;
 			if (player.collides(e) && !e.throughable) {
 				double dx = player.getCX() - e.getCX();
@@ -183,7 +183,7 @@ public class rpgGame implements KeyListener {
 			if (e instanceof Enemy) {
 				if (((Enemy) e).getHealth() <= 0)
 					toRemove.add(e);
-				if (playerAttack != null && playerAttack.collides(e)) {
+				if (pAttack != null && pAttack.collides(e)) {
 					((Enemy) e).hit(player.getDamage());
 					enemyHit = true;
 				}
@@ -192,7 +192,7 @@ public class rpgGame implements KeyListener {
 				if (((Wall) e).getHealth() <= 0)
 					toRemove.add(e);
 				// both playerAttack and enemyAttack can damage walls
-				if ((playerAttack != null && playerAttack.collides(e)) || (enemyAttack != null && enemyAttack.collides(e))) {
+				if ((pAttack != null && pAttack.collides(e)) || (enemyAttack != null && enemyAttack.collides(e))) {
 					((Wall)e).hit();
 					damagedWalls.add((Wall)e);
 					wallDamaged = true;
@@ -202,7 +202,7 @@ public class rpgGame implements KeyListener {
 		if (player.getHealth() <= 0)
 			toRemove.add(player);
 		if (enemyAttack != null && enemyAttack.collides(player)) {
-			player.hit(test.getDamage());
+			player.hit(enemy.getDamage());
 			playerHit = true;
 		}
 		objects.removeAll(toRemove);
@@ -250,7 +250,7 @@ public class rpgGame implements KeyListener {
 
 	private void controls() {
 		int down = 0, right = 0;
-		if (playerAttack == null) {
+		if (pAttack == null) {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-pSpeed);
 				down -= 1;
@@ -277,7 +277,7 @@ public class rpgGame implements KeyListener {
 			}
 			if (keys.contains("j") || keys.contains("J")) {
 				if (player.attack(ticks)) {
-					playerAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png", 50, 50);
+					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png", 50, 50);
 				}
 			}
 			player.setR(right);
