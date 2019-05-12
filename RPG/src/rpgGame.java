@@ -63,7 +63,7 @@ public class rpgGame implements KeyListener {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
-
+			
 			/**
 			 *
 			 */
@@ -73,15 +73,9 @@ public class rpgGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				mainPanel.setBackground(new Color(150, 250, 150));
 
 				for (GameObject go : objects) {
 					go.draw(g);
-				}
-				for (GameObject go : objects) {
-					if (go instanceof Enemy) {
-						go.draw(g);
-					}
 				}
 				player.draw(g, facing);
 
@@ -158,7 +152,7 @@ public class rpgGame implements KeyListener {
 					g.fillRect(100, 200, 600, 200);
 
 					g.setColor(new Color(255, 255, 255));
-					g.setFont(new Font("Times New Roman", 0, 40));
+					g.setFont(new Font("Papyrus", 0, 40));
 					g.drawString("Inventory", 150, 250);
 
 					g.setFont(new Font("Arial", 0, 20));
@@ -173,6 +167,7 @@ public class rpgGame implements KeyListener {
 			}
 		};
 
+		mainPanel.setBackground(new Color(150, 250, 150));
 		// frame doesn't get minimized
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
