@@ -29,6 +29,7 @@ public class RPGRunner implements KeyListener {
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
 	private boolean enemyHit = false;
 	private boolean playerHit = false;
+	private boolean helpPage = false;
 
 	public Player getPlayer() {
 		return player;
@@ -70,7 +71,7 @@ public class RPGRunner implements KeyListener {
 						go.draw(g);
 					}
 				}
-				
+				player.draw(g, facing);
 
 				if (playerAttack != null && !playerAttack.expire()) {
 					playerAttack.draw(g);
@@ -102,8 +103,12 @@ public class RPGRunner implements KeyListener {
 					}
 					playerHit = false;
 				}
-				
-				player.draw(g, facing);
+
+				if (helpPage == true) {
+					g.setColor(new Color(0, 0, 0));
+					g.setFont(new Font("Times New Roman", 0, 20));
+					g.drawString("Help Page", 100, 100);
+				}
 			}
 		};
 
@@ -264,18 +269,29 @@ public class RPGRunner implements KeyListener {
 
 	}
 
+	private void pause() {
+		if (timer.isRunning()) {
+			timer.stop();
+		} else {
+			timer.start();
+		}
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (!keys.contains("" + e.getKeyChar())) {
 			keys.add("" + e.getKeyChar());
 		}
 
-		if (keys.contains("p")) {
-			if (timer.isRunning()) {
-				timer.stop();
-			} else {
-				timer.start();
-			}
+		// pause button
+		if (keys.contains("p") || keys.contains("P")) {
+			pause();
+		}
+
+		// help button
+		if (keys.contains("?")) {
+			helpPage ^= true;
+			pause();
 		}
 	}
 
