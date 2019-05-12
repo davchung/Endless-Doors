@@ -195,8 +195,8 @@ public class RPGGame implements KeyListener {
 		}
 
 		for (GameObject e : objects) {
-			if (player.equals(e) || pAttack != null && pAttack.equals(e))
-				continue;
+			//if (player.equals(e) || pAttack != null && pAttack.equals(e))
+				//continue;
 			if (player.collides(e) && !e.throughable) {
 				double dx = player.getCX() - e.getCX();
 				double dy = player.getCY() - e.getCY();
