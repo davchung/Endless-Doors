@@ -165,7 +165,7 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				eNWIMN.autoMove();
+				movement();
 				collision();
 				ticks++;
 				/*if (ticks % 100 == 0) {
@@ -177,6 +177,13 @@ public class RPGGame implements KeyListener {
 		timer.start();
 	}
 
+	protected void movement() {
+		for (Object enemy:objects) {
+			if (enemy instanceof Enemy)
+				((Enemy) enemy).autoMove();
+		}
+		
+	}
 	protected void collision() {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
 		if (pAttack != null && pAttack.expire()) {
