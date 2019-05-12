@@ -19,7 +19,8 @@ public class rpgGame implements KeyListener {
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	// kindly refrain from changing this enemy's name
-	private Enemy eNWIMN; // this stands for enemyNavigatingWallsIsMyNightmare
+	private Enemy eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
+	private Enemy smarterE; // "smarter enemy" this part is a work in progress
 	private Map m = new Map(10, 5);
 	private Attack pAttack; // player attack
 	private Attack eAttack; // enemy attack
@@ -140,7 +141,7 @@ public class rpgGame implements KeyListener {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 20, 25);
 				}
-				if (gameOver) {
+				if (gameOver == true) {
 					g.setColor(new Color(255,0,0,255));
 					g.fillRect(0, 0, 1000, 925);
 
@@ -384,6 +385,8 @@ public class rpgGame implements KeyListener {
 				pause();
 			keys.removeAll(objects);
 		}
+		
+		// game over
 		if (gameOver && keys.contains(" "))
 			new StartGame().init();
 	}
