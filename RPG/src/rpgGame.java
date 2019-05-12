@@ -140,12 +140,14 @@ public class rpgGame implements KeyListener {
 					g.drawString("Press ? for help.", 20, 25);
 				}
 				if (gameOver) {
-					g.setColor(new Color(255,0,0,0));
-					g.fillRect(100, 200, 600, 325);
+					g.setColor(new Color(255,0,0,255));
+					g.fillRect(0, 0, 1000, 925);
 
 					g.setColor(new Color(255, 255, 255));
+					g.setFont(new Font("Times New Roman", 0, 100));
+					g.drawString("Game Over!", 350, 350);
 					g.setFont(new Font("Times New Roman", 0, 40));
-					g.drawString("Game Over!", 150, 250);
+					g.drawString("Press Space to return to start", 270, 600);
 				}
 			}
 		};
@@ -355,6 +357,8 @@ public class rpgGame implements KeyListener {
 				pause();
 			keys.removeAll(objects);
 		}
+		if (gameOver && keys.contains(" "))
+			new StartGame().init();
 	}
 
 	@Override
