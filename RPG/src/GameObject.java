@@ -4,48 +4,26 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class GameObject {
-	
+
 	private int health = 20;
-	public int getHealth() { return this.health; }
-	public void incrementHealth(int amount) { this.health += amount; }
-
 	private int hittable = 0;
-	public int getHittable() {
-		return hittable;
-	}
-	public void setHittable(int amount) {
-		this.hittable = amount;
-	}
-	
 	private int damage = 10;
-	public int getDamage() { return this.damage; }
-	
-	protected double locX, locY;
-	protected double pastX, pastY; //how much they moved in their last frame
-	public double getLocX() {
-		return locX;
-	}
-	public double getLocY() {
-		return locY;
-	}
-	public double getPastX() {
-		return pastX;
-	}
-	public double getPastY() {
-		return pastY;
-	}
-
 	protected double WIDTH, HEIGHT;
 	protected BufferedImage image;
 	public final static String PATH_PREFIX = "img/";
 	private Rectangle current;
-
-	public Rectangle getRect() {
-		return current;
-	}
-
+	protected double locX, locY;
+	protected double pastX, pastY; // how much they moved in their last frame
 	public boolean throughable;
 	private int cooldown = 0;
+
+	public int getHealth() {
+		return this.health;
+	}
+
+	public void incrementHealth(int amount) {
+		this.health += amount;
+	}
 
 	public GameObject(double x, double y, double w, double h, String s, boolean through) {
 		locX = x;
@@ -65,6 +43,38 @@ public abstract class GameObject {
 		image = i;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		throughable = through;
+	}
+
+	public int getHittable() {
+		return hittable;
+	}
+
+	public void setHittable(int amount) {
+		this.hittable = amount;
+	}
+
+	public int getDamage() {
+		return this.damage;
+	}
+
+	public double getLocX() {
+		return locX;
+	}
+
+	public double getLocY() {
+		return locY;
+	}
+
+	public double getPastX() {
+		return pastX;
+	}
+
+	public double getPastY() {
+		return pastY;
+	}
+
+	public Rectangle getRect() {
+		return current;
 	}
 
 	protected BufferedImage getImage(String fn) {
@@ -100,10 +110,11 @@ public abstract class GameObject {
 	}
 
 	public double getCX() {
-		return this.locX+.5*this.WIDTH;
+		return this.locX + .5 * this.WIDTH;
 	}
+
 	public double getCY() {
-		return this.locY+.5*this.HEIGHT;
+		return this.locY + .5 * this.HEIGHT;
 	}
 
 	public boolean collides(GameObject other) {
@@ -112,14 +123,14 @@ public abstract class GameObject {
 		}
 		return false;
 	}
-	
+
 	public boolean attack(int ticks) {
-		if (cooldown>=ticks)
+		if (cooldown >= ticks)
 			return false;
-		cooldown = ticks+40;
+		cooldown = ticks + 40;
 		return true;
 	}
-	
+
 	public void hit(int damage) {
 		if (RPGRunner.ticks > hittable) {
 			health -= damage;

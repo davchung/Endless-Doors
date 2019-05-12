@@ -6,17 +6,13 @@ public class Animation {
 
 	File runRight = new File("src/img/animations/playerRun.png");
 	String path = "img/sprites/";
-
 	private BufferedImage[] anim;
-
-
 
 	public Animation(String name, int frames) {
 		path += name;
 		anim = new BufferedImage[frames];
 		getImg();
 	}
-
 
 	private void getImg() {
 		for (int i = 0; i < anim.length; i++) {
@@ -27,7 +23,7 @@ public class Animation {
 				System.out.println("More frames indicated than in file for " + path);
 			}
 		}
-		
+
 	}
 
 	public BufferedImage getImage() {
