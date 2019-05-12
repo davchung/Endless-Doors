@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 public class StartGame {
 	private JPanel startPanel;
 	private BufferedImage startImg;
-	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static int SCREEN_WIDTH = (int) (screenSize.getWidth() * 3 / 4);
-	public static int SCREEN_HEIGHT = (int) (screenSize.getHeight() * 3 / 4);
+	//public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static int SCREEN_WIDTH = 800; //(int) (screenSize.getWidth() * 3 / 4);
+	public static int SCREEN_HEIGHT = 800; //(int) (screenSize.getHeight() * 3 / 4);
 
 	public static void main(String[] args) {
 		new StartGame().init();
@@ -55,13 +55,14 @@ public class StartGame {
 
 			@Override
 			public void paintComponent(Graphics g) {
+				int fontSize = 60;
 				super.paintComponent(g);
 				g.drawImage(startImg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
-				g.setColor(new Color(250, 250, 250));
-				g.fillRect(55, (SCREEN_HEIGHT/2)-75, 955, 100);
-				g.setColor(new Color(0, 0, 0));
-				g.setFont(new Font("Times New Roman", 0, 75));
-				g.drawString("Click anywhere to begin game.", 65, SCREEN_HEIGHT/2);
+				g.setColor(new Color(250, 250, 250)); // white color
+				g.fillRect(0, (SCREEN_HEIGHT/2)-fontSize, SCREEN_WIDTH, (int) (fontSize*(1.5)));
+				g.setColor(new Color(0, 0, 0)); // black color
+				g.setFont(new Font("Times New Roman", 0, fontSize));
+				g.drawString("Click anywhere to begin game.", 25, SCREEN_HEIGHT/2);
 			}
 		};
 
@@ -78,8 +79,6 @@ public class StartGame {
 			public void mousePressed(MouseEvent me) {
 				startFrame.setVisible(false);
 				startFrame.setEnabled(false);
-				SCREEN_WIDTH = 800;
-				SCREEN_HEIGHT = 800;
 				(new RPGGame()).beginGame();
 
 			}
