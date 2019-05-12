@@ -31,7 +31,9 @@ public class Player extends GameObject {
 
 	// this will allow Player to "build" a wall
 	public boolean build(int ticks) {
-		// TODO Auto-generated method stub
-		return false;
+		if (getCooldown() >= ticks)
+			return false;
+		setCooldown(ticks + 40);
+		return true;
 	}
 }

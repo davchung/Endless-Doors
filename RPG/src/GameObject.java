@@ -87,11 +87,17 @@ public abstract class GameObject {
 		this.down = d;
 	}
 
-	public int getHittable() {
-		return hittable;
+	public int getCooldown() {
+		return this.cooldown;
 	}
-	public void setHittable(int amount) {
-		this.hittable = amount;
+	public void setCooldown(int cd) {
+		this.cooldown = cd;
+	}
+	public int getHittable() {
+		return this.hittable;
+	}
+	public void setHittable(int h) {
+		this.hittable = h;
 	}
 
 	// these methods have to do with images and drawing
