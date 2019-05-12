@@ -36,6 +36,7 @@ public class rpgGame implements KeyListener {
 	private boolean enemyHit = false;
 	private boolean playerHit = false;
 	private boolean helpPage = false;
+	private boolean gameOver = false;
 
 	// these are getters for variables
 	public Player getPlayer() {
@@ -133,6 +134,14 @@ public class rpgGame implements KeyListener {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 20, 25);
 				}
+				if (gameOver) {
+					g.setColor(new Color(255,0,0,0));
+					g.fillRect(100, 200, 600, 325);
+
+					g.setColor(new Color(255, 255, 255));
+					g.setFont(new Font("Times New Roman", 0, 40));
+					g.drawString("Game Over!", 150, 250);
+				}
 			}
 		};
 
@@ -204,8 +213,11 @@ public class rpgGame implements KeyListener {
 				}
 			}
 		}
-		if (player.getHealth() <= 0)
+		if (player.getHealth() <= 0) {
 			toRemove.add(player);
+			gameOver = true;
+			pause();
+		}
 		if (eAttack != null && eAttack.collides(player)) {
 			player.hit(enemy.getDamage());
 			playerHit = true;
@@ -336,5 +348,7 @@ public class rpgGame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
+
+
 
 }
