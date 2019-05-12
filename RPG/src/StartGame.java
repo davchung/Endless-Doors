@@ -23,7 +23,7 @@ public class StartGame {
 		new StartGame().init();
 	}
 
-	private void init() {
+	public void init() {
 		JFrame startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
