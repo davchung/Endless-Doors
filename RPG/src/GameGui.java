@@ -5,10 +5,10 @@ public abstract class GameGui {
 	
 	protected double locX, locY;
 	protected double WIDTH, HEIGHT;
-	boolean pauseGame; //whether it pauses sthe game or not
+	private boolean pauseGame; // whether it pauses the game or not
 	BufferedImage b;
 	
-	public GameGui(int x, int y,double w, double h, boolean pg, BufferedImage i) {
+	public GameGui(int x, int y, double w, double h, boolean pg, BufferedImage i) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
@@ -16,7 +16,7 @@ public abstract class GameGui {
 		pauseGame = pg;
 	}
 	
-	public GameGui(int x, int y,double w, double h, boolean pg, String s) {
+	public GameGui(int x, int y, double w, double h, boolean pg, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;

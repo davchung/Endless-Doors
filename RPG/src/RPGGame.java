@@ -314,13 +314,18 @@ public class RPGGame implements KeyListener {
 				}
 			}
 
-			// this allows the K key to control building
-			if (keys.contains("k") || keys.contains("K")) {
+			// this allows the lowercase k key to control building walls
+			if (keys.contains("k")) {
 				if (player.build(ticks) && i.numWalls > 0) {
 					builtWall = new Wall(player.getLocX() - (50 * lastR), player.getLocY() - (50 * lastD), 50, 50, 100);
 					i.removeWalls(1);
 					objects.add(builtWall);
 				}
+			}
+			
+			// this allows the uppercase K key to control placing bombs
+			if (keys.contains("K")) {
+				// to be implemented later on
 			}
 		}
 	}

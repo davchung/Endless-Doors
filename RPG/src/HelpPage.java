@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class HelpPage extends GameGui {
 
@@ -23,8 +22,9 @@ public class HelpPage extends GameGui {
 		g.drawString("HELP PAGE", (int) (locX + WIDTH * 1 / 2), 0); //hardcoded this a bit, will fix
 		g.drawString("W A S D to move the character.", 100, (int)(locY + 25));
 		g.drawString("J to attack.", 100, (int)(locY + 25*2));
-		g.drawString("K to build.", 100, (int)(locY + 25*3));
-		g.drawString("I to check inventory.", 100, (int)(locY + 25*4));
+		g.drawString("k to build walls.", 100, (int)(locY + 25*3));
+		g.drawString("K to place bombs. (to be implemented later on)", 100, (int)(locY + 25*4));
+		g.drawString("I to check inventory.", 100, (int)(locY + 25*5));
 		g.drawString("? to enter/exit the Help Page.", 100, (int)(locY + 25*7));
 		g.drawString("P to pause/play the game.", 100, (int)(locY + 25*8));
 
