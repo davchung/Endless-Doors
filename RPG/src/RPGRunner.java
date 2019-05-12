@@ -6,37 +6,43 @@ import javax.swing.Timer;
 
 public class RPGRunner implements KeyListener {
 
-	private Player player;
+	// these are all variables that allow the game to run
 	private JPanel mainPanel;
 	private Timer timer;
 	private static final int REFRESH_RATE = 10;
 	public static int ticks = 0;
-	private double speed = 3.5;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private ArrayList<Wall> walls = new ArrayList<Wall>();
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	private ArrayList<String> keys = new ArrayList<String>();
+	
+	// these are all variables that are involved with playing the game
+	private Player player;
+	private double pSpeed = 3.0; // player speed
+	private int lastR, lastD; // last direction the player was facing
+	private int facing = 1;
+	private Enemy test;
 	private Map m = new Map(10, 5);
 	private Attack playerAttack;
 	private Attack enemyAttack;
-	// what direction the player was last facing
-	private int lastR, lastD;
-	private int facing=1;
-	private boolean wallDamaged = false;
+	private Wall builtWall;
+	
+	// these variables are all ArrayLists of other variables
+	private ArrayList<String> keys = new ArrayList<String>();
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
+	
+	// these variables are all "switches" (imagine an on/off switch for a light bulb)
+	private boolean wallDamaged = false;
 	private boolean enemyHit = false;
 	private boolean playerHit = false;
 	private boolean helpPage = false;
 
+	// these are getters for variables
 	public Player getPlayer() {
-		return player;
+		return this.player;
 	}
-
-	private Enemy test;
-
 	public Enemy getEnemy() {
-		return test;
+		return this.test;
 	}
 
 	public void beginGame() {
@@ -62,7 +68,7 @@ public class RPGRunner implements KeyListener {
 				mainPanel.setBackground(new Color(150, 250, 150));
 
 				for (GameObject go : objects) {
-						go.draw(g);
+					go.draw(g);
 				}
 				for (GameObject go : objects) {
 					if (go instanceof Enemy) {
@@ -103,9 +109,26 @@ public class RPGRunner implements KeyListener {
 				}
 
 				if (helpPage == true) {
-					g.setColor(new Color(0, 0, 0));
-					g.setFont(new Font("Times New Roman", 0, 20));
-					g.drawString("Help Page", 100, 100);
+					g.setColor(new Color(0, 130, 255));
+					g.fillRect(100, 200, 600, 325);
+					
+					g.setColor(new Color(255, 255, 255));
+					g.setFont(new Font("Times New Roman", 0, 40));
+					g.drawString("Help Page", 150, 250);
+					
+					g.setFont(new Font("Arial", 0, 20));
+					g.drawString("W A S D to move the character.", 150, 300);
+					g.drawString("J to attack.", 150, 325);
+					g.drawString("K to build. (will be implemented later on)", 150, 350);
+					g.drawString("I to check inventory. (will be implemented later on)", 150, 375);
+					g.drawString("? to view the Help Page.", 150, 425);
+					g.drawString("P to pause/play and to exit the Help Page.", 150, 450);
+					
+					pause();
+				}
+				if (helpPage == false) {
+					g.setColor(new Color(255, 255, 255));
+					g.drawString("Press ? for help.", 20, 25);
 				}
 			}
 		};
@@ -150,8 +173,8 @@ public class RPGRunner implements KeyListener {
 				double dx = player.getCX() - e.getCX();
 				double dy = player.getCY() - e.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
-				dx = speed * dx / m;
-				dy = speed * dy / m;
+				dx = pSpeed * dx / m;
+				dy = pSpeed * dy / m;
 				player.moveX(dx);
 				player.moveY(dy);
 			}
@@ -175,10 +198,6 @@ public class RPGRunner implements KeyListener {
 					wallDamaged = true;
 				}
 			}
-
-			// tests if the player collides with the enemyAttack
-			
-
 		}
 		if (player.getHealth() <= 0)
 			toRemove.add(player);
@@ -233,25 +252,25 @@ public class RPGRunner implements KeyListener {
 		int down = 0, right = 0;
 		if (playerAttack == null) {
 			if (keys.contains("w") || keys.contains("W")) {
-				player.moveY(-speed);
+				player.moveY(-pSpeed);
 				down -= 1;
 			}
 			if (keys.contains("a") || keys.contains("A")) {
-				player.moveX(-speed);
+				player.moveX(-pSpeed);
 				right -= 1;
 			}
 			if (keys.contains("s") || keys.contains("S")) {
-				player.moveY(speed);
+				player.moveY(pSpeed);
 				down += 1;
 			}
 			if (keys.contains("d") || keys.contains("D")) {
-				player.moveX(speed);
+				player.moveX(pSpeed);
 				right += 1;
 			}
 			if (down != 0 || right != 0) {
 				lastR = right;
 				lastD = down;
-				
+
 			}
 			if (right != 0) {
 				facing = right;
@@ -263,9 +282,12 @@ public class RPGRunner implements KeyListener {
 			}
 			player.setR(right);
 			player.setD(down);
+			if (keys.contains("k") || keys.contains("K")) {
+				if (player.build(ticks)) {
+					builtWall = new Wall(player.getLocX(), player.getLocY(), 50, 50, 100);
+				}
+			}
 		}
-		//player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right)));
-
 	}
 
 	private void pause() {
@@ -290,7 +312,6 @@ public class RPGRunner implements KeyListener {
 		// help button
 		if (keys.contains("?")) {
 			helpPage = !helpPage;
-			pause();
 		}
 	}
 

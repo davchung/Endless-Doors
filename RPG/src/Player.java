@@ -1,7 +1,5 @@
 import java.awt.Graphics;
 
-import javax.imageio.ImageIO;
-
 public class Player extends GameObject {
 	
 	private static Animation run = new Animation("knight_f_run",4);
@@ -40,4 +38,8 @@ public class Player extends GameObject {
 		//putting this here to prevent graphics from drawing player when running through all GameObjects
 	}
 
+	public boolean build(int ticks) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
