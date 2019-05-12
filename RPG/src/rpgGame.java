@@ -39,6 +39,7 @@ public class rpgGame implements KeyListener {
 	private boolean playerHit = false;
 	private boolean helpPage = false;
 	private boolean gameOver = false;
+	private boolean iVisible = false; // inventory visible
 
 	// these are getters for variables
 	public Player getPlayer() {
@@ -126,10 +127,10 @@ public class rpgGame implements KeyListener {
 					g.drawString("W A S D to move the character.", 150, 300);
 					g.drawString("J to attack.", 150, 325);
 					g.drawString("K to build.", 150, 350);
-					g.drawString("I to check inventory. (will be implemented later on)", 150, 375);
+					g.drawString("I to check inventory.", 150, 375);
 					g.drawString("? to enter/exit the Help Page.", 150, 425);
 					g.drawString("P to pause/play the game.", 150, 450);
-					
+
 					g.setFont(new Font("Comic Sans MS", 0, 12));
 					g.drawString("Thanks for playing our game!", 150, 500);
 
@@ -139,13 +140,32 @@ public class rpgGame implements KeyListener {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 20, 25);
 				}
-				if (gameOver) {
+				
+				if (gameOver == true) {
 					g.setColor(new Color(255,0,0,0));
-					g.fillRect(100, 200, 600, 325);
+					g.fillRect(100, 200, 600, 300);
 
 					g.setColor(new Color(255, 255, 255));
 					g.setFont(new Font("Times New Roman", 0, 40));
 					g.drawString("Game Over!", 150, 250);
+				}
+				
+				if (iVisible == true) {
+					g.setColor(new Color(145, 130, 10));
+					g.fillRect(100, 200, 600, 200);
+
+					g.setColor(new Color(255, 255, 255));
+					g.setFont(new Font("Times New Roman", 0, 40));
+					g.drawString("Inventory", 150, 250);
+
+					g.setFont(new Font("Arial", 0, 20));
+					g.drawString("Walls: " + numWalls, 150, 300);
+					g.drawString("Gold: ___ (to be implemented later on)", 150, 325);
+
+					g.setFont(new Font("Comic Sans MS", 0, 12));
+					g.drawString("Thanks for playing our game!", 150, 375);
+
+					pause();
 				}
 			}
 		};
@@ -349,6 +369,14 @@ public class rpgGame implements KeyListener {
 		if (keys.contains("?")) {
 			helpPage = !helpPage;
 			if (!helpPage)
+				pause();
+			keys.removeAll(objects);
+		}
+		
+		// check inventory
+		if (keys.contains("i") || keys.contains("I")) {
+			iVisible = !iVisible;
+			if (!iVisible)
 				pause();
 			keys.removeAll(objects);
 		}
