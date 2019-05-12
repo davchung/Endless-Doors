@@ -36,6 +36,8 @@ public class RPGGame implements KeyListener {
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
+	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
+			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -62,7 +64,7 @@ public class RPGGame implements KeyListener {
 	public static void setEnemyAttack(Attack atk) {
 		RPGGame.eAttack = atk;
 	}
-	
+
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
@@ -79,7 +81,7 @@ public class RPGGame implements KeyListener {
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
 
-		
+
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -138,14 +140,7 @@ public class RPGGame implements KeyListener {
 					g.drawString("Press ? for help.", 20, 25);
 				}
 				if (gameOver == true) {
-					g.setColor(new Color(255, 0, 0, 255));
-					g.fillRect(0, 0, 1200, 800);
-
-					g.setColor(new Color(255, 255, 255));
-					g.setFont(new Font("Times New Roman", 0, 100));
-					g.drawString("Game Over!", 350, 350);
-					g.setFont(new Font("Times New Roman", 0, 40));
-					g.drawString("Press B to return to start.", 400, 500);
+					gO.draw(g);
 				}
 
 				if (iVisible == true) {
@@ -250,7 +245,7 @@ public class RPGGame implements KeyListener {
 				return true;
 		}
 		return false;
-		
+
 	}
 
 	// this allows the player to be controlled by W A S D
@@ -261,28 +256,28 @@ public class RPGGame implements KeyListener {
 				player.moveY(-pSpeed);
 				down -= 1;
 				while(wallCollision(player)) {
-					player.moveY(pSpeed/20);	
+					player.moveY(pSpeed/20);
 				}
 			}
 			if (keys.contains("a") || keys.contains("A")) {
 				player.moveX(-pSpeed);
 				right -= 1;
 				while(wallCollision(player)) {
-					player.moveX(pSpeed/20);	
+					player.moveX(pSpeed/20);
 				}
 			}
 			if (keys.contains("s") || keys.contains("S")) {
 				player.moveY(pSpeed);
 				down += 1;
 				while(wallCollision(player)) {
-					player.moveY(-pSpeed/20);	
+					player.moveY(-pSpeed/20);
 				}
 			}
 			if (keys.contains("d") || keys.contains("D")) {
 				player.moveX(pSpeed);
 				right += 1;
 				while(wallCollision(player)) {
-					player.moveX(-pSpeed/20);	
+					player.moveX(-pSpeed/20);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -311,7 +306,7 @@ public class RPGGame implements KeyListener {
 					objects.add(builtWall);
 				}
 			}
-			
+
 			// this allows the uppercase K key to control placing bombs
 			if (keys.contains("K")) {
 				// to be implemented later on
@@ -319,7 +314,7 @@ public class RPGGame implements KeyListener {
 		}
 	}
 
-	
+
 	public static void pause() {
 		if (timer.isRunning()) {
 			timer.stop();
