@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.print.Paper;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
@@ -18,12 +19,12 @@ public class RPGRunner implements KeyListener {
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	private Map m = new Map(10, 5);
-	private Animation a = new Animation();
+	//private Animation a = new Animation();
 	private Attack playerAttack;
 	private Attack enemyAttack;
 	// what direction the player was last facing
 	private int lastR, lastD;
-	private int facing;
+	private int facing=1;
 	private boolean wallDamaged = false;
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
 	private boolean enemyHit = false;
@@ -63,14 +64,14 @@ public class RPGRunner implements KeyListener {
 				mainPanel.setBackground(new Color(150, 250, 150));
 
 				for (GameObject go : objects) {
-					go.draw(g);
+						go.draw(g);
 				}
 				for (GameObject go : objects) {
 					if (go instanceof Enemy) {
 						go.draw(g);
 					}
 				}
-				player.draw(g, facing);
+
 
 				if (playerAttack != null && !playerAttack.expire()) {
 					playerAttack.draw(g);
@@ -102,7 +103,7 @@ public class RPGRunner implements KeyListener {
 					}
 					playerHit = false;
 				}
-				
+
 				if (helpPage == true) {
 					g.setColor(new Color(0, 0, 0));
 					g.setFont(new Font("Times New Roman", 0, 20));
@@ -132,7 +133,7 @@ public class RPGRunner implements KeyListener {
 			}
 
 		});
-		timer.start(); 
+		timer.start();
 	}
 
 	protected void collision() {
@@ -262,10 +263,10 @@ public class RPGRunner implements KeyListener {
 				}
 			}
 		}
-		player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right)));
+		//player.setBufferedImage(a.update(Math.abs(down) + Math.abs(right)));
 
 	}
-	
+
 	private void pause() {
 		if (timer.isRunning()) {
 			timer.stop();
@@ -284,7 +285,7 @@ public class RPGRunner implements KeyListener {
 		if (keys.contains("p") || keys.contains("P")) {
 			pause();
 		}
-		
+
 		// help button
 		if (keys.contains("?")) {
 			helpPage ^= true;
