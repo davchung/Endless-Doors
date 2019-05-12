@@ -342,6 +342,7 @@ public class rpgGame implements KeyListener {
 			pause();
 			if (helpPage)
 				helpPage = false;
+			keys.removeAll(objects);
 		}
 
 		// help button
@@ -349,6 +350,7 @@ public class rpgGame implements KeyListener {
 			helpPage = !helpPage;
 			if (!helpPage)
 				pause();
+			keys.removeAll(objects);
 		}
 	}
 
