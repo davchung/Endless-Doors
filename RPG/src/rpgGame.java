@@ -12,7 +12,7 @@ public class rpgGame implements KeyListener {
 	private static final int REFRESH_RATE = 10;
 	public static int ticks = 0;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	
+
 	// these are all variables that are involved with playing the game
 	private Player player;
 	private double pSpeed = 3.0; // player speed
@@ -21,16 +21,16 @@ public class rpgGame implements KeyListener {
 	private Enemy enemy;
 	private Map m = new Map(10, 5);
 	private Attack pAttack; // player attack
-	private Attack enemyAttack;
+	private Attack eAttack; // enemy attack
 	private Wall builtWall;
-	
+
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
-	
+
 	// these variables are all "switches" (imagine an on/off switch for a light bulb)
 	private boolean wallDamaged = false;
 	private boolean enemyHit = false;
@@ -46,15 +46,17 @@ public class rpgGame implements KeyListener {
 	}
 
 	public void beginGame() {
+
+		player = new Player(50, 50, 50, 50);
+		enemy = new Enemy(300, 300, 50, 50);
+		objects.addAll(m.getWalls());
+		objects.add(player);
+		objects.add(enemy);
+		enemies.add(enemy);
+
 		JFrame mainFrame = new JFrame("Role-Playing Game");
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		player = new Player(50, 50, 50, 50);
-		enemy = new Enemy(500, 500, 50, 50);
-		objects.addAll(m.getWalls());
-		objects.add(enemy);
-		enemies.add(enemy);
-		objects.add(player);
 		mainPanel = new JPanel() {
 
 			/**
@@ -62,6 +64,7 @@ public class rpgGame implements KeyListener {
 			 */
 			private static final long serialVersionUID = 1L;
 
+			// this is where all the drawing is done
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -80,8 +83,8 @@ public class rpgGame implements KeyListener {
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
 				}
-				if (enemyAttack != null && !enemyAttack.expire()) {
-					enemyAttack.draw(g);
+				if (eAttack != null && !eAttack.expire()) {
+					eAttack.draw(g);
 				}
 
 				g.drawString("Player health: " + player.getHealth(), 675, 65);
@@ -111,11 +114,11 @@ public class rpgGame implements KeyListener {
 				if (helpPage == true) {
 					g.setColor(new Color(0, 130, 255));
 					g.fillRect(100, 200, 600, 325);
-					
+
 					g.setColor(new Color(255, 255, 255));
 					g.setFont(new Font("Times New Roman", 0, 40));
 					g.drawString("Help Page", 150, 250);
-					
+
 					g.setFont(new Font("Arial", 0, 20));
 					g.drawString("W A S D to move the character.", 150, 300);
 					g.drawString("J to attack.", 150, 325);
@@ -123,7 +126,7 @@ public class rpgGame implements KeyListener {
 					g.drawString("I to check inventory. (will be implemented later on)", 150, 375);
 					g.drawString("? to view the Help Page.", 150, 425);
 					g.drawString("P to pause/play and to exit the Help Page.", 150, 450);
-					
+
 					pause();
 				}
 				if (helpPage == false) {
@@ -140,8 +143,7 @@ public class rpgGame implements KeyListener {
 		mainFrame.setLocation(StartGame.SCREEN_WIDTH / 10, StartGame.SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
-		// this timer controls the actions in the game and then repaints after each
-		// update to data
+		// this timer controls the actions in the game and then repaints after each update to data
 		timer = new Timer(REFRESH_RATE, new ActionListener() {
 
 			@Override
@@ -162,8 +164,8 @@ public class rpgGame implements KeyListener {
 		if (pAttack != null && pAttack.expire()) {
 			pAttack = null;
 		}
-		if (enemyAttack != null && enemyAttack.expire()) {
-			enemyAttack = null;
+		if (eAttack != null && eAttack.expire()) {
+			eAttack = null;
 		}
 
 		for (GameObject e : objects) {
@@ -179,7 +181,7 @@ public class rpgGame implements KeyListener {
 				player.moveY(dy);
 			}
 
-			// tests if any enemy collides with the playerAttack
+			// tests if any enemy collides with the pAttack
 			if (e instanceof Enemy) {
 				if (((Enemy) e).getHealth() <= 0)
 					toRemove.add(e);
@@ -191,8 +193,8 @@ public class rpgGame implements KeyListener {
 			if (e instanceof Wall) {
 				if (((Wall) e).getHealth() <= 0)
 					toRemove.add(e);
-				// both playerAttack and enemyAttack can damage walls
-				if ((pAttack != null && pAttack.collides(e)) || (enemyAttack != null && enemyAttack.collides(e))) {
+				// both pAttack and eAttack can damage walls
+				if ((pAttack != null && pAttack.collides(e)) || (eAttack != null && eAttack.collides(e))) {
 					((Wall)e).hit();
 					damagedWalls.add((Wall)e);
 					wallDamaged = true;
@@ -201,7 +203,7 @@ public class rpgGame implements KeyListener {
 		}
 		if (player.getHealth() <= 0)
 			toRemove.add(player);
-		if (enemyAttack != null && enemyAttack.collides(player)) {
+		if (eAttack != null && eAttack.collides(player)) {
 			player.hit(enemy.getDamage());
 			playerHit = true;
 		}
@@ -212,7 +214,7 @@ public class rpgGame implements KeyListener {
 	}
 
 	private void enemyMovement() {
-
+		// makes the enemy follow the player
 		for(Enemy e: enemies) {
 			objects.remove(e);
 			double x = 0, y = 0;
@@ -223,7 +225,7 @@ public class rpgGame implements KeyListener {
 			y = (e).getSpeed() * y / mag;
 			if ((e).collides(player)) {
 				if (e.attack(ticks)) {
-					enemyAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png", 50, 50);
+					eAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png", 50, 50);
 				}
 			}
 			e.moveX(x);
@@ -248,6 +250,7 @@ public class rpgGame implements KeyListener {
 		}
 	}
 
+	// this allows the player to be controlled by W A S D
 	private void controls() {
 		int down = 0, right = 0;
 		if (pAttack == null) {
@@ -270,18 +273,21 @@ public class rpgGame implements KeyListener {
 			if (down != 0 || right != 0) {
 				lastR = right;
 				lastD = down;
-
 			}
 			if (right != 0) {
 				facing = right;
 			}
+			player.setR(right);
+			player.setD(down);
+
+			// this allows the J key to control attacking
 			if (keys.contains("j") || keys.contains("J")) {
 				if (player.attack(ticks)) {
 					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png", 50, 50);
 				}
 			}
-			player.setR(right);
-			player.setD(down);
+
+			// this allows the K key to control building
 			if (keys.contains("k") || keys.contains("K")) {
 				if (player.build(ticks)) {
 					builtWall = new Wall(player.getLocX(), player.getLocY(), 50, 50, 100);
