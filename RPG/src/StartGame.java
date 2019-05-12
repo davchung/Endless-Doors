@@ -77,6 +77,7 @@ public class StartGame {
 			@Override
 			public void mousePressed(MouseEvent me) {
 				startFrame.setVisible(false);
+				startFrame.setEnabled(false);
 				SCREEN_WIDTH = 800;
 				SCREEN_HEIGHT = 800;
 				(new RPGGame()).beginGame();

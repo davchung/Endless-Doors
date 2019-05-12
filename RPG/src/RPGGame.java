@@ -7,6 +7,7 @@ import javax.swing.Timer;
 public class RPGGame implements KeyListener {
 
 	// these are all variables that allow the game to run
+	private JFrame mainFrame = new JFrame("Role-Playing Game");
 	private JPanel mainPanel;
 	private static Timer timer;
 	private static final int REFRESH_RATE = 10;
@@ -69,7 +70,7 @@ public class RPGGame implements KeyListener {
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
 
-		JFrame mainFrame = new JFrame("Role-Playing Game");
+		
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -114,7 +115,7 @@ public class RPGGame implements KeyListener {
 					enemyHit = false;
 				}
 				if (playerHit == true) {
-					if (eNWIMN.getHealth() > 0) {
+					if (player.getHealth() > 0) {
 						g.drawString("-" + eNWIMN.getDamage(), (int) player.getCX() - 5, (int) player.getCY());
 					}
 					playerHit = false;
@@ -127,7 +128,7 @@ public class RPGGame implements KeyListener {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 20, 25);
 				}
-				if (gameOver) {
+				if (gameOver == true) {
 					g.setColor(new Color(255, 0, 0, 255));
 					g.fillRect(0, 0, 1200, 800);
 
@@ -135,8 +136,7 @@ public class RPGGame implements KeyListener {
 					g.setFont(new Font("Times New Roman", 0, 100));
 					g.drawString("Game Over!", 350, 350);
 					g.setFont(new Font("Times New Roman", 0, 40));
-					g.drawString("Press B to return to start", 400, 500);
-					g.drawString("Press N to start a new game", 380, 600);
+					g.drawString("Press B to return to start.", 400, 500);
 				}
 
 				if (iVisible == true) {
@@ -164,9 +164,9 @@ public class RPGGame implements KeyListener {
 				enemyMovement();
 				collision();
 				ticks++;
-				if (ticks % 100 == 0) {
+				/*if (ticks % 100 == 0) {
 					System.out.println(ticks / 100 + " second");
-				}
+				}*/
 			}
 
 		});
@@ -364,10 +364,11 @@ public class RPGGame implements KeyListener {
 		}
 
 		// game over
-		if (gameOver && (keys.contains("b") || keys.contains("B")))
+		if (gameOver && (keys.contains("b") || keys.contains("B"))) {
 			new StartGame().init();
-		if (gameOver && (keys.contains("n") || keys.contains("N")))
-			new RPGGame().beginGame();
+			mainFrame.setVisible(false);
+			mainFrame.setEnabled(false);
+		}
 	}
 
 	@Override
