@@ -1,12 +1,15 @@
 import java.awt.Graphics;
 
+import javax.imageio.ImageIO;
+
 public class Player extends GameObject {
 	
 	private static Animation a = new Animation();
+	private static Animation knight = new Animation("knight_f_idle",4);
 	private int width, height;
 
 	public Player(double x, double y, double w, double h) {
-		super(x, y, w, h, a.getFirstImage(), true);
+		super(x, y, w, h, knight.getFirst(), true);
 		a = new Animation();
 		width = (int)w;
 		height = (int)h;
@@ -25,9 +28,14 @@ public class Player extends GameObject {
 		int dx = 0; 
 		if (r<0)
 			dx = width;
+		 
 
-
-		g.drawImage(super.image, (int)super.locX+dx, (int)super.locY, (int)(r*super.WIDTH), (int)super.HEIGHT, null);
+		g.drawImage(knight.getImage(), (int)super.locX+dx, (int)super.locY-20, (int)(r*super.WIDTH), (int)super.HEIGHT+20, null);
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		
 	}
 
 }

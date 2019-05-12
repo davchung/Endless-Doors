@@ -19,6 +19,7 @@ public class Animation {
 	public Animation(String name, int frames) {
 		path += name;
 		anim = new BufferedImage[frames];
+		getImg();
 	}
 
 	private void getAllImg() {
@@ -41,25 +42,22 @@ public class Animation {
 		for (int i = 0; i < anim.length; i++) {
 
 			try {
-
+				anim[i] = ImageIO.read(this.getClass().getResource(path + "_anim_f" + i + ".png"));
 			} catch (Exception e) {
 				System.out.println("More frames indicated than in file for " + path);
 			}
 		}
+		
 	}
 
-	public BufferedImage getFirstImage() {
-		return running[0];
+	public BufferedImage getImage() {
+		int ticks = RPGRunner.ticks / 5;
+		ticks = ticks % anim.length;
+		return (anim[ticks]);
 	}
 
-	public BufferedImage update(int check) {
-		if (check != 0) {
-			int ticks = RPGRunner.ticks / 5; // smaller = faster
-			ticks = ticks % 8;
-			return (running[ticks]);
-
-		}
-		return getFirstImage();
+	public BufferedImage getFirst() {
+		return anim[0];
 	}
 
 }
