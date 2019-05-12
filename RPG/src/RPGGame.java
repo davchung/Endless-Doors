@@ -36,6 +36,8 @@ public class RPGGame implements KeyListener {
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
+	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
+			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -138,14 +140,7 @@ public class RPGGame implements KeyListener {
 					g.drawString("Press ? for help.", 20, 25);
 				}
 				if (gameOver == true) {
-					g.setColor(new Color(255, 0, 0, 255));
-					g.fillRect(0, 0, 1200, 800);
-
-					g.setColor(new Color(255, 255, 255));
-					g.setFont(new Font("Times New Roman", 0, 100));
-					g.drawString("Game Over!", 350, 350);
-					g.setFont(new Font("Times New Roman", 0, 40));
-					g.drawString("Press B to return to start.", 400, 500);
+					gO.draw(g);
 				}
 
 				if (iVisible == true) {
