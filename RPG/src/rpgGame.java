@@ -4,7 +4,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
-public class rpgGame implements KeyListener {
+public class RPGGame implements KeyListener {
 
 	// these are all variables that allow the game to run
 	private JPanel mainPanel;
