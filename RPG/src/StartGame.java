@@ -37,7 +37,7 @@ public class StartGame {
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/BGM.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioIn);
-			clip.start();
+			clip.loop(10000);
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
