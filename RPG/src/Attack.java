@@ -1,13 +1,13 @@
 
 public class Attack extends GameObject{
-	private int r, d, expire;
+	private int expire;
 	public Attack (int x, int y, int right, int down, int ticks, String s) {
 		super(x ,y, 50, 50, true, s); // uses GameObject's constructor #1
-		r=right;
-		d=down;
+		setRight(right);
+		setDown(down);
 		expire = ticks+20;
-		super.moveX(r*50-25);
-		super.moveY(d*50-25);
+		super.moveX(getRight()*50-25);
+		super.moveY(getDown()*50-25);
 	}
 
 	public boolean expire(){

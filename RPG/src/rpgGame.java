@@ -230,8 +230,8 @@ public class rpgGame implements KeyListener {
 			}
 			e.moveX(x);
 			e.moveY(y);
-			e.setR(x);
-			e.setD(y);
+			e.setRight(x);
+			e.setDown(y);
 
 			for (GameObject i : objects) {
 				if (e.collides(i) && (i instanceof Wall)) {
@@ -277,8 +277,8 @@ public class rpgGame implements KeyListener {
 			if (right != 0) {
 				facing = right;
 			}
-			player.setR(right);
-			player.setD(down);
+			player.setRight(right);
+			player.setDown(down);
 
 			// this allows the J key to control attacking
 			if (keys.contains("j") || keys.contains("J")) {

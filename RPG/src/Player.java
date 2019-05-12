@@ -4,7 +4,6 @@ public class Player extends GameObject {
 
 	private static Animation run = new Animation("knight_f_run",4);
 	private static Animation idle = new Animation("knight_f_idle",4);
-	private int right, down;
 
 	// constructor #1 for Player
 	public Player(double x, double y, double w, double h) {
@@ -12,20 +11,12 @@ public class Player extends GameObject {
 		incrementHealth(20);
 	}
 
-	// setters are over here
-	public void setR(int r) {
-		this.right = r;
-	}
-	public void setD(int d) {
-		this.down = d;
-	}
-
 	// these are methods related to drawing
 	public void draw(Graphics g, int r) {
 		int dx = 0; 
 		if (r<0) 
 			dx = (int)WIDTH;
-		if (down != 0 || right != 0) {
+		if (getDown() != 0 || getRight() != 0) {
 			g.drawImage(run.getImage(), (int)super.locX+dx, (int)super.locY-20, (int)(r*super.WIDTH), (int)super.HEIGHT+20, null);
 			return;
 		}

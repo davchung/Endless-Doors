@@ -16,7 +16,7 @@ public abstract class GameObject {
 	protected double locX, locY;
 	protected double pastX, pastY; // how much they moved in their last frame
 	protected double WIDTH, HEIGHT;
-	private int right, down;
+	private double right, down;
 
 	private int cooldown = 0;
 	private int hittable = 0;
@@ -38,9 +38,9 @@ public abstract class GameObject {
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
+		throughable = through;
 		image = i;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
-		throughable = through;
 	}
 
 	// getters, setters, and "incrementers" are here
@@ -72,6 +72,19 @@ public abstract class GameObject {
 	}
 	public double getPastY() {
 		return this.pastY;
+	}
+	
+	public double getRight() {
+		return this.right;
+	}
+	public double getDown() {
+		return this.down;
+	}
+	public void setRight(double r) {
+		this.right = r;
+	}
+	public void setDown(double d) {
+		this.down = d;
 	}
 
 	public int getHittable() {
