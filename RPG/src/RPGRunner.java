@@ -288,7 +288,7 @@ public class RPGRunner implements KeyListener {
 
 		// help button
 		if (keys.contains("?")) {
-			helpPage ^= true;
+			helpPage = !helpPage;
 			pause();
 		}
 	}
