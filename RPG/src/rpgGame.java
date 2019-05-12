@@ -215,7 +215,7 @@ public class rpgGame implements KeyListener {
 		}
 		if (player.getHealth() <= 0) {
 			toRemove.add(player);
-			gameover = true;
+			gameOver = true;
 			pause();
 		}
 		if (eAttack != null && eAttack.collides(player)) {
