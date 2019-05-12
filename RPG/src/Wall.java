@@ -11,9 +11,9 @@ public class Wall extends Environment {
 	}
 
 	public void hit() {
-		if (rpgGame.ticks > hittable) {
+		if (RPGGame.ticks > hittable) {
 			health -= 10;
-			hittable = rpgGame.ticks + 26;
+			hittable = RPGGame.ticks + 26;
 			return;
 		}
 
