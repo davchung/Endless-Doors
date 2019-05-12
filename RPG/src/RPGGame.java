@@ -193,18 +193,16 @@ public class RPGGame implements KeyListener {
 		if (builtWall != null) {
 			builtWall = null;
 		}
-
 		for (GameObject e : objects) {
-			if (player.equals(e) || pAttack != null && pAttack.equals(e))
-				continue;
-			if (player.collides(e) && !e.throughable) {
+
+			while (player.collides(e) && !e.throughable) {
 				double dx = player.getCX() - e.getCX();
 				double dy = player.getCY() - e.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = pSpeed * dx / m;
 				dy = pSpeed * dy / m;
-				player.moveX(dx);
-				player.moveY(dy);
+				player.moveX(dx/20);
+				player.moveY(dy/20);
 			}
 
 			// tests if any enemy collides with the pAttack
@@ -227,6 +225,11 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
+//		for (GameObject e : objects) {
+//			if (player.collides(e) && !e.throughable) {
+//				collision();
+//			}
+//		}
 		if (player.getHealth() <= 0) {
 			toRemove.add(player);
 			gameOver = true;
@@ -246,6 +249,14 @@ public class RPGGame implements KeyListener {
 		walls.removeAll(toRemove);
 
 	}
+	private boolean wallCollision(GameObject object) {
+		for (GameObject wall:objects) {
+			if (wall instanceof Wall&&object.collides(wall))
+				return true;
+		}
+		return false;
+		
+	}
 
 	// this allows the player to be controlled by W A S D
 	private void controls() {
@@ -254,18 +265,30 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-pSpeed);
 				down -= 1;
+				while(wallCollision(player)) {
+					player.moveY(pSpeed/20);	
+				}
 			}
 			if (keys.contains("a") || keys.contains("A")) {
 				player.moveX(-pSpeed);
 				right -= 1;
+				while(wallCollision(player)) {
+					player.moveX(pSpeed/20);	
+				}
 			}
 			if (keys.contains("s") || keys.contains("S")) {
 				player.moveY(pSpeed);
 				down += 1;
+				while(wallCollision(player)) {
+					player.moveY(-pSpeed/20);	
+				}
 			}
 			if (keys.contains("d") || keys.contains("D")) {
 				player.moveX(pSpeed);
 				right += 1;
+				while(wallCollision(player)) {
+					player.moveX(-pSpeed/20);	
+				}
 			}
 			if (down != 0 || right != 0) {
 				lastR = right;
@@ -301,6 +324,7 @@ public class RPGGame implements KeyListener {
 		}
 	}
 
+	
 	public static void pause() {
 		if (timer.isRunning()) {
 			timer.stop();
