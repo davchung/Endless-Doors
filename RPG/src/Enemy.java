@@ -9,7 +9,7 @@ public class Enemy extends GameObject {
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, double w, double h) {
-		super(x, y, w, h, run.getFirst(), false);
+		super(x, y, w, h, false, run.getFirst()); // uses GameObject's constructor #2
 	}
 
 	// getters and setters are here

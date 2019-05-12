@@ -16,23 +16,24 @@ public abstract class GameObject {
 	protected double locX, locY;
 	protected double pastX, pastY; // how much they moved in their last frame
 	protected double WIDTH, HEIGHT;
+	private int right, down;
 
 	private int cooldown = 0;
 	private int hittable = 0;
 	public boolean throughable;
 
 	// constructor #1 for GameObject
-	public GameObject(double x, double y, double w, double h, String s, boolean through) {
+	public GameObject(double x, double y, double w, double h, boolean through, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
+		throughable = through;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
-		throughable = through;
 	}
 	// constructor #2 for GameObject
-	public GameObject(double x, double y, double w, double h, BufferedImage i, boolean through) {
+	public GameObject(double x, double y, double w, double h, boolean through, BufferedImage i) {
 		locX = x;
 		locY = y;
 		WIDTH = w;

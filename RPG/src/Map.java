@@ -85,7 +85,7 @@ public class Map {
 	private void randGen(BufferedImage i) {
 		for (int c = 0; c < numEnv; c++) {
 			eObjs.add(new Environment((Math.random() * (StartGame.SCREEN_WIDTH - imgW)),
-					(Math.random() * (StartGame.SCREEN_HEIGHT - imgH)), imgW, imgH, i, true));
+					(Math.random() * (StartGame.SCREEN_HEIGHT - imgH)), imgW, imgH, true, i));
 		}
 	}
 
