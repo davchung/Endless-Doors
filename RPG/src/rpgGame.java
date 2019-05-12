@@ -127,8 +127,11 @@ public class rpgGame implements KeyListener {
 					g.drawString("J to attack.", 150, 325);
 					g.drawString("K to build.", 150, 350);
 					g.drawString("I to check inventory. (will be implemented later on)", 150, 375);
-					g.drawString("? to view the Help Page.", 150, 425);
-					g.drawString("P to pause/play and to exit the Help Page.", 150, 450);
+					g.drawString("? to enter/exit the Help Page.", 150, 425);
+					g.drawString("P to pause/play the game.", 150, 450);
+					
+					g.setFont(new Font("Comic Sans MS", 0, 12));
+					g.drawString("Thanks for playing our game!", 150, 500);
 
 					pause();
 				}
@@ -228,6 +231,11 @@ public class rpgGame implements KeyListener {
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
+		for (GameObject go: toRemove) {
+			if (go instanceof Wall) {
+				numWalls++;
+			}
+		}
 		walls.removeAll(toRemove);
 
 	}
@@ -308,8 +316,9 @@ public class rpgGame implements KeyListener {
 
 			// this allows the K key to control building
 			if (keys.contains("k") || keys.contains("K")) {
-				if (player.build(ticks)) {
+				if (player.build(ticks) && numWalls > 0) {
 					builtWall = new Wall(player.getLocX()-(50*lastR), player.getLocY()-(50*lastD), 50, 50, 100);
+					numWalls--;
 					objects.add(builtWall);
 				}
 			}
