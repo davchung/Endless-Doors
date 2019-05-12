@@ -167,6 +167,9 @@ public class rpgGame implements KeyListener {
 		if (eAttack != null && eAttack.expire()) {
 			eAttack = null;
 		}
+		if (builtWall != null) {
+			builtWall = null;
+		}
 
 		for (GameObject e : objects) {
 			if (player.equals(e) || pAttack != null && pAttack.equals(e))
@@ -253,7 +256,7 @@ public class rpgGame implements KeyListener {
 	// this allows the player to be controlled by W A S D
 	private void controls() {
 		int down = 0, right = 0;
-		if (pAttack == null) {
+		if (pAttack == null && builtWall == null) {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-pSpeed);
 				down -= 1;
@@ -291,6 +294,7 @@ public class rpgGame implements KeyListener {
 			if (keys.contains("k") || keys.contains("K")) {
 				if (player.build(ticks)) {
 					builtWall = new Wall(player.getLocX(), player.getLocY(), 50, 50, 100);
+					objects.add(builtWall);
 				}
 			}
 		}
