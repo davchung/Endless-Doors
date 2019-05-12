@@ -64,7 +64,7 @@ public class StartGame {
 				startFrame.setVisible(false);
 				SCREEN_WIDTH = 800;
 				SCREEN_HEIGHT = 800;
-				(new RPGRunner()).beginGame();
+				(new rpgGame()).beginGame();
 
 			}
 		});

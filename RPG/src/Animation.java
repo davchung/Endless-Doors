@@ -27,7 +27,7 @@ public class Animation {
 	}
 
 	public BufferedImage getImage() {
-		int ticks = RPGRunner.ticks / 10;
+		int ticks = rpgGame.ticks / 10;
 		ticks = ticks % anim.length;
 		return (anim[ticks]);
 	}

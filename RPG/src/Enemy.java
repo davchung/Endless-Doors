@@ -43,13 +43,13 @@ public class Enemy extends GameObject {
 
 	@Override
 	public void moveX(double howMuch) {
-		if (RPGRunner.ticks > getHittable())
+		if (rpgGame.ticks > getHittable())
 			super.moveX(howMuch);
 	}
 
 	@Override
 	public void moveY(double howMuch) {
-		if (RPGRunner.ticks > getHittable())
+		if (rpgGame.ticks > getHittable())
 			super.moveY(howMuch);
 	}
 }

@@ -132,9 +132,9 @@ public abstract class GameObject {
 	}
 
 	public void hit(int damage) {
-		if (RPGRunner.ticks > hittable) {
+		if (rpgGame.ticks > hittable) {
 			health -= damage;
-			hittable = RPGRunner.ticks + 26;
+			hittable = rpgGame.ticks + 26;
 			return;
 		}
 
