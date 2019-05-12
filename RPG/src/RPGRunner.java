@@ -177,15 +177,14 @@ public class RPGRunner implements KeyListener {
 			}
 
 			// tests if the player collides with the enemyAttack
-			if (e instanceof Player) {
-				if (((Player) e).getHealth() <= 0)
-					toRemove.add(e);
-				if (enemyAttack != null && enemyAttack.collides(e)) {
-					((Player) e).hit(test.getDamage());
-					playerHit = true;
-				}
-			}
+			
 
+		}
+		if (player.getHealth() <= 0)
+			toRemove.add(player);
+		if (enemyAttack != null && enemyAttack.collides(player)) {
+			player.hit(test.getDamage());
+			playerHit = true;
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
