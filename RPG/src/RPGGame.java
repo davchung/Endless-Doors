@@ -28,14 +28,14 @@ public class RPGGame implements KeyListener {
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
-	private Inventory i = new Inventory(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private ItemShop iS = new ItemShop(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private ChestLoot cL = new ChestLoot(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
+	private Inventory i = new Inventory(StartGame.SCREEN_WIDTH * 1 / 8, StartGame.SCREEN_HEIGHT * 1 / 8,
+			StartGame.SCREEN_WIDTH * 6 / 8, StartGame.SCREEN_HEIGHT * 6 / 8);
+	private ItemShop iS = new ItemShop(StartGame.SCREEN_WIDTH * 1 / 8, StartGame.SCREEN_HEIGHT * 1 / 8,
+			StartGame.SCREEN_WIDTH * 6 / 8, StartGame.SCREEN_HEIGHT * 6 / 8);
+	private ChestLoot cL = new ChestLoot(StartGame.SCREEN_WIDTH * 1 / 8, StartGame.SCREEN_HEIGHT * 1 / 8,
+			StartGame.SCREEN_WIDTH * 6 / 8, StartGame.SCREEN_HEIGHT * 6 / 8);
+	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 8, StartGame.SCREEN_HEIGHT * 1 / 8,
+			StartGame.SCREEN_WIDTH * 6 / 8, StartGame.SCREEN_HEIGHT * 6 / 8);
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
