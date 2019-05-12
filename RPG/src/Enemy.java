@@ -59,6 +59,9 @@ public class Enemy extends GameObject {
 			}
 			this.moveX(x);
 			this.moveY(y);
+			System.out.println(x);
+			if (Math.abs(x)<eSpeed/8)
+				x=1;
 			this.setRight(x);
 			this.setDown(y);
 			for (GameObject i : RPGGame.getObjects()) {
@@ -66,7 +69,6 @@ public class Enemy extends GameObject {
 					double dx = this.getCX() - i.getCX();
 					double dy = this.getCY() - i.getCY();
 					double m = Math.sqrt(dx * dx + dy * dy);
-					
 					dx = eSpeed * dx / m;
 					dy = eSpeed * dy / m;
 					this.moveX(dx);
