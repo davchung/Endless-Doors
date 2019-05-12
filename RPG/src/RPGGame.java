@@ -15,16 +15,16 @@ public class RPGGame implements KeyListener {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	// these are all variables that are involved with playing the game
-	private Player player;
+	private static Player player;
 	private double pSpeed = 3.0; // player speed
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
-	// kindly refrain from changing this enemy's name no u
+	// kindly refrain from changing this enemy's name
 	private Enemy eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
 	private Enemy smarterE; // "smarter enemy" this part is a work in progress
 	private Map m = new Map(10, 5);
 	private Attack pAttack; // player attack
-	private Attack eAttack; // enemy attack
+	private static Attack eAttack; // enemy attack
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
@@ -39,8 +39,8 @@ public class RPGGame implements KeyListener {
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
-	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
+	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
 
@@ -53,18 +53,27 @@ public class RPGGame implements KeyListener {
 	private boolean iVisible = false; // inventory visible
 
 	// these are getters for variables
-	public Player getPlayer() {
-		return this.player;
+	public static Player getPlayer() {
+		return RPGGame.player;
 	}
-
 	public Enemy getEnemy() {
 		return this.eNWIMN;
+	}
+	public static void setEnemyAttack(Attack atk) {
+		RPGGame.eAttack = atk;
+	}
+	
+	public static ArrayList<GameObject> getObjects() {
+		return RPGGame.objects;
+	}
+	public static ArrayList<Enemy> getEnemies() {
+		return RPGGame.enemies;
 	}
 
 	public void beginGame() {
 
 		player = new Player(50, 50, 50, 50);
-		eNWIMN = new Enemy(300, 300, 50, 50);
+		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50);
 		objects.addAll(m.getWalls());
 		objects.add(player);
 		objects.add(eNWIMN);
@@ -97,8 +106,8 @@ public class RPGGame implements KeyListener {
 					eAttack.draw(g);
 				}
 
-				g.drawString("Player health: " + player.getHealth(), 1100, 65);
-				g.drawString("Enemy health: " + eNWIMN.getHealth(), 1100, 85);
+				g.drawString("Player health: " + player.getHealth(), 675, 65);
+				g.drawString("Enemy health: " + eNWIMN.getHealth(), 675, 85);
 
 				g.setColor(new Color(255, 0, 0));
 				if (wallDamaged == true) {
@@ -161,7 +170,7 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				enemyMovement();
+				eNWIMN.autoMove();
 				collision();
 				ticks++;
 				/*if (ticks % 100 == 0) {
@@ -236,44 +245,6 @@ public class RPGGame implements KeyListener {
 		}
 		walls.removeAll(toRemove);
 
-	}
-
-	private void enemyMovement() {
-		// makes the enemy follow the player
-		for (Enemy e : enemies) {
-			objects.remove(e);
-			double x = 0, y = 0;
-			x = (player.getCX() - e.getCX());
-			y = (player.getCY() - e.getCY());
-			double mag = Math.sqrt(x * x + y * y);
-			x = (e).getSpeed() * x / mag;
-			y = (e).getSpeed() * y / mag;
-			if ((e).collides(player)) {
-				if (e.attack(ticks)) {
-					eAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int) x, (int) y, ticks,
-							"flame.png");
-				}
-			}
-			e.moveX(x);
-			e.moveY(y);
-			e.setRight(x);
-			e.setDown(y);
-
-			for (GameObject i : objects) {
-				if (e.collides(i) && (i instanceof Wall)) {
-					double dx = e.getCX() - i.getCX();
-					double dy = e.getCY() - i.getCY();
-					double m = Math.sqrt(dx * dx + dy * dy);
-					dx = ((Enemy) e).getSpeed() * dx / m;
-					dy = ((Enemy) e).getSpeed() * dy / m;
-					e.moveX(dx);
-					e.moveY(dy);
-				}
-
-			}
-			objects.add(e);
-
-		}
 	}
 
 	// this allows the player to be controlled by W A S D

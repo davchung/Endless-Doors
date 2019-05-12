@@ -42,4 +42,40 @@ public class Enemy extends GameObject {
 		if (RPGGame.ticks > getHittable())
 			super.moveY(howMuch);
 	}
+	protected void autoMove() {
+		// makes the enemy follow the player
+		for (Enemy e : RPGGame.getEnemies()) {
+			RPGGame.getObjects().remove(e);
+			double x = 0, y = 0;
+			x = (RPGGame.getPlayer().getCX() - e.getCX());
+			y = (RPGGame.getPlayer().getCY() - e.getCY());
+			double mag = Math.sqrt(x * x + y * y);
+			x = (e).getSpeed() * x / mag;
+			y = (e).getSpeed() * y / mag;
+			if ((e).collides(RPGGame.getPlayer())) {
+				if (e.attack(RPGGame.ticks)) {
+					RPGGame.setEnemyAttack(new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
+				}
+			}
+			e.moveX(x);
+			e.moveY(y);
+			e.setRight(x);
+			e.setDown(y);
+
+			for (GameObject i : RPGGame.getObjects()) {
+				if (e.collides(i) && (i instanceof Wall)) {
+					double dx = e.getCX() - i.getCX();
+					double dy = e.getCY() - i.getCY();
+					double m = Math.sqrt(dx * dx + dy * dy);
+					dx = ((Enemy) e).getSpeed() * dx / m;
+					dy = ((Enemy) e).getSpeed() * dy / m;
+					e.moveX(dx);
+					e.moveY(dy);
+				}
+
+			}
+			RPGGame.getObjects().add(e);
+
+		}
+	}
 }
