@@ -225,11 +225,6 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
-//		for (GameObject e : objects) {
-//			if (player.collides(e) && !e.throughable) {
-//				collision();
-//			}
-//		}
 		if (player.getHealth() <= 0) {
 			toRemove.add(player);
 			gameOver = true;

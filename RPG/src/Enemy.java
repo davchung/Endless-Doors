@@ -2,13 +2,13 @@ import java.awt.Graphics;
 
 public class Enemy extends GameObject {
 	
-	private static Animation run = new Animation("big_demon_idle", 4);
+	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
 	private double eSpeed = 1.5; // enemy speed
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, double w, double h) {
-		super(x, y, w, h, false, run.getFirst()); // uses GameObject's constructor #2
+		super(x, y, w, h, true, idle.getFirst()); // uses GameObject's constructor #2
 	}
 
 	// getters and setters are here
@@ -44,38 +44,38 @@ public class Enemy extends GameObject {
 	}
 	protected void autoMove() {
 		// makes the enemy follow the player
-		for (Enemy e : RPGGame.getEnemies()) {
-			RPGGame.getObjects().remove(e);
+			RPGGame.getObjects().remove(this);
 			double x = 0, y = 0;
-			x = (RPGGame.getPlayer().getCX() - e.getCX());
-			y = (RPGGame.getPlayer().getCY() - e.getCY());
+			x = (RPGGame.getPlayer().getCX() - this.getCX());
+			y = (RPGGame.getPlayer().getCY() - this.getCY());
+
 			double mag = Math.sqrt(x * x + y * y);
-			x = (e).getSpeed() * x / mag;
-			y = (e).getSpeed() * y / mag;
-			if ((e).collides(RPGGame.getPlayer())) {
-				if (e.attack(RPGGame.ticks)) {
-					RPGGame.setEnemyAttack(new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
+			x = this.getSpeed() * x / mag;
+			y = this.getSpeed() * y / mag;
+			if (this.collides(RPGGame.getPlayer())) {
+				if (this.attack(RPGGame.ticks)) {
+					RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + 25, (int) this.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
 				}
 			}
-			e.moveX(x);
-			e.moveY(y);
-			e.setRight(x);
-			e.setDown(y);
-
+			this.moveX(x);
+			this.moveY(y);
+			this.setRight(x);
+			this.setDown(y);
 			for (GameObject i : RPGGame.getObjects()) {
-				if (e.collides(i) && (i instanceof Wall)) {
-					double dx = e.getCX() - i.getCX();
-					double dy = e.getCY() - i.getCY();
+				if (this.collides(i) && (i instanceof Wall)) {
+					double dx = this.getCX() - i.getCX();
+					double dy = this.getCY() - i.getCY();
 					double m = Math.sqrt(dx * dx + dy * dy);
-					dx = ((Enemy) e).getSpeed() * dx / m;
-					dy = ((Enemy) e).getSpeed() * dy / m;
-					e.moveX(dx);
-					e.moveY(dy);
+					
+					dx = eSpeed * dx / m;
+					dy = eSpeed * dy / m;
+					this.moveX(dx);
+					this.moveY(dy);
 				}
 
 			}
-			RPGGame.getObjects().add(e);
+			RPGGame.getObjects().add(this);
 
-		}
+		
 	}
 }
