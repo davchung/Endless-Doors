@@ -71,7 +71,7 @@ public class RPGRunner implements KeyListener {
 						go.draw(g);
 					}
 				}
-
+				player.draw(g, facing);
 
 				if (playerAttack != null && !playerAttack.expire()) {
 					playerAttack.draw(g);
