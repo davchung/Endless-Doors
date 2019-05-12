@@ -13,7 +13,7 @@ public class Attack extends GameObject{
 	}
 
 	public boolean expire(){
-		if (rpgGame.ticks>expire) {
+		if (RPGGame.ticks>expire) {
 			return true;
 		}
 		return false;
