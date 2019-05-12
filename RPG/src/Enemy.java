@@ -52,14 +52,15 @@ public class Enemy extends GameObject {
 			double mag = Math.sqrt(x * x + y * y);
 			x = this.getSpeed() * x / mag;
 			y = this.getSpeed() * y / mag;
-			if (this.collides(RPGGame.getPlayer())) {
+			this.moveX(x);
+			this.moveY(y);
+			while (this.collides(RPGGame.getPlayer())) {
 				if (this.attack(RPGGame.ticks)) {
 					RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + 25, (int) this.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
 				}
+				this.moveX(-x/10);
+				this.moveY(-y/10);
 			}
-			this.moveX(x);
-			this.moveY(y);
-			System.out.println(x);
 			if (Math.abs(x)<eSpeed/8)
 				x=1;
 			this.setRight(x);
