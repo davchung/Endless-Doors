@@ -195,7 +195,7 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject e : objects) {
 
-			if (player.collides(e) && !e.throughable) {
+			while (player.collides(e) && !e.throughable) {
 				double dx = player.getCX() - e.getCX();
 				double dy = player.getCY() - e.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
@@ -225,11 +225,11 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
-		for (GameObject e : objects) {
-			if (player.collides(e) && !e.throughable) {
-				collision();
-			}
-		}
+//		for (GameObject e : objects) {
+//			if (player.collides(e) && !e.throughable) {
+//				collision();
+//			}
+//		}
 		if (player.getHealth() <= 0) {
 			toRemove.add(player);
 			gameOver = true;
