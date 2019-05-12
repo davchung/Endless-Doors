@@ -330,11 +330,15 @@ public class rpgGame implements KeyListener {
 		// pause button
 		if (keys.contains("p") || keys.contains("P")) {
 			pause();
+			if (helpPage)
+				helpPage = false;
 		}
 
 		// help button
 		if (keys.contains("?")) {
 			helpPage = !helpPage;
+			if (!helpPage)
+				pause();
 		}
 	}
 
