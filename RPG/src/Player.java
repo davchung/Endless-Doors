@@ -9,6 +9,7 @@ public class Player extends GameObject {
 	// constructor #1 for Player
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h, idle.getFirst(), true);
+		incrementHealth(20);
 	}
 
 	// setters are over here

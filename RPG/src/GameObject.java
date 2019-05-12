@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
-	private int health = 20;
+	private int health = 30;
 	private int damage = 10;
 
 	private Rectangle current;

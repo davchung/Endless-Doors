@@ -225,7 +225,7 @@ public class rpgGame implements KeyListener {
 			y = (e).getSpeed() * y / mag;
 			if ((e).collides(player)) {
 				if (e.attack(ticks)) {
-					eAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png", 50, 50);
+					eAttack = new Attack((int) e.getLocX() + 25, (int) e.getLocY() + 25, (int)x, (int)y, ticks, "ax.png");
 				}
 			}
 			e.moveX(x);
@@ -283,7 +283,7 @@ public class rpgGame implements KeyListener {
 			// this allows the J key to control attacking
 			if (keys.contains("j") || keys.contains("J")) {
 				if (player.attack(ticks)) {
-					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png", 50, 50);
+					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks, "sprites/weapon_golden_sword.png");
 				}
 			}
 

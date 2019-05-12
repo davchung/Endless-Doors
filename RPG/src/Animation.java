@@ -1,6 +1,6 @@
-import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class Animation {
 
@@ -8,6 +8,7 @@ public class Animation {
 	String path = "img/sprites/";
 	private BufferedImage[] anim;
 
+	// constructor #1 for Animation
 	public Animation(String name, int frames) {
 		path += name;
 		anim = new BufferedImage[frames];
