@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.print.Paper;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
@@ -19,7 +18,6 @@ public class RPGRunner implements KeyListener {
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private ArrayList<String> keys = new ArrayList<String>();
 	private Map m = new Map(10, 5);
-	//private Animation a = new Animation();
 	private Attack playerAttack;
 	private Attack enemyAttack;
 	// what direction the player was last facing
