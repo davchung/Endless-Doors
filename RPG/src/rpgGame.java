@@ -92,8 +92,8 @@ public class rpgGame implements KeyListener {
 					eAttack.draw(g);
 				}
 
-				g.drawString("Player health: " + player.getHealth(), 675, 65);
-				g.drawString("Enemy health: " + eNWIMN.getHealth(), 675, 85);
+				g.drawString("Player health: " + player.getHealth(), 1100, 65);
+				g.drawString("Enemy health: " + eNWIMN.getHealth(), 1100, 85);
 
 				g.setColor(new Color(255, 0, 0));
 				if (wallDamaged == true) {
