@@ -26,6 +26,7 @@ public class RPGGame implements KeyListener {
 	private Attack eAttack; // enemy attack
 	private Wall builtWall;
 
+	// these are all variables related to GUIs
 	private Inventory i = new Inventory(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 	private ItemShop iS = new ItemShop(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
@@ -42,8 +43,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
 
-	// these variables are all "switches" (imagine an on/off switch for a light
-	// bulb)
+	// these variables are all "switches" (imagine an on/off switch for a light bulb)
 	private boolean wallDamaged = false;
 	private boolean enemyHit = false;
 	private boolean playerHit = false;
@@ -83,15 +83,9 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				mainPanel.setBackground(new Color(150, 250, 150));
 
 				for (GameObject go : objects) {
 					go.draw(g);
-				}
-				for (GameObject go : objects) {
-					if (go instanceof Enemy) {
-						go.draw(g);
-					}
 				}
 				player.draw(g, facing);
 
@@ -151,6 +145,7 @@ public class RPGGame implements KeyListener {
 			}
 		};
 
+		mainPanel.setBackground(new Color(150, 250, 150));
 		// frame doesn't get minimized
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
@@ -361,7 +356,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// check inventory
-		if (keys.contains("e") || keys.contains("E")) {
+		if (keys.contains("i") || keys.contains("I")) {
 			iVisible = !iVisible;
 			if (!iVisible)
 				pause();
