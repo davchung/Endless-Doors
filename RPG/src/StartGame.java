@@ -6,9 +6,17 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 
+import  sun.audio.*;    //import the sun.audio package
+import  java.io.*;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,6 +32,18 @@ public class StartGame {
 	}
 
 	public void init() {
+		AudioInputStream audioIn;
+		try {
+			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/BGM.wav"));
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioIn);
+			clip.start();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		JFrame startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
