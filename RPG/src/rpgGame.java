@@ -167,6 +167,9 @@ public class rpgGame implements KeyListener {
 				enemyMovement();
 				collision();
 				ticks++;
+				if (ticks%100==0) {
+					System.out.println(ticks/100 + " second");
+				}
 			}
 
 		});
