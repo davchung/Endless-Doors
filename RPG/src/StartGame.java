@@ -42,8 +42,6 @@ public class StartGame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
 		JFrame startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
