@@ -194,19 +194,16 @@ public class RPGGame implements KeyListener {
 			builtWall = null;
 		}
 		for (GameObject e : objects) {
-			//if (player.equals(e) || pAttack != null && pAttack.equals(e))
-				//continue;
-//			if (player.collides(e) && !e.throughable) {
-//				double dx = player.getCX() - e.getCX();
-//				double dy = player.getCY() - e.getCY();
-//				double m = Math.sqrt(dx * dx + dy * dy);
-//				dx = pSpeed * dx / m;
-//				dy = pSpeed * dy / m;
-//				player.moveX(-player.getRight()/20);
-//				player.moveY(-player.getDown()/20);
-//				player.moveX(dx/20);
-//				player.moveY(dy/20);
-//			}
+
+			if (player.collides(e) && !e.throughable) {
+				double dx = player.getCX() - e.getCX();
+				double dy = player.getCY() - e.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = pSpeed * dx / m;
+				dy = pSpeed * dy / m;
+				player.moveX(dx/20);
+				player.moveY(dy/20);
+			}
 
 			// tests if any enemy collides with the pAttack
 			if (e instanceof Enemy) {
@@ -228,11 +225,11 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
-//		for (GameObject e : objects) {
-//			if (player.collides(e) && !e.throughable) {
-//				collision();
-//			}
-//		}
+		for (GameObject e : objects) {
+			if (player.collides(e) && !e.throughable) {
+				collision();
+			}
+		}
 		if (player.getHealth() <= 0) {
 			toRemove.add(player);
 			gameOver = true;
