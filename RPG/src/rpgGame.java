@@ -141,15 +141,16 @@ public class rpgGame implements KeyListener {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 20, 25);
 				}
-				if (gameOver == true) {
+				if (gameOver) {
 					g.setColor(new Color(255,0,0,255));
-					g.fillRect(0, 0, 1000, 925);
+					g.fillRect(0, 0, 1200, 800);
 
 					g.setColor(new Color(255, 255, 255));
 					g.setFont(new Font("Times New Roman", 0, 100));
 					g.drawString("Game Over!", 350, 350);
 					g.setFont(new Font("Times New Roman", 0, 40));
-					g.drawString("Press Space to return to start", 270, 600);
+					g.drawString("Press B to return to start", 400, 500);
+					g.drawString("Press N to start a new game", 380, 600);
 				}
 
 				if (iVisible == true) {
@@ -387,8 +388,10 @@ public class rpgGame implements KeyListener {
 		}
 		
 		// game over
-		if (gameOver && keys.contains(" "))
+		if (gameOver && (keys.contains("b")||keys.contains("B")))
 			new StartGame().init();
+		if(gameOver && (keys.contains("n")||keys.contains("N")))
+			new rpgGame().beginGame();
 	}
 
 	@Override
