@@ -8,6 +8,10 @@ public class Wall extends Environment {
 	public Wall(double x, double y, double w, double h, int health) {
 		super(x, y, w, h, false, "/sprites/wall_mid.png"); // uses Environment's constructor #1
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		this.health = health;
+>>>>>>> parent of bb8568c... Adjusted health for all gameobjects
 =======
 		this.health = health;
 >>>>>>> parent of bb8568c... Adjusted health for all gameobjects
