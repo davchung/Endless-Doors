@@ -18,6 +18,8 @@ public class Map {
 	public static final int WALL_WIDTH = 50;
 	public static final int WALL_HEIGHT = 50;
 	int numberOfRooms;
+	
+	private int[][] quadII = new int[16][16];
 
 	public Map(int env, int chest) {
 		walls = new ArrayList<Wall>();
@@ -30,9 +32,48 @@ public class Map {
 		getAllImg();
 		getAllRooms();
 		randomRoom = (int) (Math.random() * numberOfRooms);
-		putWalls();
+		
+		fillQuadII();
+		makeWalls(quadII);
+	}
+	
+	private void placeHorizontally(int[][] outline, int row, int start, int end) {
+		for (int c = start; c < end + 1; c++) {
+			outline[row][c] = 1;
+		}
+	}
+	
+	private void placeVertically(int[][] outline, int col, int start, int end) {
+		for (int r = start; r < end + 1; r++) {
+			outline[r][col] = 1;
+		}
 	}
 
+	private void fillQuadII() {
+		placeHorizontally(quadII, 0, 0, 15);
+		placeHorizontally(quadII, 5, 6, 9);
+		placeHorizontally(quadII, 10, 6, 9);
+		placeVertically(quadII, 0, 0, 15);
+		placeVertically(quadII, 2, 3, 13);
+		placeVertically(quadII, 13, 3, 13);
+		placeVertically(quadII, 5, 5, 10);
+		placeVertically(quadII, 10, 5, 10);
+		quadII[7][5] = 0;
+		quadII[8][5] = 0;
+		quadII[7][10] = 0;
+		quadII[8][10] = 0;
+	}
+	
+	private void makeWalls(int[][] outline) {
+		for (int r = 0; r < outline.length; r++) {
+			for (int c = 0; c < outline[r].length; c++) {
+				if (outline[r][c] == 1) {
+					walls.add(new Wall(c * 50, r * 50, WALL_WIDTH, WALL_HEIGHT));
+				}
+			}
+		}
+	}
+	
 	private void getAllRooms() {
 		for (final File f : roomDir.listFiles()) {// every file in randimg folder
 			numberOfRooms++;
@@ -41,19 +82,6 @@ public class Map {
 			} catch (final IOException e) {
 			}
 		}
-	}
-
-	private void putWalls() {
-		for (int x = 0; x < rooms.get(randomRoom).getWidth(); x += WALL_WIDTH) {
-			for (int y = 0; y < rooms.get(randomRoom).getHeight(); y += WALL_HEIGHT) {
-				int c = rooms.get(randomRoom).getRGB(x, y);
-				Color color = new Color(c);
-				if (color.getBlue() == 0 && color.getRed() == 0 && color.getGreen() == 0) {
-					walls.add(new Wall(x, y, WALL_WIDTH, WALL_HEIGHT));
-				}
-			}
-		}
-
 	}
 
 	private void getAllImg() {
