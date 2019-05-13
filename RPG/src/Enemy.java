@@ -4,13 +4,12 @@ public class Enemy extends GameObject {
 	
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
-	private static int baseHealth = 10;
 	private double eSpeed = 1.5; // enemy speed
 	private int cooldown=0;
 
 	// constructor #1 for Enemy
-	public Enemy(double x, double y, double w, double h, int level) {
-		super(x, y, w, h, true, baseHealth + level *10, idle.getFirst()); // uses GameObject's constructor #2
+	public Enemy(double x, double y, double w, double h) {
+		super(x, y, w, h, true, idle.getFirst()); // uses GameObject's constructor #2
 	}
 
 	// getters and setters are here

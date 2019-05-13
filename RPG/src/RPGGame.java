@@ -179,7 +179,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
+		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50);
 		for (GameObject w : objects) {
 			if (w instanceof Wall && eNWIMN.collides(w)) {
 				System.out.println("collided");

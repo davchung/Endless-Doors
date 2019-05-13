@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
-	private int health;
+	private int health = 30;
 	private int damage = 10;
 
 	private Rectangle current;
@@ -23,24 +23,22 @@ public abstract class GameObject {
 	public boolean throughable;
 
 	// constructor #1 for GameObject
-	public GameObject(double x, double y, double w, double h, boolean through, int startingHealth, String s) {
+	public GameObject(double x, double y, double w, double h, boolean through, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		throughable = through;
-		health = startingHealth;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 	// constructor #2 for GameObject
-	public GameObject(double x, double y, double w, double h, boolean through, int startingHealth, BufferedImage i) {
+	public GameObject(double x, double y, double w, double h, boolean through, BufferedImage i) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		throughable = through;
-		health = startingHealth;
 		image = i;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}

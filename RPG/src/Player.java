@@ -2,14 +2,12 @@ import java.awt.Graphics;
 
 public class Player extends GameObject {
 
-	private static int playerHealth = 50;
-
 	private static Animation run = new Animation("knight_f_run",4);
 	private static Animation idle = new Animation("knight_f_idle",4);
 
 	// constructor #1 for Player
 	public Player(double x, double y, double w, double h) {
-		super(x, y, w, h, true, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
+		super(x, y, w, h, true, idle.getFirst()); // uses GameObject's constructor #2
 		incrementHealth(20);
 	}
 
