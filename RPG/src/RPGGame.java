@@ -181,7 +181,7 @@ public class RPGGame implements KeyListener {
 	private void checkSpawns() {
 		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50);
 		for (GameObject w : objects) {
-			if (w instanceof Wall&&eNWIMN.collides(w)) {
+			if (w instanceof Wall && eNWIMN.collides(w)) {
 				System.out.println("collided");
 				checkSpawns();
 				return;
@@ -347,8 +347,10 @@ public class RPGGame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (!keys.contains("" + e.getKeyChar())) {
-			keys.add("" + e.getKeyChar());
+		String lower = "" + e.getKeyChar();
+		lower = lower.toLowerCase();
+		if (!keys.contains(lower)) {
+			keys.add(lower);
 		}
 
 		// pause button
@@ -356,7 +358,6 @@ public class RPGGame implements KeyListener {
 			pause();
 			if (helpPage)
 				helpPage = false;
-			keys.removeAll(objects);
 		}
 
 		// help button
@@ -364,7 +365,6 @@ public class RPGGame implements KeyListener {
 			helpPage = !helpPage;
 			if (!helpPage)
 				pause();
-			keys.removeAll(objects);
 		}
 
 		// check inventory
@@ -372,7 +372,6 @@ public class RPGGame implements KeyListener {
 			iVisible = !iVisible;
 			if (!iVisible)
 				pause();
-			keys.removeAll(objects);
 		}
 
 		// game over
@@ -385,8 +384,10 @@ public class RPGGame implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (keys.contains("" + e.getKeyChar())) {
-			keys.remove("" + e.getKeyChar());
+		String lower = "" + e.getKeyChar();
+		lower = lower.toLowerCase();
+		if (keys.contains(lower)) {
+			keys.remove(lower);
 		}
 	}
 
