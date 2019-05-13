@@ -69,7 +69,7 @@ public class StartGame {
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		startFrame.add(startPanel);
 		// frame gets placed a little way from top and left side
-		startFrame.setLocation(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
+		startFrame.setLocation(7*SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
 		startFrame.pack();
 		startFrame.setVisible(true);
 

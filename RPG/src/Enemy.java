@@ -5,6 +5,7 @@ public class Enemy extends GameObject {
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
 	private double eSpeed = 1.5; // enemy speed
+	private int cooldown=0;
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, double w, double h) {
@@ -55,7 +56,6 @@ public class Enemy extends GameObject {
 			this.moveX(x);
 			this.moveY(y);
 			while (this.collides(RPGGame.getPlayer())) {
-				
 				this.moveX(-x/10);
 				this.moveY(-y/10);
 			}
@@ -81,5 +81,12 @@ public class Enemy extends GameObject {
 			RPGGame.getObjects().add(this);
 
 		
+	}
+	@Override
+	public boolean attack(int ticks) {
+		if (cooldown >= ticks)
+			return false;
+		cooldown = ticks + 80;
+		return true;
 	}
 }
