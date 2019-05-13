@@ -363,8 +363,8 @@ public class RPGGame implements KeyListener {
 		// help button
 		if (keys.contains("?")) {
 			helpPage = !helpPage;
-			if (!helpPage)
-				pause();
+			mainPanel.repaint();
+			pause();
 		}
 
 		// check inventory
