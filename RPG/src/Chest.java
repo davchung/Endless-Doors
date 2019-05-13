@@ -4,7 +4,7 @@ public class Chest extends GameObject{
 	private double amountOfGold;
 
 	public Chest(double x, double y, double w, double h, double gold) {
-		super(x, y, w, h, false, Integer.MAX_VALUE, "chest.png");
+		super(x, y, w, h, false, Integer.MAX_VALUE, "Sprites/chest_empty_open_anim_f0.png");
 		setAmountOfGold(gold);
 	}
 
