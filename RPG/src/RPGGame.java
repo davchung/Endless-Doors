@@ -299,7 +299,7 @@ public class RPGGame implements KeyListener {
 
 			// this allows the J key to control attacking
 			if (keys.contains("j") || keys.contains("J")) {
-				if (player.attack(ticks)) {
+				if (player.attack(40)) {
 					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks,
 							"sprites/weapon_golden_sword.png");
 				}

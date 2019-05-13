@@ -145,14 +145,15 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable) {
 			health -= damage;
 			hittable = RPGGame.ticks + 26;
+			cooldown +=26;
 			return;
 		}
 	}
 
 	public boolean attack(int ticks) {
-		if (cooldown >= ticks)
+		if (cooldown >= RPGGame.ticks)
 			return false;
-		cooldown = ticks + 40;
+		cooldown = RPGGame.ticks + ticks;
 		return true;
 	}
 	

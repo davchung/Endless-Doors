@@ -59,7 +59,7 @@ public class Enemy extends GameObject {
 				this.moveX(-x/10);
 				this.moveY(-y/10);
 			}
-			if (this.attack(RPGGame.ticks)) {
+			if (this.attack(80)) {
 				RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + 25, (int) this.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
 			}
 			if (Math.abs(x)<eSpeed/8)
@@ -82,11 +82,5 @@ public class Enemy extends GameObject {
 
 		
 	}
-	@Override
-	public boolean attack(int ticks) {
-		if (cooldown >= ticks)
-			return false;
-		cooldown = ticks + 80;
-		return true;
-	}
+	
 }
