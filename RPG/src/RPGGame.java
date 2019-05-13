@@ -46,7 +46,8 @@ public class RPGGame implements KeyListener {
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<Wall> damagedWalls = new ArrayList<Wall>();
 
-	// these variables are all "switches" (imagine an on/off switch for a light bulb)
+	// these variables are all "switches" (imagine an on/off switch for a light
+	// bulb)
 	private boolean wallDamaged = false;
 	private boolean enemyHit = false;
 	private boolean playerHit = false;
@@ -58,9 +59,11 @@ public class RPGGame implements KeyListener {
 	public static Player getPlayer() {
 		return RPGGame.player;
 	}
+
 	public Enemy getEnemy() {
 		return this.eNWIMN;
 	}
+
 	public static void setEnemyAttack(Attack atk) {
 		RPGGame.eAttack = atk;
 	}
@@ -68,20 +71,18 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
+
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
 	}
 
 	public void beginGame() {
-
 		player = new Player(50, 50, 50, 50);
-		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50);
 		objects.addAll(m.getWalls());
 		objects.add(player);
+		checkSpawns();
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
-
-
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -154,7 +155,7 @@ public class RPGGame implements KeyListener {
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(7*StartGame.SCREEN_WIDTH/10, StartGame.SCREEN_HEIGHT / 10);
+		mainFrame.setLocation(7 * StartGame.SCREEN_WIDTH / 10, StartGame.SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
@@ -168,22 +169,36 @@ public class RPGGame implements KeyListener {
 				movement();
 				collision();
 				ticks++;
-				/*if (ticks % 100 == 0) {
-					System.out.println(ticks / 100 + " second");
-				}*/
+				/*
+				 * if (ticks % 100 == 0) { System.out.println(ticks / 100 + " second"); }
+				 */
 			}
 
 		});
 		timer.start();
 	}
 
+	private void checkSpawns() {
+		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50);
+		for (GameObject w : objects) {
+			if (w instanceof Wall&&eNWIMN.collides(w)) {
+				System.out.println("collided");
+				checkSpawns();
+				return;
+			}
+		}
+		System.out.println("no problems");
+		System.out.println(eNWIMN);
+	}
+
 	protected void movement() {
-		for (Object enemy:objects) {
+		for (Object enemy : objects) {
 			if (enemy instanceof Enemy)
 				((Enemy) enemy).autoMove();
 		}
-		
+
 	}
+
 	protected void collision() {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
 		if (pAttack != null && pAttack.expire()) {
@@ -203,8 +218,8 @@ public class RPGGame implements KeyListener {
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = pSpeed * dx / m;
 				dy = pSpeed * dy / m;
-				player.moveX(dx/20);
-				player.moveY(dy/20);
+				player.moveX(dx / 10);
+				player.moveY(dy / 10);
 			}
 
 			// tests if any enemy collides with the pAttack
@@ -246,9 +261,10 @@ public class RPGGame implements KeyListener {
 		walls.removeAll(toRemove);
 
 	}
+
 	private boolean wallCollision(GameObject object) {
-		for (GameObject wall:objects) {
-			if (wall instanceof Wall&&object.collides(wall))
+		for (GameObject wall : objects) {
+			if (wall instanceof Wall && object.collides(wall))
 				return true;
 		}
 		return false;
@@ -262,29 +278,29 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("w") || keys.contains("W")) {
 				player.moveY(-pSpeed);
 				down -= 1;
-				while(wallCollision(player)) {
-					player.moveY(pSpeed/20);
+				while (wallCollision(player)) {
+					player.moveY(pSpeed / 20);
 				}
 			}
 			if (keys.contains("a") || keys.contains("A")) {
 				player.moveX(-pSpeed);
 				right -= 1;
-				while(wallCollision(player)) {
-					player.moveX(pSpeed/20);
+				while (wallCollision(player)) {
+					player.moveX(pSpeed / 20);
 				}
 			}
 			if (keys.contains("s") || keys.contains("S")) {
 				player.moveY(pSpeed);
 				down += 1;
-				while(wallCollision(player)) {
-					player.moveY(-pSpeed/20);
+				while (wallCollision(player)) {
+					player.moveY(-pSpeed / 20);
 				}
 			}
 			if (keys.contains("d") || keys.contains("D")) {
 				player.moveX(pSpeed);
 				right += 1;
-				while(wallCollision(player)) {
-					player.moveX(-pSpeed/20);
+				while (wallCollision(player)) {
+					player.moveX(-pSpeed / 20);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -320,7 +336,6 @@ public class RPGGame implements KeyListener {
 			}
 		}
 	}
-
 
 	public static void pause() {
 		if (timer.isRunning()) {

@@ -59,27 +59,37 @@ public class Enemy extends GameObject {
 				this.moveX(-x/10);
 				this.moveY(-y/10);
 			}
+			this.setRight(x);
+			if (Math.abs(x)<eSpeed/8)
+				this.setRight(1);
+			this.setDown(y);
+			wallCollision();
 			if (this.attack(80)) {
 				RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + 25, (int) this.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
 			}
-			if (Math.abs(x)<eSpeed/8)
-				x=1;
-			this.setRight(x);
-			this.setDown(y);
-			for (GameObject i : RPGGame.getObjects()) {
-				if (this.collides(i) && (i instanceof Wall)) {
-					double dx = this.getCX() - i.getCX();
-					double dy = this.getCY() - i.getCY();
-					double m = Math.sqrt(dx * dx + dy * dy);
-					dx = eSpeed * dx / m;
-					dy = eSpeed * dy / m;
-					this.moveX(dx);
-					this.moveY(dy);
-				}
-
-			}
 			RPGGame.getObjects().add(this);
+	}
 
+	private void wallCollision() {
+		int runs=0;
+		for (GameObject i : RPGGame.getObjects()) {
+			if (this.collides(i) && (i instanceof Wall)) {
+				double dx = this.getCX() - i.getCX();
+				double dy = this.getCY() - i.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = eSpeed * dx / m;
+				dy = eSpeed * dy / m;
+				this.moveX(dx/10);
+				this.moveY(dy/10);
+			}
+
+		}
+		for (GameObject i : RPGGame.getObjects()) {
+			if (this.collides(i) && (i instanceof Wall)&&runs<100) {
+				runs++;
+				wallCollision();
+			}
+		}
 		
 	}
 	
