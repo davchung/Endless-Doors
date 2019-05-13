@@ -14,7 +14,6 @@ public class RPGGame implements KeyListener {
 	public static int ticks = 0;
 
 	// these are all variables that are involved with playing the game
-	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
 	private int gameLevel = 1;
 	private static Knight knight;
 	private double pSpeed = 3.0; // player speed
