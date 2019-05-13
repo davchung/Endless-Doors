@@ -12,16 +12,14 @@ public class RPGGame implements KeyListener {
 	private static Timer timer;
 	private static final int REFRESH_RATE = 10;
 	public static int ticks = 0;
-	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	// these are all variables that are involved with playing the game
-	private static Player player;
+	private static Knight knight;
 	private double pSpeed = 3.0; // player speed
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	// kindly refrain from changing this enemy's name
-	private Enemy eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
-	private Enemy smarterE; // "smarter enemy" this part is a work in progress
+	private Demon eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
 	private Map m = new Map(10, 5);
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
@@ -36,8 +34,8 @@ public class RPGGame implements KeyListener {
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
+	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
+			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -56,11 +54,11 @@ public class RPGGame implements KeyListener {
 	private boolean iVisible = false; // inventory visible
 
 	// these are getters for variables
-	public static Player getPlayer() {
-		return RPGGame.player;
+	public static Knight getKnight() {
+		return RPGGame.knight;
 	}
 
-	public Enemy getEnemy() {
+	public Demon getDemon() {
 		return this.eNWIMN;
 	}
 
@@ -77,9 +75,9 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		player = new Player(50, 50, 50, 50);
+		knight = new Knight(50, 50, 50, 50);
 		objects.addAll(m.getWalls());
-		objects.add(player);
+		objects.add(knight);
 		checkSpawns();
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
@@ -100,7 +98,7 @@ public class RPGGame implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
-				player.draw(g, facing);
+				knight.draw(g, facing);
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
@@ -109,7 +107,7 @@ public class RPGGame implements KeyListener {
 					eAttack.draw(g);
 				}
 
-				g.drawString("Player health: " + player.getHealth(), 675, 65);
+				g.drawString("Knight health: " + knight.getHealth(), 675, 65);
 				g.drawString("Enemy health: " + eNWIMN.getHealth(), 675, 85);
 
 				g.setColor(new Color(255, 0, 0));
@@ -122,13 +120,13 @@ public class RPGGame implements KeyListener {
 				}
 				if (enemyHit == true) {
 					if (eNWIMN.getHealth() > 0) {
-						g.drawString("-" + player.getDamage(), (int) eNWIMN.getCX() - 5, (int) eNWIMN.getCY());
+						g.drawString("-" + knight.getDamage(), (int) eNWIMN.getCX() - 5, (int) eNWIMN.getCY());
 					}
 					enemyHit = false;
 				}
 				if (playerHit == true) {
-					if (player.getHealth() > 0) {
-						g.drawString("-" + eNWIMN.getDamage(), (int) player.getCX() - 5, (int) player.getCY());
+					if (knight.getHealth() > 0) {
+						g.drawString("-" + eNWIMN.getDamage(), (int) knight.getCX() - 5, (int) knight.getCY());
 					}
 					playerHit = false;
 				}
@@ -155,7 +153,7 @@ public class RPGGame implements KeyListener {
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(7 * StartGame.SCREEN_WIDTH / 10, StartGame.SCREEN_HEIGHT / 10);
+		mainFrame.setLocation(3 * StartGame.SCREEN_WIDTH / 10, 1 * StartGame.SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
@@ -169,9 +167,6 @@ public class RPGGame implements KeyListener {
 				movement();
 				collision();
 				ticks++;
-				/*
-				 * if (ticks % 100 == 0) { System.out.println(ticks / 100 + " second"); }
-				 */
 			}
 
 		});
@@ -179,7 +174,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
+		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
 		for (GameObject w : objects) {
 			if (w instanceof Wall && eNWIMN.collides(w)) {
 				System.out.println("collided");
@@ -212,14 +207,14 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject e : objects) {
 
-			while (player.collides(e) && !e.throughable) {
-				double dx = player.getCX() - e.getCX();
-				double dy = player.getCY() - e.getCY();
+			while (knight.collides(e) && !e.throughable) {
+				double dx = knight.getCX() - e.getCX();
+				double dy = knight.getCY() - e.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = pSpeed * dx / m;
 				dy = pSpeed * dy / m;
-				player.moveX(dx / 10);
-				player.moveY(dy / 10);
+				knight.moveX(dx / 10);
+				knight.moveY(dy / 10);
 			}
 
 			// tests if any enemy collides with the pAttack
@@ -227,7 +222,7 @@ public class RPGGame implements KeyListener {
 				if (((Enemy) e).getHealth() <= 0)
 					toRemove.add(e);
 				if (pAttack != null && pAttack.collides(e)) {
-					((Enemy) e).hit(player.getDamage());
+					((Enemy) e).hit(knight.getDamage());
 					enemyHit = true;
 				}
 			}
@@ -242,13 +237,13 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
-		if (player.getHealth() <= 0) {
-			toRemove.add(player);
+		if (knight.getHealth() <= 0) {
+			toRemove.add(knight);
 			gameOver = true;
 			pause();
 		}
-		if (eAttack != null && eAttack.collides(player)) {
-			player.hit(eNWIMN.getDamage());
+		if (eAttack != null && eAttack.collides(knight)) {
+			knight.hit(eNWIMN.getDamage());
 			playerHit = true;
 		}
 		objects.removeAll(toRemove);
@@ -275,32 +270,32 @@ public class RPGGame implements KeyListener {
 	private void controls() {
 		int down = 0, right = 0;
 		if (pAttack == null && builtWall == null) {
-			if (keys.contains("w") || keys.contains("W")) {
-				player.moveY(-pSpeed);
+			if (keys.contains("w")) {
+				knight.moveY(-pSpeed);
 				down -= 1;
-				while (wallCollision(player)) {
-					player.moveY(pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveY(pSpeed / 20);
 				}
 			}
-			if (keys.contains("a") || keys.contains("A")) {
-				player.moveX(-pSpeed);
+			if (keys.contains("a")) {
+				knight.moveX(-pSpeed);
 				right -= 1;
-				while (wallCollision(player)) {
-					player.moveX(pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveX(pSpeed / 20);
 				}
 			}
-			if (keys.contains("s") || keys.contains("S")) {
-				player.moveY(pSpeed);
+			if (keys.contains("s")) {
+				knight.moveY(pSpeed);
 				down += 1;
-				while (wallCollision(player)) {
-					player.moveY(-pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveY(-pSpeed / 20);
 				}
 			}
-			if (keys.contains("d") || keys.contains("D")) {
-				player.moveX(pSpeed);
+			if (keys.contains("d")) {
+				knight.moveX(pSpeed);
 				right += 1;
-				while (wallCollision(player)) {
-					player.moveX(-pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveX(-pSpeed / 20);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -310,28 +305,28 @@ public class RPGGame implements KeyListener {
 			if (right != 0) {
 				facing = right;
 			}
-			player.setRight(right);
-			player.setDown(down);
+			knight.setRight(right);
+			knight.setDown(down);
 
-			// this allows the J key to control attacking
-			if (keys.contains("j") || keys.contains("J")) {
-				if (player.attack(40)) {
-					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks,
+			// this allows the j key to control attacking
+			if (keys.contains("j")) {
+				if (knight.attack(40)) {
+					pAttack = new Attack((int) knight.getLocX() + 25, (int) knight.getLocY() + 25, lastR, lastD, ticks,
 							"sprites/weapon_golden_sword.png");
 				}
 			}
 
-			// this allows the lowercase k key to control building walls
+			// this allows the k key to control building walls
 			if (keys.contains("k")) {
-				if (player.build(ticks) && i.numWalls > 0) {
-					builtWall = new Wall(player.getLocX() - (50 * lastR), player.getLocY() - (50 * lastD), 50, 50, 100);
+				if (knight.build(ticks) && i.numWalls > 0) {
+					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), Map.WALL_WIDTH, Map.WALL_HEIGHT);
 					i.removeWalls(1);
 					objects.add(builtWall);
 				}
 			}
 
-			// this allows the uppercase K key to control placing bombs
-			if (keys.contains("K")) {
+			// this allows the l key to control placing bombs
+			if (keys.contains("l")) {
 				// to be implemented later on
 			}
 		}
@@ -354,7 +349,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// pause button
-		if (keys.contains("p") || keys.contains("P")) {
+		if (keys.contains("p")) {
 			pause();
 			if (helpPage)
 				helpPage = false;
@@ -368,14 +363,14 @@ public class RPGGame implements KeyListener {
 		}
 
 		// check inventory
-		if (keys.contains("i") || keys.contains("I")) {
+		if (keys.contains("i")) {
 			iVisible = !iVisible;
 			if (!iVisible)
 				pause();
 		}
 
 		// game over
-		if (gameOver && (keys.contains("b") || keys.contains("B"))) {
+		if (gameOver && (keys.contains("b"))) {
 			new StartGame().init();
 			mainFrame.setVisible(false);
 			mainFrame.setEnabled(false);

@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class Player extends GameObject {
+public abstract class Player extends GameObject {
 
 	private static int playerHealth = 50;
 
@@ -27,7 +27,7 @@ public class Player extends GameObject {
 	}
 	@Override
 	public void draw(Graphics g) {
-		//putting this here to prevent graphics from drawing player when running through all GameObjects
+		//putting this here to prevent graphics from drawing Player when running through all GameObjects
 	}
 
 	// this will allow Player to "build" a wall

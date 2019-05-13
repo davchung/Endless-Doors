@@ -13,13 +13,13 @@ public class GameOver extends GameGui {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(new Color(255, 0, 0, 255));
-		g.fillRect(0, 0, 1200, 800);
+		g.setColor(new Color(255, 0, 0));
+		super.draw(g);;
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Times New Roman", 0, 100));
-		g.drawString("Game Over!", 350, 350);
-		g.setFont(new Font("Times New Roman", 0, 40));
-		g.drawString("Press B to return to start.", 400, 500);
+		g.setFont(new Font("Times New Roman", 0, 99));
+		g.drawString("Game Over!", StartGame.SCREEN_WIDTH * 2 / 10, StartGame.SCREEN_HEIGHT * 4 / 10);
+		g.setFont(new Font("Times New Roman", 0, 41));
+		g.drawString("Press B to return to start.", StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 6 / 10);
 	}
 }
