@@ -5,11 +5,7 @@ public class Attack extends GameObject{
 	
 	public Attack (int x, int y, int right, int down, int ticks, String s) {
 <<<<<<< HEAD
-<<<<<<< HEAD
 		super(x ,y, 50, 50, true, Integer.MAX_VALUE, s); // uses GameObject's constructor #1
-=======
-		super(x ,y, 50, 50, true, s); // uses GameObject's constructor #1
->>>>>>> parent of bb8568c... Adjusted health for all gameobjects
 =======
 		super(x ,y, 50, 50, true, s); // uses GameObject's constructor #1
 >>>>>>> parent of bb8568c... Adjusted health for all gameobjects
