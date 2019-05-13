@@ -29,7 +29,7 @@ public class StartGame {
 
 	public void init() {
 
-		try {
+		try { 
 			AudioInputStream audioIn;
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
 			Clip clip = AudioSystem.getClip();

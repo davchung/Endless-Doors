@@ -14,6 +14,8 @@ public class RPGGame implements KeyListener {
 	public static int ticks = 0;
 
 	// these are all variables that are involved with playing the game
+	private ArrayList<GameObject> gameObjectList = new ArrayList<GameObject>();
+	private int gameLevel = 1;
 	private static Knight knight;
 	private double pSpeed = 3.0; // player speed
 	private int lastR, lastD; // last direction the player was facing
@@ -75,6 +77,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
+		gameLevel = 1;
 		knight = new Knight(50, 50, 50, 50);
 		objects.addAll(m.getWalls());
 		objects.add(knight);
@@ -371,7 +374,9 @@ public class RPGGame implements KeyListener {
 
 		// game over
 		if (gameOver && (keys.contains("b"))) {
-			new StartGame().init();
+			objects.clear();
+			enemies.clear();
+			new RPGGame().beginGame();
 			mainFrame.setVisible(false);
 			mainFrame.setEnabled(false);
 		}
