@@ -20,8 +20,7 @@ public class RPGGame implements KeyListener {
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	// kindly refrain from changing this enemy's name
-	private Enemy eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
-	private Enemy smarterE; // "smarter enemy" this part is a work in progress
+	private Demon eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
 	private Map m = new Map(10, 5);
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
@@ -60,7 +59,7 @@ public class RPGGame implements KeyListener {
 		return RPGGame.knight;
 	}
 
-	public Enemy getEnemy() {
+	public Demon getDemon() {
 		return this.eNWIMN;
 	}
 
@@ -179,7 +178,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		eNWIMN = new Enemy(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
+		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
 		for (GameObject w : objects) {
 			if (w instanceof Wall && eNWIMN.collides(w)) {
 				System.out.println("collided");
@@ -275,28 +274,28 @@ public class RPGGame implements KeyListener {
 	private void controls() {
 		int down = 0, right = 0;
 		if (pAttack == null && builtWall == null) {
-			if (keys.contains("w") || keys.contains("W")) {
+			if (keys.contains("w")) {
 				knight.moveY(-pSpeed);
 				down -= 1;
 				while (wallCollision(knight)) {
 					knight.moveY(pSpeed / 20);
 				}
 			}
-			if (keys.contains("a") || keys.contains("A")) {
+			if (keys.contains("a")) {
 				knight.moveX(-pSpeed);
 				right -= 1;
 				while (wallCollision(knight)) {
 					knight.moveX(pSpeed / 20);
 				}
 			}
-			if (keys.contains("s") || keys.contains("S")) {
+			if (keys.contains("s")) {
 				knight.moveY(pSpeed);
 				down += 1;
 				while (wallCollision(knight)) {
 					knight.moveY(-pSpeed / 20);
 				}
 			}
-			if (keys.contains("d") || keys.contains("D")) {
+			if (keys.contains("d")) {
 				knight.moveX(pSpeed);
 				right += 1;
 				while (wallCollision(knight)) {
@@ -313,15 +312,15 @@ public class RPGGame implements KeyListener {
 			knight.setRight(right);
 			knight.setDown(down);
 
-			// this allows the J key to control attacking
-			if (keys.contains("j") || keys.contains("J")) {
+			// this allows the j key to control attacking
+			if (keys.contains("j")) {
 				if (knight.attack(40)) {
 					pAttack = new Attack((int) knight.getLocX() + 25, (int) knight.getLocY() + 25, lastR, lastD, ticks,
 							"sprites/weapon_golden_sword.png");
 				}
 			}
 
-			// this allows the lowercase k key to control building walls
+			// this allows the k key to control building walls
 			if (keys.contains("k")) {
 				if (knight.build(ticks) && i.numWalls > 0) {
 					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), 50, 50, 100);
@@ -330,8 +329,8 @@ public class RPGGame implements KeyListener {
 				}
 			}
 
-			// this allows the uppercase K key to control placing bombs
-			if (keys.contains("K")) {
+			// this allows the l key to control placing bombs
+			if (keys.contains("l")) {
 				// to be implemented later on
 			}
 		}
@@ -354,7 +353,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// pause button
-		if (keys.contains("p") || keys.contains("P")) {
+		if (keys.contains("p")) {
 			pause();
 			if (helpPage)
 				helpPage = false;
@@ -368,14 +367,14 @@ public class RPGGame implements KeyListener {
 		}
 
 		// check inventory
-		if (keys.contains("i") || keys.contains("I")) {
+		if (keys.contains("i")) {
 			iVisible = !iVisible;
 			if (!iVisible)
 				pause();
 		}
 
 		// game over
-		if (gameOver && (keys.contains("b") || keys.contains("B"))) {
+		if (gameOver && (keys.contains("b"))) {
 			new StartGame().init();
 			mainFrame.setVisible(false);
 			mainFrame.setEnabled(false);

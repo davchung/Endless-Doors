@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class Enemy extends GameObject {
+public abstract class Enemy extends GameObject {
 	
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
