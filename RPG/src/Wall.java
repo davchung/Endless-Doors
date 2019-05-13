@@ -2,7 +2,7 @@
 public class Wall extends Environment {
 
 	private static int health = 20;
-	public int getHealth() { return this.health; }
+	public int getHealth() { return Wall.health; }
 	private int hittable = 0;
 
 	public Wall(double x, double y, double w, double h, int health) {

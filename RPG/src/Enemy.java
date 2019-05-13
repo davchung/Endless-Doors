@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 
 public abstract class Enemy extends GameObject {
-	
+
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
 	private static int baseHealth = 10;
@@ -46,32 +46,22 @@ public abstract class Enemy extends GameObject {
 	}
 	protected void autoMove() {
 		// makes the enemy follow the player
-			RPGGame.getObjects().remove(this);
-			double x = 0, y = 0;
-			x = (RPGGame.getKnight().getCX() - this.getCX());
-			y = (RPGGame.getKnight().getCY() - this.getCY());
-
-			double mag = Math.sqrt(x * x + y * y);
-			x = this.getSpeed() * x / mag;
-			y = this.getSpeed() * y / mag;
-			this.moveX(x);
-			this.moveY(y);
-			while (this.collides(RPGGame.getKnight())) {
-				this.moveX(-x/10);
-				this.moveY(-y/10);
-			}
-			this.setRight(x);
-			if (Math.abs(x)<eSpeed/8)
-				this.setRight(1);
-			this.setDown(y);
-			wallCollision();
-			if (this.attack(80)) {
-				RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + 25, (int) this.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
-			}
-			RPGGame.getObjects().add(this);
+		double x = 0, y = 0;
+		if (this.getLocX() - RPGGame.getKnight().getLocX() > 0) {
+			x = -this.getSpeed();
+		} else {
+			x = this.getSpeed();
+		}
+		if (this.getLocY() - RPGGame.getKnight().getLocY() > 0) {
+			y = -this.getSpeed();
+		} else {
+			y = this.getSpeed();
+		}
+		moveX(x);
+		moveY(y);
 	}
 
-	private void wallCollision() {
+	protected void wallCollision() {
 		int runs=0;
 		for (GameObject i : RPGGame.getObjects()) {
 			if (this.collides(i) && (i instanceof Wall)) {
@@ -91,7 +81,7 @@ public abstract class Enemy extends GameObject {
 				wallCollision();
 			}
 		}
-		
+
 	}
-	
+
 }

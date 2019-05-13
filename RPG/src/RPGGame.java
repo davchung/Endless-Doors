@@ -12,7 +12,6 @@ public class RPGGame implements KeyListener {
 	private static Timer timer;
 	private static final int REFRESH_RATE = 10;
 	public static int ticks = 0;
-	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	// these are all variables that are involved with playing the game
 	private static Knight knight;
@@ -154,7 +153,7 @@ public class RPGGame implements KeyListener {
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(7 * StartGame.SCREEN_WIDTH / 10, StartGame.SCREEN_HEIGHT / 10);
+		mainFrame.setLocation(3 * StartGame.SCREEN_WIDTH / 10, 1 * StartGame.SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
@@ -168,9 +167,6 @@ public class RPGGame implements KeyListener {
 				movement();
 				collision();
 				ticks++;
-				/*
-				 * if (ticks % 100 == 0) { System.out.println(ticks / 100 + " second"); }
-				 */
 			}
 
 		});
