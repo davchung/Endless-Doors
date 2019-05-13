@@ -10,7 +10,6 @@ public class Player extends GameObject {
 	// constructor #1 for Player
 	public Player(double x, double y, double w, double h) {
 		super(x, y, w, h, true, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
-		incrementHealth(20);
 	}
 
 	// these are methods related to drawing
