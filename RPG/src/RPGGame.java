@@ -34,8 +34,8 @@ public class RPGGame implements KeyListener {
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
 	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
 			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
+	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
+			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -319,7 +319,7 @@ public class RPGGame implements KeyListener {
 			// this allows the k key to control building walls
 			if (keys.contains("k")) {
 				if (knight.build(ticks) && i.numWalls > 0) {
-					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), 50, 50, 100);
+					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), Map.WALL_WIDTH, Map.WALL_HEIGHT);
 					i.removeWalls(1);
 					objects.add(builtWall);
 				}
