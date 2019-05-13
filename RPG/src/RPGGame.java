@@ -15,7 +15,7 @@ public class RPGGame implements KeyListener {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	// these are all variables that are involved with playing the game
-	private static Player player;
+	private static Knight knight;
 	private double pSpeed = 3.0; // player speed
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
@@ -56,8 +56,8 @@ public class RPGGame implements KeyListener {
 	private boolean iVisible = false; // inventory visible
 
 	// these are getters for variables
-	public static Player getPlayer() {
-		return RPGGame.player;
+	public static Knight getKnight() {
+		return RPGGame.knight;
 	}
 
 	public Enemy getEnemy() {
@@ -77,9 +77,9 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		player = new Player(50, 50, 50, 50);
+		knight = new Knight(50, 50, 50, 50);
 		objects.addAll(m.getWalls());
-		objects.add(player);
+		objects.add(knight);
 		checkSpawns();
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
@@ -100,7 +100,7 @@ public class RPGGame implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
-				player.draw(g, facing);
+				knight.draw(g, facing);
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
@@ -109,7 +109,7 @@ public class RPGGame implements KeyListener {
 					eAttack.draw(g);
 				}
 
-				g.drawString("Player health: " + player.getHealth(), 675, 65);
+				g.drawString("Knight health: " + knight.getHealth(), 675, 65);
 				g.drawString("Enemy health: " + eNWIMN.getHealth(), 675, 85);
 
 				g.setColor(new Color(255, 0, 0));
@@ -122,13 +122,13 @@ public class RPGGame implements KeyListener {
 				}
 				if (enemyHit == true) {
 					if (eNWIMN.getHealth() > 0) {
-						g.drawString("-" + player.getDamage(), (int) eNWIMN.getCX() - 5, (int) eNWIMN.getCY());
+						g.drawString("-" + knight.getDamage(), (int) eNWIMN.getCX() - 5, (int) eNWIMN.getCY());
 					}
 					enemyHit = false;
 				}
 				if (playerHit == true) {
-					if (player.getHealth() > 0) {
-						g.drawString("-" + eNWIMN.getDamage(), (int) player.getCX() - 5, (int) player.getCY());
+					if (knight.getHealth() > 0) {
+						g.drawString("-" + eNWIMN.getDamage(), (int) knight.getCX() - 5, (int) knight.getCY());
 					}
 					playerHit = false;
 				}
@@ -212,14 +212,14 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject e : objects) {
 
-			while (player.collides(e) && !e.throughable) {
-				double dx = player.getCX() - e.getCX();
-				double dy = player.getCY() - e.getCY();
+			while (knight.collides(e) && !e.throughable) {
+				double dx = knight.getCX() - e.getCX();
+				double dy = knight.getCY() - e.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = pSpeed * dx / m;
 				dy = pSpeed * dy / m;
-				player.moveX(dx / 10);
-				player.moveY(dy / 10);
+				knight.moveX(dx / 10);
+				knight.moveY(dy / 10);
 			}
 
 			// tests if any enemy collides with the pAttack
@@ -227,7 +227,7 @@ public class RPGGame implements KeyListener {
 				if (((Enemy) e).getHealth() <= 0)
 					toRemove.add(e);
 				if (pAttack != null && pAttack.collides(e)) {
-					((Enemy) e).hit(player.getDamage());
+					((Enemy) e).hit(knight.getDamage());
 					enemyHit = true;
 				}
 			}
@@ -242,13 +242,13 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
-		if (player.getHealth() <= 0) {
-			toRemove.add(player);
+		if (knight.getHealth() <= 0) {
+			toRemove.add(knight);
 			gameOver = true;
 			pause();
 		}
-		if (eAttack != null && eAttack.collides(player)) {
-			player.hit(eNWIMN.getDamage());
+		if (eAttack != null && eAttack.collides(knight)) {
+			knight.hit(eNWIMN.getDamage());
 			playerHit = true;
 		}
 		objects.removeAll(toRemove);
@@ -276,31 +276,31 @@ public class RPGGame implements KeyListener {
 		int down = 0, right = 0;
 		if (pAttack == null && builtWall == null) {
 			if (keys.contains("w") || keys.contains("W")) {
-				player.moveY(-pSpeed);
+				knight.moveY(-pSpeed);
 				down -= 1;
-				while (wallCollision(player)) {
-					player.moveY(pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveY(pSpeed / 20);
 				}
 			}
 			if (keys.contains("a") || keys.contains("A")) {
-				player.moveX(-pSpeed);
+				knight.moveX(-pSpeed);
 				right -= 1;
-				while (wallCollision(player)) {
-					player.moveX(pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveX(pSpeed / 20);
 				}
 			}
 			if (keys.contains("s") || keys.contains("S")) {
-				player.moveY(pSpeed);
+				knight.moveY(pSpeed);
 				down += 1;
-				while (wallCollision(player)) {
-					player.moveY(-pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveY(-pSpeed / 20);
 				}
 			}
 			if (keys.contains("d") || keys.contains("D")) {
-				player.moveX(pSpeed);
+				knight.moveX(pSpeed);
 				right += 1;
-				while (wallCollision(player)) {
-					player.moveX(-pSpeed / 20);
+				while (wallCollision(knight)) {
+					knight.moveX(-pSpeed / 20);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -310,21 +310,21 @@ public class RPGGame implements KeyListener {
 			if (right != 0) {
 				facing = right;
 			}
-			player.setRight(right);
-			player.setDown(down);
+			knight.setRight(right);
+			knight.setDown(down);
 
 			// this allows the J key to control attacking
 			if (keys.contains("j") || keys.contains("J")) {
-				if (player.attack(40)) {
-					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks,
+				if (knight.attack(40)) {
+					pAttack = new Attack((int) knight.getLocX() + 25, (int) knight.getLocY() + 25, lastR, lastD, ticks,
 							"sprites/weapon_golden_sword.png");
 				}
 			}
 
 			// this allows the lowercase k key to control building walls
 			if (keys.contains("k")) {
-				if (player.build(ticks) && i.numWalls > 0) {
-					builtWall = new Wall(player.getLocX() - (50 * lastR), player.getLocY() - (50 * lastD), 50, 50, 100);
+				if (knight.build(ticks) && i.numWalls > 0) {
+					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), 50, 50, 100);
 					i.removeWalls(1);
 					objects.add(builtWall);
 				}

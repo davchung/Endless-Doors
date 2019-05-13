@@ -6,7 +6,7 @@ public class Enemy extends GameObject {
 	private static Animation idle = new Animation("big_demon_idle", 4);
 	private static int baseHealth = 10;
 	private double eSpeed = 1.5; // enemy speed
-	private int cooldown=0;
+	private int cooldown = 0;
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, double w, double h, int level) {
@@ -48,15 +48,15 @@ public class Enemy extends GameObject {
 		// makes the enemy follow the player
 			RPGGame.getObjects().remove(this);
 			double x = 0, y = 0;
-			x = (RPGGame.getPlayer().getCX() - this.getCX());
-			y = (RPGGame.getPlayer().getCY() - this.getCY());
+			x = (RPGGame.getKnight().getCX() - this.getCX());
+			y = (RPGGame.getKnight().getCY() - this.getCY());
 
 			double mag = Math.sqrt(x * x + y * y);
 			x = this.getSpeed() * x / mag;
 			y = this.getSpeed() * y / mag;
 			this.moveX(x);
 			this.moveY(y);
-			while (this.collides(RPGGame.getPlayer())) {
+			while (this.collides(RPGGame.getKnight())) {
 				this.moveX(-x/10);
 				this.moveY(-y/10);
 			}
