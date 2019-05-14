@@ -22,7 +22,7 @@ public class RPGGame implements KeyListener {
 	private int facing = 1;
 	// kindly refrain from changing this enemy's name
 	private Demon eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
-	private Map m = new Map(10, 5);
+	private Map m = new Map(5);
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
 	private Wall builtWall;
@@ -114,13 +114,6 @@ public class RPGGame implements KeyListener {
 				g.drawString("Enemy health: " + eNWIMN.getHealth(), 675, 85);
 
 				g.setColor(new Color(255, 0, 0));
-				if (wallDamaged == true) {
-					for (Wall dw : damagedWalls) {
-						if (dw.getHealth() < 100 && dw.getHealth() > 0) {
-							g.drawString("" + dw.getHealth(), (int) dw.getCX() - 8, (int) dw.getCY());
-						}
-					}
-				}
 				if (enemyHit == true) {
 					if (eNWIMN.getHealth() > 0) {
 						g.drawString("-" + knight.getDamage(), (int) eNWIMN.getCX() - 5, (int) eNWIMN.getCY());
@@ -322,7 +315,7 @@ public class RPGGame implements KeyListener {
 			// this allows the k key to control building walls
 			if (keys.contains("k")) {
 				if (knight.build(ticks) && i.numWalls > 0) {
-					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), Map.WALL_WIDTH, Map.WALL_HEIGHT);
+					builtWall = new Wall(knight.getLocX() - (50 * lastR), knight.getLocY() - (50 * lastD), Map.OBJ_WIDTH, Map.OBJ_HEIGHT);
 					i.removeWalls(1);
 					objects.add(builtWall);
 				}

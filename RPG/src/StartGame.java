@@ -28,7 +28,7 @@ public class StartGame {
 	}
 
 	public void init() {
-
+		/**
 		try { 
 			AudioInputStream audioIn;
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
@@ -38,6 +38,7 @@ public class StartGame {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 			e1.printStackTrace();
 		}
+		**/
 
 		JFrame startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
