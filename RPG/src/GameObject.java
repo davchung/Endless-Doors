@@ -48,7 +48,7 @@ public abstract class GameObject {
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 
-	// getters, setters, and "incrementers" are here
+	// getters, setters, and "incrementers" are here.
 	
 	public void hit() {
 		if (RPGGame.ticks > hittable && !invincible) {
