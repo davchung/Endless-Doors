@@ -48,7 +48,6 @@ public class Map {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				};
-
 		rooms.add(room1);
 		for (int[][] r : rooms) {
 			outlineWalls(r);  //walls on the outside will be added later on
@@ -87,13 +86,13 @@ public class Map {
 	
 	private void placeHorizontally(int[][]room, int row, int start, int end) {
 		for (int c = start; c < end + 1; c++) {
-			room[row][c] += 1;
+			room[row][c] = 1;
 		}
 	}
 	
 	private void placeVertically(int[][] room, int col, int start, int end) {
 		for (int r = start; r < end + 1; r++) {
-			room[r][col] += 1;
+			room[r][col] = 1;
 		}
 	}
 
