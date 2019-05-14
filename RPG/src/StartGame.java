@@ -32,11 +32,11 @@ public class StartGame {
 
 		try { 
 			AudioInputStream audioIn;
-			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/BGM.wav"));
+			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			if (!clip.isRunning()) {
-				clip.loop(10000);
+				clip.loop(clip.LOOP_CONTINUOUSLY);
 			}
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 			e1.printStackTrace();
