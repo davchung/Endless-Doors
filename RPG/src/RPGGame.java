@@ -16,7 +16,7 @@ public class RPGGame implements KeyListener {
 	// these are all variables that are involved with playing the game
 	private int gameLevel = 1;
 	private static Knight knight;
-	private double pSpeed = 3.0; // player speed
+	private double pSpeed = 2.5; // player speed, TRY to keep this a factor of 50, but not obligated
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	// kindly refrain from changing this enemy's name
@@ -44,6 +44,7 @@ public class RPGGame implements KeyListener {
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
+	private ArrayList<Attack>enemyAttacks = new ArrayList<Attack>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -213,15 +214,15 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject e : objects) {
 
-//			while (knight.collides(e) && !e.throughable) {
-//				double dx = knight.getCX() - e.getCX();
-//				double dy = knight.getCY() - e.getCY();
-//				double m = Math.sqrt(dx * dx + dy * dy);
-//				dx = pSpeed * dx / m;
-//				dy = pSpeed * dy / m;
-//				knight.moveX(dx / 5);
-//				knight.moveY(dy / 5);
-//			}
+			while (knight.collides(e) && !e.throughable) {
+				double dx = knight.getCX() - e.getCX();
+				double dy = knight.getCY() - e.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = pSpeed * dx / m;
+				dy = pSpeed * dy / m;
+				knight.moveX(dx / 5);
+				knight.moveY(dy / 5);
+			}
 
 			// tests if any enemy collides with the pAttack
 			if (e instanceof Enemy) {
