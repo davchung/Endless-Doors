@@ -80,6 +80,7 @@ public class RPGGame implements KeyListener {
 		gameLevel = 1;
 		knight = new Knight(100, 100, 50, 50);
 		objects.addAll(m.getWalls());
+		objects.addAll(m.getEObjs());
 		objects.add(knight);
 		checkSpawns();
 		objects.add(eNWIMN);
