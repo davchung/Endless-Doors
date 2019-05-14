@@ -80,7 +80,7 @@ public class RPGGame implements KeyListener {
 		knight = new Knight(100, 100, 50, 50);
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
-		objects.add(knight);
+		//objects.add(knight);
 		checkSpawns();
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
@@ -169,8 +169,8 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				movement();
 				collision();
+				movement();
 				ticks++;
 			}
 
@@ -188,7 +188,6 @@ public class RPGGame implements KeyListener {
 			}
 		}
 		System.out.println("no problems");
-		System.out.println(eNWIMN);
 	}
 
 	protected void movement() {
@@ -264,7 +263,7 @@ public class RPGGame implements KeyListener {
 
 	private boolean wallCollision(GameObject object) {
 		for (GameObject wall : objects) {
-			if (wall instanceof Wall && object.collides(wall))
+			if (!wall.throughable && object.collides(wall))
 				return true;
 		}
 		return false;

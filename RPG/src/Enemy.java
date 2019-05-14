@@ -66,7 +66,7 @@ public abstract class Enemy extends GameObject {
 	protected void wallCollision() {
 		int runs = 0;
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (!i.throughable)) {
+			if (this.collides(i) && (!i.throughable)&&!(i instanceof Player)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
