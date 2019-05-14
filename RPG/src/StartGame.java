@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 public class StartGame {
 	private JPanel startPanel;
 	private BufferedImage startImg;
-	public static int SCREEN_WIDTH = 800;
-	public static int SCREEN_HEIGHT = 800;
+	public static int SCREEN_WIDTH = 1050;
+	public static int SCREEN_HEIGHT = 750;
 
 	public static void main(String[] args) {
 		new StartGame().init();
