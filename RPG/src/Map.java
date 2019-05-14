@@ -64,7 +64,7 @@ public class Map {
 					eObjs.add(new Crate(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
 					break;
 				case 3:
-					//eObjs.add(new ExplosiveBarrel(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					eObjs.add(new ExplosiveBarrel(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
 				}
 			}
 		}

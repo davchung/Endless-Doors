@@ -59,6 +59,10 @@ public abstract class GameObject {
 		}
 
 	}
+	
+	public boolean invincibility() {
+		return invincible;
+	}
 	public int getHealth() {
 		return this.health;
 	}
