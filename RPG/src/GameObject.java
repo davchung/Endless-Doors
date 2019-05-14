@@ -21,31 +21,48 @@ public abstract class GameObject {
 	private int cooldown = 0;
 	private int hittable = 0;
 	public boolean throughable;
+	private boolean invincible;
 
 	// constructor #1 for GameObject
-	public GameObject(double x, double y, double w, double h, boolean through, int startingHealth, String s) {
+	public GameObject(double x, double y, double w, double h, boolean through, boolean i, int startingHealth, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		throughable = through;
+		invincible = i;
 		health = startingHealth;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 	// constructor #2 for GameObject
-	public GameObject(double x, double y, double w, double h, boolean through, int startingHealth, BufferedImage i) {
+	public GameObject(double x, double y, double w, double h, boolean through, boolean i, int startingHealth, BufferedImage b) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		throughable = through;
+		invincible = i;
 		health = startingHealth;
-		image = i;
+		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 
 	// getters, setters, and "incrementers" are here
+	
+	public void hit() {
+		if (RPGGame.ticks > hittable && !invincible) {
+			System.out.println("here");
+			health -= 10;
+			hittable = RPGGame.ticks + 26;
+			return;
+		}
+
+	}
+	
+	public boolean invincibility() {
+		return invincible;
+	}
 	public int getHealth() {
 		return this.health;
 	}

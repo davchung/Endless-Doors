@@ -5,17 +5,15 @@ import java.awt.image.BufferedImage;
 public class Animation {
 
 	File runRight = new File("src/img/animations/playerRun.png");
-	String path = "img/sprites/";
 	private BufferedImage[] anim;
 
 	// constructor #1 for Animation
 	public Animation(String name, int frames) {
-		path += name;
 		anim = new BufferedImage[frames];
-		getImg();
+		getImg("img/sprites/" + name);
 	}
 
-	private void getImg() {
+	private void getImg(String path) {
 		for (int i = 0; i < anim.length; i++) {
 
 			try {

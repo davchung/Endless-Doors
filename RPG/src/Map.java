@@ -1,92 +1,104 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import javax.imageio.ImageIO;
 
 public class Map {
 
-	private BufferedImage image;
-	static final File imgDir = new File("src/img/randimg");// goes to the file directory randimg
-	static final File roomDir = new File("src/img/rooms");
-	private ArrayList<GameObject> eObjs;// gets every image in the folder randimg
+	private ArrayList<GameObject> eObjs;
 	private ArrayList<Wall> walls;
-	private double numEnv, numChest, imgW, imgH;// amount is how many times each img in randImg gets draw
-	private ArrayList<BufferedImage> rooms;
-	int randomRoom;
-	public static final int WALL_WIDTH = 50;
-	public static final int WALL_HEIGHT = 50;
-	int numberOfRooms;
+	private double numChest;
+	public static final int OBJ_WIDTH = 50;
+	public static final int OBJ_HEIGHT = 50;
+	public ArrayList<int[][]> rooms;
 
-	public Map(int env, int chest) {
+	private ArrayList<int[][]> allRooms = new ArrayList<int[][]>();
+
+	public Map(int chest) {
 		walls = new ArrayList<Wall>();
-		rooms = new ArrayList<BufferedImage>();
+		rooms = new ArrayList<int[][]>();
 		eObjs = new ArrayList<GameObject>();
-		numEnv = env;
 		numChest = chest;
-		imgW = 50;
-		imgH = 50;
-		getAllImg();
 		getAllRooms();
-		randomRoom = (int) (Math.random() * numberOfRooms);
-		putWalls();
+		addObjs();
 	}
 
 	private void getAllRooms() {
-		for (final File f : roomDir.listFiles()) {// every file in randimg folder
-			numberOfRooms++;
-			try {
-				rooms.add(ImageIO.read(f));
-			} catch (final IOException e) {
+		int[][] room1 = new int[][] { 
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //0 is where walls are supposed to go
+				{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				};
+		rooms.add(room1);
+		for (int[][] r : rooms) {
+			outlineWalls(r);  //walls on the outside will be added later on
+		}
+		
+		for(int r = 0; r < room1.length; r++) {
+			for(int c = 0; c < room1[0].length; c++) {
+				System.out.print(room1[r][c] + " ");
 			}
+			System.out.println();
 		}
 	}
-
-	private void putWalls() {
-		for (int x = 0; x < rooms.get(randomRoom).getWidth(); x += WALL_WIDTH) {
-			for (int y = 0; y < rooms.get(randomRoom).getHeight(); y += WALL_HEIGHT) {
-				int c = rooms.get(randomRoom).getRGB(x, y);
-				Color color = new Color(c);
-				if (color.getBlue() == 0 && color.getRed() == 0 && color.getGreen() == 0) {
-					walls.add(new Wall(x, y, WALL_WIDTH, WALL_HEIGHT));
+	
+	public void addObjs() {
+		int index = (int)(Math.random() * allRooms.size());
+		
+		for(int r = 0; r < rooms.get(index).length; r++) {
+			for(int c = 0; c < rooms.get(index)[r].length; c++) {
+				switch(rooms.get(index)[r][c]) {
+				case 1:
+					walls.add(new Wall(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					break;
+				case 2:
+					eObjs.add(new Crate(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					break;
+				case 3:
+					eObjs.add(new ExplosiveBarrel(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
 				}
 			}
 		}
-
 	}
 
-	private void getAllImg() {
-		for (final File f : imgDir.listFiles()) {// every file in randimg folder
-			try {
-				randGen(ImageIO.read(f));// takes in every image and adds it to list
-			} catch (final IOException e) {
-			}
+	private void outlineWalls(int[][] room) {
+		for (int r = 0; r < room.length; r++) {
+			room[r][0] = 1;
+			room[r][20] = 1;
 		}
-		randGenChests();
+		for (int c = 1; c < room[0].length; c++) {
+			room[0][c] = 1;
+			room[14][c] = 1;
+		}
 	}
-
-	private void randGenChests() {
-		for (int c = 0; c < numChest; c++) {
-			eObjs.add(new Chest((Math.random() * (StartGame.SCREEN_WIDTH - imgW)),
-					(Math.random() * (StartGame.SCREEN_HEIGHT - imgH)), imgW, imgH, 100));
+	
+	private void placeHorizontally(int[][]room, int row, int start, int end) {
+		for (int c = start; c < end + 1; c++) {
+			room[row][c] = 1;
 		}
-
+	}
+	
+	private void placeVertically(int[][] room, int col, int start, int end) {
+		for (int r = start; r < end + 1; r++) {
+			room[r][col] = 1;
+		}
 	}
 
 	public ArrayList<GameObject> getEObjs() {
 		return this.eObjs;
 	}
 
-	public ArrayList<Wall> getWalls(){
+	public ArrayList<Wall> getWalls() {
 		return this.walls;
-	}
-
-	private void randGen(BufferedImage i) {
-		for (int c = 0; c < numEnv; c++) {
-			eObjs.add(new Environment((Math.random() * (StartGame.SCREEN_WIDTH - imgW)),
-					(Math.random() * (StartGame.SCREEN_HEIGHT - imgH)), imgW, imgH, true, i));
-		}
 	}
 
 }
