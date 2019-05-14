@@ -213,15 +213,15 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject e : objects) {
 
-			while (knight.collides(e) && !e.throughable) {
-				double dx = knight.getCX() - e.getCX();
-				double dy = knight.getCY() - e.getCY();
-				double m = Math.sqrt(dx * dx + dy * dy);
-				dx = pSpeed * dx / m;
-				dy = pSpeed * dy / m;
-				knight.moveX(dx / 5);
-				knight.moveY(dy / 5);
-			}
+//			while (knight.collides(e) && !e.throughable) {
+//				double dx = knight.getCX() - e.getCX();
+//				double dy = knight.getCY() - e.getCY();
+//				double m = Math.sqrt(dx * dx + dy * dy);
+//				dx = pSpeed * dx / m;
+//				dy = pSpeed * dy / m;
+//				knight.moveX(dx / 5);
+//				knight.moveY(dy / 5);
+//			}
 
 			// tests if any enemy collides with the pAttack
 			if (e instanceof Enemy) {
@@ -264,8 +264,8 @@ public class RPGGame implements KeyListener {
 	}
 
 	private boolean wallCollision(GameObject object) {
-		for (GameObject wall : objects) {
-			if (wall instanceof Wall && object.collides(wall))
+		for (GameObject obs : objects) {
+			if (!obs.throughable && object.collides(obs))
 				return true;
 		}
 		return false;
