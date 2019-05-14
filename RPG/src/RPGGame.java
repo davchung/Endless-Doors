@@ -213,7 +213,6 @@ public class RPGGame implements KeyListener {
 			builtWall = null;
 		}
 		for (GameObject e : objects) {
-
 			while (knight.collides(e) && !e.throughable) {
 				double dx = knight.getCX() - e.getCX();
 				double dy = knight.getCY() - e.getCY();

@@ -7,18 +7,12 @@ public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
 	private int health;
-	private int damage = 10;
-
+	protected double locX, locY;
+	protected double WIDTH, HEIGHT;
 	private Rectangle current;
+	
 	public final static String PATH_PREFIX = "img/";
 	protected BufferedImage image;
-
-	protected double locX, locY;
-	protected double pastX, pastY; // how much they moved in their last frame
-	protected double WIDTH, HEIGHT;
-	private double right, down;
-
-	private int cooldown = 0;
 	private int hittable = 0;
 	public boolean throughable;
 	private boolean invincible;
@@ -69,9 +63,6 @@ public abstract class GameObject {
 	public void incrementHealth(int amount) {
 		this.health += amount;
 	}
-	public int getDamage() {
-		return this.damage;
-	}
 
 	public Rectangle getRect() {
 		return this.current;
@@ -86,32 +77,7 @@ public abstract class GameObject {
 	public double getLocY() {
 		return this.locY;
 	}
-	public double getPastX() {
-		return this.pastX;
-	}
-	public double getPastY() {
-		return this.pastY;
-	}
 	
-	public double getRight() {
-		return this.right;
-	}
-	public double getDown() {
-		return this.down;
-	}
-	public void setRight(double r) {
-		this.right = r;
-	}
-	public void setDown(double d) {
-		this.down = d;
-	}
-
-	public int getCooldown() {
-		return this.cooldown;
-	}
-	public void setCooldown(int cd) {
-		this.cooldown = cd;
-	}
 	public int getHittable() {
 		return this.hittable;
 	}
@@ -140,7 +106,6 @@ public abstract class GameObject {
 	public void moveX(double howMuch) {
 		locX += howMuch;
 		current.x = (int) locX;
-		pastX = howMuch;
 	}
 	public void moveY(double howMuch) {
 		locY += howMuch;
@@ -164,17 +129,10 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable) {
 			health -= damage;
 			hittable = RPGGame.ticks + 26;
-			cooldown +=26;
-			return;
 		}
 	}
-
-	public boolean attack(int ticks) {
-		if (cooldown >= RPGGame.ticks)
-			return false;
-		cooldown = RPGGame.ticks + ticks;
-		return true;
-	}
+	
+	
 	
 	// returns a random int between lower bound (lb) and upper bound (ub), inclusive
 	public static int randInt(int lb, int ub) {
