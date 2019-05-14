@@ -216,8 +216,8 @@ public class RPGGame implements KeyListener {
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = pSpeed * dx / m;
 				dy = pSpeed * dy / m;
-				knight.moveX(dx / 10);
-				knight.moveY(dy / 10);
+				knight.moveX(dx / 5);
+				knight.moveY(dy / 5);
 			}
 
 			// tests if any enemy collides with the pAttack
