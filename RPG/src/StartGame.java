@@ -61,14 +61,14 @@ public class StartGame {
 
 			@Override
 			public void paintComponent(Graphics g) {
-				int fontSize = 60;
+				int fontSize = 70;
 				super.paintComponent(g);
 				g.drawImage(startImg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
 				g.setColor(new Color(250, 250, 250)); // white color
 				g.fillRect(0, (SCREEN_HEIGHT / 2) - fontSize, SCREEN_WIDTH, fontSize * 3 / 2);
 				g.setColor(new Color(0, 0, 0)); // black color
 				g.setFont(new Font("Times New Roman", 0, fontSize));
-				g.drawString("Click anywhere to begin game.", 25, SCREEN_HEIGHT / 2);
+				g.drawString("Click anywhere to begin game.", SCREEN_WIDTH / 12, SCREEN_HEIGHT / 2);
 			}
 		};
 
@@ -76,7 +76,7 @@ public class StartGame {
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		startFrame.add(startPanel);
 		// determines where the frame is placed
-		startFrame.setLocation(1 * SCREEN_WIDTH / 10, 1 * SCREEN_HEIGHT / 10);
+		startFrame.setLocation(1 * SCREEN_WIDTH / 15, 1 * SCREEN_HEIGHT / 10);
 		startFrame.pack();
 		startFrame.setVisible(true);
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
