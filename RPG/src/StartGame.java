@@ -22,6 +22,7 @@ public class StartGame {
 	private BufferedImage startImg;
 	public static int SCREEN_WIDTH = 1050;
 	public static int SCREEN_HEIGHT = 750;
+	public static Clip clip;
 
 	public static void main(String[] args) {
 		new StartGame().init();
@@ -32,9 +33,11 @@ public class StartGame {
 		try { 
 			AudioInputStream audioIn;
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
-			Clip clip = AudioSystem.getClip();
+			clip = AudioSystem.getClip();
 			clip.open(audioIn);
-			clip.loop(10000);
+			if (!clip.isRunning()) {
+				clip.loop(clip.LOOP_CONTINUOUSLY);
+			}
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 			e1.printStackTrace();
 		}
@@ -76,7 +79,7 @@ public class StartGame {
 		startFrame.setLocation(3 * SCREEN_WIDTH / 10, 1 * SCREEN_HEIGHT / 10);
 		startFrame.pack();
 		startFrame.setVisible(true);
-
+		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		startPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {

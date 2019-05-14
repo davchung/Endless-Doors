@@ -270,28 +270,28 @@ public class RPGGame implements KeyListener {
 				knight.moveY(-pSpeed);
 				down -= 1;
 				while (wallCollision(knight)) {
-					knight.moveY(pSpeed / 20);
+					knight.moveY(pSpeed / 5);
 				}
 			}
 			if (keys.contains("a")) {
 				knight.moveX(-pSpeed);
 				right -= 1;
 				while (wallCollision(knight)) {
-					knight.moveX(pSpeed / 20);
+					knight.moveX(pSpeed / 5);
 				}
 			}
 			if (keys.contains("s")) {
 				knight.moveY(pSpeed);
 				down += 1;
 				while (wallCollision(knight)) {
-					knight.moveY(-pSpeed / 20);
+					knight.moveY(-pSpeed / 5);
 				}
 			}
 			if (keys.contains("d")) {
 				knight.moveX(pSpeed);
 				right += 1;
 				while (wallCollision(knight)) {
-					knight.moveX(-pSpeed / 20);
+					knight.moveX(-pSpeed / 5);
 				}
 			}
 			if (down != 0 || right != 0) {
