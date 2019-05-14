@@ -28,14 +28,14 @@ public class RPGGame implements KeyListener {
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
-	private Inventory i = new Inventory(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private ItemShop iS = new ItemShop(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private ChestLoot cL = new ChestLoot(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
-	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 1 / 4,
-			StartGame.SCREEN_WIDTH * 2 / 4, StartGame.SCREEN_HEIGHT * 2 / 4);
+	private Inventory i = new Inventory(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
+			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
+	private ItemShop iS = new ItemShop(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
+			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
+	private ChestLoot cL = new ChestLoot(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
+			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
+	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
+			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
 	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
 			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
 
@@ -150,7 +150,7 @@ public class RPGGame implements KeyListener {
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(3 * StartGame.SCREEN_WIDTH / 10, 1 * StartGame.SCREEN_HEIGHT / 10);
+		mainFrame.setLocation(1 * StartGame.SCREEN_WIDTH / 10, 1 * StartGame.SCREEN_HEIGHT / 10);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
