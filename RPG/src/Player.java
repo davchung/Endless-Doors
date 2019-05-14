@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public abstract class Player extends GameObject {
+public abstract class Player extends MoveableObject {
 
 	private static int playerHealth = 50;
 
@@ -9,7 +9,7 @@ public abstract class Player extends GameObject {
 
 	// constructor #1 for Player
 	public Player(double x, double y, double w, double h) {
-		super(x, y, w, h, true,false, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
+		super(x, y, w, h, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
 	}
 
 	// these are methods related to drawing

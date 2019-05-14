@@ -1,16 +1,15 @@
 import java.awt.Graphics;
 
-public abstract class Enemy extends GameObject {
+public abstract class Enemy extends MoveableObject {
 
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
 	private static int baseHealth = 10;
 	private double eSpeed = 1.5; // enemy speed
-	private int cooldown = 0;
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, double w, double h, int level) {
-		super(x, y, w, h, true, false, baseHealth + level * 10, idle.getFirst()); // uses GameObject's constructor #2
+		super(x, y, w, h, baseHealth + level * 10, idle.getFirst()); // uses GameObject's constructor #2
 	}
 
 	// getters and setters are here
@@ -46,7 +45,7 @@ public abstract class Enemy extends GameObject {
 			super.moveY(howMuch);
 	}
 
-	protected void autoMove() {
+	public void autoMove() {
 		// makes the enemy follow the player
 		double x = 0, y = 0;
 		if (this.getLocX() - RPGGame.getKnight().getLocX() > 0) {
@@ -59,21 +58,23 @@ public abstract class Enemy extends GameObject {
 		} else {
 			y = this.getSpeed();
 		}
+		
 		moveX(x);
 		moveY(y);
+		wallCollision();
 	}
 
 	protected void wallCollision() {
 		int runs = 0;
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (!i.throughable)&&!(i instanceof Player)) {
+			if (this.collides(i) && (!i.throughable)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = eSpeed * dx / m;
 				dy = eSpeed * dy / m;
-				this.moveX(dx / 10);
-				this.moveY(dy / 10);
+				moveX(dx / 10);
+				moveY(dy / 10);
 			}
 
 		}

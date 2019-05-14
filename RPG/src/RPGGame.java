@@ -16,7 +16,7 @@ public class RPGGame implements KeyListener {
 	// these are all variables that are involved with playing the game
 	private int gameLevel = 1;
 	private static Knight knight;
-	private double pSpeed = 3.0; // player speed
+	private double pSpeed = 2.5; // player speed, TRY to keep this a factor of 50, but not obligated
 	private int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	// kindly refrain from changing this enemy's name
@@ -44,6 +44,7 @@ public class RPGGame implements KeyListener {
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
+	private ArrayList<Attack>enemyAttacks = new ArrayList<Attack>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -80,7 +81,7 @@ public class RPGGame implements KeyListener {
 		knight = new Knight(100, 100, 50, 50);
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
-		//objects.add(knight);
+		objects.add(knight);
 		checkSpawns();
 		objects.add(eNWIMN);
 		enemies.add(eNWIMN);
@@ -169,8 +170,8 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				collision();
 				movement();
+				collision();
 				ticks++;
 			}
 
@@ -181,19 +182,21 @@ public class RPGGame implements KeyListener {
 	private void checkSpawns() {
 		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
 		for (GameObject w : objects) {
-			if (w instanceof Wall && eNWIMN.collides(w)) {
+			if (eNWIMN.collides(w)) {
 				System.out.println("collided");
 				checkSpawns();
 				return;
 			}
 		}
 		System.out.println("no problems");
+		System.out.println(eNWIMN);
 	}
 
 	protected void movement() {
 		for (Object enemy : objects) {
-			if (enemy instanceof Enemy)
+			if (enemy instanceof Enemy) {
 				((Enemy) enemy).autoMove();
+			}
 		}
 
 	}
@@ -210,7 +213,6 @@ public class RPGGame implements KeyListener {
 			builtWall = null;
 		}
 		for (GameObject e : objects) {
-
 			while (knight.collides(e) && !e.throughable) {
 				double dx = knight.getCX() - e.getCX();
 				double dy = knight.getCY() - e.getCY();
@@ -262,8 +264,8 @@ public class RPGGame implements KeyListener {
 	}
 
 	private boolean wallCollision(GameObject object) {
-		for (GameObject wall : objects) {
-			if (!wall.throughable && object.collides(wall))
+		for (GameObject obs : objects) {
+			if (!obs.throughable && object.collides(obs))
 				return true;
 		}
 		return false;
