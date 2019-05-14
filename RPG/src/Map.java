@@ -7,45 +7,40 @@ import javax.imageio.ImageIO;
 
 public class Map {
 
-	private BufferedImage image;
-	static final File imgDir = new File("src/img/randimg");// goes to the file directory randimg
-	private ArrayList<GameObject> eObjs;// gets every image in the folder randimg
+	private ArrayList<GameObject> eObjs;
 	private ArrayList<Wall> walls;
-	private double numEnv, numChest, imgW, imgH;// amount is how many times each img in randImg gets draw
-	public static final int WALL_WIDTH = 50;
-	public static final int WALL_HEIGHT = 50;
+	private double numChest;
+	public static final int OBJ_WIDTH = 50;
+	public static final int OBJ_HEIGHT = 50;
 	public ArrayList<int[][]> rooms;
 
 	private ArrayList<int[][]> allRooms = new ArrayList<int[][]>();
 
-	public Map(int env, int chest) {
+	public Map(int chest) {
 		walls = new ArrayList<Wall>();
 		rooms = new ArrayList<int[][]>();
 		eObjs = new ArrayList<GameObject>();
-		numEnv = env;
 		numChest = chest;
-		imgW = StartGame.SCREEN_WIDTH;
-		imgH = StartGame.SCREEN_HEIGHT;
 		getAllRooms();
-		addWalls();
+		addObjs();
 	}
 
 	private void getAllRooms() {
 		int[][] room1 = new int[][] { 
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //0 is where walls are supposed to go
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
 				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				};
 		rooms.add(room1);
@@ -61,13 +56,20 @@ public class Map {
 		}
 	}
 	
-	public void addWalls() {
+	public void addObjs() {
 		int index = (int)(Math.random() * allRooms.size());
 		
 		for(int r = 0; r < rooms.get(index).length; r++) {
 			for(int c = 0; c < rooms.get(index)[r].length; c++) {
-				if(rooms.get(index)[r][c] == 1) {
-					walls.add(new Wall(c*WALL_WIDTH, r* WALL_HEIGHT, WALL_WIDTH, WALL_HEIGHT));
+				switch(rooms.get(index)[r][c]) {
+				case 1:
+					walls.add(new Wall(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					break;
+				case 2:
+					//eObjs.add(new Crate(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					break;
+				case 3:
+					//eObjs.add(new ExplosiveBarrel(c*OBJ_WIDTH, r* OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
 				}
 			}
 		}

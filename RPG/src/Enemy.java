@@ -10,7 +10,7 @@ public abstract class Enemy extends GameObject {
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, double w, double h, int level) {
-		super(x, y, w, h, true, baseHealth + level *10, idle.getFirst()); // uses GameObject's constructor #2
+		super(x, y, w, h, true, false, baseHealth + level * 10, idle.getFirst()); // uses GameObject's constructor #2
 	}
 
 	// getters and setters are here
@@ -39,11 +39,13 @@ public abstract class Enemy extends GameObject {
 		if (RPGGame.ticks > getHittable())
 			super.moveX(howMuch);
 	}
+
 	@Override
 	public void moveY(double howMuch) {
 		if (RPGGame.ticks > getHittable())
 			super.moveY(howMuch);
 	}
+
 	protected void autoMove() {
 		// makes the enemy follow the player
 		double x = 0, y = 0;
@@ -62,7 +64,7 @@ public abstract class Enemy extends GameObject {
 	}
 
 	protected void wallCollision() {
-		int runs=0;
+		int runs = 0;
 		for (GameObject i : RPGGame.getObjects()) {
 			if (this.collides(i) && (i instanceof Wall)) {
 				double dx = this.getCX() - i.getCX();
@@ -70,13 +72,13 @@ public abstract class Enemy extends GameObject {
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = eSpeed * dx / m;
 				dy = eSpeed * dy / m;
-				this.moveX(dx/10);
-				this.moveY(dy/10);
+				this.moveX(dx / 10);
+				this.moveY(dy / 10);
 			}
 
 		}
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (i instanceof Wall)&&runs<100) {
+			if (this.collides(i) && (i instanceof Wall) && runs < 100) {
 				runs++;
 				wallCollision();
 			}
