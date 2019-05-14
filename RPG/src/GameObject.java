@@ -46,8 +46,7 @@ public abstract class GameObject {
 	
 	public void hit() {
 		if (RPGGame.ticks > hittable && !invincible) {
-			System.out.println("here");
-			health -= 10;
+			health -= 5;
 			hittable = RPGGame.ticks + 26;
 			return;
 		}
