@@ -44,16 +44,6 @@ public abstract class GameObject {
 
 	// getters, setters, and "incrementers" are here
 	
-	public void hit() {
-		if (RPGGame.ticks > hittable && !invincible) {
-			System.out.println("here");
-			health -= 10;
-			hittable = RPGGame.ticks + 26;
-			return;
-		}
-
-	}
-	
 	public boolean invincibility() {
 		return invincible;
 	}
@@ -97,6 +87,7 @@ public abstract class GameObject {
 		return img;
 	}
 	public void draw(Graphics g) {
+	
 		if (image != null) {
 			g.drawImage(image, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
 		}
@@ -126,7 +117,7 @@ public abstract class GameObject {
 		return false;
 	}
 	public void hit(int damage) {
-		if (RPGGame.ticks > hittable) {
+		if (RPGGame.ticks > hittable&& !invincible) {
 			health -= damage;
 			hittable = RPGGame.ticks + 26;
 		}

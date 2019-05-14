@@ -182,7 +182,7 @@ public class RPGGame implements KeyListener {
 	private void checkSpawns() {
 		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
 		for (GameObject w : objects) {
-			if (eNWIMN.collides(w)) {
+			if (eNWIMN.collides(w)&&(!w.equals(eNWIMN))) {
 				System.out.println("collided");
 				checkSpawns();
 				return;
@@ -213,7 +213,7 @@ public class RPGGame implements KeyListener {
 			builtWall = null;
 		}
 		for (GameObject e : objects) {
-			while (knight.collides(e) && !e.throughable) {
+			while (knight.collides(e) && !e.throughable&&!(knight.equals(e))) {
 				double dx = knight.getCX() - e.getCX();
 				double dy = knight.getCY() - e.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
@@ -236,7 +236,7 @@ public class RPGGame implements KeyListener {
 				if (e.getHealth() <= 0)
 					toRemove.add(e);
 				if ((pAttack != null && pAttack.collides(e)) || (eAttack != null && eAttack.collides(e))) {
-					e.hit();
+					e.hit(5);
 					damagedObjects.add(e);
 					objDamaged = true;
 				}
@@ -265,7 +265,7 @@ public class RPGGame implements KeyListener {
 
 	private boolean wallCollision(GameObject object) {
 		for (GameObject obs : objects) {
-			if (!obs.throughable && object.collides(obs))
+			if (!obs.throughable && object.collides(obs)&&!(obs.equals(object)))
 				return true;
 		}
 		return false;

@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 
 public class MoveableObject extends GameObject{
 	//private field variables
-	private int damage = 10;
+	private int damage = 5;
 	protected double pastX, pastY; // how much they moved in their last frame, to move to MO
 	protected double right, down; //current direction they're facing, or something, to move to MO
 	private int cooldown = 0;// to move to MO
@@ -41,8 +41,9 @@ public class MoveableObject extends GameObject{
 		this.cooldown = cd;
 	}
 	public boolean attack(int ticks) {
-		if (cooldown >= RPGGame.ticks)
+		if (cooldown >= RPGGame.ticks) {
 			return false;
+		}
 		cooldown = RPGGame.ticks + ticks;
 		return true;
 	}
@@ -59,7 +60,9 @@ public class MoveableObject extends GameObject{
 	@Override
 	public void hit(int damage) {
 		super.hit(damage);
-		cooldown+=26;
+		if (RPGGame.ticks > super.getHittable()) {
+			cooldown +=26;
+		}
 	}
 
 }
