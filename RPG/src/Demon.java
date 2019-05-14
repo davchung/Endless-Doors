@@ -6,7 +6,7 @@ public class Demon extends Enemy {
 	}
 
 	@Override
-	protected void autoMove() {
+	public void autoMove() {
 		// makes the enemy follow the player
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
@@ -26,7 +26,7 @@ public class Demon extends Enemy {
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
 		this.setDown(y);
-		wallCollision();
+		super.wallCollision();
 		if (this.attack(80)) {
 			RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + 25, (int) this.getLocY() + 25, (int) x, (int) y, RPGGame.ticks, "flame.png"));
 		}

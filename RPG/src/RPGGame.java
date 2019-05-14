@@ -181,7 +181,7 @@ public class RPGGame implements KeyListener {
 	private void checkSpawns() {
 		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
 		for (GameObject w : objects) {
-			if (w instanceof Wall && eNWIMN.collides(w)) {
+			if (eNWIMN.collides(w)) {
 				System.out.println("collided");
 				checkSpawns();
 				return;
@@ -193,8 +193,9 @@ public class RPGGame implements KeyListener {
 
 	protected void movement() {
 		for (Object enemy : objects) {
-			if (enemy instanceof Enemy)
+			if (enemy instanceof Enemy) {
 				((Enemy) enemy).autoMove();
+			}
 		}
 
 	}

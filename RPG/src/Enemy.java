@@ -46,7 +46,7 @@ public abstract class Enemy extends GameObject {
 			super.moveY(howMuch);
 	}
 
-	protected void autoMove() {
+	public void autoMove() {
 		// makes the enemy follow the player
 		double x = 0, y = 0;
 		if (this.getLocX() - RPGGame.getKnight().getLocX() > 0) {
@@ -59,26 +59,28 @@ public abstract class Enemy extends GameObject {
 		} else {
 			y = this.getSpeed();
 		}
+		
 		moveX(x);
 		moveY(y);
+		wallCollision();
 	}
 
 	protected void wallCollision() {
 		int runs = 0;
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (i instanceof Wall)) {
+			if (this.collides(i) && (!i.throughable)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = eSpeed * dx / m;
 				dy = eSpeed * dy / m;
-				this.moveX(dx / 10);
-				this.moveY(dy / 10);
+				moveX(dx / 10);
+				moveY(dy / 10);
 			}
 
 		}
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (i instanceof Wall) && runs < 100) {
+			if (this.collides(i) && (!i.throughable) && runs < 100) {
 				runs++;
 				wallCollision();
 			}
