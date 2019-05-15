@@ -17,7 +17,7 @@ public class RPGGame implements KeyListener {
 	private int gameLevel = 1;
 	private static Knight player;
 	private double pSpeed = 2.5; // player speed, TRY to keep this a factor of 50, but not obligated
-	private int lastR, lastD; // last direction the player was facing
+	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Demon demon;
 	private Map m = new Map(5);
@@ -325,8 +325,8 @@ public class RPGGame implements KeyListener {
 			// this allows the j key to control attacking
 			if (keys.contains("j")) {
 				if (player.attack(60)) {
-					pAttack = new Attack((int) player.getLocX(), (int) player.getLocY() + 25, 50, 50, lastR, lastD, ticks,
-							"sprites/weapon_golden_sword.png");
+				//	pAttack = new Attack((int) player.getLocX(), (int) player.getLocY() + 25, 50, 50, lastR, lastD, ticks,"sprites/weapon_golden_sword.png");
+					pAttack = player.getAttack();
 				}
 			}
 

@@ -3,13 +3,14 @@ import java.awt.image.BufferedImage;
 public class MoveableObject extends GameObject{
 	//private field variables
 	private int damage = 5;
-	protected double pastX, pastY; // how much they moved in their last frame, to move to MO
-	protected double right, down; //current direction they're facing, or something, to move to MO
+	protected double pastX, pastY; // how much they moved in their last frame
+	protected double right, down; //current direction they're facing
 	private int cooldown = 0;// to move to MO
 
 	public MoveableObject(double x, double y, int width, int height , int startingHealth, BufferedImage b) {
 		super(x, y, width, height, false, false, startingHealth, b);
 	}
+	
 
 	public int getDamage() {
 		return this.damage;
