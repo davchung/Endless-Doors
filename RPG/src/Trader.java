@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Trader extends GameGui{
+public class Trader extends GameGUI{
 	
 	public Trader() {
 		super(true,"trader.png");

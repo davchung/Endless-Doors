@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class GameOver extends GameGui {
+public class GameOver extends GameGUI {
 	
 	public GameOver() {
 		super(true, "GameOverBckgrnd.jpg");

@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Inventory extends GameGui {
+public class Inventory extends GameGUI {
 
 	public int numWalls = 0;
 
