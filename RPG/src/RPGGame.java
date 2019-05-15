@@ -111,8 +111,8 @@ public class RPGGame implements KeyListener {
 					eAttack.draw(g);
 				}
 
-				g.drawString("Knight health: " + knight.getHealth(), 675, 65);
-				g.drawString("Enemy health: " + eNWIMN.getHealth(), 675, 85);
+				g.drawString("Knight health: " + knight.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
+				g.drawString("Demon health: " + eNWIMN.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 85);
 
 				g.setColor(new Color(255, 0, 0));
 				
@@ -159,7 +159,7 @@ public class RPGGame implements KeyListener {
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(1 * StartGame.SCREEN_WIDTH / 10, 1 * StartGame.SCREEN_HEIGHT / 10);
+		mainFrame.setLocation(StartGame.SCREEN_WIDTH / 10, 0);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each

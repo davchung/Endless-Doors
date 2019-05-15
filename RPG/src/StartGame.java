@@ -76,7 +76,7 @@ public class StartGame {
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 		startFrame.add(startPanel);
 		// determines where the frame is placed
-		startFrame.setLocation(1 * SCREEN_WIDTH / 15, 1 * SCREEN_HEIGHT / 10);
+		startFrame.setLocation(StartGame.SCREEN_WIDTH / 10, 0);
 		startFrame.pack();
 		startFrame.setVisible(true);
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
