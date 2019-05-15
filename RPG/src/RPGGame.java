@@ -334,6 +334,9 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("l")) {
 				// to be implemented later on
 			}
+			if (keys.contains("o")) {
+				objects.removeAll(getEnemies());
+			}
 		}
 	}
 
