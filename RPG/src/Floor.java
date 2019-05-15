@@ -9,25 +9,33 @@ import javax.imageio.ImageIO;
 
 public class Floor {
 
+	static final File dir = new File("src/img/Sprites/floors");
 
-	static final File dir=new File("src/img/Sprites/floors"); 
-
-	static ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
-	int[][] imgs;
+	int[][] floor;
+	ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
 
 	public Floor() {
-		getImages();
-		imgs = new int[StartGame.SCREEN_WIDTH/Map.OBJ_WIDTH][StartGame.SCREEN_HEIGHT/Map.OBJ_HEIGHT];
-		getRandInt();
+		floor = new int[StartGame.SCREEN_HEIGHT / Map.OBJ_HEIGHT][StartGame.SCREEN_WIDTH / Map.OBJ_WIDTH];
+		makeFloor();
 	}
 
-	public void makeFloor(Graphics g) {
-		for (int r = 0; r < StartGame.SCREEN_WIDTH; r += Map.OBJ_HEIGHT) {
-			for (int c = 0; c < StartGame.SCREEN_HEIGHT; c += Map.OBJ_WIDTH) {
-				g.drawImage(floors.get(imgs[r/Map.OBJ_HEIGHT][c/Map.OBJ_WIDTH]), r, c, Map.OBJ_WIDTH, Map.OBJ_HEIGHT, null);
+	public void drawFloor(Graphics g) {
+		for (int r = 0; r < floor.length; r++) {
+			for (int c = 0; c < floor[r].length; c++) {
+				g.drawImage(floors.get(floor[r][c]), c * Map.OBJ_WIDTH, r * Map.OBJ_HEIGHT, Map.OBJ_WIDTH,
+						Map.OBJ_HEIGHT, null);
 			}
 		}
 
+	}
+
+	private void makeFloor() {
+		getImages();
+		for (int r = 0; r < floor.length; r ++) {
+			for (int c = 0; c < floor[r].length; c ++) {
+				floor[r][c] = getRandInd();
+			}
+		}
 	}
 
 	private void getImages() {
@@ -43,12 +51,8 @@ public class Floor {
 
 	}
 
-	private void getRandInt() {
-		for (int r = 0; r < StartGame.SCREEN_WIDTH; r += Map.OBJ_HEIGHT) {
-			for (int c = 0; c < StartGame.SCREEN_HEIGHT; c += Map.OBJ_WIDTH) {
-				imgs[r/Map.OBJ_WIDTH][c/Map.OBJ_HEIGHT]=(int) (Math.random()*floors.size());
-			}
-		}
+	private int getRandInd() {
+		int r = (int) (Math.random() * floors.size());
+		return r;
 	}
-
 }

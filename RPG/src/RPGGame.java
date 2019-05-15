@@ -21,8 +21,8 @@ public class RPGGame implements KeyListener {
 	private int facing = 1;
 	private Demon demon;
 	private Map m = new Map(5);
-
 	Floor floor = new Floor();
+	
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
 	private Wall builtWall;
@@ -102,7 +102,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//floor.makeFloor(g);
+				floor.drawFloor(g);
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
