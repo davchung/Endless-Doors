@@ -23,28 +23,24 @@ public abstract class Enemy extends MoveableObject {
 		double r = getRight() / Math.abs(getRight());
 		int dx = 0;
 		if (r < 0)
-			dx = (int) super.WIDTH;
+			dx = (int) super.WIDTH + 40;
 		if (getDown() != 0 || getRight() != 0) {
-			g.drawImage(run.getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
-					(int) super.HEIGHT + 20, null);
+			g.drawImage(run.getImage(), (int) super.locX + dx - 20, (int) super.locY - 40,
+					(int) (r * (super.WIDTH + 40)), (int) super.HEIGHT + 40, null);
 			return;
 		}
 		g.drawImage(idle.getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
 				(int) super.HEIGHT + 20, null);
 	}
+
 	@Override
 	public void draw(Graphics g, BufferedImage i) {
 		double r = getRight() / Math.abs(getRight());
 		int dx = 0;
 		if (r < 0)
-			dx = (int) super.WIDTH;
-		if (getDown() != 0 || getRight() != 0) {
-			g.drawImage(i, (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
-					(int) super.HEIGHT + 20, null);
-			return;
-		}
-		g.drawImage(i, (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
-				(int) super.HEIGHT + 20, null);
+			dx = (int) super.WIDTH + 40;
+		g.drawImage(i, (int) super.locX + dx - 20, (int) super.locY - 40, (int) (r * (super.WIDTH + 40)),
+				(int) super.HEIGHT + 40, null);
 	}
 
 	// these methods are for movement
@@ -52,8 +48,8 @@ public abstract class Enemy extends MoveableObject {
 	public void moveX(double howMuch) {
 		if (RPGGame.ticks > getHittable()) {
 			super.moveX(howMuch);
-		}else {
-			super.moveX(-howMuch/2);
+		} else {
+			super.moveX(-howMuch / 2);
 		}
 	}
 
@@ -61,8 +57,8 @@ public abstract class Enemy extends MoveableObject {
 	public void moveY(double howMuch) {
 		if (RPGGame.ticks > getHittable()) {
 			super.moveY(howMuch);
-		}else {
-			super.moveY(-howMuch/2);
+		} else {
+			super.moveY(-howMuch / 2);
 		}
 	}
 
@@ -79,7 +75,7 @@ public abstract class Enemy extends MoveableObject {
 		} else {
 			y = this.getSpeed();
 		}
-		
+
 		moveX(x);
 		moveY(y);
 		wallCollision();
