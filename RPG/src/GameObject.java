@@ -100,6 +100,11 @@ public abstract class GameObject {
 			g.drawImage(image, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
 		}
 	}
+	public void draw(Graphics g,BufferedImage i) {
+		if (image != null) {
+			g.drawImage(i, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
+		}
+	}
 
 	// these methods have to do with movement
 	public void moveX(double howMuch) {

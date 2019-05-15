@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public abstract class Enemy extends MoveableObject {
 
@@ -29,6 +30,20 @@ public abstract class Enemy extends MoveableObject {
 			return;
 		}
 		g.drawImage(idle.getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
+				(int) super.HEIGHT + 20, null);
+	}
+	@Override
+	public void draw(Graphics g, BufferedImage i) {
+		double r = getRight() / Math.abs(getRight());
+		int dx = 0;
+		if (r < 0)
+			dx = (int) super.WIDTH;
+		if (getDown() != 0 || getRight() != 0) {
+			g.drawImage(i, (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
+					(int) super.HEIGHT + 20, null);
+			return;
+		}
+		g.drawImage(i, (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
 				(int) super.HEIGHT + 20, null);
 	}
 
