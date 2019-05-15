@@ -115,7 +115,7 @@ public class RPGGame implements KeyListener {
 					eAttack.draw(g);
 				}
 
-				g.drawString("Knight health: " + knight.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
+				g.drawString("Knight health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
 				g.drawString("Demon health: " + demon.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 85);
 
 				g.setColor(new Color(255, 0, 0));
@@ -130,13 +130,13 @@ public class RPGGame implements KeyListener {
 
 				if (enemyHit == true) {
 					if (demon.getHealth() > 0) {
-						g.drawString("-" + knight.getDamage(), (int) demon.getCX() - 5, (int) demon.getCY());
+						g.drawString("-" + player.getDamage(), (int) demon.getCX() - 5, (int) demon.getCY());
 					}
 					enemyHit = false;
 				}
 				if (playerHit == true) {
-					if (knight.getHealth() > 0) {
-						g.drawString("-" + demon.getDamage(), (int) knight.getCX() - 5, (int) knight.getCY());
+					if (player.getHealth() > 0) {
+						g.drawString("-" + demon.getDamage(), (int) player.getCX() - 5, (int) player.getCY());
 					}
 					playerHit = false;
 				}
@@ -256,8 +256,8 @@ public class RPGGame implements KeyListener {
 			gameOver = true;
 			pause();
 		}
-		if (eAttack != null && eAttack.collides(knight)) {
-			knight.hit(demon.getDamage());
+		if (eAttack != null && eAttack.collides(player)) {
+			player.hit(demon.getDamage());
 			playerHit = true;
 		}
 		objects.removeAll(toRemove);
@@ -325,7 +325,7 @@ public class RPGGame implements KeyListener {
 			// this allows the j key to control attacking
 			if (keys.contains("j")) {
 				if (player.attack(60)) {
-					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, lastR, lastD, ticks,
+					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, 50, 50, lastR, lastD, ticks,
 							"sprites/weapon_golden_sword.png");
 				}
 			}
