@@ -44,7 +44,7 @@ public class RPGGame implements KeyListener {
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
-	private ArrayList<Attack>enemyAttacks = new ArrayList<Attack>();
+	private ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -183,13 +183,10 @@ public class RPGGame implements KeyListener {
 		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
 		for (GameObject w : objects) {
 			if (eNWIMN.collides(w)&&!eNWIMN.equals(w)) {
-				System.out.println("collided");
 				checkSpawns();
 				return;
 			}
 		}
-		System.out.println("no problems");
-		System.out.println(eNWIMN);
 	}
 
 	protected void movement() {
