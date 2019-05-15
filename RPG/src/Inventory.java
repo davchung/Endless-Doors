@@ -36,7 +36,7 @@ public class Inventory extends GameGUI {
 		g.drawString("Items are: ", LEFT_MARGIN, yVal);
 		yVal += 40;
 		for (int i = 0; i < RPGGame.getInventory().size(); i++) {
-			g.drawString("" + RPGGame.getInventory().get(i), LEFT_MARGIN, yVal);
+			g.drawString("" + RPGGame.getInventory().get(i).getName(), LEFT_MARGIN, yVal);
 			yVal += 40;
 		}
 		

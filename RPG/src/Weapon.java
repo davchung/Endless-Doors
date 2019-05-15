@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public abstract class Weapon extends Item {
+public class Weapon extends Item {
 
 	private double atkSpeed;
 	private double dmg;
-	ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 
 	public Weapon(String pathName, int gold) {
 		super(pathName, gold);
