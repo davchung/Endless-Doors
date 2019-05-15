@@ -6,7 +6,7 @@ public class Knight extends Player {
 	}
 	
 	public Attack getAttack() {
-		Attack sword = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,20, "sprites/weapon_golden_sword.png");
+		Attack sword = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,20, "sprites/items/lavish_gold_sword.png");
 		
 		return sword;
 	}
