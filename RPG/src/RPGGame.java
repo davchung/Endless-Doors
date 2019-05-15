@@ -170,7 +170,8 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				movement();
+				if (ticks>10)
+					movement();
 				collision();
 				ticks++;
 			}
@@ -180,10 +181,9 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
+		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 100, 100, 1);
 		for (GameObject w : objects) {
-			if (eNWIMN.collides(w)&&!eNWIMN.equals(w)) {
-				System.out.println("collided");
+			if (eNWIMN.collides(w)&&!eNWIMN.equals(w)&&!w.throughable) {
 				checkSpawns();
 				return;
 			}
