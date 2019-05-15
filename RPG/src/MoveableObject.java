@@ -41,7 +41,7 @@ public class MoveableObject extends GameObject{
 	public void setCooldown(int cd) {
 		this.cooldown = cd;
 	}
-	public boolean attack(int ticks) {
+	public boolean canMove(int ticks) {
 		if (cooldown >= RPGGame.ticks)
 			return false;
 		cooldown = RPGGame.ticks + ticks;
