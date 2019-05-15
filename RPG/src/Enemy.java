@@ -50,14 +50,20 @@ public abstract class Enemy extends MoveableObject {
 	// these methods are for movement
 	@Override
 	public void moveX(double howMuch) {
-		if (RPGGame.ticks > getHittable())
+		if (RPGGame.ticks > getHittable()) {
 			super.moveX(howMuch);
+		}else {
+			super.moveX(-howMuch/2);
+		}
 	}
 
 	@Override
 	public void moveY(double howMuch) {
-		if (RPGGame.ticks > getHittable())
+		if (RPGGame.ticks > getHittable()) {
 			super.moveY(howMuch);
+		}else {
+			super.moveY(-howMuch/2);
+		}
 	}
 
 	public void autoMove() {
@@ -88,8 +94,8 @@ public abstract class Enemy extends MoveableObject {
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = eSpeed * dx / m;
 				dy = eSpeed * dy / m;
-				moveX(dx / 10);
-				moveY(dy / 10);
+				super.moveX(dx / 10);
+				super.moveY(dy / 10);
 			}
 
 		}
