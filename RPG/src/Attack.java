@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 
 public class Attack extends GameObject{
 	private int vel = 0;
@@ -26,7 +27,15 @@ public class Attack extends GameObject{
 		super.moveY(y2*height/2);
 		
 	}
-
+	@Override
+	public boolean collides(GameObject other) {
+		Rectangle r = super.getRect();
+		Rectangle k = new Rectangle((int)(r.getX()+r.getWidth()/10),(int)(r.getY()+r.getHeight()/10),(int)(r.getWidth()*9/10),(int)(r.getHeight()*9/10));
+		if (k.intersects(other.getRect())) {
+			return true;
+		}
+		return false;
+	}
 	public void update() {
 		super.moveX(r*vel);
 		super.moveY(d*vel);

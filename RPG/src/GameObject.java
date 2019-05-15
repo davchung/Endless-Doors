@@ -53,7 +53,7 @@ public abstract class GameObject {
 		this.health += amount;
 	}
 
-	public Rectangle getRect() {
+	protected Rectangle getRect() {
 		return this.current;
 	}
 	public void setBufferedImage(BufferedImage b) {
