@@ -30,7 +30,7 @@ public class Inventory extends GameGui {
 		super.draw(g);
 		
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Papyrus", 0, 75));
+		g.setFont(new Font("Herculanum", 0, 75));
 		g.drawString("INVENTORY", LEFT_MARGIN, yVal);
 		
 		g.setFont(new Font("Papyrus", 0, 25));
@@ -41,6 +41,8 @@ public class Inventory extends GameGui {
 		
 		g.setFont(new Font("Comic Sans MS", 0, 12));
 		yVal += 80;
+		g.drawString("Press I to return to game.", LEFT_MARGIN, yVal);
+		yVal += 25;
 		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
 		
 		RPGGame.pause();
