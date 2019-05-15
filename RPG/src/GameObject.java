@@ -10,7 +10,6 @@ public abstract class GameObject {
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
 	private Rectangle current;
-	
 	public final static String PATH_PREFIX = "img/";
 	protected BufferedImage image;
 	private int hittable = 0;
@@ -53,7 +52,7 @@ public abstract class GameObject {
 		this.health += amount;
 	}
 
-	public Rectangle getRect() {
+	protected Rectangle getRect() {
 		return this.current;
 	}
 	public void setBufferedImage(BufferedImage b) {
