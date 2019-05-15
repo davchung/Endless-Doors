@@ -17,9 +17,9 @@ public class GameOver extends GameGui {
 		super.draw(g);;
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Times New Roman", 0, 101));
-		g.drawString("Game Over!", StartGame.SCREEN_WIDTH * 11 / 40, StartGame.SCREEN_HEIGHT * 4 / 10);
-		g.setFont(new Font("Times New Roman", 0, 50));
-		g.drawString("Press B to return to start.", StartGame.SCREEN_WIDTH * 11 / 40, StartGame.SCREEN_HEIGHT * 6 / 10);
+		g.setFont(new Font("Times New Roman", 0, 102));
+		g.drawString("Game Over!", StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 4 / 10);
+		g.setFont(new Font("Times New Roman", 0, 52));
+		g.drawString("Press B to return to start.", StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 6 / 10);
 	}
 }

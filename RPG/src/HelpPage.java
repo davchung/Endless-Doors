@@ -16,7 +16,7 @@ public class HelpPage extends GameGui {
 
 	public void draw(Graphics g) {
 		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
-		int yVal = StartGame.SCREEN_HEIGHT * 2 / 10;
+		int yVal = StartGame.SCREEN_HEIGHT * 1 / 4;
 		g.setColor(new Color(0, 130, 255));
 		super.draw(g);
 		

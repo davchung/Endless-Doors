@@ -24,13 +24,25 @@ public class Inventory extends GameGui {
 	}
 
 	public void draw(Graphics g) {
+		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
+		int yVal = StartGame.SCREEN_HEIGHT * 1 / 4;
 		g.setColor(new Color(145, 130, 10));
 		super.draw(g);
+		
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Times New Roman", 0, 30));
-		g.drawString("INVENTORY", (int) (locX + WIDTH * 1 / 2), (int)locY);
-		g.drawString("Walls: " + numWalls, 100, (int) (locY + HEIGHT * 1 / 4));
-		g.drawString("Gold: ___ (to be implemented later on)", 100, (int) (locY + HEIGHT * 1 / 4 +25));
+		g.setFont(new Font("Papyrus", 0, 75));
+		g.drawString("INVENTORY", LEFT_MARGIN, yVal);
+		
+		g.setFont(new Font("Papyrus", 0, 25));
+		yVal += 80;
+		g.drawString("Gold: ___ (to be implemented later on)", LEFT_MARGIN, yVal);
+		yVal += 40;
+		g.drawString("Other items will be added soon!", LEFT_MARGIN, yVal);
+		
+		g.setFont(new Font("Comic Sans MS", 0, 12));
+		yVal += 80;
+		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
+		
 		RPGGame.pause();
 	}
 }
