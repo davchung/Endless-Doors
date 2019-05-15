@@ -5,12 +5,8 @@ import java.awt.Graphics;
 public class HelpPage extends GameGui {
 
 
-	public HelpPage(int x, int y, double w, double h) {
-		super(x, y, w, h, true, "helppagebkgrnd.jpg");
-		locX = x;
-		locY = y;
-		WIDTH = w;
-		HEIGHT = h;
+	public HelpPage() {
+		super(true, "HelpPageBckgrnd.jpg");
 	}
 
 
@@ -28,9 +24,9 @@ public class HelpPage extends GameGui {
 		yVal += 80;
 		g.drawString("W A S D to move the character.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("J to attack.", LEFT_MARGIN, yVal);
+		g.drawString("J to attack/main.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("K to place bombs. (to be implemented later on)", LEFT_MARGIN, yVal);
+		g.drawString("K to use/secondary. (to be implemented later on)", LEFT_MARGIN, yVal);
 		yVal += 60;
 		g.drawString("I to access the inventory page.", LEFT_MARGIN, yVal);
 		yVal += 40;
