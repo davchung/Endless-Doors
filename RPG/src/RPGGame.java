@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 
 public class RPGGame implements KeyListener {
 
@@ -42,7 +43,8 @@ public class RPGGame implements KeyListener {
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
-	private ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
+	private	static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
+	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -64,6 +66,7 @@ public class RPGGame implements KeyListener {
 
 	public static void setEnemyAttack(Attack atk) {
 		RPGGame.eAttack = atk;
+		enemyAttacks.add(atk);
 	}
 
 	public static ArrayList<GameObject> getObjects() {
@@ -72,6 +75,9 @@ public class RPGGame implements KeyListener {
 
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
+	}
+	public static ArrayList<Item> getInventory() {
+		return RPGGame.inventory;
 	}
 
 	public void beginGame() {
@@ -109,8 +115,8 @@ public class RPGGame implements KeyListener {
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
 				}
-				if (eAttack != null && !eAttack.expire()) {
-					eAttack.draw(g);
+				for (Attack e:enemyAttacks) {
+					e.draw(g);
 				}
 
 				g.drawString("Knight health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
@@ -170,7 +176,7 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				if (ticks>10)
+				if (ticks>50||ticks==0)
 					movement();
 				collision();
 				update(); //updates last health
@@ -186,8 +192,8 @@ public class RPGGame implements KeyListener {
 			if (m instanceof MoveableObject)
 				((MoveableObject) m).update();
 		}
-		if(eAttack!=null) {
-			eAttack.update();
+		for (Attack e:enemyAttacks) {
+			e.update();
 		}
 
 	}
@@ -214,8 +220,10 @@ public class RPGGame implements KeyListener {
 		if (pAttack != null && pAttack.expire()) {
 			pAttack = null;
 		}
-		if (eAttack != null && eAttack.expire()) {
-			eAttack = null;
+		for (Attack e:enemyAttacks) {
+			if (e.expire()) {
+				enemyAttacks.remove(e);
+			}
 		}
 		if (builtWall != null) {
 			builtWall = null;
@@ -244,10 +252,17 @@ public class RPGGame implements KeyListener {
 			if(e instanceof Crate || e instanceof Chest || e instanceof Wall || e instanceof ExplosiveBarrel) {
 				if (e.getHealth() <= 0)
 					toRemove.add(e);
-				if ((pAttack != null && pAttack.collides(e)) || (eAttack != null && eAttack.collides(e))) {
+				if ((pAttack != null && pAttack.collides(e)) ) {
 					e.hit();
 					damagedObjects.add(e);
 					objDamaged = true;
+				}
+				for (Attack a:enemyAttacks) {
+					if (a.collides(e)) {
+						e.hit();
+						damagedObjects.add(e);
+						objDamaged = true;
+					}
 				}
 			}
 		}
@@ -257,8 +272,10 @@ public class RPGGame implements KeyListener {
 			gameOver = true;
 			pause();
 		}
-		if (eAttack != null && eAttack.collides(player)) {
-			player.hit(demon.getDamage()+5);
+		for (Attack e:enemyAttacks) {
+			if (e.collides(player)) {
+				player.hit(demon.getDamage());
+			}
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
@@ -378,6 +395,7 @@ public class RPGGame implements KeyListener {
 		if (gameOver == true && (keys.contains("n"))) {
 			objects.clear();
 			enemies.clear();
+			this.enemyAttacks.clear();
 			new RPGGame().beginGame();
 			mainFrame.dispose();
 		}
@@ -387,13 +405,36 @@ public class RPGGame implements KeyListener {
 			gameLevel++;
 			System.out.println("Game Level: " + gameLevel);
 		}
-		
+
 		// trading post
 		if (keys.contains("k") && player.collides(trader)) {
 			tradeOpen = !tradeOpen;
 			mainPanel.repaint();
 			pause();
 		}
+
+		// trading post - buy option 1
+		if (keys.contains("1") && tradeOpen == true) {
+			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
+			inventory.add(new BattleAxe());
+		}
+		// trading post - buy option 2
+		if (keys.contains("2") && tradeOpen == true) {
+			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?");
+		}
+		// trading post - buy option 3
+		if (keys.contains("3") && tradeOpen == true) {
+			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?");
+		}
+		// trading post - buy option 4
+		if (keys.contains("4") && tradeOpen == true) {
+			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?");
+		}
+		// trading post - buy option 5
+		if (keys.contains("5") && tradeOpen == true) {
+			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?");
+		}
+
 	}
 
 	@Override
