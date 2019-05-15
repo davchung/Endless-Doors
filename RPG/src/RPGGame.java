@@ -21,8 +21,8 @@ public class RPGGame implements KeyListener {
 	private int facing = 1;
 	private Demon demon;
 	private Map m = new Map(5);
-
 	Floor floor = new Floor();
+	
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
 	private Wall builtWall;
@@ -167,7 +167,7 @@ public class RPGGame implements KeyListener {
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		mainFrame.setLocation(StartGame.SCREEN_WIDTH / 10, 0);
+		StartGame.center(mainFrame);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
