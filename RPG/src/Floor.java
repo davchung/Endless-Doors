@@ -39,7 +39,6 @@ public class Floor {
 	}
 
 	private void getImages() {
-		System.out.println(dir.isDirectory());
 		for (final File f : dir.listFiles()) {
 
 			try {
