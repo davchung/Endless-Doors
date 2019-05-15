@@ -100,7 +100,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				floor.makeFloor(g);
+				floor.drawFloor(g);
 				for (GameObject go : objects) {
 					go.draw(g);
 				}
