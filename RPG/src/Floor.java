@@ -12,16 +12,19 @@ public class Floor {
 
 	static final File dir=new File("src/img/Sprites/floors"); 
 
-	ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
+	static ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
+	int[][] imgs;
 
 	public Floor() {
 		getImages();
+		imgs = new int[StartGame.SCREEN_WIDTH/Map.OBJ_WIDTH][StartGame.SCREEN_HEIGHT/Map.OBJ_HEIGHT];
+		getRandInt();
 	}
 
 	public void makeFloor(Graphics g) {
-		for (int r = 0; r < StartGame.SCREEN_HEIGHT; r += Map.OBJ_HEIGHT) {
-			for (int c = 0; c < StartGame.SCREEN_WIDTH; c += Map.OBJ_WIDTH) {
-				g.drawImage(floors.get(getRandInd()), r, c, Map.OBJ_WIDTH, Map.OBJ_HEIGHT, null);
+		for (int r = 0; r < StartGame.SCREEN_WIDTH; r += Map.OBJ_HEIGHT) {
+			for (int c = 0; c < StartGame.SCREEN_HEIGHT; c += Map.OBJ_WIDTH) {
+				g.drawImage(floors.get(imgs[r/Map.OBJ_HEIGHT][c/Map.OBJ_WIDTH]), r, c, Map.OBJ_WIDTH, Map.OBJ_HEIGHT, null);
 			}
 		}
 
@@ -40,9 +43,12 @@ public class Floor {
 
 	}
 
-	private int getRandInd() {
-		int r = (int) (Math.random() * floors.size());
-		return r;
+	private void getRandInt() {
+		for (int r = 0; r < StartGame.SCREEN_WIDTH; r += Map.OBJ_HEIGHT) {
+			for (int c = 0; c < StartGame.SCREEN_HEIGHT; c += Map.OBJ_WIDTH) {
+				imgs[r/Map.OBJ_WIDTH][c/Map.OBJ_HEIGHT]=(int) (Math.random()*floors.size());
+			}
+		}
 	}
 
 }
