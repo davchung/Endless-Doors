@@ -9,7 +9,6 @@ public class TradingPost extends GameGUI {
 	}
 
 	public void draw(Graphics g) {
-		System.out.println("PURCHASING DOES NOT WORK YET!");
 		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
 		int LEFT_INDENT = 25;
 		int yVal = StartGame.SCREEN_HEIGHT * 1 / 5;
@@ -23,6 +22,8 @@ public class TradingPost extends GameGUI {
 
 		g.setFont(new Font("Papyrus", 0, BODY_FONT));
 		g.drawString("Welcome to my shop, traveler.", LEFT_MARGIN, yVal);
+		yVal += 30;
+		g.drawString("Amount of gold you have: ___", LEFT_MARGIN, yVal);
 		yVal += 30;
 
 		g.drawString("Press the corresponding number to purchase an item.", LEFT_MARGIN, yVal);

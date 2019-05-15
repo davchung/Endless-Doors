@@ -31,9 +31,14 @@ public class Inventory extends GameGUI {
 		
 		g.setFont(new Font("Papyrus", 0, BODY_FONT));
 		yVal += 80;
-		g.drawString("Gold: ___ (to be implemented later on)", LEFT_MARGIN, yVal);
+		g.drawString("Number of items in inventory: " + RPGGame.getInventory().size(), LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("Other items will be added soon!", LEFT_MARGIN, yVal);
+		g.drawString("Items are: ", LEFT_MARGIN, yVal);
+		yVal += 40;
+		for (int i = 0; i < RPGGame.getInventory().size(); i++) {
+			g.drawString("" + RPGGame.getInventory().get(i), LEFT_MARGIN, yVal);
+			yVal += 40;
+		}
 		
 		g.setFont(new Font("Herculanum", 0, END_FONT));
 		yVal += 80;
