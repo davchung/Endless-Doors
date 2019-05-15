@@ -41,6 +41,8 @@ public class Inventory extends GameGui {
 		
 		g.setFont(new Font("Comic Sans MS", 0, 12));
 		yVal += 80;
+		g.drawString("Press I to return to game.", LEFT_MARGIN, yVal);
+		yVal += 25;
 		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
 		
 		RPGGame.pause();
