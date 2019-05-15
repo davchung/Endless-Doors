@@ -253,7 +253,7 @@ public class RPGGame implements KeyListener {
 			pause();
 		}
 		if (eAttack != null && eAttack.collides(player)) {
-			player.hit(demon.getDamage());
+			player.hit(demon.getDamage()+5);
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
