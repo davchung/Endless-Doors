@@ -3,12 +3,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class ChestLoot extends GameGui{
-	public ChestLoot(int x, int y,double w, double h) {
-		super(x,y,w,h,false,"chestbkgrnd.jpg");
-		locX = x;
-		locY = y;
-		WIDTH = w;
-		HEIGHT = h;
+	public ChestLoot() {
+		super(false,"ChestLootBckgrnd.jpg");
 	}
 	
 	public void draw(Graphics g) {

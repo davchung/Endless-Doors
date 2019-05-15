@@ -28,18 +28,12 @@ public class RPGGame implements KeyListener {
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
-	private Inventory i = new Inventory(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
-			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
-	private ItemShop iS = new ItemShop(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
-			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
-	private ChestLoot cL = new ChestLoot(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
-			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
-	private HelpPage hP = new HelpPage(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
-			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
-	private GameOver gO = new GameOver(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
-			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
-	private NextLevel nL = new NextLevel(StartGame.SCREEN_WIDTH * 1 / 10, StartGame.SCREEN_HEIGHT * 1 / 10,
-			StartGame.SCREEN_WIDTH * 8 / 10, StartGame.SCREEN_HEIGHT * 8 / 10);
+	private Inventory i = new Inventory();
+	private Trader trader = new Trader();
+	private ChestLoot cL = new ChestLoot();
+	private HelpPage hP = new HelpPage();
+	private GameOver gO = new GameOver();
+	private NextLevel nL = new NextLevel();
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();

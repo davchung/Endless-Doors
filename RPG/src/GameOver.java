@@ -4,8 +4,8 @@ import java.awt.Graphics;
 
 public class GameOver extends GameGui {
 	
-	public GameOver(int x, int y, double w, double h) {
-		super(x, y, w, h, true, "GameOverBckgrnd.jpg");
+	public GameOver() {
+		super(true, "GameOverBckgrnd.jpg");
 	}
 
 	public void draw(Graphics g) {

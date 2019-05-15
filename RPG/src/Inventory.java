@@ -7,12 +7,8 @@ public class Inventory extends GameGui {
 
 	public int numWalls = 0;
 
-	public Inventory(int x, int y, double w, double h) {
-		super(x, y, w, h, true, "inventorybkgrnd.jpg");
-		locX = x;
-		locY = y;
-		WIDTH = w;
-		HEIGHT = h;
+	public Inventory() {
+		super(true, "InventoryBckgrnd.jpg");
 	}
 
 	public void addWalls(int num) {

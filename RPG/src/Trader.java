@@ -2,13 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class ItemShop extends GameGui{
-	public ItemShop(int x, int y,double w, double h) {
-		super(x,y,w,h,true,"iSbackgrnd.jpg");
-		locX = x;
-		locY = y;
-		WIDTH = w;
-		HEIGHT = h;
+public class Trader extends GameGui{
+	
+	public Trader() {
+		super(true,"trader.png");
 	}
 	
 	public void draw(Graphics g) {
