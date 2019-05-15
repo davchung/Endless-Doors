@@ -11,7 +11,7 @@ public class Attack extends GameObject{
 	private int expire;
 	//this is the constructor for a melee attack;
 	public Attack (int x, int y, int width, int height,int pWidth,int pHeight, int right, int down, int duration,String s) {
-		super(x ,y, width, height, true,true,1, s); // uses GameObject's constructor #1
+		super(x ,y, width, height, true, true,1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks+duration;
 		super.moveX(-width/2);//centers drawing on player
 		super.moveY(-height/2);

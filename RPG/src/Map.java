@@ -50,17 +50,17 @@ public class Map {
 		outlineChests(room1);
 		
 		// please keep this here - it is to debug the 2D array
-		for (int r = 0; r < room1.length; r++) {
+		/*for (int r = 0; r < room1.length; r++) {
 			for (int c = 0; c < room1[r].length; c++) {
 				System.out.print(room1[r][c] + " ");
 			}
 			System.out.println();
-		}
+		}*/
 	}
 
 	private void outlineChests(int[][] room) {
 		while (numChest > 0) {
-			room[GameObject.randInt(1, 13)][GameObject.randInt(1, 19)] = 4;
+			room[GameObject.randInt(4, 13)][GameObject.randInt(5, 19)] = 4;
 			numChest--;
 		}
 	}

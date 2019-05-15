@@ -23,7 +23,7 @@ public class RPGGame implements KeyListener {
 	private Demon demon;
 	private Trader trader;
 	private Map m = new Map(5);
-	Floor floor = new Floor();
+	private Floor floor = new Floor();
 
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
@@ -111,7 +111,7 @@ public class RPGGame implements KeyListener {
 
 				}
 				player.draw(g, facing);
-				g.drawRect(50, 50, 50, 50);
+				g.drawRect(250, 200, 50, 50);
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
@@ -200,7 +200,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		demon = new Demon(GameObject.randInt(50, StartGame.SCREEN_WIDTH-150), GameObject.randInt(50, StartGame.SCREEN_HEIGHT-150), 100, 100, 1);
+		demon = new Demon(GameObject.randInt(250, StartGame.SCREEN_WIDTH-150), GameObject.randInt(200, StartGame.SCREEN_HEIGHT-150), 100, 100, 1);
 		for (GameObject w : objects) {
 			if (demon.collides(w)&&!demon.equals(w)&&!w.throughable) {
 				checkSpawns();
