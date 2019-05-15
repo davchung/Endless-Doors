@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class Floor {
 
-	static final File dir = new File("img/Sprites/floors");
+	static final File dir = new File("Sprites/floors");
 	ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
 
 	public Floor() {
