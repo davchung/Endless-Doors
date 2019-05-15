@@ -16,6 +16,25 @@ public class Demon extends Enemy {
 			super.draw(g);
 		}
 	}
+
+	// these methods are for movement
+	@Override
+	public void moveX(double howMuch) {
+		if (RPGGame.ticks > getHittable()) {
+			super.moveX(howMuch);
+		} else {
+			super.moveX(-howMuch / 2);
+		}
+	}
+
+	@Override
+	public void moveY(double howMuch) {
+		if (RPGGame.ticks > getHittable()) {
+			super.moveY(howMuch);
+		} else {
+			super.moveY(-howMuch / 2);
+		}
+	}
 	@Override
 	public void autoMove() {
 		// makes the enemy follow the player
@@ -54,10 +73,8 @@ public class Demon extends Enemy {
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = super.getSpeed() * dx / m;
 				dy = super.getSpeed() * dy / m;
-				super.moveX(dx / 10);
-				super.moveY(dy / 10);
-				if (i instanceof Knight)
-					System.out.println("knight");
+				super.moveX(dx / 5);
+				super.moveY(dy / 5);
 				i.hit(5);
 			}
 

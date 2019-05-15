@@ -43,24 +43,6 @@ public abstract class Enemy extends MoveableObject {
 				(int) super.HEIGHT + 40, null);
 	}
 
-	// these methods are for movement
-	@Override
-	public void moveX(double howMuch) {
-		if (RPGGame.ticks > getHittable()) {
-			super.moveX(howMuch);
-		} else {
-			super.moveX(-howMuch / 2);
-		}
-	}
-
-	@Override
-	public void moveY(double howMuch) {
-		if (RPGGame.ticks > getHittable()) {
-			super.moveY(howMuch);
-		} else {
-			super.moveY(-howMuch / 2);
-		}
-	}
 
 	public void autoMove() {
 		// makes the enemy follow the player
