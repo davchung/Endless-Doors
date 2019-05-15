@@ -42,8 +42,11 @@ public abstract class GameObject {
 	}
 
 	// getters, setters, and "incrementers" are here
-	public boolean invincibility() {
+	public boolean getInvincibility() {
 		return invincible;
+	}
+	public void setInvincibility(boolean value) {
+		invincible = value;
 	}
 	public int getHealth() {
 		return this.health;

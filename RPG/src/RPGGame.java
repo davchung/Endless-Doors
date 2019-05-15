@@ -34,6 +34,7 @@ public class RPGGame implements KeyListener {
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
 	private NextLevel nL = new NextLevel();
+	private TradingPost tP = new TradingPost();
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
@@ -124,7 +125,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (objDamaged == true) {
 					for (GameObject go : damagedObjects) {
-						if (go.getHealth() < 100 && go.getHealth() > 0 && !go.invincibility()) {
+						if (go.getHealth() < 100 && go.getHealth() > 0 && !go.getInvincibility()) {
 							g.drawString("" + go.getHealth(), (int) go.getCX() - 8, (int) go.getCY());
 						}
 					}
@@ -333,11 +334,6 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("k") && player.collides(trader)) {
 				tradeOpen = true;
 			}
-
-			// for developers only!
-			if (keys.contains("o")) {
-				objects.removeAll(getEnemies());
-			}
 		}
 	}
 
@@ -355,6 +351,12 @@ public class RPGGame implements KeyListener {
 		lower = lower.toLowerCase();
 		if (!keys.contains(lower)) {
 			keys.add(lower);
+		}
+
+		// for developers only!
+		if (keys.contains("o")) {
+			objects.removeAll(getEnemies());
+			player.setInvincibility(true);
 		}
 
 		// pause button
