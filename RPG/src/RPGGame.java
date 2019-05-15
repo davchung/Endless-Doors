@@ -110,6 +110,7 @@ public class RPGGame implements KeyListener {
 
 				}
 				player.draw(g, facing);
+				g.drawRect(50, 50, 50, 50);
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
@@ -404,22 +405,27 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("1") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
 			inventory.add(new BattleAxe());
+			JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
 		}
 		// trading post - buy option 2
 		if (keys.contains("2") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?");
+			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
 		}
 		// trading post - buy option 3
 		if (keys.contains("3") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?");
+			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
 		}
 		// trading post - buy option 4
 		if (keys.contains("4") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?");
+			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
 		}
 		// trading post - buy option 5
 		if (keys.contains("5") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?");
+			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
 		}
 
 	}

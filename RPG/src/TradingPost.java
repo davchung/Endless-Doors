@@ -22,9 +22,9 @@ public class TradingPost extends GameGUI {
 
 		g.setFont(new Font("Papyrus", 0, BODY_FONT));
 		g.drawString("Welcome to my shop, traveler.", LEFT_MARGIN, yVal);
-		yVal += 30;
+		yVal += 35;
 		g.drawString("Amount of gold you have: ___", LEFT_MARGIN, yVal);
-		yVal += 30;
+		yVal += 35;
 
 		g.drawString("Press the corresponding number to purchase an item.", LEFT_MARGIN, yVal);
 		yVal += 55;
