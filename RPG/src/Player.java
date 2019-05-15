@@ -8,7 +8,7 @@ public abstract class Player extends MoveableObject {
 	private static Animation idle = new Animation("knight_f_idle",4);
 
 	// constructor #1 for Player
-	public Player(double x, double y, double w, double h) {
+	public Player(double x, double y, int w, int h) {
 		super(x, y, w, h, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
 	}
 

@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class Demon extends Enemy {
 	private BufferedImage damage;
-	public Demon(double x, double y, double w, double h, int level) {
+	public Demon(double x, double y, int w, int h, int level) {
 		super(x, y, w, h, level);
 		damage = super.getImage("sprites/big_demon_damage.png");
 	}

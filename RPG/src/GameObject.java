@@ -8,7 +8,7 @@ public abstract class GameObject {
 	// these are the variables that all GameObjects have
 	private int health;
 	protected double locX, locY;
-	protected double WIDTH, HEIGHT;
+	protected int WIDTH, HEIGHT;
 	private Rectangle current;
 	
 	public final static String PATH_PREFIX = "img/";
@@ -18,7 +18,7 @@ public abstract class GameObject {
 	private boolean invincible;
 
 	// constructor #1 for GameObject
-	public GameObject(double x, double y, double w, double h, boolean through, boolean i, int startingHealth, String s) {
+	public GameObject(double x, double y, int w, int h, boolean through, boolean i, int startingHealth, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
@@ -30,7 +30,7 @@ public abstract class GameObject {
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 	// constructor #2 for GameObject
-	public GameObject(double x, double y, double w, double h, boolean through, boolean i, int startingHealth, BufferedImage b) {
+	public GameObject(double x, double y, int w, int h, boolean through, boolean i, int startingHealth, BufferedImage b) {
 		locX = x;
 		locY = y;
 		WIDTH = w;

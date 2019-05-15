@@ -9,7 +9,7 @@ public abstract class Enemy extends MoveableObject {
 	private double eSpeed = 1.5; // enemy speed
 
 	// constructor #1 for Enemy
-	public Enemy(double x, double y, double w, double h, int level) {
+	public Enemy(double x, double y, int w, int h, int level) {
 		super(x, y, w, h, baseHealth + level * 10, idle.getFirst()); // uses GameObject's constructor #2
 	}
 

@@ -7,8 +7,8 @@ public class MoveableObject extends GameObject{
 	protected double right, down; //current direction they're facing, or something, to move to MO
 	private int cooldown = 0;// to move to MO
 
-	public MoveableObject(double x, double y, double width, double height , int startingHealth,
-			BufferedImage b) {super(x, y, width, height, false, false, startingHealth, b);
+	public MoveableObject(double x, double y, int width, int height , int startingHealth, BufferedImage b) {
+		super(x, y, width, height, false, false, startingHealth, b);
 	}
 
 	public int getDamage() {
