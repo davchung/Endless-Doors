@@ -417,7 +417,7 @@ public class RPGGame implements KeyListener {
 		// trading post - buy option 1
 		if (keys.contains("1") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
-			inventory.add(new BattleAxe());
+			inventory.add(new BattleAxe(20));
 			JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
 		}
 		// trading post - buy option 2
