@@ -6,11 +6,19 @@ public class MoveableObject extends GameObject{
 	protected double pastX, pastY; // how much they moved in their last frame
 	protected double right, down; //current direction they're facing
 	private int cooldown = 0;// to move to MO
+	private int loss=0;
 
 	public MoveableObject(double x, double y, int width, int height , int startingHealth, BufferedImage b) {
 		super(x, y, width, height, false, false, startingHealth, b);
 	}
-	
+	public int getLoss() {
+		return loss;
+	}
+	public void update() {
+		if (RPGGame.ticks>super.getHittable()) {
+			loss=0;
+		}
+	}
 
 	public int getDamage() {
 		return this.damage;
@@ -59,9 +67,11 @@ public class MoveableObject extends GameObject{
 	}
 	@Override
 	public void hit(int damage) {
+		if (RPGGame.ticks>super.getHittable()) {
+			//cooldown=26+RPGGame.ticks;
+			loss = damage;
+		}
 		super.hit(damage);
-		if (RPGGame.ticks>super.getHittable())
-			cooldown+=26;
 	}
 
 }

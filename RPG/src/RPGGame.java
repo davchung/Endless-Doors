@@ -52,8 +52,6 @@ public class RPGGame implements KeyListener {
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
 	private boolean objDamaged = false;
-	private boolean enemyHit = false;
-	private boolean playerHit = false;
 	private boolean helpPage = false;
 	private boolean gameOver = false;
 	private boolean iVisible = false; // inventory visible
@@ -105,6 +103,7 @@ public class RPGGame implements KeyListener {
 				//floor.drawFloor(g);
 				for (GameObject go : objects) {
 					go.draw(g);
+					
 				}
 				player.draw(g, facing);
 
@@ -119,26 +118,18 @@ public class RPGGame implements KeyListener {
 				g.drawString("Demon health: " + demon.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 85);
 
 				g.setColor(new Color(255, 0, 0));
-
+				for (GameObject go:objects) {
+					if (go instanceof MoveableObject&&((MoveableObject) go).getLoss()!=0) {
+						//System.out.println(((MoveableObject) go).getLoss());
+						g.drawString(""+-((MoveableObject) go).getLoss(), (int)go.getCX()-5, (int)go.getCY());
+					}
+				}
 				if (objDamaged == true) {
 					for (GameObject go : damagedObjects) {
 						if (go.getHealth() < 100 && go.getHealth() > 0 && !go.invincibility()) {
 							g.drawString("" + go.getHealth(), (int) go.getCX() - 8, (int) go.getCY());
 						}
 					}
-				}
-
-				if (enemyHit == true) {
-					if (demon.getHealth() > 0) {
-						g.drawString("-" + player.getDamage(), (int) demon.getCX() - 5, (int) demon.getCY());
-					}
-					enemyHit = false;
-				}
-				if (playerHit == true) {
-					if (player.getHealth() > 0) {
-						g.drawString("-" + demon.getDamage(), (int) player.getCX() - 5, (int) player.getCY());
-					}
-					playerHit = false;
 				}
 
 				if (helpPage == true) {
@@ -181,11 +172,20 @@ public class RPGGame implements KeyListener {
 				if (ticks>10)
 					movement();
 				collision();
+				update(); //updates last health
 				ticks++;
 			}
 
 		});
 		timer.start();
+	}
+
+	protected void update() {
+		for (Object m: objects) {
+			if (m instanceof MoveableObject)
+				((MoveableObject) m).update();
+		}
+		
 	}
 
 	private void checkSpawns() {
@@ -237,7 +237,6 @@ public class RPGGame implements KeyListener {
 				}
 				if (pAttack != null && pAttack.collides(e)) {
 					((Enemy) e).hit(player.getDamage());
-					enemyHit = true;
 				}
 			}
 			if(e instanceof Crate || e instanceof Chest || e instanceof Wall || e instanceof ExplosiveBarrel) {
@@ -258,7 +257,6 @@ public class RPGGame implements KeyListener {
 		}
 		if (eAttack != null && eAttack.collides(player)) {
 			player.hit(demon.getDamage());
-			playerHit = true;
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
