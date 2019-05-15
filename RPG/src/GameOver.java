@@ -6,10 +6,6 @@ public class GameOver extends GameGui {
 	
 	public GameOver(int x, int y, double w, double h) {
 		super(x, y, w, h, true, "GameOverBckgrnd.jpg");
-		locX = x;
-		locY = y;
-		WIDTH = w;
-		HEIGHT = h;
 	}
 
 	public void draw(Graphics g) {
