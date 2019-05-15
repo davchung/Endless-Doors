@@ -136,10 +136,8 @@ public abstract class GameObject {
 	
 	// returns a random int between lower bound (lb) and upper bound (ub), inclusive
 	public static int randInt(int lb, int ub) {
-		int rand;
-		rand=lb + (int)(Math.random() * ((ub - lb) + 1));
-		lb=rand/50;
-		return lb*50;
+		int rand = lb + (int)(Math.random() * ((ub - lb) + 1));
+		return rand;
 	}
 
 }
