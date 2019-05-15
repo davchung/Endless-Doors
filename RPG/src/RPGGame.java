@@ -119,7 +119,6 @@ public class RPGGame implements KeyListener {
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go:objects) {
 					if (go instanceof MoveableObject&&((MoveableObject) go).getLoss()!=0) {
-						//System.out.println(((MoveableObject) go).getLoss());
 						g.drawString(""+-((MoveableObject) go).getLoss(), (int)go.getCX()-5, (int)go.getCY());
 					}
 				}
@@ -194,7 +193,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		demon = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 100, 100, 1);
+		demon = new Demon(GameObject.randInt(50, StartGame.SCREEN_WIDTH-150), GameObject.randInt(50, StartGame.SCREEN_HEIGHT-150), 100, 100, 1);
 		for (GameObject w : objects) {
 			if (demon.collides(w)&&!demon.equals(w)&&!w.throughable) {
 				checkSpawns();

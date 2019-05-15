@@ -14,6 +14,10 @@ public abstract class GameGUI{
 	private boolean pauseGame; // whether it pauses the game or not
 	public final static String PATH_PREFIX = "img/gui/";
 	protected BufferedImage img;
+	
+	public static final int TITLE_FONT = 75;
+	public static final int BODY_FONT = 25;
+	public static final int END_FONT = 15;
 
 	public GameGUI(boolean pg, BufferedImage i) {
 		pauseGame = pg;

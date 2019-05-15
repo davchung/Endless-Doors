@@ -11,22 +11,20 @@ public class NextLevel extends GameGUI {
 	public void draw(Graphics g) {
 		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 3 / 20;
 		int yVal = StartGame.SCREEN_HEIGHT * 1 / 4;
-		g.setColor(new Color(255, 190, 0));
+		g.setColor(new Color(80, 0, 150)); // color: purple
 		super.draw(g);
 		
-		g.setColor(new Color(0, 0, 255));
-		g.setFont(new Font("Times New Roman", 0, 75));
+		g.setColor(new Color(250, 250, 250));
+		g.setFont(new Font("Optima", 0, TITLE_FONT));
 		g.drawString("CONGRATS!", LEFT_MARGIN, yVal);
 		
-		g.setColor(new Color(0, 255, 0));
-		g.setFont(new Font("Futura", 0, 25));
+		g.setFont(new Font("Arial", 0, BODY_FONT));
 		yVal += 80;
 		g.drawString("You completed this level.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("Press N to continue to next level. (will be implemented later on)", LEFT_MARGIN, yVal);
 		
-		g.setColor(new Color(175, 0, 255));
-		g.setFont(new Font("Comic Sans MS", 0, 12));
+		g.setFont(new Font("Optima", 0, END_FONT));
 		yVal += 80;
 		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
 		

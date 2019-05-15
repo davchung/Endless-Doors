@@ -13,20 +13,20 @@ public class HelpPage extends GameGUI {
 	public void draw(Graphics g) {
 		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
 		int yVal = StartGame.SCREEN_HEIGHT * 1 / 4;
-		g.setColor(new Color(0, 130, 255));
+		g.setColor(new Color(0, 130, 255)); // color: blue
 		super.draw(g);
 		
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Optima", 0, 75));
+		g.setFont(new Font("Optima", 0, TITLE_FONT));
 		g.drawString("HELP PAGE", LEFT_MARGIN, yVal);
 		
-		g.setFont(new Font("Arial", 0, 25));
+		g.setFont(new Font("Arial", 0, BODY_FONT));
 		yVal += 80;
 		g.drawString("W A S D to move the character.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("J to attack/main.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("K to use/secondary. (to be implemented later on)", LEFT_MARGIN, yVal);
+		g.drawString("K to use/secondary.", LEFT_MARGIN, yVal);
 		yVal += 60;
 		g.drawString("I to access the inventory page.", LEFT_MARGIN, yVal);
 		yVal += 40;
@@ -34,9 +34,9 @@ public class HelpPage extends GameGUI {
 		yVal += 40;
 		g.drawString("P to pause/play the game.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("Plus more features later on??? Stay tuned!", LEFT_MARGIN, yVal);
+		g.drawString("O to access super secret features!", LEFT_MARGIN, yVal);
 
-		g.setFont(new Font("Comic Sans MS", 0, 12));
+		g.setFont(new Font("Optima", 0, END_FONT));
 		yVal += 80;
 		g.drawString("Press ? to return to game.", LEFT_MARGIN, yVal);
 		yVal += 25;
