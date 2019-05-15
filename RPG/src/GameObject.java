@@ -10,7 +10,6 @@ public abstract class GameObject {
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
 	private Rectangle current;
-	
 	public final static String PATH_PREFIX = "img/";
 	protected BufferedImage image;
 	private int hittable = 0;

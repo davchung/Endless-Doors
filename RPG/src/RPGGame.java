@@ -179,6 +179,9 @@ public class RPGGame implements KeyListener {
 			if (m instanceof MoveableObject)
 				((MoveableObject) m).update();
 		}
+		if(eAttack!=null) {
+			eAttack.update();
+		}
 		
 	}
 

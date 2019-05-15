@@ -58,8 +58,8 @@ public class Demon extends Enemy {
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
-		if (this.canMove(80)) {
-			RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + (int)super.WIDTH/2, (int) this.getLocY() + (int)super.HEIGHT/2, 75, 75,100,100, (int) x, (int) y, "flame.png"));
+		if (this.canMove(200)) {
+			RPGGame.setEnemyAttack(new Attack((int) this.getLocX() + (int)super.WIDTH/2, (int) this.getLocY() + (int)super.HEIGHT/2, 75, 75,100,100,x, y,5, 200,"flame.png"));
 		}
 		RPGGame.getObjects().add(this);
 	}
