@@ -47,9 +47,9 @@ public class RPGGame implements KeyListener {
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
 	private boolean objDamaged = false;
-	private boolean helpPage = false;
+	private boolean helpShown = false;
 	private boolean gameOver = false;
-	private boolean iVisible = false; // inventory visible
+	private boolean invenShown = false; // inventory shown
 	private boolean levelDone = false;
 	private boolean tradeOpen = false;
 
@@ -131,10 +131,10 @@ public class RPGGame implements KeyListener {
 					}
 				}
 
-				if (helpPage == true) {
+				if (helpShown == true) {
 					hP.draw(g);
 				}
-				if (helpPage == false) {
+				if (helpShown == false) {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 20, 25);
 				}
@@ -146,11 +146,11 @@ public class RPGGame implements KeyListener {
 					gO.draw(g);
 				}
 
-				if (iVisible == true) {
+				if (invenShown == true) {
 					i.draw(g);
 				}
 				if (tradeOpen == true) {
-
+					tP.draw(g);
 				}
 			}
 		};
@@ -329,11 +329,6 @@ public class RPGGame implements KeyListener {
 					pAttack = player.getAttack();
 				}
 			}
-
-			// this allows the k key to control using (secondary commands)
-			if (keys.contains("k") && player.collides(trader)) {
-				tradeOpen = true;
-			}
 		}
 	}
 
@@ -362,22 +357,22 @@ public class RPGGame implements KeyListener {
 		// pause button
 		if (keys.contains("p")) {
 			pause();
-			if (helpPage)
-				helpPage = false;
+			if (helpShown)
+				helpShown = false;
 		}
 
 		// help button
 		if (keys.contains("?")) {
-			helpPage = !helpPage;
+			helpShown = !helpShown;
 			mainPanel.repaint();
 			pause();
 		}
 
 		// check inventory
 		if (keys.contains("i")) {
-			iVisible = !iVisible;
-			if (!iVisible)
-				pause();
+			invenShown = !invenShown;
+			mainPanel.repaint();
+			pause();
 		}
 
 		// game over
@@ -392,6 +387,13 @@ public class RPGGame implements KeyListener {
 		if (levelDone == true && (keys.contains("n"))) {
 			gameLevel++;
 			System.out.println("Game Level: " + gameLevel);
+		}
+		
+		// trading post
+		if (keys.contains("k") && player.collides(trader)) {
+			tradeOpen = !tradeOpen;
+			mainPanel.repaint();
+			pause();
 		}
 	}
 
