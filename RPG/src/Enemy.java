@@ -47,12 +47,12 @@ public abstract class Enemy extends MoveableObject {
 	public void autoMove() {
 		// makes the enemy follow the player
 		double x = 0, y = 0;
-		if (this.getLocX() - RPGGame.getKnight().getLocX() > 0) {
+		if (this.getLocX() - RPGGame.getPlayer().getLocX() > 0) {
 			x = -this.getSpeed();
 		} else {
 			x = this.getSpeed();
 		}
-		if (this.getLocY() - RPGGame.getKnight().getLocY() > 0) {
+		if (this.getLocY() - RPGGame.getPlayer().getLocY() > 0) {
 			y = -this.getSpeed();
 		} else {
 			y = this.getSpeed();

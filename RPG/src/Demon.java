@@ -23,7 +23,7 @@ public class Demon extends Enemy {
 		if (RPGGame.ticks > getHittable()) {
 			super.moveX(howMuch);
 		} else {
-			super.moveX(-howMuch / 2);
+			super.moveX(-howMuch / 3);
 		}
 	}
 
@@ -32,7 +32,7 @@ public class Demon extends Enemy {
 		if (RPGGame.ticks > getHittable()) {
 			super.moveY(howMuch);
 		} else {
-			super.moveY(-howMuch / 2);
+			super.moveY(-howMuch / 3);
 		}
 	}
 	@Override
@@ -40,18 +40,18 @@ public class Demon extends Enemy {
 		// makes the enemy follow the player
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = (RPGGame.getKnight().getCX() - this.getCX());
-		y = (RPGGame.getKnight().getCY() - this.getCY());
+		x = (RPGGame.getPlayer().getCX() - this.getCX());
+		y = (RPGGame.getPlayer().getCY() - this.getCY());
 
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
 		this.moveX(x);
 		this.moveY(y);
-		while (this.collides(RPGGame.getKnight())) {
+		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x/10);
 			this.moveY(-y/10);
-			RPGGame.getKnight().hit(10);
+			RPGGame.getPlayer().hit(10);
 		}
 		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
