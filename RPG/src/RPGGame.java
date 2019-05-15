@@ -115,7 +115,7 @@ public class RPGGame implements KeyListener {
 				g.drawString("Demon health: " + eNWIMN.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 85);
 
 				g.setColor(new Color(255, 0, 0));
-				
+
 				if (objDamaged == true) {
 					for (GameObject go : damagedObjects) {
 						if (go.getHealth() < 100 && go.getHealth() > 0 && !go.invincibility()) {
@@ -123,7 +123,7 @@ public class RPGGame implements KeyListener {
 						}
 					}
 				}
-				
+
 				if (enemyHit == true) {
 					if (eNWIMN.getHealth() > 0) {
 						g.drawString("-" + knight.getDamage(), (int) eNWIMN.getCX() - 5, (int) eNWIMN.getCY());
@@ -170,7 +170,8 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				movement();
+				if (ticks>10)
+					movement();
 				collision();
 				ticks++;
 			}
@@ -180,9 +181,9 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 50, 50, 1);
+		eNWIMN = new Demon(GameObject.randInt(200, 500), GameObject.randInt(200, 500), 100, 100, 1);
 		for (GameObject w : objects) {
-			if (eNWIMN.collides(w)&&!eNWIMN.equals(w)) {
+			if (eNWIMN.collides(w)&&!eNWIMN.equals(w)&&!w.throughable) {
 				checkSpawns();
 				return;
 			}

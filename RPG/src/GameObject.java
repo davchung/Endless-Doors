@@ -44,15 +44,6 @@ public abstract class GameObject {
 
 	// getters, setters, and "incrementers" are here
 	
-	public void hit() {
-		if (RPGGame.ticks > hittable && !invincible) {
-			health -= 5;
-			hittable = RPGGame.ticks + 26;
-			return;
-		}
-
-	}
-	
 	public boolean invincibility() {
 		return invincible;
 	}
@@ -130,17 +121,24 @@ public abstract class GameObject {
 		return false;
 	}
 	public void hit(int damage) {
-		if (RPGGame.ticks > hittable) {
+		if (RPGGame.ticks > hittable&&!invincible) {
 			health -= damage;
 			hittable = RPGGame.ticks + 26;
 		}
 	}
-	
-	
+	public void hit() {
+		if (RPGGame.ticks > hittable && !invincible) {
+			health -= 5;
+			hittable = RPGGame.ticks + 26;
+		}
+	}
 	
 	// returns a random int between lower bound (lb) and upper bound (ub), inclusive
 	public static int randInt(int lb, int ub) {
-		return lb + (int)(Math.random() * ((ub - lb) + 1));
+		int rand;
+		rand=lb + (int)(Math.random() * ((ub - lb) + 1));
+		lb=rand/50;
+		return lb*50;
 	}
 
 }
