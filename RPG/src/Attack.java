@@ -1,4 +1,8 @@
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 
 public class Attack extends GameObject{
 	private int vel = 0;
@@ -35,6 +39,12 @@ public class Attack extends GameObject{
 			return true;
 		}
 		return false;
+	}
+	public void draw (Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.rotate(Math.PI/2,this.getCX(),this.getCY());
+		super.draw(g2d);
+		g2d.rotate(-Math.PI/2,this.getCX(),this.getCY());
 	}
 	public void update() {
 		super.moveX(r*vel);
