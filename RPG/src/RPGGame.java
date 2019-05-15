@@ -49,7 +49,7 @@ public class RPGGame implements KeyListener {
 	private boolean helpPage = false;
 	private boolean gameOver = false;
 	private boolean iVisible = false; // inventory visible
-	private boolean enemyKilled = false;
+	private boolean levelDone = false;
 
 	// these are getters for variables
 	public static Player getPlayer() {
@@ -134,7 +134,7 @@ public class RPGGame implements KeyListener {
 					g.drawString("Press ? for help.", 20, 25);
 				}
 
-				if (enemyKilled == true) {
+				if (levelDone == true) {
 					nL.draw(g);
 				}
 				if (gameOver == true) {
@@ -227,7 +227,7 @@ public class RPGGame implements KeyListener {
 			if (e instanceof Enemy) {
 				if (((Enemy) e).getHealth() <= 0) {
 					toRemove.add(e);
-					enemyKilled = true;
+					levelDone = true;
 				}
 				if (pAttack != null && pAttack.collides(e)) {
 					((Enemy) e).hit(player.getDamage());
@@ -387,7 +387,8 @@ public class RPGGame implements KeyListener {
 			mainFrame.setEnabled(false);
 		}
 
-		if (enemyKilled == true && (keys.contains("b"))) {
+		// next level
+		if (levelDone == true && (keys.contains("b"))) {
 			gameLevel++;
 			System.out.println("Game Level: " + gameLevel);
 		}

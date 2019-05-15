@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class NextLevel extends GameGui {
+public class NextLevel extends GameGUI {
 
 	public NextLevel() {
 		super(true, "NextLevelBckgrnd.jpg");

@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public abstract class GameGui {
+public abstract class GameGUI {
 
 	protected double locX = StartGame.SCREEN_WIDTH * 1 / 10;
 	protected double locY = StartGame.SCREEN_HEIGHT * 1 / 10;
@@ -10,11 +10,11 @@ public abstract class GameGui {
 	private boolean pauseGame; // whether it pauses the game or not
 	BufferedImage b;
 
-	public GameGui(boolean pg, BufferedImage i) {
+	public GameGUI(boolean pg, BufferedImage i) {
 		pauseGame = pg;
 	}
 
-	public GameGui(boolean pg, String s) {
+	public GameGUI(boolean pg, String s) {
 		pauseGame = pg;
 	}
 
