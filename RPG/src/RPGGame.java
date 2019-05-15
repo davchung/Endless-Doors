@@ -3,7 +3,6 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.JOptionPane;
 
 public class RPGGame implements KeyListener {
 
@@ -43,8 +42,7 @@ public class RPGGame implements KeyListener {
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
-	private ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
-	private static ArrayList<Item> inventory = new ArrayList<Item>();
+	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -66,6 +64,7 @@ public class RPGGame implements KeyListener {
 
 	public static void setEnemyAttack(Attack atk) {
 		RPGGame.eAttack = atk;
+		enemyAttacks.add(atk);
 	}
 
 	public static ArrayList<GameObject> getObjects() {
@@ -74,9 +73,6 @@ public class RPGGame implements KeyListener {
 
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
-	}
-	public static ArrayList<Item> getInventory() {
-		return RPGGame.inventory;
 	}
 
 	public void beginGame() {
@@ -392,36 +388,13 @@ public class RPGGame implements KeyListener {
 			gameLevel++;
 			System.out.println("Game Level: " + gameLevel);
 		}
-
+		
 		// trading post
 		if (keys.contains("k") && player.collides(trader)) {
 			tradeOpen = !tradeOpen;
 			mainPanel.repaint();
 			pause();
 		}
-
-		// trading post - buy option 1
-		if (keys.contains("1") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
-			inventory.add(new BattleAxe());
-		}
-		// trading post - buy option 2
-		if (keys.contains("2") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?");
-		}
-		// trading post - buy option 3
-		if (keys.contains("3") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?");
-		}
-		// trading post - buy option 4
-		if (keys.contains("4") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?");
-		}
-		// trading post - buy option 5
-		if (keys.contains("5") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?");
-		}
-
 	}
 
 	@Override
