@@ -162,7 +162,7 @@ public class RPGGame implements KeyListener {
 			}
 		};
 
-		mainPanel.setBackground(new Color(150, 250, 150));
+		mainPanel.setBackground(new Color(40, 200, 240));
 		// frame doesn't get minimized
 		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
