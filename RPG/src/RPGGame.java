@@ -325,7 +325,7 @@ public class RPGGame implements KeyListener {
 			// this allows the j key to control attacking
 			if (keys.contains("j")) {
 				if (player.attack(60)) {
-					pAttack = new Attack((int) player.getLocX() + 25, (int) player.getLocY() + 25, 50, 50, lastR, lastD, ticks,
+					pAttack = new Attack((int) player.getLocX(), (int) player.getLocY() + 25, 50, 50, lastR, lastD, ticks,
 							"sprites/weapon_golden_sword.png");
 				}
 			}
