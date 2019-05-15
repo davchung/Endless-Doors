@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -71,12 +72,11 @@ public class StartGame {
 				g.drawString("Click anywhere to begin game.", SCREEN_WIDTH / 12, SCREEN_HEIGHT / 2);
 			}
 		};
-
 		// frame doesn't get minimized
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		center(startFrame);
 		startFrame.add(startPanel);
 		// determines where the frame is placed
-		startFrame.setLocation(StartGame.SCREEN_WIDTH / 10, 0);
 		startFrame.pack();
 		startFrame.setVisible(true);
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,5 +88,12 @@ public class StartGame {
 				(new RPGGame()).beginGame();
 			}
 		});
+	}
+
+	public static void center(JFrame frame) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((screenSize.getWidth() - SCREEN_WIDTH) / 2);
+	    int y = (int) ((screenSize.getHeight() - SCREEN_HEIGHT) / 2)-50;
+	    frame.setLocation(x, y);
 	}
 }
