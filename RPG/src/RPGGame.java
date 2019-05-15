@@ -22,6 +22,7 @@ public class RPGGame implements KeyListener {
 	// kindly refrain from changing this enemy's name
 	private Demon eNWIMN; // this stands for "enemyNavigatingWallsIsMyNightmare"
 	private Map m = new Map(5);
+
 	Floor floor = new Floor();
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
