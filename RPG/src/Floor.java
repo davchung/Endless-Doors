@@ -12,15 +12,15 @@ public class Floor {
 
 	static final File dir=new File("src/img/Sprites/floors"); 
 
-	ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
+	static ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
 
 	public Floor() {
 		getImages();
 	}
 
 	public void makeFloor(Graphics g) {
-		for (int r = 0; r < StartGame.SCREEN_HEIGHT; r += Map.OBJ_HEIGHT) {
-			for (int c = 0; c < StartGame.SCREEN_WIDTH; c += Map.OBJ_WIDTH) {
+		for (int r = 0; r < StartGame.SCREEN_WIDTH; r += Map.OBJ_HEIGHT) {
+			for (int c = 0; c < StartGame.SCREEN_HEIGHT; c += Map.OBJ_WIDTH) {
 				g.drawImage(floors.get(getRandInd()), r, c, Map.OBJ_WIDTH, Map.OBJ_HEIGHT, null);
 			}
 		}
