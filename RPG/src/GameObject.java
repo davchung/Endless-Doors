@@ -18,32 +18,31 @@ public abstract class GameObject {
 	private boolean invincible;
 
 	// constructor #1 for GameObject
-	public GameObject(double x, double y, int w, int h, boolean through, boolean i, int startingHealth, String s) {
+	public GameObject(double x, double y, int w, int h, boolean through, boolean inv, int startingHealth, String s) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		throughable = through;
-		invincible = i;
+		invincible = inv;
 		health = startingHealth;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 	// constructor #2 for GameObject
-	public GameObject(double x, double y, int w, int h, boolean through, boolean i, int startingHealth, BufferedImage b) {
+	public GameObject(double x, double y, int w, int h, boolean through, boolean inv, int startingHealth, BufferedImage b) {
 		locX = x;
 		locY = y;
 		WIDTH = w;
 		HEIGHT = h;
 		throughable = through;
-		invincible = i;
+		invincible = inv;
 		health = startingHealth;
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 	}
 
 	// getters, setters, and "incrementers" are here
-	
 	public boolean invincibility() {
 		return invincible;
 	}

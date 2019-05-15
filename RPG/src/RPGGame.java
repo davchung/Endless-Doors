@@ -20,16 +20,16 @@ public class RPGGame implements KeyListener {
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Demon demon;
+	private Trader trader;
 	private Map m = new Map(5);
 	Floor floor = new Floor();
-	
+
 	private Attack pAttack; // player attack
 	private static Attack eAttack; // enemy attack
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
 	private Inventory i = new Inventory();
-	private Trader trader = new Trader();
 	private ChestLoot cL = new ChestLoot();
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
@@ -50,6 +50,7 @@ public class RPGGame implements KeyListener {
 	private boolean gameOver = false;
 	private boolean iVisible = false; // inventory visible
 	private boolean levelDone = false;
+	private boolean tradeOpen = false;
 
 	// these are getters for variables
 	public static Player getPlayer() {
@@ -81,6 +82,9 @@ public class RPGGame implements KeyListener {
 		checkSpawns();
 		objects.add(demon);
 		enemies.add(demon);
+		trader = new Trader();
+		objects.add(trader);
+
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -97,7 +101,7 @@ public class RPGGame implements KeyListener {
 				//floor.drawFloor(g);
 				for (GameObject go : objects) {
 					go.draw(g);
-					
+
 				}
 				player.draw(g, facing);
 
@@ -144,6 +148,9 @@ public class RPGGame implements KeyListener {
 				if (iVisible == true) {
 					i.draw(g);
 				}
+				if (tradeOpen == true) {
+
+				}
 			}
 		};
 
@@ -179,7 +186,7 @@ public class RPGGame implements KeyListener {
 			if (m instanceof MoveableObject)
 				((MoveableObject) m).update();
 		}
-		
+
 	}
 
 	private void checkSpawns() {
@@ -193,10 +200,8 @@ public class RPGGame implements KeyListener {
 	}
 
 	protected void movement() {
-		for (Object enemy : objects) {
-			if (enemy instanceof Enemy) {
-				((Enemy) enemy).autoMove();
-			}
+		for (Object enemy : enemies) {
+			((Enemy) enemy).autoMove();
 		}
 
 	}
@@ -314,27 +319,19 @@ public class RPGGame implements KeyListener {
 			player.setRight(right);
 			player.setDown(down);
 
-			// this allows the j key to control attacking
+			// this allows the j key to control attacking (main commands)
 			if (keys.contains("j")) {
 				if (player.canMove(60)) {
 					pAttack = player.getAttack();
 				}
 			}
 
-			// this allows the k key to control building walls
-			if (keys.contains("k")) {
-				if (player.build(ticks) && i.numWalls > 0) {
-					builtWall = new Wall(player.getLocX() - (50 * lastR), player.getLocY() - (50 * lastD),
-							Map.OBJ_WIDTH, Map.OBJ_HEIGHT);
-					i.removeWalls(1);
-					objects.add(builtWall);
-				}
+			// this allows the k key to control using (secondary commands)
+			if (keys.contains("k") && player.collides(trader)) {
+				tradeOpen = true;
 			}
 
-			// this allows the l key to control placing bombs
-			if (keys.contains("l")) {
-				// to be implemented later on
-			}
+			// for developers only!
 			if (keys.contains("o")) {
 				objects.removeAll(getEnemies());
 			}
@@ -379,7 +376,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// game over
-		if (gameOver == true && (keys.contains("b"))) {
+		if (gameOver == true && (keys.contains("n"))) {
 			objects.clear();
 			enemies.clear();
 			new RPGGame().beginGame();
@@ -387,7 +384,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// next level
-		if (levelDone == true && (keys.contains("b"))) {
+		if (levelDone == true && (keys.contains("n"))) {
 			gameLevel++;
 			System.out.println("Game Level: " + gameLevel);
 		}

@@ -23,7 +23,7 @@ public class NextLevel extends GameGUI {
 		yVal += 80;
 		g.drawString("You completed this level.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("Press B to continue to next level. (will be implemented later on)", LEFT_MARGIN, yVal);
+		g.drawString("Press N to continue to next level. (will be implemented later on)", LEFT_MARGIN, yVal);
 		
 		g.setColor(new Color(175, 0, 255));
 		g.setFont(new Font("Comic Sans MS", 0, 12));
