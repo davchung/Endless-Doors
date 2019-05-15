@@ -40,7 +40,7 @@ public class Attack extends GameObject{
 		}
 		return false;
 	}
-	public void draw (Graphics g) {
+	public void draw2 (Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.rotate(Math.PI/2,this.getCX(),this.getCY());
 		super.draw(g2d);
