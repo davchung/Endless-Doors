@@ -383,8 +383,7 @@ public class RPGGame implements KeyListener {
 			objects.clear();
 			enemies.clear();
 			new RPGGame().beginGame();
-			mainFrame.setVisible(false);
-			mainFrame.setEnabled(false);
+			mainFrame.dispose();
 		}
 
 		// next level
