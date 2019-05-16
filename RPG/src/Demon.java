@@ -87,4 +87,10 @@ public class Demon extends Enemy {
 		}
 
 	}
+
+	@Override
+	public String toString() {
+		return "Demon";
+	}
+	
 }
