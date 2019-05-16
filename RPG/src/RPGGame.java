@@ -84,7 +84,7 @@ public class RPGGame implements KeyListener {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
 		Demon d = null; Demon a = null;
 		list.add(d);
-		list.add(a);
+		//list.add(a);
 		setEnemies(list);
 		gameLevel = 1;
 		player = new Knight(100, 100, 50, 50);
