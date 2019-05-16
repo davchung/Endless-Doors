@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class Demon extends Enemy {
 	private BufferedImage damage;
+
 	public Demon(double x, double y, int w, int h, int level) {
 		super(x, y, w, h, level);
 		damage = super.getImage("sprites/big_demon_damage.png");
@@ -10,9 +11,9 @@ public class Demon extends Enemy {
 
 	@Override
 	public void draw(Graphics g) {
-		if(super.getHittable()>RPGGame.ticks) {
-			super.draw(g,damage);
-		}else {
+		if (super.getHittable() > RPGGame.ticks) {
+			super.draw(g, damage);
+		} else {
 			super.draw(g);
 		}
 	}
@@ -35,6 +36,7 @@ public class Demon extends Enemy {
 			super.moveY(-howMuch / 3);
 		}
 	}
+
 	@Override
 	public void autoMove() {
 		// makes the enemy follow the player
@@ -49,8 +51,8 @@ public class Demon extends Enemy {
 		this.moveX(x);
 		this.moveY(y);
 		while (this.collides(RPGGame.getPlayer())) {
-			this.moveX(-x/10);
-			this.moveY(-y/10);
+			this.moveX(-x / 10);
+			this.moveY(-y / 10);
 			RPGGame.getPlayer().hit(10);
 		}
 		this.setRight(x);
@@ -59,14 +61,16 @@ public class Demon extends Enemy {
 		this.setDown(y);
 		wallCollision();
 		if (this.canMove(300)) {
-			RPGGame.setEnemyAttack(new Attack((int)getCX(), (int)getCY(), WIDTH*3/4, HEIGHT*3/4, WIDTH, HEIGHT,x, y,3, 500,"energyball.png"));
+			RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
+					HEIGHT, x, y, 3, 500, "energyball.png"));
 		}
 		RPGGame.getObjects().add(this);
 	}
+
 	@Override
 	protected void wallCollision() {
 		for (GameObject i : RPGGame.getObjects()) {
-			if (!this.equals(i)&&this.collides(i) && (!i.throughable)) {
+			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
@@ -74,12 +78,14 @@ public class Demon extends Enemy {
 				dy = super.getSpeed() * dy / m;
 				super.moveX(dx / 5);
 				super.moveY(dy / 5);
-				i.hit(5);
+				if (!(i instanceof Enemy)) {
+					i.hit(5);
+				}
 			}
 
 		}
 		for (GameObject i : RPGGame.getObjects()) {
-			if (!this.equals(i)&&this.collides(i) && (!i.throughable)) {
+			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				wallCollision();
 			}
 		}
@@ -90,5 +96,5 @@ public class Demon extends Enemy {
 	public String toString() {
 		return "Demon";
 	}
-	
+
 }

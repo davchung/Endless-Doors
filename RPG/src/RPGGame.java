@@ -408,7 +408,7 @@ public class RPGGame implements KeyListener {
 		if (gameOver == true && (keys.contains("n"))) {
 			objects.clear();
 			enemies.clear();
-			this.enemyAttacks.clear();
+			enemyAttacks.clear();
 			new RPGGame().beginGame();
 			mainFrame.dispose();
 		}
