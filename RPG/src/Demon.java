@@ -79,7 +79,7 @@ public class Demon extends Enemy {
 				super.moveX(dx / 5);
 				super.moveY(dy / 5);
 				if (!(i instanceof Enemy)) {
-					i.hit(5);
+					i.hit(this.getDamage()/2);
 				}
 			}
 

@@ -116,6 +116,9 @@ public class RPGGame implements KeyListener {
 				}
 				player.draw(g, facing);
 				g.drawRect((int)player.getLocX(), (int)player.getLocY(), 50, 50);
+				for (Enemy e: enemies) {
+					g.drawRect((int)e.getLocX(), (int)e.getLocY(), e.WIDTH, e.HEIGHT);
+				}
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
