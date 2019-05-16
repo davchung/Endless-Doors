@@ -2,6 +2,6 @@
 public class Trader extends GameObject{
 	
 	public Trader() {
-		super(950, 625, 50, 75, true, false, Integer.MAX_VALUE, "trader.png");
+		super(150, 600, 100, 100, true, false, Integer.MAX_VALUE, "trader.png");
 	}
 }
