@@ -188,7 +188,7 @@ public class RPGGame implements KeyListener {
 				if (ticks > 50 || ticks == 0)
 					movement();
 				collision();
-				update(); // updates last health
+				update(); // updates movement
 				ticks++;
 			}
 
@@ -203,6 +203,9 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			e.update();
+		}
+		if (enemies.isEmpty()) {
+			this.levelDone=true;
 		}
 
 	}
@@ -256,7 +259,6 @@ public class RPGGame implements KeyListener {
 			if (e instanceof Enemy) {
 				if (((Enemy) e).getHealth() <= 0) {
 					toRemove.add(e);
-					levelDone = true;
 				}
 				if (pAttack != null && pAttack.collides(e)) {
 					((Enemy) e).hit(player.getDamage());
