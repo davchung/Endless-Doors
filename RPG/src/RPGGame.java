@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Trader trader;
-	private Map m = new Map(5);
+	private Map m;
 	private Floor floor = new Floor();
 
 	private Attack pAttack; // player attack
@@ -83,6 +83,7 @@ public class RPGGame implements KeyListener {
 	public void beginGame() {
 		gameLevel = 1;
 		player = new Knight(100, 100, 50, 50);
+		m = new Map(5, 2);
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
 		objects.add(player);
@@ -297,6 +298,9 @@ public class RPGGame implements KeyListener {
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
+		if (enemies.size() == 0) {
+			levelDone = true;
+		}
 		for (GameObject go : toRemove) {
 			if (go instanceof Wall) {
 				i.addWalls(1);

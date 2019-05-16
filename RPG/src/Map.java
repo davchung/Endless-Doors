@@ -5,17 +5,19 @@ public class Map {
 	private ArrayList<GameObject> eObjs;
 	private ArrayList<Wall> walls;
 	private double numChest;
+	private double numPotion;
 	public static final int OBJ_WIDTH = 50;
 	public static final int OBJ_HEIGHT = 50;
 	public ArrayList<int[][]> rooms;
 
 	private ArrayList<int[][]> allRooms = new ArrayList<int[][]>();
 
-	public Map(int numChests) {
+	public Map(int numChests, int numPotions) {
 		walls = new ArrayList<Wall>();
 		rooms = new ArrayList<int[][]>();
 		eObjs = new ArrayList<GameObject>();
 		numChest = numChests;
+		numPotion = numPotions;
 		getAllRooms();
 		addObjs();
 	}
@@ -31,33 +33,34 @@ public class Map {
 
 	private void getAllRooms() {
 		int[][] room1 = new int[][] { // 21 columns and 15 rows
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, // 0 is empty space
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1 }, // 1 is walls
-				{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1 }, // 2 is crates
-				{ 1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 1 }, // 3 is barrels
-				{ 1, 0, 0, 0, 0, 2, 0, 3, 0, 3, 2, 0, 0, 0, 0, 3, 3, 0, 0, 0, 1 },
-				{ 1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1 },
-				{ 1, 2, 2, 0, 0, 2, 3, 0, 0, 3, 2, 0, 2, 2, 0, 0, 2, 0, 0, 0, 1 },
-				{ 1, 2, 2, 2, 0, 2, 3, 0, 3, 3, 2, 0, 2, 2, 0, 0, 2, 0, 0, 0, 1 },
-				{ 1, 3, 0, 0, 0, 2, 0, 3, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 1 },
-				{ 1, 3, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1 },
-				{ 1, 3, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1 },
-				{ 1, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 1 },
-				{ 1, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 3, 3, 0, 0, 0, 2, 0, 0, 1 },
-				{ 1, 0, 0, 0, 3, 3, 0, 0, 0, 0, 2, 2, 3, 3, 0, 0, 0, 2, 0, 0, 1 },
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, };
+			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, // 0 is empty space
+			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1 }, // 1 is walls
+			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1 }, // 2 is crates
+			{ 1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 1 }, // 3 is barrels
+			{ 1, 0, 0, 0, 0, 2, 0, 3, 0, 3, 2, 0, 0, 0, 0, 3, 3, 0, 0, 0, 1 }, // 4 is chests
+			{ 1, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1 }, // 5 is potions
+			{ 1, 2, 2, 0, 0, 2, 3, 0, 0, 3, 2, 0, 2, 2, 0, 0, 2, 0, 0, 0, 1 },
+			{ 1, 2, 2, 2, 0, 2, 3, 0, 3, 3, 2, 0, 2, 2, 0, 0, 2, 0, 0, 0, 1 },
+			{ 1, 3, 0, 0, 0, 2, 0, 3, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 1 },
+			{ 1, 3, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1 },
+			{ 1, 3, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1 },
+			{ 1, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 1 },
+			{ 1, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 3, 3, 0, 0, 0, 2, 0, 0, 1 },
+			{ 1, 0, 0, 0, 3, 3, 0, 0, 0, 0, 2, 2, 3, 3, 0, 0, 0, 2, 0, 0, 1 },
+			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, };
 
-		rooms.add(room1);
-		outlineChests(room1);
-		
-		for (int[][] r : rooms) {
-			outlineWalls(r);  //walls on the outside will be added later on
-		}
-		// please keep this here - it is to debug the 2D array
-		/*
-		 * for (int r = 0; r < room1.length; r++) { for (int c = 0; c < room1[r].length;
-		 * c++) { System.out.print(room1[r][c] + " "); } System.out.println(); }
-		 */
+			rooms.add(room1);
+
+			for (int[][] r : rooms) {
+				outlineWalls(r); // walls on the outside are added using this function
+				outlineChests(r);
+				outlinePotions(r);
+			}
+			// please keep this here - it is to debug the 2D array
+			/*
+			 * for (int r = 0; r < room1.length; r++) { for (int c = 0; c < room1[r].length;
+			 * c++) { System.out.print(room1[r][c] + " "); } System.out.println(); }
+			 */
 	}
 
 	private void outlineWalls(int[][] room) {
@@ -73,8 +76,23 @@ public class Map {
 
 	private void outlineChests(int[][] room) {
 		while (numChest > 0) {
-			room[GameObject.randInt(4, 13)][GameObject.randInt(5, 19)] = 4;
-			numChest--;
+			int randR = GameObject.randInt(4, 13);
+			int randC = GameObject.randInt(5, 19);
+			if (room[randR][randC] == 0) {
+				room[randR][randC] = 4;
+				numChest--;
+			}
+		}
+	}
+
+	private void outlinePotions(int[][] room) {
+		while (numPotion > 0) {
+			int randR = GameObject.randInt(4, 13);
+			int randC = GameObject.randInt(5, 19);
+			if (room[randR][randC] == 0) {
+				room[randR][randC] = 5;
+				numPotion--;
+			}
 		}
 	}
 
@@ -94,6 +112,9 @@ public class Map {
 					break;
 				case 4:
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
+					break;
+				case 5:
+					eObjs.add(new Potion(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(0, 1)));
 				}
 			}
 		}
