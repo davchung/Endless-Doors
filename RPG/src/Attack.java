@@ -50,7 +50,7 @@ public class Attack extends GameObject {
 
 	public void draw(Graphics g) {
 		double angle = Math.PI;
-		System.out.println(Math.atan(-d/r));
+		//System.out.println(Math.atan(-d/r));
 		Graphics2D g2d = (Graphics2D) g;
 		BufferedImage i = this.getImg();
 		double ratio = ((double) HEIGHT) / i.getHeight();
