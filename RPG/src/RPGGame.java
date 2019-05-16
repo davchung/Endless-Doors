@@ -200,7 +200,9 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns() {
-		demon = new Demon(GameObject.randInt(250, StartGame.SCREEN_WIDTH-150), GameObject.randInt(200, StartGame.SCREEN_HEIGHT-150), 100, 100, 1);
+		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH-150)/50;
+		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT-150)/50;
+		demon = new Demon(x*50,y*50 , 100, 100, 1);
 		for (GameObject w : objects) {
 			if (demon.collides(w)&&!demon.equals(w)&&!w.throughable) {
 				checkSpawns();
