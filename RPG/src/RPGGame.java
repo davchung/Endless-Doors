@@ -81,11 +81,6 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = null; Demon a = null;
-		list.add(d);
-		//list.add(a);
-		setEnemies(list);
 		gameLevel = 1;
 		player = new Knight(100, 100, 50, 50);
 		objects.addAll(m.getWalls());
@@ -95,6 +90,12 @@ public class RPGGame implements KeyListener {
 		trader = new Trader();
 		objects.add(trader);
 
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		Demon d = null; Demon a = null;
+		list.add(d);
+		list.add(a);
+		setEnemies(list);
+		
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -211,7 +212,7 @@ public class RPGGame implements KeyListener {
 		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 150) / 50;
 		e2 = new Demon(x * 50, y * 50, 100, 100, 1);
 		for (GameObject w : objects) {
-			if (e2.collides(w) && !e2.equals(w) && !w.throughable) {
+			if (!e2.equals(w) && !w.throughable&&e2.collides(w)) {
 				checkSpawns(e2);
 				return;
 			}
