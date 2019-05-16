@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 public class Attack extends GameObject{
 	private int vel = 0;
@@ -15,8 +16,8 @@ public class Attack extends GameObject{
 		expire = RPGGame.ticks+duration;
 		super.moveX(-width/2);//centers drawing on player
 		super.moveY(-height/2);
-		super.moveX(right*width);//moves to where the player faces
-		super.moveY(down*height);
+		super.moveX(right*pWidth);//moves to where the player faces
+		super.moveY(down*pHeight);
 		vel = 0;
 	}
 	public Attack (int x, int y, int width, int height,int pWidth,int pHeight, double x2, double y2,int velocity, int duration,String s) {
@@ -27,8 +28,8 @@ public class Attack extends GameObject{
 		r=x2;
 		d=y2;
 		vel =velocity;
-		super.moveX(x2*width/2);//moves to where the player faces
-		super.moveY(y2*height/2);
+		super.moveX(x2*pWidth/2);//moves to where the player faces
+		super.moveY(y2*pHeight/2);
 		
 	}
 	@Override
@@ -40,10 +41,13 @@ public class Attack extends GameObject{
 		}
 		return false;
 	}
-	public void draw2 (Graphics g) {
+	public void draw (Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
+		BufferedImage i = this.getImg();
+		double ratio = ((double)HEIGHT)/i.getHeight();
+		double shiftX = (this.WIDTH-i.getWidth()*ratio)/2;
 		g2d.rotate(Math.PI/2,this.getCX(),this.getCY());
-		super.draw(g2d);
+		g.drawImage(i, (int) (locX+shiftX), (int) locY, (int) (i.getWidth()*ratio), (int) HEIGHT, null);
 		g2d.rotate(-Math.PI/2,this.getCX(),this.getCY());
 	}
 	public void update() {

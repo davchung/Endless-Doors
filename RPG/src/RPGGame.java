@@ -117,6 +117,9 @@ public class RPGGame implements KeyListener {
 				}
 				player.draw(g, facing);
 				g.drawRect((int)player.getLocX(), (int)player.getLocY(), 50, 50);
+				for (Enemy e: enemies) {
+					g.drawRect((int)e.getLocX(), (int)e.getLocY(), e.WIDTH, e.HEIGHT);
+				}
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
@@ -189,7 +192,7 @@ public class RPGGame implements KeyListener {
 				if (ticks > 50 || ticks == 0)
 					movement();
 				collision();
-				update(); // updates last health
+				update(); // updates movement
 				ticks++;
 			}
 
@@ -204,6 +207,9 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			e.update();
+		}
+		if (enemies.isEmpty()) {
+			this.levelDone=true;
 		}
 
 	}
