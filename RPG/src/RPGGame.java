@@ -127,7 +127,7 @@ public class RPGGame implements KeyListener {
 				g.drawString("Knight health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
 				for (int i = 0; i < enemies.size(); i++) {
 					Enemy e = enemies.get(i);
-					g.drawString(e.toString() + " health: " + e.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6,
+					g.drawString(e.toString() + (i+1) + " health: " + e.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6,
 							85 + 20 * i);
 				}
 
