@@ -221,8 +221,8 @@ public class RPGGame implements KeyListener {
 	}
 
 	protected void movement() {
-		for (Object enemy : enemies) {
-			((Enemy) enemy).autoMove();
+		for (Enemy enemy : enemies) {
+			enemy.autoMove();
 		}
 
 	}
@@ -234,7 +234,7 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			if (e.expire()) {
-				enemyAttacks.remove(e);
+				toRemove.add(e);
 			}
 		}
 		if (builtWall != null) {

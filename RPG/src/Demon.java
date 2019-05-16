@@ -65,9 +65,8 @@ public class Demon extends Enemy {
 	}
 	@Override
 	protected void wallCollision() {
-		int runs = 0;
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (!i.throughable)) {
+			if (!this.equals(i)&&this.collides(i) && (!i.throughable)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
@@ -80,8 +79,7 @@ public class Demon extends Enemy {
 
 		}
 		for (GameObject i : RPGGame.getObjects()) {
-			if (this.collides(i) && (!i.throughable) && runs < 100) {
-				runs++;
+			if (!this.equals(i)&&this.collides(i) && (!i.throughable)) {
 				wallCollision();
 			}
 		}
