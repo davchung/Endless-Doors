@@ -12,14 +12,13 @@ public class Potion extends GameObject {
 			type = "invincibility";
 			image = getImage("Sprites/flask_big_green.png");
 		}
-		activatePotions();
 	}
-
-	private void activatePotions() {
-		if (type.equals("health") && RPGGame.getPlayer().collides(this)) { // health potion
+	
+	protected void activatePotions() {
+		if (type.equals("health") && this.collides(RPGGame.getPlayer())) { // health potion
 			RPGGame.getPlayer().incrementHealth(20);
 		}
-		else if (type.equals("invincibility") && RPGGame.getPlayer().collides(this)) { // invincibility potion
+		else if (type.equals("invincibility") && this.collides(RPGGame.getPlayer())) { // invincibility potion
 			int startTime = RPGGame.ticks;
 			RPGGame.getPlayer().setInvincibility(true);
 			if (RPGGame.ticks == startTime + 1000) { // turns of invincibility after 10 secs
