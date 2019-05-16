@@ -26,7 +26,6 @@ public class RPGGame implements KeyListener {
 	private Floor floor = new Floor();
 
 	private Attack pAttack; // player attack
-	private static Attack eAttack; // enemy attack
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
@@ -60,12 +59,7 @@ public class RPGGame implements KeyListener {
 		return RPGGame.player;
 	}
 
-	public Demon getDemon() {
-		return this.demon;
-	}
-
 	public static void setEnemyAttack(Attack atk) {
-		RPGGame.eAttack = atk;
 		enemyAttacks.add(atk);
 	}
 
