@@ -67,6 +67,9 @@ public class RPGGame implements KeyListener {
 		return RPGGame.objects;
 	}
 
+	public void setEnemies(ArrayList<Enemy> list) {
+		enemies.addAll(list);
+	}
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
 	}
