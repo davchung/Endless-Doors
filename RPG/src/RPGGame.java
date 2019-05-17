@@ -158,6 +158,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (gameOver == true) {
 					gO.draw(g);
+					
 				}
 
 				if (invenShown == true) {
