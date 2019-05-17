@@ -16,7 +16,7 @@ public class RPGGame implements KeyListener {
 
 	// these are all variables that are involved with playing the game
 	private int gameLevel = 1;
-	private static Knight player;
+	private static Player player;
 	private double pSpeed = 2.5; // player speed, TRY to keep this a factor of 50, but not obligated
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
@@ -55,12 +55,11 @@ public class RPGGame implements KeyListener {
 	public static Player getPlayer() {
 		return RPGGame.player;
 	}
-	
 
 	public static void setEnemyAttack(Attack atk) {
 		enemyAttacks.add(atk);
 	}
-	
+
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
@@ -74,8 +73,8 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
 	}
-	
-	public static ArrayList<Attack> getSpecial(){
+
+	public static ArrayList<Attack> getSpecial() {
 		return RPGGame.special;
 	}
 
@@ -85,8 +84,8 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		gameLevel = 1;
-		player = new Knight(StartGame.SCREEN_HEIGHT/2,StartGame.SCREEN_WIDTH/2,50,50);
-		//player = new Knight(100, 100, 50, 50);
+		player = new Knight(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2, 50, 50);
+		// player = new Knight(100, 100, 50, 50);
 		m = new Map(3, 2, 5);
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
@@ -96,11 +95,12 @@ public class RPGGame implements KeyListener {
 		objects.add(trader);
 
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = null; Demon a = null;
+		Demon d = null;
+		Demon a = null;
 		list.add(d);
 		list.add(a);
 		setEnemies(list);
-		
+
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -114,44 +114,42 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				// floor.drawFloor(g);
+				// floor.drawFloor(g);//draws a floor...kinda
 				for (GameObject go : objects) {
-					go.draw(g);
-
+					go.draw(g); // draws all objects
 				}
-
-				player.draw(g, facing);
-				g.drawRect((int)player.getLocX(), (int)player.getLocY(), (int)player.WIDTH, (int)player.WIDTH);
-				for (GameObject e: objects) {
-					if (e instanceof MoveableObject) {
-					g.drawRect((int)e.getLocX(), (int)e.getLocY(), e.WIDTH, e.HEIGHT);
-					}
-				}
-				for (Attack r:enemyAttacks) {
-					g.drawRect((int) (r.getLocX() + r.WIDTH / 10), (int) (r.getLocY() + r.HEIGHT / 10),
-				(int) (r.WIDTH * 8 / 10), (int) (r.HEIGHT * 8 / 10));
-				}
-				if (pAttack!=null) {
-					g.drawRect((int) (pAttack.getLocX() + pAttack.WIDTH / 10), (int) (pAttack.getLocY() + pAttack.HEIGHT / 10),
-							(int) (pAttack.WIDTH * 8 / 10), (int) (pAttack.HEIGHT * 8 / 10));
-				}
-				
-
-				if (pAttack != null && !pAttack.expire()) {
-					pAttack.draw(g);
-				}
-				for(Attack a:special) {
-					if(!a.expire()) {
+				player.draw(g, facing); // draws the player
+				for (Attack a : special) {
+					if (!a.expire()) {
 						a.draw(g);
 					}
 				}
 				for (Attack e : enemyAttacks) {
-					e.draw(g);
+					e.draw(g);// draws all enemy attacks
+				}
+				g.drawRect((int) player.getLocX(), (int) player.getLocY(), (int) player.WIDTH, (int) player.WIDTH);// draws
+																													// player
+																													// hitbox
+				for (GameObject e : objects) {
+					if (e instanceof MoveableObject) {
+						g.drawRect((int) e.getLocX(), (int) e.getLocY(), e.WIDTH, e.HEIGHT);// draws all moving
+																							// hitboxes(not player)
+					}
+				}
+				for (Attack r : enemyAttacks) {
+					g.drawRect((int) (r.getLocX() + r.WIDTH / 10), (int) (r.getLocY() + r.HEIGHT / 10),
+							(int) (r.WIDTH * 8 / 10), (int) (r.HEIGHT * 8 / 10));//
+				}
+				if (pAttack != null && !pAttack.expire()) {
+					pAttack.draw(g);
 				}
 
+				if (pAttack != null) {
+					g.drawRect((int) (pAttack.getLocX() + pAttack.WIDTH / 10),
+							(int) (pAttack.getLocY() + pAttack.HEIGHT / 10), (int) (pAttack.WIDTH * 8 / 10),
+							(int) (pAttack.HEIGHT * 8 / 10));
+				}
 				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
-				
-
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : objects) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
@@ -179,7 +177,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (gameOver == true) {
 					gO.draw(g);
-					
+
 				}
 
 				if (invenShown == true) {
@@ -225,17 +223,18 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			e.update();
-			for (Attack a:special) {
+			for (Attack a : special) {
 				if (a.collides(e)) {
 					e.reflect();
 				}
 			}
 		}
-		for (Attack e: special) {
+		for (Attack e : special) {
 			e.update();
 		}
 		if (enemies.isEmpty()) {
 			//this.levelDone=true; for testing
+
 		}
 	}
 
@@ -244,7 +243,7 @@ public class RPGGame implements KeyListener {
 		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 150) / 50;
 		e2 = new Demon(x * 50, y * 50, 100, 100, 1);
 		for (GameObject w : objects) {
-			if (!e2.equals(w) && !w.throughable&&e2.collides(w)) {
+			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
 				checkSpawns(e2);
 				return;
 			}
@@ -265,7 +264,7 @@ public class RPGGame implements KeyListener {
 		if (pAttack != null && pAttack.expire()) {
 			pAttack = null;
 		}
-		for (Attack a:special) {
+		for (Attack a : special) {
 			if (a.expire()) {
 				toRemove.add(a);
 			}
@@ -314,8 +313,8 @@ public class RPGGame implements KeyListener {
 					}
 				}
 			}
-			
-			if(player.collides(e) &&  e instanceof Coin) {
+
+			if (player.collides(e) && e instanceof Coin) {
 				toRemove.add(e);
 			}
 		}
@@ -330,7 +329,7 @@ public class RPGGame implements KeyListener {
 				player.hit(e.getDamage());
 			}
 		}
-		for(GameObject g: toRemove) {
+		for (GameObject g : toRemove) {
 			g.uponRemoval();
 		}
 		objects.removeAll(toRemove);
@@ -395,13 +394,16 @@ public class RPGGame implements KeyListener {
 
 			// this allows the j key to control attacking (main commands)
 			if (keys.contains("j")) {
-				if (player.canMove(60)) {
+				if (player.canAttack()) {
 					pAttack = player.getAttack();
+					player.addCooldown(60);
 				}
 			}
 			if (keys.contains("k")) {
-				if(player.canMove(60)) {
+				if (player.canAttack()) {
 					special.add(player.getSpecial());
+					objects.add(player.getSpecial());
+					player.addCooldown(60);
 				}
 			}
 		}

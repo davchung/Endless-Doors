@@ -60,9 +60,10 @@ public class Demon extends Enemy {
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
-		if (this.canMove(300)) {
+		if (this.canAttack()) {
 			RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
 					HEIGHT, x, y, 3, 500,this.getDamage(), "Sprites/fireball.png"));
+			this.addCooldown(300);
 		}
 		RPGGame.getObjects().add(this);
 	}
