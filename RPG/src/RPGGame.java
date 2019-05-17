@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Trader trader;
-	private Map m = new Map(5);
+	private Map m;
 	private Floor floor = new Floor();
 
 	private Attack pAttack; // player attack
@@ -61,7 +61,7 @@ public class RPGGame implements KeyListener {
 	public static void setEnemyAttack(Attack atk) {
 		enemyAttacks.add(atk);
 	}
-
+	
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
@@ -83,6 +83,7 @@ public class RPGGame implements KeyListener {
 	public void beginGame() {
 		gameLevel = 1;
 		player = new Knight(100, 100, 50, 50);
+		m = new Map(3, 2, 5);
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
 		objects.add(player);
@@ -115,7 +116,10 @@ public class RPGGame implements KeyListener {
 
 				}
 				player.draw(g, facing);
-				g.drawRect((int)player.getLocX(), (int)player.getLocY(), 50, 50);
+				g.drawRect((int)player.getLocX(), (int)player.getLocY(), (int)player.WIDTH, (int)player.WIDTH);
+				for (Enemy e: enemies) {
+					g.drawRect((int)e.getLocX(), (int)e.getLocY(), e.WIDTH, e.HEIGHT);
+				}
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
@@ -124,12 +128,7 @@ public class RPGGame implements KeyListener {
 					e.draw(g);
 				}
 
-				g.drawString("Knight health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
-				for (int i = 0; i < enemies.size(); i++) {
-					Enemy e = enemies.get(i);
-					g.drawString(e.toString() + " health: " + e.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6,
-							85 + 20 * i);
-				}
+				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : objects) {
@@ -189,7 +188,7 @@ public class RPGGame implements KeyListener {
 				if (ticks > 50 || ticks == 0)
 					movement();
 				collision();
-				update(); // updates last health
+				update(); // updates movement
 				ticks++;
 			}
 
@@ -205,7 +204,9 @@ public class RPGGame implements KeyListener {
 		for (Attack e : enemyAttacks) {
 			e.update();
 		}
-
+		if (enemies.isEmpty()) {
+			this.levelDone=true;
+		}
 	}
 
 	private void checkSpawns(Enemy e2) {
@@ -257,7 +258,6 @@ public class RPGGame implements KeyListener {
 			if (e instanceof Enemy) {
 				if (((Enemy) e).getHealth() <= 0) {
 					toRemove.add(e);
-					levelDone = true;
 				}
 				if (pAttack != null && pAttack.collides(e)) {
 					((Enemy) e).hit(player.getDamage());
@@ -293,6 +293,9 @@ public class RPGGame implements KeyListener {
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
+		if (enemies.size() == 0) {
+			levelDone = true;
+		}
 		for (GameObject go : toRemove) {
 			if (go instanceof Wall) {
 				i.addWalls(1);

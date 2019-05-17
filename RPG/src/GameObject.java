@@ -75,6 +75,9 @@ public abstract class GameObject {
 	public void setHittable(int h) {
 		this.hittable = h;
 	}
+	public BufferedImage getImg() {
+		return image; //so i can see image from other classes
+	}
 
 	// these methods have to do with images and drawing
 	protected BufferedImage getImage(String fn) {

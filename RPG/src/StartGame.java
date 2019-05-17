@@ -33,7 +33,7 @@ public class StartGame {
 		/**
 		try { 
 			AudioInputStream audioIn;
-			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/realm.wav"));
+			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/bgm.wav"));
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			if (!clip.isRunning()) {
@@ -43,6 +43,7 @@ public class StartGame {
 			e1.printStackTrace();
 		}
 		**/
+		
 
 		JFrame startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
