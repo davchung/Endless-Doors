@@ -53,7 +53,7 @@ public class Demon extends Enemy {
 		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
-			RPGGame.getPlayer().hit(10);
+			RPGGame.getPlayer().hit(this.getDamage());
 		}
 		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
@@ -62,7 +62,7 @@ public class Demon extends Enemy {
 		wallCollision();
 		if (this.canMove(300)) {
 			RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
-					HEIGHT, x, y, 3, 500, "Sprites/fireball.png"));
+					HEIGHT, x, y, 3, 500,this.getDamage(), "Sprites/fireball.png"));
 		}
 		RPGGame.getObjects().add(this);
 	}

@@ -10,9 +10,10 @@ public class Attack extends GameObject {
 	private double r;
 	private double d;
 	private int expire;
+	private int dmg;
 
 	// this is the constructor for a melee attack;
-	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,
+	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,int damage,
 			String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
@@ -23,10 +24,11 @@ public class Attack extends GameObject {
 		super.moveX(right * pWidth);// moves to where the player faces
 		super.moveY(down * pHeight);
 		vel = 0;
+		dmg=damage;
 	}
 
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
-			int duration, String s) {
+			int duration, int damage, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
 		super.moveX(-width / 2);// centers drawing on player
@@ -36,7 +38,7 @@ public class Attack extends GameObject {
 		vel = velocity;
 		super.moveX(r * pWidth / 2);// moves to where the player faces
 		super.moveY(d * pHeight / 2);
-
+		dmg = damage;
 	}
 
 	@Override
@@ -62,6 +64,9 @@ public class Attack extends GameObject {
 		g2d.rotate(angle, this.getCX(), this.getCY());
 		g.drawImage(i, (int) (locX + shiftX), (int) locY, (int) (i.getWidth() * ratio), (int) HEIGHT, null);
 		g2d.rotate(-angle, this.getCX(), this.getCY());
+	}
+	public int getDamage() {
+		return dmg;
 	}
 
 	public void update() {
