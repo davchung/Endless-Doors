@@ -23,13 +23,11 @@ public class RPGGame implements KeyListener {
 	private Trader trader;
 	private Map m;
 	private Floor floor = new Floor();
-
 	private Attack pAttack; // player attack
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
-	private ChestLoot cL = new ChestLoot();
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
 	private NextLevel nL = new NextLevel();
@@ -237,7 +235,7 @@ public class RPGGame implements KeyListener {
 			e.update();
 		}
 		if (enemies.isEmpty()) {
-			this.levelDone=true;
+			//this.levelDone=true; for testing
 		}
 	}
 
@@ -339,7 +337,7 @@ public class RPGGame implements KeyListener {
 		enemies.removeAll(toRemove);
 		special.removeAll(toRemove);
 		if (enemies.size() == 0) {
-			levelDone = true;
+			//levelDone = true;
 		}
 
 	}

@@ -43,13 +43,12 @@ public abstract class GameObject {
 	
 	public void uponRemoval() {
 		int decide = (int) (Math.random()*100);
-		Coin c =new Coin(this.getLocX(),this.getLocY(),decide/10);
 		if(this instanceof Chest) {
-			RPGGame.getObjects().add(c);
+			RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide*3));
 		}
 		if(this instanceof Crate) {
 			if(decide >= 75)
-				RPGGame.getObjects().add(c);
+				RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide/10));
 		}
 		if(this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
