@@ -17,8 +17,8 @@ public class Attack extends GameObject {
 			String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
-		super.moveX(-width / 2);// centers drawing on player
-		super.moveY(-height / 2);
+		super.moveX(-pWidth / 2);// centers drawing on player
+		super.moveY(-pHeight / 2);
 		r = right;
 		d = down;
 		super.moveX(right * pWidth);// moves to where the player faces
@@ -31,14 +31,21 @@ public class Attack extends GameObject {
 			int duration, int damage, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
-		super.moveX(-width / 2);// centers drawing on player
-		super.moveY(-height / 2);
+		super.moveX(-pWidth / 2);// centers drawing on player
+		super.moveY(-pHeight / 2);
 		r = right;
 		d = down;
 		vel = velocity;
 		super.moveX(r * pWidth / 2);// moves to where the player faces
 		super.moveY(d * pHeight / 2);
 		dmg = damage;
+	}
+	
+	public Attack(int x, int y, int width, int height, int duration,int damage, String s) {
+		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
+		expire = RPGGame.ticks + duration;
+		vel = 0;
+		dmg=damage;
 	}
 
 	@Override
@@ -53,7 +60,10 @@ public class Attack extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		double angle=-Math.atan(-d/r)+Math.PI/2;
+		double angle=0;
+		if (!(r==0&&d==0)) {
+			angle=-Math.atan(-d/r)+Math.PI/2;
+		}
 		if (r<0) {
 			angle+=Math.PI;
 		}
@@ -79,5 +89,9 @@ public class Attack extends GameObject {
 			return true;
 		}
 		return false;
+	}
+	
+	public void reflect() {
+		vel=-Math.abs(vel);
 	}
 }

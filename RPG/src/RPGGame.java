@@ -42,6 +42,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
+	private static ArrayList<Attack> special = new ArrayList<Attack>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -56,6 +57,7 @@ public class RPGGame implements KeyListener {
 	public static Player getPlayer() {
 		return RPGGame.player;
 	}
+	
 
 	public static void setEnemyAttack(Attack atk) {
 		enemyAttacks.add(atk);
@@ -73,6 +75,10 @@ public class RPGGame implements KeyListener {
 
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
+	}
+	
+	public static ArrayList<Attack> getSpecial(){
+		return RPGGame.special;
 	}
 
 	public static Inventory getInventory() {
@@ -115,6 +121,7 @@ public class RPGGame implements KeyListener {
 					go.draw(g);
 
 				}
+
 				player.draw(g, facing);
 				g.drawRect((int)player.getLocX(), (int)player.getLocY(), (int)player.WIDTH, (int)player.WIDTH);
 				for (GameObject e: objects) {
@@ -130,9 +137,15 @@ public class RPGGame implements KeyListener {
 					g.drawRect((int) (pAttack.getLocX() + pAttack.WIDTH / 10), (int) (pAttack.getLocY() + pAttack.HEIGHT / 10),
 							(int) (pAttack.WIDTH * 8 / 10), (int) (pAttack.HEIGHT * 8 / 10));
 				}
+				
 
 				if (pAttack != null && !pAttack.expire()) {
 					pAttack.draw(g);
+				}
+				for(Attack a:special) {
+					if(!a.expire()) {
+						a.draw(g);
+					}
 				}
 				for (Attack e : enemyAttacks) {
 					e.draw(g);
@@ -214,6 +227,14 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			e.update();
+			for (Attack a:special) {
+				if (a.collides(e)) {
+					e.reflect();
+				}
+			}
+		}
+		for (Attack e: special) {
+			e.update();
 		}
 		if (enemies.isEmpty()) {
 			this.levelDone=true;
@@ -245,6 +266,11 @@ public class RPGGame implements KeyListener {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
 		if (pAttack != null && pAttack.expire()) {
 			pAttack = null;
+		}
+		for (Attack a:special) {
+			if (a.expire()) {
+				toRemove.add(a);
+			}
 		}
 		for (Attack e : enemyAttacks) {
 			if (e.expire()) {
@@ -278,7 +304,7 @@ public class RPGGame implements KeyListener {
 				if (e.getHealth() <= 0)
 					toRemove.add(e);
 				if ((pAttack != null && pAttack.collides(e))) {
-					e.hit();
+					e.hit(pAttack.getDamage());
 					damagedObjects.add(e);
 					objDamaged = true;
 				}
@@ -311,6 +337,7 @@ public class RPGGame implements KeyListener {
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
+		special.removeAll(toRemove);
 		if (enemies.size() == 0) {
 			levelDone = true;
 		}
@@ -372,6 +399,11 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("j")) {
 				if (player.canMove(60)) {
 					pAttack = player.getAttack();
+				}
+			}
+			if (keys.contains("k")) {
+				if(player.canMove(60)) {
+					special.add(player.getSpecial());
 				}
 			}
 		}

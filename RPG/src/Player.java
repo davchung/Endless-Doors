@@ -28,6 +28,10 @@ public abstract class Player extends MoveableObject {
 	public void draw(Graphics g) {
 		//putting this here to prevent graphics from drawing Player when running through all GameObjects
 	}
+	public Attack getSpecial() {
+		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
+		return shield;
+	}
 
 	// this will allow Player to "build" a wall
 	public boolean build(int ticks) {

@@ -148,12 +148,7 @@ public abstract class GameObject {
 			hittable = RPGGame.ticks + 26;
 		}
 	}
-	public void hit() {
-		if (RPGGame.ticks > hittable && !invincible) {
-			health -= 5;
-			hittable = RPGGame.ticks + 26;
-		}
-	}
+	
 	
 	// returns a random int between lower bound (lb) and upper bound (ub), inclusive
 	public static int randInt(int lb, int ub) {

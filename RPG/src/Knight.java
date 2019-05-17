@@ -10,5 +10,17 @@ public class Knight extends Player {
 		
 		return sword;
 	}
+	public Attack getSpecial() {
+		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
+		return shield;
+	}
+	
+	@Override
+	public void hit(int damage) {
+		if (RPGGame.ticks > hittable&&!invincible&&RPGGame.getSpecial().size()==0) {
+			health -= damage;
+			hittable = RPGGame.ticks + 26;
+		}
+	}
 
 }
