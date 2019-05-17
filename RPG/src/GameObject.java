@@ -50,6 +50,9 @@ public abstract class GameObject {
 			if(decide >= 75)
 				RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide/10));
 		}
+		if(this instanceof Coin) {
+			RPGGame.getInventory().addGold(health);
+		}
 		if(this instanceof ExplosiveBarrel) {
 			//dmg player here
 		}
@@ -140,17 +143,11 @@ public abstract class GameObject {
 	}
 	public void hit(int damage) {
 		if (RPGGame.ticks > hittable&&!invincible) {
-			if(this instanceof Coin) {
-				RPGGame.getInventory().addGold(damage);
-			}
 			health -= damage;
 			hittable = RPGGame.ticks + 26;
 		}
 	}
 	public void hit() {
-		if(this instanceof Coin) {
-			RPGGame.getInventory().addGold(10);
-		}
 		if (RPGGame.ticks > hittable && !invincible) {
 			health -= 5;
 			hittable = RPGGame.ticks + 26;

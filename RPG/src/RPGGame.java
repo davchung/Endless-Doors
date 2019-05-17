@@ -290,6 +290,10 @@ public class RPGGame implements KeyListener {
 					}
 				}
 			}
+			
+			if(player.collides(e) &&  e instanceof Coin) {
+				toRemove.add(e);
+			}
 		}
 
 		if (player.getHealth() <= 0) {
