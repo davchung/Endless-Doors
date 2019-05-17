@@ -284,7 +284,7 @@ public class RPGGame implements KeyListener {
 				}
 				for (Attack a : enemyAttacks) {
 					if (a.collides(e)) {
-						e.hit();
+						e.hit(a.getDamage());
 						damagedObjects.add(e);
 						objDamaged = true;
 					}
@@ -299,7 +299,7 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			if (e.collides(player)) {
-				player.hit(10);
+				player.hit(e.getDamage());
 			}
 		}
 		for(GameObject g: toRemove) {
