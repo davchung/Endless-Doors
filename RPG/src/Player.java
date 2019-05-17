@@ -40,4 +40,8 @@ public abstract class Player extends MoveableObject {
 		setCooldown(ticks + 40);
 		return true;
 	}
+	public Attack getAttack() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
