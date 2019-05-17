@@ -11,7 +11,6 @@ public abstract class Player extends MoveableObject {
 	public Player(double x, double y, int w, int h) {
 		super(x, y, w, h, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
 	}
-
 	// these are methods related to drawing
 	public void draw(Graphics g, int r) {
 		int dx = 0; 

@@ -28,7 +28,7 @@ public class RPGGame implements KeyListener {
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
-	private Inventory i = new Inventory();
+	private static Inventory i = new Inventory();
 	private ChestLoot cL = new ChestLoot();
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
@@ -42,7 +42,6 @@ public class RPGGame implements KeyListener {
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
-	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
@@ -76,13 +75,14 @@ public class RPGGame implements KeyListener {
 		return RPGGame.enemies;
 	}
 
-	public static ArrayList<Item> getInventory() {
-		return RPGGame.inventory;
+	public static Inventory getInventory() {
+		return i;
 	}
 
 	public void beginGame() {
 		gameLevel = 1;
-		player = new Knight(100, 100, 50, 50);
+		player = new Knight(StartGame.SCREEN_HEIGHT/2,StartGame.SCREEN_WIDTH/2,50,50);
+		//player = new Knight(100, 100, 50, 50);
 		m = new Map(3, 2, 5);
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
@@ -263,7 +263,7 @@ public class RPGGame implements KeyListener {
 					((Enemy) e).hit(player.getDamage());
 				}
 			}
-			if (e instanceof Crate || e instanceof Chest || e instanceof Wall || e instanceof ExplosiveBarrel) {
+			if (!e.invincible && !(e instanceof Enemy)) {
 				if (e.getHealth() <= 0)
 					toRemove.add(e);
 				if ((pAttack != null && pAttack.collides(e))) {
@@ -291,17 +291,14 @@ public class RPGGame implements KeyListener {
 				player.hit(10);
 			}
 		}
+		for(GameObject g: toRemove) {
+			g.uponRemoval();
+		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
 		if (enemies.size() == 0) {
 			levelDone = true;
 		}
-		for (GameObject go : toRemove) {
-			if (go instanceof Wall) {
-				i.addWalls(1);
-			}
-		}
-		walls.removeAll(toRemove);
 
 	}
 
@@ -433,7 +430,7 @@ public class RPGGame implements KeyListener {
 		// trading post - buy option 1
 		if (keys.contains("1") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
-			inventory.add(new Weapon("axe.png", 20));
+			i.getItems().add(new Weapon("axe.png", 20));
 			JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
 		}
 		// trading post - buy option 2

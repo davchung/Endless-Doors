@@ -6,15 +6,15 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
-	private int health;
+	protected int health;
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
 	private Rectangle current;
 	public final static String PATH_PREFIX = "img/";
 	protected BufferedImage image;
-	private int hittable = 0;
+	protected int hittable = 0;
 	public boolean throughable;
-	private boolean invincible;
+	protected boolean invincible;
 
 	// constructor #1 for GameObject
 	public GameObject(double x, double y, int w, int h, boolean through, boolean inv, int startingHealth, String s) {
@@ -39,6 +39,20 @@ public abstract class GameObject {
 		health = startingHealth;
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
+	}
+	
+	public void uponRemoval() {
+		int decide = (int) (Math.random()*100);
+		if(this instanceof Chest) {
+			RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide*3));
+		}
+		if(this instanceof Crate) {
+			if(decide >= 75)
+				RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide/10));
+		}
+		if(this instanceof ExplosiveBarrel) {
+			//dmg player here
+		}
 	}
 
 	// getters, setters, and "incrementers" are here
