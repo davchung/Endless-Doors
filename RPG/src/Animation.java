@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 public class Animation {
 
-	File runRight = new File("src/img/animations/playerRun.png");
 	private BufferedImage[] anim;
 
 	// constructor #1 for Animation
@@ -20,6 +19,7 @@ public class Animation {
 				anim[i] = ImageIO.read(this.getClass().getResource(path + "_anim_f" + i + ".png"));
 			} catch (Exception e) {
 				System.out.println("More frames indicated than in file for " + path);
+				System.out.println("Tried to grab: "+path + "_anim_f" + i + ".png");
 			}
 		}
 

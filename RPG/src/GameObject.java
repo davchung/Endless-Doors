@@ -43,12 +43,13 @@ public abstract class GameObject {
 	
 	public void uponRemoval() {
 		int decide = (int) (Math.random()*100);
+		Coin c =new Coin(this.getLocX(),this.getLocY(),decide/10);
 		if(this instanceof Chest) {
-			RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide*3));
+			RPGGame.getObjects().add(c);
 		}
 		if(this instanceof Crate) {
 			if(decide >= 75)
-				RPGGame.getObjects().add(new Coin(this.getLocX(),this.getLocY(),decide/10));
+				RPGGame.getObjects().add(c);
 		}
 		if(this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
@@ -109,12 +110,12 @@ public abstract class GameObject {
 	}
 	public void draw(Graphics g) {
 		if (image != null) {
-			g.drawImage(image, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
+			g.drawImage(image, (int) locX, (int) locY,  WIDTH, HEIGHT, null);
 		}
 	}
 	public void draw(Graphics g,BufferedImage i) {
 		if (image != null) {
-			g.drawImage(i, (int) locX, (int) locY, (int) WIDTH, (int) HEIGHT, null);
+			g.drawImage(i, (int) locX, (int) locY,  WIDTH, HEIGHT, null);
 		}
 	}
 
