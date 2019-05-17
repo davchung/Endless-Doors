@@ -117,8 +117,18 @@ public class RPGGame implements KeyListener {
 				}
 				player.draw(g, facing);
 				g.drawRect((int)player.getLocX(), (int)player.getLocY(), (int)player.WIDTH, (int)player.WIDTH);
-				for (Enemy e: enemies) {
+				for (GameObject e: objects) {
+					if (e instanceof MoveableObject) {
 					g.drawRect((int)e.getLocX(), (int)e.getLocY(), e.WIDTH, e.HEIGHT);
+					}
+				}
+				for (Attack r:enemyAttacks) {
+					g.drawRect((int) (r.getLocX() + r.WIDTH / 10), (int) (r.getLocY() + r.HEIGHT / 10),
+				(int) (r.WIDTH * 8 / 10), (int) (r.HEIGHT * 8 / 10));
+				}
+				if (pAttack!=null) {
+					g.drawRect((int) (pAttack.getLocX() + pAttack.WIDTH / 10), (int) (pAttack.getLocY() + pAttack.HEIGHT / 10),
+							(int) (pAttack.WIDTH * 8 / 10), (int) (pAttack.HEIGHT * 8 / 10));
 				}
 
 				if (pAttack != null && !pAttack.expire()) {
@@ -129,6 +139,7 @@ public class RPGGame implements KeyListener {
 				}
 
 				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
+				
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : objects) {
