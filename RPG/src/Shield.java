@@ -8,7 +8,6 @@ public class Shield extends Attack{
 	public void update() {
 		this.locX=RPGGame.getPlayer().locX-20;
 		this.locY=RPGGame.getPlayer().locY-20;
-		//System.out.println("updated");
 	}
 
 }
