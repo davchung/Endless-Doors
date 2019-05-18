@@ -366,7 +366,7 @@ public class RPGGame implements KeyListener {
 	// this allows the player to be controlled by W A S D
 	private void controls() {
 		int down = 0, right = 0;
-		if (primary.isEmpty() && builtWall == null) {
+		if (player.canMove()) {
 			if (keys.contains("w")) {
 				player.moveY(-pSpeed);
 				down -= 1;
@@ -413,7 +413,7 @@ public class RPGGame implements KeyListener {
 			}
 		}
 		if (keys.contains("k")) {
-			if (player.canAttack()) {
+			if (player.canSpecial()) {
 				special.add(player.getSpecial());
 				// objects.add(player.getSpecial());
 				player.addCooldown(60);

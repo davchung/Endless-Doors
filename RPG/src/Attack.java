@@ -62,6 +62,8 @@ public class Attack extends GameObject {
 	public void draw(Graphics g) {
 		double angle=0;
 		if (!(r==0&&d==0)) {
+			if (r==0)
+				r=.0001;
 			angle=-Math.atan(-d/r)+Math.PI/2;
 		}
 		if (r<0) {
