@@ -49,15 +49,13 @@ public class Attack extends GameObject {
 		dmg = damage;
 	}
 
+
 	@Override
-	public boolean collides(GameObject other) {
+	public Rectangle getRect() {
 		Rectangle r = super.getRect();
 		Rectangle k = new Rectangle((int) (r.getX() + r.getWidth() / 10), (int) (r.getY() + r.getHeight() / 10),
 				(int) (r.getWidth() * 8 / 10), (int) (r.getHeight() * 8 / 10));
-		if (k.intersects(other.getRect())) {
-			return true;
-		}
-		return false;
+		return k;
 	}
 
 	public void draw(Graphics g) {
@@ -123,7 +121,7 @@ public class Attack extends GameObject {
 		}
 		System.out.println(angle-second);
 		double last = 2*angle-second;
-		d=Math.sin(last);
+		d=Math.sin(-last);
 		r=Math.cos(last);
 		vel = -Math.abs(vel);
 	}
