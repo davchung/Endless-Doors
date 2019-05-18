@@ -11,7 +11,7 @@ public abstract class Player extends MoveableObject {
 	// constructor #1 for Player
 	public Player(double x, double y, int w, int h) {
 		super(x, y, w, h, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
-		setRect();
+		//setRect();
 	}
 	private void setRect() {
 		Rectangle r = super.getRect();
@@ -19,6 +19,14 @@ public abstract class Player extends MoveableObject {
 				(int) (r.getWidth() * 48 / 50), (int) (r.getHeight() * 48 / 50));
 		this.current =k;
 	}
+	
+	protected Rectangle getRect() {
+		Rectangle r = super.getRect();
+		Rectangle k = new Rectangle((int) (r.getX() + r.getWidth() / 50), (int) (r.getY() + r.getHeight() / 50),
+				(int) (r.getWidth() * 48 / 50), (int) (r.getHeight() * 48 / 50));
+		return k;
+	}
+	
 	// these are methods related to drawing
 	public void draw(Graphics g, int r) {
 		int dx = 0; 

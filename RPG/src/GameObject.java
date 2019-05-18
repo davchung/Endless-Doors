@@ -136,7 +136,7 @@ public abstract class GameObject {
 	}
 
 	public boolean collides(GameObject other) {
-		if (current.intersects(other.getRect())) {
+		if (getRect().intersects(other.getRect())) {
 			return true;
 		}
 		return false;
