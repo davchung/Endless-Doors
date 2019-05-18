@@ -56,6 +56,12 @@ public class RPGGame implements KeyListener {
 	public static Player getPlayer() {
 		return RPGGame.player;
 	}
+	public static ArrayList<Attack> getPrimary(){
+		return primary;
+	}
+	public static ArrayList<Attack> getEnemyAttacks(){
+		return enemyAttacks;
+	}
 
 	public static void setEnemyAttack(Attack atk) {
 		enemyAttacks.add(atk);
@@ -201,16 +207,32 @@ public class RPGGame implements KeyListener {
 
 	protected void update() {
 		for (Object m : objects) {
-			if (m instanceof MoveableObject)
+			if (m instanceof MoveableObject) {
 				((MoveableObject) m).update();
+			}
 		}
-		for (Attack e : enemyAttacks) {
-			e.update();
-			for (Attack a : special) {
-				if (a.collides(e)) {
-					e.reflect();
+//		for (Attack e : enemyAttacks) {
+//			e.update();
+//			for (Attack spec : special) {
+//				if (spec.collides(e)) {
+//					spec.change(e);
+//				}
+//			}
+//		}
+		for (int i = 0;i<enemyAttacks.size();) {
+			enemyAttacks.get(i).update();
+			boolean coll = false;
+			for (Attack spec:special) {
+				if ((player instanceof Knight)&&spec.collides(enemyAttacks.get(i))) {
+					spec.change(enemyAttacks.get(i));
+					coll =true;
 				}
 			}
+			if (!coll)
+				i++;
+		}
+		for (Attack e: primary) {
+			e.update();
 		}
 		for (Attack e : special) {
 			e.update();
@@ -415,7 +437,6 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("k")) {
 			if (player.canSpecial()) {
 				special.add(player.getSpecial());
-				// objects.add(player.getSpecial());
 				player.addCooldown(60);
 			}
 		}

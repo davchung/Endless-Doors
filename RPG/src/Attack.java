@@ -11,10 +11,11 @@ public class Attack extends GameObject {
 	private double d;
 	private int expire;
 	private double dmg;
+	private boolean reflected = false;
 
 	// this is the constructor for a melee attack;
-	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,double e,
-			String s) {
+	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,
+			double e, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
 		super.moveX(-pWidth / 2);// centers drawing on player
@@ -24,7 +25,7 @@ public class Attack extends GameObject {
 		super.moveX(right * pWidth);// moves to where the player faces
 		super.moveY(down * pHeight);
 		vel = 0;
-		dmg=e;
+		dmg = e;
 	}
 
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
@@ -40,12 +41,12 @@ public class Attack extends GameObject {
 		super.moveY(d * pHeight / 2);
 		dmg = e;
 	}
-	
-	public Attack(int x, int y, int width, int height, int duration,int damage, String s) {
+
+	public Attack(int x, int y, int width, int height, int duration, int damage, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
 		vel = 0;
-		dmg=damage;
+		dmg = damage;
 	}
 
 	@Override
@@ -60,14 +61,14 @@ public class Attack extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		double angle=0;
-		if (!(r==0&&d==0)) {
-			if (r==0)
-				r=.0001;
-			angle=-Math.atan(-d/r)+Math.PI/2;
+		double angle = 0;
+		if (!(r == 0 && d == 0)) {
+			if (r == 0)
+				r = .0001;
+			angle = -Math.atan(-d / r) + Math.PI / 2;
 		}
-		if (r<0) {
-			angle+=Math.PI;
+		if (r < 0) {
+			angle += Math.PI;
 		}
 		Graphics2D g2d = (Graphics2D) g;
 		BufferedImage i = this.getImg();
@@ -77,11 +78,15 @@ public class Attack extends GameObject {
 		g.drawImage(i, (int) (locX + shiftX), (int) locY, (int) (i.getWidth() * ratio), (int) HEIGHT, null);
 		g2d.rotate(-angle, this.getCX(), this.getCY());
 	}
+
 	public double getDamage() {
 		return dmg;
 	}
 
 	public void update() {
+		double mag = Math.sqrt(r * r + d * d);
+		r = r / mag;
+		d = d / mag;
 		super.moveX(r * vel);
 		super.moveY(d * vel);
 	}
@@ -92,8 +97,38 @@ public class Attack extends GameObject {
 		}
 		return false;
 	}
-	
-	public void reflect() {
-		vel=-Math.abs(vel);
+
+	public void reflect(double cX, double cY) {
+		if (reflected)
+			return;
+		double right = cX - this.getCX();
+		double down = cY - this.getCY();
+		double angle = 0;
+		if (!(right == 0 && down == 0)) {
+			if (right == 0)
+				right = .0001;
+			angle = -Math.atan(-down / right) + Math.PI / 2;
+		}
+		if (right < 0) {
+			angle += Math.PI;
+		}
+		double second=0;
+		if (!(r==0&&d==0)) {
+			if (r==0)
+				r=.0001;
+			second=-Math.atan(-d/r)+Math.PI/2;
+		}
+		if (r<0) {
+			second+=Math.PI;
+		}
+		System.out.println(angle-second);
+		double last = 2*angle-second;
+		d=Math.sin(last);
+		r=Math.cos(last);
+		vel = -Math.abs(vel);
+	}
+
+	public void change(GameObject e) {
+		System.out.println("this shouldn't be happening, initialize to a better subclass");
 	}
 }

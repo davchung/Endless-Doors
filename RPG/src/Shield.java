@@ -9,5 +9,13 @@ public class Shield extends Attack{
 		this.locX=RPGGame.getPlayer().locX-20;
 		this.locY=RPGGame.getPlayer().locY-20;
 	}
+	
+	public void change(GameObject e) {
+		if (e instanceof Attack) {
+			((Attack) e).reflect(this.getCX(),this.getCY());
+			RPGGame.getPrimary().add((Attack) e);
+			RPGGame.getEnemyAttacks().remove(e);
+		}
+	}
 
 }
