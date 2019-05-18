@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public abstract class Player extends MoveableObject {
 
@@ -10,6 +11,13 @@ public abstract class Player extends MoveableObject {
 	// constructor #1 for Player
 	public Player(double x, double y, int w, int h) {
 		super(x, y, w, h, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
+		setRect();
+	}
+	private void setRect() {
+		Rectangle r = super.getRect();
+		Rectangle k = new Rectangle((int) (r.getX() + r.getWidth() / 50), (int) (r.getY() + r.getHeight() / 50),
+				(int) (r.getWidth() * 48 / 50), (int) (r.getHeight() * 48 / 50));
+		this.current =k;
 	}
 	// these are methods related to drawing
 	public void draw(Graphics g, int r) {
@@ -44,4 +52,5 @@ public abstract class Player extends MoveableObject {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
