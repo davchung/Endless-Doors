@@ -14,7 +14,6 @@ public class Knight extends Player {
 	}
 	public Attack getSpecial() {
 		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
-		canSpecial =RPGGame.ticks+400;
 		return shield;
 	}
 	
@@ -38,6 +37,11 @@ public class Knight extends Player {
 		if (RPGGame.ticks>canSpecial)
 			return true;
 		return false;
+	}
+
+	@Override
+	protected void addSpecialCooldown(int i) {
+		canSpecial = RPGGame.ticks+i;
 	}
 	
 

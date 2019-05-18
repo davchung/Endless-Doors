@@ -437,7 +437,7 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("k")) {
 			if (player.canSpecial()) {
 				special.add(player.getSpecial());
-				player.addCooldown(60);
+				player.addSpecialCooldown(60);
 			}
 		}
 	}

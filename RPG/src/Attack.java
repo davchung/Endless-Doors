@@ -96,11 +96,26 @@ public class Attack extends GameObject {
 		return false;
 	}
 
-	public void reflect(double cX, double cY) {
+	public void reflect(double shieldX, double shieldY) {
 		if (reflected)
 			return;
-		double right = cX - this.getCX();
-		double down = cY - this.getCY();
+		//reflected= true;
+		vel =-Math.abs(vel);
+		//r = shieldX-this.getCX();
+		//d = shieldY-this.getCY();
+		
+	}
+
+	public void change(Attack e) {
+		System.out.println("this shouldn't be happening, initialize to a better subclass");
+	}
+
+	public void reflect1(double shieldX, double shieldY) {
+		if (reflected)
+			return;
+		reflected= true;
+		double right = shieldX - this.getCX();
+		double down = shieldY - this.getCY();
 		double angle = 0;
 		if (!(right == 0 && down == 0)) {
 			if (right == 0)
@@ -124,9 +139,6 @@ public class Attack extends GameObject {
 		d=Math.sin(-last);
 		r=Math.cos(last);
 		vel = -Math.abs(vel);
-	}
-
-	public void change(GameObject e) {
-		System.out.println("this shouldn't be happening, initialize to a better subclass");
+		
 	}
 }

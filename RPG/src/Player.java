@@ -59,5 +59,6 @@ public abstract class Player extends MoveableObject {
 	public abstract Attack getAttack();
 	public abstract boolean canMove();
 	protected abstract boolean canSpecial();
+	protected abstract void addSpecialCooldown(int i);
 
 }
