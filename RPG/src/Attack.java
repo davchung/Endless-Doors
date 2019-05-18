@@ -10,10 +10,10 @@ public class Attack extends GameObject {
 	private double r;
 	private double d;
 	private int expire;
-	private int dmg;
+	private double dmg;
 
 	// this is the constructor for a melee attack;
-	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,int damage,
+	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,double e,
 			String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
@@ -24,11 +24,11 @@ public class Attack extends GameObject {
 		super.moveX(right * pWidth);// moves to where the player faces
 		super.moveY(down * pHeight);
 		vel = 0;
-		dmg=damage;
+		dmg=e;
 	}
 
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
-			int duration, int damage, String s) {
+			int duration, double e, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
 		super.moveX(-pWidth / 2);// centers drawing on player
@@ -38,7 +38,7 @@ public class Attack extends GameObject {
 		vel = velocity;
 		super.moveX(r * pWidth / 2);// moves to where the player faces
 		super.moveY(d * pHeight / 2);
-		dmg = damage;
+		dmg = e;
 	}
 	
 	public Attack(int x, int y, int width, int height, int duration,int damage, String s) {
@@ -75,7 +75,7 @@ public class Attack extends GameObject {
 		g.drawImage(i, (int) (locX + shiftX), (int) locY, (int) (i.getWidth() * ratio), (int) HEIGHT, null);
 		g2d.rotate(-angle, this.getCX(), this.getCY());
 	}
-	public int getDamage() {
+	public double getDamage() {
 		return dmg;
 	}
 

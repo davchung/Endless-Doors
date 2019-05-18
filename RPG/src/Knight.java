@@ -16,7 +16,7 @@ public class Knight extends Player {
 	}
 	
 	@Override
-	public void hit(int damage) {
+	public void hit(double damage) {
 		if (RPGGame.ticks > hittable&&!invincible&&RPGGame.getSpecial().size()==0) {
 			health -= damage;
 			hittable = RPGGame.ticks + 26;

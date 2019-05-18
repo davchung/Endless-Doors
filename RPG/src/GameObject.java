@@ -141,9 +141,9 @@ public abstract class GameObject {
 		}
 		return false;
 	}
-	public void hit(int damage) {
+	public void hit(double d) {
 		if (RPGGame.ticks > hittable&&!invincible) {
-			health -= damage;
+			health -= d;
 			hittable = RPGGame.ticks + 26;
 		}
 	}

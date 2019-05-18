@@ -228,8 +228,7 @@ public class RPGGame implements KeyListener {
 
 	protected void drawHitboxes(Graphics g) {
 		//g.drawRect((int) player.getLocX(), (int) player.getLocY(), (int) player.WIDTH, (int) player.WIDTH); // hitbox
-		Rectangle rect = player.getRect();
-		g.drawRect(rect.x, rect.y, rect.width, rect.height);
+
 		for (GameObject e : objects) {
 			if (e instanceof MoveableObject) {
 				g.drawRect((int) e.getLocX(), (int) e.getLocY(), e.WIDTH, e.HEIGHT);
