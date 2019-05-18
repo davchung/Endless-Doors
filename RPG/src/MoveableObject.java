@@ -1,4 +1,5 @@
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class MoveableObject extends GameObject{
 	//private field variables
@@ -7,6 +8,7 @@ public class MoveableObject extends GameObject{
 	protected double right, down; //current direction they're facing
 	private int cooldown = 0;// to move to MO
 	private double loss=0;
+
 
 	public MoveableObject(double x, double y, int width, int height , int startingHealth, BufferedImage b) {
 		super(x, y, width, height, false, false, startingHealth, b);
@@ -68,12 +70,12 @@ public class MoveableObject extends GameObject{
 		pastY=howMuch;
 	}
 	@Override
-	public void hit(double damage) {
+	public void hit(double damage, int ID) {
 		if (RPGGame.ticks>super.getHittable()) {
 			//cooldown=26+RPGGame.ticks;
 			loss = damage;
 		}
-		super.hit(damage);
+		super.hit(damage, ID);
 	}
 
 }

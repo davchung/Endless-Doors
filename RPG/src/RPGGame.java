@@ -325,7 +325,7 @@ public class RPGGame implements KeyListener {
 				}
 				for (Attack p : primary) {
 					if (p.collides(e)) {
-						e.hit(p.getDamage());
+						e.hit(p.getDamage(),p.getgameID());
 					}
 				}
 			}
@@ -334,14 +334,14 @@ public class RPGGame implements KeyListener {
 					toRemove.add(e);
 				for (Attack p : primary) {
 					if (p.collides(e)) {
-						e.hit(p.getDamage());
+						e.hit(p.getDamage(),p.getgameID());
 						damagedObjects.add(e);
 						objDamaged = true;
 					}
 				}
 				for (Attack a : enemyAttacks) {
 					if (a.collides(e)) {
-						e.hit(a.getDamage());
+						e.hit(a.getDamage(),a.getgameID());
 						damagedObjects.add(e);
 						objDamaged = true;
 					}
@@ -360,7 +360,7 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			if (e.collides(player)) {
-				player.hit(e.getDamage());
+				player.hit(e.getDamage(),e.getgameID());
 			}
 		}
 		for (GameObject g : toRemove) {
