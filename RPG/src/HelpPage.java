@@ -24,17 +24,15 @@ public class HelpPage extends GameGUI {
 		yVal += 80;
 		g.drawString("W A S D to move the character.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("J to attack/main.", LEFT_MARGIN, yVal);
+		g.drawString("J to attack and destroy blocks.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("K to use/secondary.", LEFT_MARGIN, yVal);
+		g.drawString("K to activate shield.", LEFT_MARGIN, yVal);
 		yVal += 60;
 		g.drawString("I to access the inventory page.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("? to access the help page.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("P to pause/play the game.", LEFT_MARGIN, yVal);
-		yVal += 40;
-		g.drawString("O to access super secret features!", LEFT_MARGIN, yVal);
 
 		g.setFont(new Font("Optima", 0, END_FONT));
 		yVal += 80;
