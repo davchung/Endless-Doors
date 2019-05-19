@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Inventory extends GameGUI {
 
 	private int numWalls = 0;
-	private static int gold = 0;
+	private int gold = 0;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
 	public Inventory() {
@@ -24,17 +24,13 @@ public class Inventory extends GameGUI {
 	public void removeWalls(int num) {
 		numWalls -= num;
 	}
-	
-	public static int getGold() {
-		return Inventory.gold;
-	}
 
 	public void addGold(int gold) {
-		Inventory.gold += gold;
+		this.gold += gold;
 	}
 
 	public void subtractGold(int gold) {
-		Inventory.gold -= gold;
+		this.gold -= gold;
 	}
 
 	public void draw(Graphics g) {
@@ -49,16 +45,14 @@ public class Inventory extends GameGUI {
 
 		g.setFont(new Font("Papyrus", 0, BODY_FONT));
 		yVal += 80;
-		g.drawString("Amount of gold: " + gold, LEFT_MARGIN, yVal);
+		//g.drawString("Number of items in inventory: " + inventory.size(), LEFT_MARGIN, yVal);
+		g.drawString("gold: " + gold, LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("Items in inventory: ", LEFT_MARGIN, yVal);
-		if (inventory.size() == 0) {
-			yVal += 40;
-			g.drawString("No items in inventory.", LEFT_MARGIN, yVal);
-		}
+		g.drawString("Items are: ", LEFT_MARGIN, yVal);
+		yVal += 40;
 		for (int i = 0; i < inventory.size(); i++) {
+			g.drawString("" + inventory.get(i).getName(), LEFT_MARGIN, yVal);
 			yVal += 40;
-			g.drawString("- " + inventory.get(i), LEFT_MARGIN, yVal);
 		}
 
 		g.setFont(new Font("Herculanum", 0, END_FONT));
