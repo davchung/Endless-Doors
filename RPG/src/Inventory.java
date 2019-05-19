@@ -14,7 +14,7 @@ public class Inventory extends GameGUI {
 		super(true, "InventoryBckgrnd.jpg");
 	}
 	
-	public ArrayList<Item> getItems(){
+	public static ArrayList<Item> getItems(){
 		return inventory;
 	}
 	public void addWalls(int num) {

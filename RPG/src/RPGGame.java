@@ -510,33 +510,97 @@ public class RPGGame implements KeyListener {
 
 		// trading post - buy option 1
 		if (keys.contains("1") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
-			i.getItems().add(new Weapon("axe.png", 20));
-			JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
+			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
+				if (Inventory.getGold() < tP.getSlot1().getGoldCost()) {
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+				}
+				else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
+					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
+				}
+				else {
+					Inventory.getItems().add(tP.getSlot1());
+					JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Purchase of [1] has been aborted.");
+			}
 			keys.remove(keys.indexOf("1"));
 		}
 		// trading post - buy option 2
 		else if (keys.contains("2") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?");
-			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?") == JOptionPane.YES_OPTION) {
+				if (Inventory.getGold() < tP.getSlot2().getGoldCost()) {
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+				}
+				else if (Inventory.getItems().indexOf(tP.getSlot2()) > -1) {
+					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
+				}
+				else {
+					Inventory.getItems().add(tP.getSlot2());
+					JOptionPane.showMessageDialog(null, "[2] has been added to your Inventory.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Purchase of [2] has been aborted.");
+			}
 			keys.remove(keys.indexOf("2"));
 		}
 		// trading post - buy option 3
 		else if (keys.contains("3") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?");
-			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?") == JOptionPane.YES_OPTION) {
+				if (Inventory.getGold() < tP.getSlot3().getGoldCost()) {
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+				}
+				else if (Inventory.getItems().indexOf(tP.getSlot3()) > -1) {
+					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
+				}
+				else {
+					Inventory.getItems().add(tP.getSlot3());
+					JOptionPane.showMessageDialog(null, "[3] has been added to your Inventory.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Purchase of [3] has been aborted.");
+			}
 			keys.remove(keys.indexOf("3"));
 		}
 		// trading post - buy option 4
 		else if (keys.contains("4") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?");
-			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?") == JOptionPane.YES_OPTION) {
+				if (Inventory.getGold() < tP.getSlot4().getGoldCost()) {
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+				}
+				else if (Inventory.getItems().indexOf(tP.getSlot4()) > -1) {
+					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
+				}
+				else {
+					Inventory.getItems().add(tP.getSlot4());
+					JOptionPane.showMessageDialog(null, "[4] has been added to your Inventory.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Purchase of [4] has been aborted.");
+			}
 			keys.remove(keys.indexOf("4"));
 		}
 		// trading post - buy option 5
 		else if (keys.contains("5") && tradeOpen == true) {
-			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?");
-			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?") == JOptionPane.YES_OPTION) {
+				if (Inventory.getGold() < tP.getSlot5().getGoldCost()) {
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+				}
+				else if (Inventory.getItems().indexOf(tP.getSlot5()) > -1) {
+					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
+				}
+				else {
+					Inventory.getItems().add(tP.getSlot5());
+					JOptionPane.showMessageDialog(null, "[5] has been added to your Inventory.");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Purchase of [5] has been aborted.");
+			}
 			keys.remove(keys.indexOf("5"));
 		}
 

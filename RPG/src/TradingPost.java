@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 public class TradingPost extends GameGUI {
 	
+	// instance variables for Trading Post
 	private Item slot1;
 	private Item slot2;
 	private Item slot3;
@@ -11,8 +12,26 @@ public class TradingPost extends GameGUI {
 	private Item slot5;
 	private String[] wares = new String[] {"axe.png", "big_hammer.png", "diamond_cleaver.png", "diamond_great_sword.png", "dueling_sword.png", "golden_sword.png", "green_staff.png", "hammer.png", "katana.png", "lavish_gold_sword.png", "mace.png", "machete.png", "platinum_sword.png", "red_gem_sword.png", "red_magic_staff.png", "regular_sword.png", "rusty_sword.png", "saw_sword.png", "spiked_baton.png"};
 
+	// constructor #1 for Trading Post
 	public TradingPost() {
-		super(true, "TradingPostBckgrnd.jpg");
+		super(true, "TradingPostBckgrnd.jpg"); // uses constructor #2 from GameGUI
+	}
+	
+	// these are getters and setters
+	public Item getSlot1() {
+		return this.slot1;
+	}
+	public Item getSlot2() {
+		return this.slot2;
+	}
+	public Item getSlot3() {
+		return this.slot3;
+	}
+	public Item getSlot4() {
+		return this.slot4;
+	}
+	public Item getSlot5() {
+		return this.slot5;
 	}
 
 	public void draw(Graphics g) {
