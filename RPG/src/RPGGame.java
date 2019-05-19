@@ -138,7 +138,9 @@ public class RPGGame implements KeyListener {
 					p.draw(g);
 				}
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
-				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
+				
+				g.setColor(new Color(255, 255, 255));
+				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 6 / 7, 25);
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : objects) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
@@ -158,7 +160,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (helpShown == false) {
 					g.setColor(new Color(255, 255, 255));
-					g.drawString("Press ? for help.", 20, 25);
+					g.drawString("Press ? for help.", StartGame.SCREEN_WIDTH * 1 / 7, 25);
 				}
 
 				if (levelDone == true) {
@@ -457,13 +459,7 @@ public class RPGGame implements KeyListener {
 		if (!keys.contains(lower)) {
 			keys.add(lower);
 		}
-
-		// for developers only!
-		if (keys.contains("o")) {
-			objects.removeAll(getEnemies());
-			player.setInvincibility(true);
-		}
-
+		
 		// pause button
 		if (keys.contains("p")) {
 			pause();
@@ -512,26 +508,31 @@ public class RPGGame implements KeyListener {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?");
 			i.getItems().add(new Weapon("axe.png", 20));
 			JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
+			keys.remove(keys.indexOf("1"));
 		}
 		// trading post - buy option 2
-		if (keys.contains("2") && tradeOpen == true) {
+		else if (keys.contains("2") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?");
 			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			keys.remove(keys.indexOf("2"));
 		}
 		// trading post - buy option 3
-		if (keys.contains("3") && tradeOpen == true) {
+		else if (keys.contains("3") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?");
 			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			keys.remove(keys.indexOf("3"));
 		}
 		// trading post - buy option 4
-		if (keys.contains("4") && tradeOpen == true) {
+		else if (keys.contains("4") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?");
 			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			keys.remove(keys.indexOf("4"));
 		}
 		// trading post - buy option 5
-		if (keys.contains("5") && tradeOpen == true) {
+		else if (keys.contains("5") && tradeOpen == true) {
 			JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?");
 			JOptionPane.showMessageDialog(null, "This feature does not work yet.");
+			keys.remove(keys.indexOf("5"));
 		}
 
 	}
