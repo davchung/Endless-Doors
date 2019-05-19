@@ -138,7 +138,9 @@ public class RPGGame implements KeyListener {
 					p.draw(g);
 				}
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
-				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 5 / 6, 65);
+				
+				g.setColor(new Color(255, 255, 255));
+				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 6 / 7, 25);
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : objects) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
@@ -457,13 +459,7 @@ public class RPGGame implements KeyListener {
 		if (!keys.contains(lower)) {
 			keys.add(lower);
 		}
-
-		// for developers only!
-		if (keys.contains("o")) {
-			objects.removeAll(getEnemies());
-			player.setInvincibility(true);
-		}
-
+		
 		// pause button
 		if (keys.contains("p")) {
 			pause();

@@ -16,14 +16,14 @@ public class TradingPost extends GameGUI {
 		super.draw(g);
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Herculanum", 0, TITLE_FONT));
+		g.setFont(new Font("Herculanum", 0, TITLE_FONT-25));
 		g.drawString("TRADING POST", LEFT_MARGIN, yVal);
 		yVal += 55;
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
 		g.drawString("Welcome to my shop, traveler.", LEFT_MARGIN, yVal);
 		yVal += 35;
-		g.drawString("Amount of gold you have: ___", LEFT_MARGIN, yVal);
+		g.drawString("Amount of gold you have: " + Inventory.getGold(), LEFT_MARGIN, yVal);
 		yVal += 35;
 
 		g.drawString("Press the corresponding number to purchase an item.", LEFT_MARGIN, yVal);
@@ -35,28 +35,28 @@ public class TradingPost extends GameGUI {
 		g.drawString("The favored weapons of Vikings around the world since 750 CE.", LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
 		g.drawString("[2] Sticks and Stones", LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
 		g.drawString("... may break my bones, but words can never hurt me.", LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
 		g.drawString("[3] Poison-tipped Spear", LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
 		g.drawString("Inflicts 1 damage every second for 10 seconds.", LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
 		g.drawString("[4] ICBM", LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
 		g.drawString(" \"Now I am become Death, the destroyer of worlds.\" ", LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
 		g.drawString("[5] Excalibur", LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
