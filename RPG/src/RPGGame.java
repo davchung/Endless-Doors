@@ -92,6 +92,7 @@ public class RPGGame implements KeyListener {
 	public void beginGame() {
 		gameLevel = 1;
 		player = new Knight(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2, 50, 50);
+	
 		// player = new Knight(100, 100, 50, 50);
 		m = new Map(3, 2, 5);
 		objects.addAll(m.getWalls());
@@ -121,7 +122,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				// floor.drawFloor(g);//draws a floor...kinda
+				floor.drawFloor(g);//draws a floor...kinda
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
@@ -437,7 +438,8 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("k")) {
 			if (player.canSpecial()) {
 				special.add(player.getSpecial());
-				player.addSpecialCooldown(60);
+				if (player instanceof Knight)
+					player.addSpecialCooldown(400);
 			}
 		}
 	}

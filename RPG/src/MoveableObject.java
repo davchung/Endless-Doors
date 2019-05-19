@@ -72,7 +72,6 @@ public class MoveableObject extends GameObject{
 	@Override
 	public void hit(double damage, int ID) {
 		if (RPGGame.ticks>super.getHittable()) {
-			//cooldown=26+RPGGame.ticks;
 			loss = damage;
 		}
 		super.hit(damage, ID);
