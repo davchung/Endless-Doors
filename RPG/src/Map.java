@@ -9,8 +9,8 @@ public class Map {
 	// public variables here
 	public static final int OBJ_WIDTH = 50;
 	public static final int OBJ_HEIGHT = 50;
-	public static int traderX = 0;
-	public static int traderY = 0;
+	public static int traderX = 1050;
+	public static int traderY = 750;
 	public ArrayList<int[][]> rooms;
 
 	public Map() {
