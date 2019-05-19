@@ -100,9 +100,9 @@ public class Attack extends GameObject {
 		if (reflected)
 			return;
 		//reflected= true;
-		vel =-Math.abs(vel);
-		//r = shieldX-this.getCX();
-		//d = shieldY-this.getCY();
+		//vel =-Math.abs(vel);
+		r = this.getCX()-shieldX;
+		d = this.getCY()-shieldY;
 		
 	}
 

@@ -52,6 +52,7 @@ public abstract class GameObject {
 		IDAssigner++;
 	}
 
+
 	public int getgameID() {
 		return gameID;
 	}
