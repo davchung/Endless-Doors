@@ -8,9 +8,9 @@ public abstract class Item {
 	private int goldCost;
 	public static final String PATH_PREFIX = "img/sprites/items";
 	
-	public Item(String pN, int gold) {
+	public Item(String pN, int cost) {
 		pathName = pN;
-		goldCost = gold;
+		goldCost = cost;
 	}
 	
 	public int getGoldCost() {

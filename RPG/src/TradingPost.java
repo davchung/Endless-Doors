@@ -3,6 +3,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class TradingPost extends GameGUI {
+	
+	private Item slot1;
+	private Item slot2;
+	private Item slot3;
+	private Item slot4;
+	private Item slot5;
+	private String[] wares = new String[] {"axe.png", "big_hammer.png", "diamond_cleaver.png", "diamond_great_sword.png", "dueling_sword.png", "golden_sword.png", "green_staff.png", "hammer.png", "katana.png", "lavish_gold_sword.png", "mace.png", "machete.png", "platinum_sword.png", "red_gem_sword.png", "red_magic_staff.png", "regular_sword.png", "rusty_sword.png", "saw_sword.png", "spiked_baton.png"};
 
 	public TradingPost() {
 		super(true, "TradingPostBckgrnd.jpg");
@@ -29,39 +36,44 @@ public class TradingPost extends GameGUI {
 		g.drawString("Press the corresponding number to purchase an item.", LEFT_MARGIN, yVal);
 		yVal += 55;
 
-		g.drawString("[1] Battle Axe", LEFT_MARGIN, yVal);
+		slot1 = new Weapon(wares[GameObject.randInt(0, 18)], 100);
+		g.drawString("[1] " + slot1, LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
-		g.drawString("The favored weapons of Vikings around the world since 750 CE.", LEFT_MARGIN + LEFT_INDENT, yVal);
+		g.drawString("Cost: " + slot1.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
+		slot2 = new Weapon(wares[GameObject.randInt(0, 18)], 200);
 		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
-		g.drawString("[2] Sticks and Stones", LEFT_MARGIN, yVal);
+		g.drawString("[2] " + slot2, LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
-		g.drawString("... may break my bones, but words can never hurt me.", LEFT_MARGIN + LEFT_INDENT, yVal);
+		g.drawString("Cost: " + slot2.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
+		slot3 = new Weapon(wares[GameObject.randInt(0, 18)], 300);
 		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
-		g.drawString("[3] Poison-tipped Spear", LEFT_MARGIN, yVal);
+		g.drawString("[3] " + slot3, LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
-		g.drawString("Inflicts 1 damage every second for 10 seconds.", LEFT_MARGIN + LEFT_INDENT, yVal);
+		g.drawString("Cost: " + slot3.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
+		slot4 = new Weapon(wares[GameObject.randInt(0, 18)], 400);
 		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
-		g.drawString("[4] ICBM", LEFT_MARGIN, yVal);
+		g.drawString("[4] " + slot5, LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
-		g.drawString(" \"Now I am become Death, the destroyer of worlds.\" ", LEFT_MARGIN + LEFT_INDENT, yVal);
+		g.drawString("Cost: " + slot4.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
+		slot5 = new Weapon(wares[GameObject.randInt(0, 18)], 500);
 		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
-		g.drawString("[5] Excalibur", LEFT_MARGIN, yVal);
+		g.drawString("[5] " + slot5, LEFT_MARGIN, yVal);
 		yVal += 25;
 		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
-		g.drawString("Removal from its stone is not included.", LEFT_MARGIN + LEFT_INDENT, yVal);
-		yVal += 50;
+		g.drawString("Cost: " + slot5.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
+		yVal += 40;
 
 		g.setFont(new Font("Herculanum", 0, END_FONT));
 		g.drawString("Press K to return to game.", LEFT_MARGIN, yVal);

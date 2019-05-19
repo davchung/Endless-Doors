@@ -5,8 +5,8 @@ public class Weapon extends Item {
 	private double dmg;
 	private String name;
 
-	public Weapon(String pathName, int gold) {
-		super(pathName, gold);
+	public Weapon(String pathName, int cost) {
+		super(pathName, cost);
 		getInfo(pathName);
 	}
 

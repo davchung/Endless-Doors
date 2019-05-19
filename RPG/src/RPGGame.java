@@ -46,7 +46,8 @@ public class RPGGame implements KeyListener {
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
 	private boolean objDamaged = false;
-	private boolean helpShown = false;
+	private boolean helpShown = false; // this makes the help page show up when
+	// the user first opens the game so that they know how to play the game
 	private boolean gameOver = false;
 	private boolean invenShown = false; // inventory shown
 	private boolean levelDone = false;
@@ -138,7 +139,7 @@ public class RPGGame implements KeyListener {
 					p.draw(g);
 				}
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
-				
+
 				g.setColor(new Color(255, 255, 255));
 				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 6 / 7, 25);
 				g.setColor(new Color(255, 0, 0));
@@ -160,7 +161,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (helpShown == false) {
 					g.setColor(new Color(255, 255, 255));
-					g.drawString("Press ? for help.", StartGame.SCREEN_WIDTH * 1 / 7, 25);
+					g.drawString("Press ? for help.", 30, 25);
 				}
 
 				if (levelDone == true) {
@@ -213,14 +214,14 @@ public class RPGGame implements KeyListener {
 				((MoveableObject) m).update();
 			}
 		}
-//		for (Attack e : enemyAttacks) {
-//			e.update();
-//			for (Attack spec : special) {
-//				if (spec.collides(e)) {
-//					spec.change(e);
-//				}
-//			}
-//		}
+		//		for (Attack e : enemyAttacks) {
+		//			e.update();
+		//			for (Attack spec : special) {
+		//				if (spec.collides(e)) {
+		//					spec.change(e);
+		//				}
+		//			}
+		//		}
 		for (int i = 0;i<enemyAttacks.size();) {
 			enemyAttacks.get(i).update();
 			boolean coll = false;
@@ -459,18 +460,22 @@ public class RPGGame implements KeyListener {
 		if (!keys.contains(lower)) {
 			keys.add(lower);
 		}
-		
+
 		// pause button
 		if (keys.contains("p")) {
 			pause();
-			if (helpShown)
+			if (helpShown == true) {
 				helpShown = false;
+			}
 		}
 
 		// help button
 		if (keys.contains("?")) {
 			helpShown = !helpShown;
 			mainPanel.repaint();
+			/*if (helpShown == true) {
+				timer.stop();
+			}*/
 			pause();
 		}
 
