@@ -58,7 +58,7 @@ public class Inventory extends GameGUI {
 		}
 		for (int i = 0; i < inventory.size(); i++) {
 			yVal += 40;
-			g.drawString("- " + inventory.get(i).getName(), LEFT_MARGIN, yVal);
+			g.drawString("- " + inventory.get(i), LEFT_MARGIN, yVal);
 		}
 
 		g.setFont(new Font("Herculanum", 0, END_FONT));
