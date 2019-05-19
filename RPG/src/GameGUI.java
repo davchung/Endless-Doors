@@ -19,10 +19,12 @@ public abstract class GameGUI{
 	public static final int BODY_FONT = 25;
 	public static final int END_FONT = 15;
 
+	// constructor #1 for GameGUI
 	public GameGUI(boolean pg, BufferedImage i) {
 		pauseGame = pg;
 	}
 
+	// constructor #2 for GameGUI
 	public GameGUI(boolean pg, String s) {
 		pauseGame = pg;
 	}
