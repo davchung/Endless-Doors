@@ -94,7 +94,7 @@ public class RPGGame implements KeyListener {
 		gameLevel = 1;
 		player = new Knight(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2, 50, 50);
 		// player = new Knight(100, 100, 50, 50);
-		m = new Map(3, 2, 5);
+		m = new Map();
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
 		objects.add(player);
@@ -122,7 +122,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				// floor.drawFloor(g);//draws a floor...kinda
+				// floor.drawFloor(g); //draws a floor...kinda
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
@@ -140,8 +140,6 @@ public class RPGGame implements KeyListener {
 				}
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
 
-				g.setColor(new Color(255, 255, 255));
-				g.drawString("Player health: " + player.getHealth(), StartGame.SCREEN_WIDTH * 6 / 7, 25);
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : objects) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
