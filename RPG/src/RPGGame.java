@@ -303,10 +303,10 @@ public class RPGGame implements KeyListener {
 		if (builtWall != null) {
 			builtWall = null;
 		}
-		for (GameObject e : objects) {
-			while (player.collides(e) && !e.throughable && !(player.equals(e))) {
-				double dx = player.getCX() - e.getCX();
-				double dy = player.getCY() - e.getCY();
+		for (GameObject objs : objects) {
+			while (player.collides(objs) && !objs.throughable && !(player.equals(objs))) {
+				double dx = player.getCX() - objs.getCX();
+				double dy = player.getCY() - objs.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
 				dx = pSpeed * dx / m;
 				dy = pSpeed * dy / m;
@@ -315,37 +315,43 @@ public class RPGGame implements KeyListener {
 			}
 
 			// tests if any enemy collides with the pAttack
-			if (e instanceof Enemy) {
-				if (((Enemy) e).getHealth() <= 0) {
-					toRemove.add(e);
+			if (objs instanceof Enemy) {
+				if (((Enemy) objs).getHealth() <= 0) {
+					toRemove.add(objs);
 				}
 				for (Attack p : primary) {
-					if (p.collides(e)) {
-						e.hit(p.getDamage(), p.getgameID());
+					if (p.collides(objs)) {
+						objs.hit(p.getDamage(), p.getgameID());
 					}
 				}
 			}
-			if (!e.invincible && !(e instanceof Enemy)) {
-				if (e.getHealth() <= 0)
-					toRemove.add(e);
+			if (!objs.invincible && !(objs instanceof Enemy)) {
+				if (objs.getHealth() <= 0 && !(objs instanceof ExplosiveBarrel)) {
+					toRemove.add(objs);
+				}
+				if (objs instanceof ExplosiveBarrel && objs.getHealth() <= 0) {
+					((ExplosiveBarrel) objs).explode();
+				}
 				for (Attack p : primary) {
-					if (p.collides(e)&&!(e instanceof Player)) {
-						e.hit(p.getDamage(), p.getgameID());
-						damagedObjects.add(e);
+
+					if (p.collides(objs)&&!(e instanceof Player)) {
+						objs.hit(p.getDamage(), p.getgameID());
+						damagedObjects.add(objs);
+
 						objDamaged = true;
 					}
 				}
 				for (Attack a : enemyAttacks) {
-					if (a.collides(e)) {
-						e.hit(a.getDamage(), a.getgameID());
-						damagedObjects.add(e);
+					if (a.collides(objs)) {
+						objs.hit(a.getDamage(), a.getgameID());
+						damagedObjects.add(objs);
 						objDamaged = true;
 					}
 				}
 			}
 
-			if (player.collides(e) && e instanceof Coin) {
-				toRemove.add(e);
+			if (player.collides(objs) && objs instanceof Coin) {
+				toRemove.add(objs);
 			}
 		}
 
