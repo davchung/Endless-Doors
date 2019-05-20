@@ -522,6 +522,7 @@ public class RPGGame implements KeyListener {
 				} else {
 					Inventory.getItems().add(tP.getSlot1());
 					JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
+					i.subtractGold(tP.getSlot1().getGoldCost());
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [1] has been aborted.");
@@ -539,6 +540,7 @@ public class RPGGame implements KeyListener {
 				} else {
 					Inventory.getItems().add(tP.getSlot2());
 					JOptionPane.showMessageDialog(null, "[2] has been added to your Inventory.");
+					i.subtractGold(tP.getSlot2().getGoldCost());
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [2] has been aborted.");
@@ -556,6 +558,7 @@ public class RPGGame implements KeyListener {
 				} else {
 					Inventory.getItems().add(tP.getSlot3());
 					JOptionPane.showMessageDialog(null, "[3] has been added to your Inventory.");
+					i.subtractGold(tP.getSlot3().getGoldCost());
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [3] has been aborted.");
@@ -573,6 +576,7 @@ public class RPGGame implements KeyListener {
 				} else {
 					Inventory.getItems().add(tP.getSlot4());
 					JOptionPane.showMessageDialog(null, "[4] has been added to your Inventory.");
+					i.subtractGold(tP.getSlot4().getGoldCost());
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [4] has been aborted.");
@@ -590,6 +594,7 @@ public class RPGGame implements KeyListener {
 				} else {
 					Inventory.getItems().add(tP.getSlot5());
 					JOptionPane.showMessageDialog(null, "[5] has been added to your Inventory.");
+					i.subtractGold(tP.getSlot5().getGoldCost());
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [5] has been aborted.");
