@@ -54,11 +54,12 @@ public class Inventory extends GameGUI {
 		g.drawString("Items in inventory: ", LEFT_MARGIN, yVal);
 		if (inventory.size() == 0) {
 			yVal += 40;
-			g.drawString("No items in inventory.", LEFT_MARGIN, yVal);
+			g.drawString("- No items in inventory.", LEFT_MARGIN+END_FONT, yVal);
 		}
 		for (int i = 0; i < inventory.size(); i++) {
 			yVal += 40;
-			g.drawString("- " + inventory.get(i), LEFT_MARGIN, yVal);
+			g.drawString("- " + inventory.get(i), LEFT_MARGIN+END_FONT, yVal);
+			g.drawImage(inventory.get(i).getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		}
 
 		g.setFont(new Font("Herculanum", 0, END_FONT));
