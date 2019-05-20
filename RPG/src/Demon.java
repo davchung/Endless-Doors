@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 public class Demon extends Enemy {
 	private BufferedImage damage;
 
-	public Demon(double x, double y, int w, int h, int level) {
-		super(x, y, w, h, level);
+	public Demon(double x, double y, int level) {
+		super(x, y, 100, 100, level);
 		damage = super.getImage("sprites/big_demon_damage.png");
 	}
 
