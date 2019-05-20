@@ -94,7 +94,7 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		gameLevel = 1;
-		player = new Knight(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2, 50, 50);
+		player = new Archer(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2);
 		// player = new Knight(100, 100, 50, 50);
 		m = new Map();
 		objects.addAll(m.getWalls());
@@ -329,7 +329,7 @@ public class RPGGame implements KeyListener {
 				if (e.getHealth() <= 0)
 					toRemove.add(e);
 				for (Attack p : primary) {
-					if (p.collides(e)) {
+					if (p.collides(e)&&!(e instanceof Player)) {
 						e.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(e);
 						objDamaged = true;
@@ -427,7 +427,10 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("j")) {
 			if (player.canAttack()) {
 				primary.add(player.getAttack());
-				player.addCooldown(60);
+				if (player instanceof Knight)
+					player.addCooldown(60);
+				if (player instanceof Archer)
+					player.addCooldown(20);
 			}
 		}
 		if (keys.contains("k")) {

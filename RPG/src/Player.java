@@ -1,17 +1,17 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public abstract class Player extends MoveableObject {
 
 	private static int playerHealth = 50;
 
-	private static Animation run = new Animation("knight_f_run",4);
-	private static Animation idle = new Animation("knight_f_idle",4);
+
 
 	// constructor #1 for Player
-	public Player(double x, double y, int w, int h) {
-		super(x, y, w, h, playerHealth, idle.getFirst()); // uses GameObject's constructor #2
-		//setRect();
+	public Player(double x, double y, int w, int h, BufferedImage img) {
+		super(x, y, w, h, playerHealth, img); // uses GameObject's constructor #2
+		setRect();
 	}
 	private void setRect() {
 		Rectangle r = super.getRect();
@@ -28,18 +28,7 @@ public abstract class Player extends MoveableObject {
 	}
 	
 	// these are methods related to drawing
-	public void draw(Graphics g, int r) {
-		int dx = 0; 
-		if (r<0) 
-			dx = (int)WIDTH;
-		if (getDown() != 0 || getRight() != 0) {
-			g.drawImage(run.getImage(), (int)super.locX+dx, (int)super.locY-20, (int)(r*super.WIDTH), (int)super.HEIGHT+20, null);
-			return;
-		}
 
-		g.drawImage(idle.getImage(), (int)super.locX+dx, (int)super.locY-20, (int)(r*super.WIDTH), (int)super.HEIGHT+20, null);
-
-	}
 	@Override
 	public void draw(Graphics g) {
 		//putting this here to prevent graphics from drawing Player when running through all GameObjects
@@ -56,6 +45,7 @@ public abstract class Player extends MoveableObject {
 		setCooldown(ticks + 40);
 		return true;
 	}
+	public abstract void draw(Graphics g, int r);
 	public abstract Attack getAttack();
 	public abstract boolean canMove();
 	protected abstract boolean canSpecial();

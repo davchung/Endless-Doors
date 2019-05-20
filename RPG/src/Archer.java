@@ -1,19 +1,19 @@
 import java.awt.Graphics;
 
-public class Knight extends Player {
+public class Archer extends Player {
 	int canMove;
 	int canSpecial;
-	private static Animation run = new Animation("knight_f_run",4);
-	private static Animation idle = new Animation("knight_f_idle",4);
+	private static Animation run = new Animation("elf_m_run",4);
+	private static Animation idle = new Animation("elf_m_idle",4);
 
-	public Knight(double x, double y) {
-		super(x, y, 50, 50, idle.getFirst());
+	public Archer(double x, double y) {
+		super(x, y, 50, 50,idle.getFirst());
 	}
 	
 	public Attack getAttack() {
-		Attack sword = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,20,this.getDamage(), "sprites/items/lavish_gold_sword.png");
-		canMove = RPGGame.ticks+20;
-		return sword;
+		Attack arrow = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,6,100,this.getDamage()/5, "sprites/items/lavish_gold_sword.png");
+		canMove = RPGGame.ticks+5;
+		return arrow;
 	}
 	public Attack getSpecial() {
 		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
@@ -45,6 +45,8 @@ public class Knight extends Player {
 	protected void addSpecialCooldown(int i) {
 		canSpecial = RPGGame.ticks+i;
 	}
+
+	@Override
 	public void draw(Graphics g, int r) {
 		int dx = 0; 
 		if (r<0) 
@@ -57,6 +59,4 @@ public class Knight extends Player {
 		g.drawImage(idle.getImage(), (int)super.locX+dx, (int)super.locY-20, (int)(r*super.WIDTH), (int)super.HEIGHT+20, null);
 
 	}
-	
-
 }

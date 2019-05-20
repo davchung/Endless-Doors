@@ -172,7 +172,7 @@ public abstract class GameObject {
 	public void hit(double d, int iD) {
 		if (RPGGame.ticks > hittable && !invincible && (!wasHit.contains(iD))) {
 			health -= d;
-			hittable = RPGGame.ticks + 26;
+			hittable = RPGGame.ticks + 10;
 			wasHit.add(iD);
 		}
 	}
