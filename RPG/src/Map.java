@@ -164,10 +164,10 @@ public class Map {
 	 */
 
 	public int chooseRoom() {
-		if (roomCount % 5 == 0) {
+		if (roomCount % 5 == 0 && roomCount != 0) {
 			return 0; // will be trader room
 		}
-		if (roomCount % 10 == 0) {
+		if (roomCount % 10 == 0 && roomCount != 0) {
 			return 1; // will be boss room
 		} else {
 			return (int) (Math.random() * (rooms.size() - 2)) + 2;
