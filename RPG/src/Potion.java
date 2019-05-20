@@ -6,7 +6,7 @@ public class Potion extends Item {
 	public Potion(String pathName, int cost) {
 		super(pathName, cost);
 		getInfo(pathName);
-		activate();
+		//activate();
 	}
 
 	private void getInfo(String pathName) {
