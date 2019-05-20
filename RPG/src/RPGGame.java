@@ -23,7 +23,7 @@ public class RPGGame implements KeyListener {
 	private Trader trader;
 	private Map m;
 	private Floor floor = new Floor();
-	//private Attack pAttack; // player attack
+	// private Attack pAttack; // player attack
 	private Wall builtWall;
 
 	// these are all variables related to GUIs
@@ -57,10 +57,12 @@ public class RPGGame implements KeyListener {
 	public static Player getPlayer() {
 		return RPGGame.player;
 	}
-	public static ArrayList<Attack> getPrimary(){
+
+	public static ArrayList<Attack> getPrimary() {
 		return primary;
 	}
-	public static ArrayList<Attack> getEnemyAttacks(){
+
+	public static ArrayList<Attack> getEnemyAttacks() {
 		return enemyAttacks;
 	}
 
@@ -135,7 +137,7 @@ public class RPGGame implements KeyListener {
 				for (Attack e : enemyAttacks) {
 					e.draw(g);// draws all enemy attacks
 				}
-				for (Attack p: primary) {
+				for (Attack p : primary) {
 					p.draw(g);
 				}
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
@@ -212,27 +214,18 @@ public class RPGGame implements KeyListener {
 				((MoveableObject) m).update();
 			}
 		}
-		//		for (Attack e : enemyAttacks) {
-		//			e.update();
-		//			for (Attack spec : special) {
-		//				if (spec.collides(e)) {
-		//					spec.change(e);
-		//				}
-		//			}
-		//		}
-		for (int i = 0;i<enemyAttacks.size();) {
+		for (int i = 0; i < enemyAttacks.size(); i++) {
 			enemyAttacks.get(i).update();
-			boolean coll = false;
-			for (Attack spec:special) {
-				if ((player instanceof Knight)&&spec.collides(enemyAttacks.get(i))) {
-					spec.change(enemyAttacks.get(i));
-					coll =true;
+			if (player instanceof Knight) {
+				for (Attack spec : special) {
+					if (spec.collides(enemyAttacks.get(i))) {
+						spec.change(enemyAttacks.get(i));
+						i--;
+					}
 				}
 			}
-			if (!coll)
-				i++;
 		}
-		for (Attack e: primary) {
+		for (Attack e : primary) {
 			e.update();
 		}
 		for (Attack e : special) {
@@ -250,7 +243,8 @@ public class RPGGame implements KeyListener {
 	}
 
 	protected void drawHitboxes(Graphics g) {
-		//g.drawRect((int) player.getLocX(), (int) player.getLocY(), (int) player.WIDTH, (int) player.WIDTH); // hitbox
+		// g.drawRect((int) player.getLocX(), (int) player.getLocY(), (int)
+		// player.WIDTH, (int) player.WIDTH); // hitbox
 
 		for (GameObject e : objects) {
 			if (e instanceof MoveableObject) {
@@ -271,7 +265,8 @@ public class RPGGame implements KeyListener {
 	private void checkSpawns(Enemy e2) {
 		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 150) / 50;
 		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 150) / 50;
-		e2 = new Demon(x * 50, y * 50, 100, 100, 1);
+		e2 = new Demon(x * 50, y * 50, 1);
+
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
 				checkSpawns(e2);
@@ -326,7 +321,7 @@ public class RPGGame implements KeyListener {
 				}
 				for (Attack p : primary) {
 					if (p.collides(e)) {
-						e.hit(p.getDamage(),p.getgameID());
+						e.hit(p.getDamage(), p.getgameID());
 					}
 				}
 			}
@@ -335,14 +330,14 @@ public class RPGGame implements KeyListener {
 					toRemove.add(e);
 				for (Attack p : primary) {
 					if (p.collides(e)) {
-						e.hit(p.getDamage(),p.getgameID());
+						e.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(e);
 						objDamaged = true;
 					}
 				}
 				for (Attack a : enemyAttacks) {
 					if (a.collides(e)) {
-						e.hit(a.getDamage(),a.getgameID());
+						e.hit(a.getDamage(), a.getgameID());
 						damagedObjects.add(e);
 						objDamaged = true;
 					}
@@ -361,7 +356,7 @@ public class RPGGame implements KeyListener {
 		}
 		for (Attack e : enemyAttacks) {
 			if (e.collides(player)) {
-				player.hit(e.getDamage(),e.getgameID());
+				player.hit(e.getDamage(), e.getgameID());
 			}
 		}
 		for (GameObject g : toRemove) {
@@ -438,7 +433,8 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("k")) {
 			if (player.canSpecial()) {
 				special.add(player.getSpecial());
-				player.addSpecialCooldown(60);
+				if (player instanceof Knight)
+					player.addSpecialCooldown(400);
 			}
 		}
 	}
@@ -471,9 +467,9 @@ public class RPGGame implements KeyListener {
 		if (keys.contains("?")) {
 			helpShown = !helpShown;
 			mainPanel.repaint();
-			/*if (helpShown == true) {
-				timer.stop();
-			}*/
+			/*
+			 * if (helpShown == true) { timer.stop(); }
+			 */
 			pause();
 		}
 
@@ -508,95 +504,85 @@ public class RPGGame implements KeyListener {
 
 		// trading post - buy option 1
 		if (keys.contains("1") && tradeOpen == true) {
-			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot1().getGoldCost()) {
 					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
-				}
-				else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
+				} else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
-				}
-				else {
+				} else {
 					Inventory.getItems().add(tP.getSlot1());
 					JOptionPane.showMessageDialog(null, "[1] has been added to your Inventory.");
 				}
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [1] has been aborted.");
 			}
 			keys.remove(keys.indexOf("1"));
 		}
 		// trading post - buy option 2
 		else if (keys.contains("2") && tradeOpen == true) {
-			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [2] ?") == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to purchase [2] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot2().getGoldCost()) {
 					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
-				}
-				else if (Inventory.getItems().indexOf(tP.getSlot2()) > -1) {
+				} else if (Inventory.getItems().indexOf(tP.getSlot2()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
-				}
-				else {
+				} else {
 					Inventory.getItems().add(tP.getSlot2());
 					JOptionPane.showMessageDialog(null, "[2] has been added to your Inventory.");
 				}
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [2] has been aborted.");
 			}
 			keys.remove(keys.indexOf("2"));
 		}
 		// trading post - buy option 3
 		else if (keys.contains("3") && tradeOpen == true) {
-			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [3] ?") == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to purchase [3] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot3().getGoldCost()) {
 					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
-				}
-				else if (Inventory.getItems().indexOf(tP.getSlot3()) > -1) {
+				} else if (Inventory.getItems().indexOf(tP.getSlot3()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
-				}
-				else {
+				} else {
 					Inventory.getItems().add(tP.getSlot3());
 					JOptionPane.showMessageDialog(null, "[3] has been added to your Inventory.");
 				}
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [3] has been aborted.");
 			}
 			keys.remove(keys.indexOf("3"));
 		}
 		// trading post - buy option 4
 		else if (keys.contains("4") && tradeOpen == true) {
-			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [4] ?") == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to purchase [4] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot4().getGoldCost()) {
 					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
-				}
-				else if (Inventory.getItems().indexOf(tP.getSlot4()) > -1) {
+				} else if (Inventory.getItems().indexOf(tP.getSlot4()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
-				}
-				else {
+				} else {
 					Inventory.getItems().add(tP.getSlot4());
 					JOptionPane.showMessageDialog(null, "[4] has been added to your Inventory.");
 				}
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [4] has been aborted.");
 			}
 			keys.remove(keys.indexOf("4"));
 		}
 		// trading post - buy option 5
 		else if (keys.contains("5") && tradeOpen == true) {
-			if (JOptionPane.showConfirmDialog(null, "Are you sure you want to purchase [5] ?") == JOptionPane.YES_OPTION) {
+			if (JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to purchase [5] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot5().getGoldCost()) {
 					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
-				}
-				else if (Inventory.getItems().indexOf(tP.getSlot5()) > -1) {
+				} else if (Inventory.getItems().indexOf(tP.getSlot5()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
-				}
-				else {
+				} else {
 					Inventory.getItems().add(tP.getSlot5());
 					JOptionPane.showMessageDialog(null, "[5] has been added to your Inventory.");
 				}
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "Purchase of [5] has been aborted.");
 			}
 			keys.remove(keys.indexOf("5"));
