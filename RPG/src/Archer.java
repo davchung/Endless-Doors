@@ -11,13 +11,13 @@ public class Archer extends Player {
 	}
 	
 	public Attack getAttack() {
-		Attack arrow = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,6,100,this.getDamage()/5, "sprites/items/lavish_gold_sword.png");
+		Attack arrow = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,6,100,this.getDamage()/4, "sprites/items/lavish_gold_sword.png");
 		canMove = RPGGame.ticks+5;
 		return arrow;
 	}
 	public Attack getSpecial() {
-		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
-		return shield;
+		Attack grapple = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,6,100,this.getDamage()/4, "sprites/items/lavish_gold_sword.png");
+		return grapple;
 	}
 	
 	@Override

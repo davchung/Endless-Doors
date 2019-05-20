@@ -124,7 +124,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				// floor.drawFloor(g); //draws a floor...kinda
+				floor.drawFloor(g); //draws a floor...kinda
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
@@ -333,8 +333,7 @@ public class RPGGame implements KeyListener {
 					((ExplosiveBarrel) objs).explode();
 				}
 				for (Attack p : primary) {
-
-					if (p.collides(objs)&&!(e instanceof Player)) {
+					if (p.collides(objs)&&!(objs instanceof Player)) {
 						objs.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(objs);
 
