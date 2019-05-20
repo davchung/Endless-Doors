@@ -141,9 +141,9 @@ public class RPGGame implements KeyListener {
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
 
 				g.setColor(new Color(255, 0, 0));
-				for (GameObject go : objects) {
+				for (GameObject go : enemies) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
-						g.drawString("" + -((MoveableObject) go).getLoss(), (int) go.getCX() - 5, (int) go.getCY());
+						g.drawString("" + -((MoveableObject) go).getLoss(), (int) go.getCX() - 10, (int) go.getCY());
 					}
 				}
 				if (objDamaged == true) {
