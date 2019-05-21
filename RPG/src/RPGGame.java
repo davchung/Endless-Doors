@@ -30,7 +30,6 @@ public class RPGGame implements KeyListener {
 	private static Inventory i = new Inventory();
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
-	private NextLevel nL = new NextLevel();
 	private TradingPost tP = new TradingPost();
 
 	// these variables are all ArrayLists of other variables
@@ -123,7 +122,8 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//floor.drawFloor(g); //draws a floor...kinda
+				floor.drawFloor(g); // draws a floor...kinda
+
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
@@ -164,7 +164,7 @@ public class RPGGame implements KeyListener {
 				}
 
 				if (levelDone == true) {
-					nL.draw(g);
+					findPortalPlace();
 				}
 				if (gameOver == true) {
 					gO.draw(g);
@@ -231,7 +231,7 @@ public class RPGGame implements KeyListener {
 			e.update();
 		}
 		if (enemies.isEmpty()) {
-			// this.levelDone=true; for testing
+			levelDone = true;
 		}
 		objects.removeAll(enemies);
 		objects.addAll(enemies);
@@ -332,7 +332,7 @@ public class RPGGame implements KeyListener {
 					((ExplosiveBarrel) objs).explode();
 				}
 				for (Attack p : primary) {
-					if (p.collides(objs)&&!(objs instanceof Player)) {
+					if (p.collides(objs) && !(objs instanceof Player)) {
 						objs.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(objs);
 						objDamaged = true;
@@ -371,9 +371,6 @@ public class RPGGame implements KeyListener {
 		enemies.removeAll(toRemove);
 		primary.removeAll(toRemove);
 		special.removeAll(toRemove);
-		if (enemies.size() == 0) {
-			// levelDone = true;
-		}
 
 	}
 
@@ -610,6 +607,39 @@ public class RPGGame implements KeyListener {
 		if (keys.contains(lower)) {
 			keys.remove(lower);
 		}
+	}
+
+	public void findPortalPlace() {
+		boolean portal = false;
+		for (GameObject g : objects) {
+			if (g instanceof Portal) {
+				portal = true;
+			}
+		}
+
+		if (!portal) {
+			while (true) {
+				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
+				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
+				while(!(r %50 == 0 && c %50 ==0)) {
+					r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
+					c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
+				}
+				GameObject g = new Wall(r, c, 50, 50);
+				boolean here = true;
+				for (GameObject g1 : RPGGame.getObjects()) {
+					if (g.collides(g1))
+						here = false;
+				}
+				if (here) {
+					objects.add(new Portal(r, c));
+					return;
+
+				}
+			}
+
+		}
+
 	}
 
 	@Override
