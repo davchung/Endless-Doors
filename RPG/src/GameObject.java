@@ -69,7 +69,7 @@ public abstract class GameObject {
 		if (this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
 		}
-		if (this instanceof ExplosiveBarrel) {
+		if (this instanceof Barrel) {
 			// dmg player here
 		}
 	}

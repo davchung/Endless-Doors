@@ -94,8 +94,8 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		gameLevel = 1;
-		player = new Archer(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2);
-		// player = new Knight(100, 100, 50, 50);
+		JOptionPane.showInputDialog("Hi");
+		player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
 		m = new Map();
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
@@ -201,6 +201,11 @@ public class RPGGame implements KeyListener {
 					movement();
 				collision();
 				update(); // updates movement
+				
+				/**
+				 * int <= System.getCurrentTimeMillis();
+				 * 3000
+				 */
 				ticks++;
 			}
 
@@ -326,11 +331,11 @@ public class RPGGame implements KeyListener {
 				}
 			}
 			if (!objs.invincible && !(objs instanceof Enemy)) {
-				if (objs.getHealth() <= 0 && !(objs instanceof ExplosiveBarrel)) {
+				if (objs.getHealth() <= 0 && !(objs instanceof Barrel)) {
 					toRemove.add(objs);
 				}
-				if (objs instanceof ExplosiveBarrel && objs.getHealth() <= 0) {
-					((ExplosiveBarrel) objs).explode();
+				if (objs instanceof Barrel && objs.getHealth() <= 0) {
+					((Barrel) objs).explode();
 				}
 				for (Attack p : primary) {
 					if (p.collides(objs)&&!(objs instanceof Player)) {
