@@ -22,6 +22,7 @@ public class RPGGame implements KeyListener {
 	private int facing = 1;
 	private Trader trader;
 	private Map m;
+	Portal p;
 	private Floor floor = new Floor();
 	// private Attack pAttack; // player attack
 	private Wall builtWall;
@@ -92,7 +93,6 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		gameLevel = 1;
 		player = new Archer(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2);
 		m = new Map();
 		objects.addAll(m.getWalls());
@@ -164,7 +164,14 @@ public class RPGGame implements KeyListener {
 				}
 
 				if (levelDone == true) {
-					findPortalPlace();
+					findEmptyPlace("portal");
+					if(player.collides(p) && keys.contains("j")) {
+						objects.removeAll(m.getEObjs());
+						m.addObjs();
+						objects.addAll(m.getEObjs());
+						findEmptyPlace("player");
+						objects.remove(p);
+					}
 				}
 				if (gameOver == true) {
 					gO.draw(g);
@@ -493,11 +500,6 @@ public class RPGGame implements KeyListener {
 			mainFrame.dispose();
 		}
 
-		// next level
-		if (levelDone == true && (keys.contains("n"))) {
-			gameLevel++;
-			System.out.println("Game Level: " + gameLevel);
-		}
 
 		// trading post
 		if (keys.contains("k") && player.collides(trader)) {
@@ -608,7 +610,7 @@ public class RPGGame implements KeyListener {
 		}
 	}
 
-	public void findPortalPlace() {
+	public void findEmptyPlace(String s) {
 		boolean portal = false;
 		for (GameObject g : objects) {
 			if (g instanceof Portal) {
@@ -631,7 +633,11 @@ public class RPGGame implements KeyListener {
 						here = false;
 				}
 				if (here) {
-					objects.add(new Portal(r, c));
+					if(s.equals("portal"))
+						p = new Portal(r,c);
+					if(s.equals("player"))
+						player.setPlayerLoc(r, c);
+					objects.add(p);
 					return;
 
 				}
@@ -640,6 +646,7 @@ public class RPGGame implements KeyListener {
 		}
 
 	}
+	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
