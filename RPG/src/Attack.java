@@ -9,7 +9,7 @@ public class Attack extends GameObject {
 	protected int vel = 0;
 	protected double r;
 	protected double d;
-	private int expire;
+	protected int expire;
 	private double dmg;
 	private boolean reflected = false;
 

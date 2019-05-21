@@ -392,6 +392,11 @@ public class RPGGame implements KeyListener {
 					if (!(objs instanceof Player)&&player instanceof Archer&&p.collides(objs))
 						toRemove.add(p);
 				}
+				for (Attack s: special) {
+					if (!(objs instanceof Player)&&player instanceof Archer&&s.collides(objs)) {
+						((Grapple) s).pull();
+					}
+				}
 			}
 		}
 
@@ -484,6 +489,8 @@ public class RPGGame implements KeyListener {
 				special.add(player.getSpecial());
 				if (player instanceof Knight)
 					player.addSpecialCooldown(400);
+				if (player instanceof Archer)
+					player.addSpecialCooldown(200);
 			}
 		}
 	}

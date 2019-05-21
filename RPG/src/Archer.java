@@ -16,7 +16,7 @@ public class Archer extends Player {
 		return arrow;
 	}
 	public Attack getSpecial() {
-		Attack grapple = new Attack((int)this.getCX(), (int)this.getCY(), this.HEIGHT,this.WIDTH, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,15,100,this.getDamage()/4, "sprites/items/lavish_gold_sword.png");
+		Grapple grapple = new Grapple((int)this.getCX(), (int)this.getCY(), this.HEIGHT,this.WIDTH, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,15,100,this.getDamage()/4, "sprites/items/lavish_gold_sword.png");
 		return grapple;
 	}
 	

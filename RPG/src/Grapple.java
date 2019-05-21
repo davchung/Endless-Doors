@@ -1,9 +1,10 @@
 
-public class Grapple extends Attack {
-
+public class Grapple extends Arrow {
+	int originalVel;
 	public Grapple(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down,
 			int velocity, int duration, double e, String s) {
 		super(x, y, width, height, pWidth, pHeight, right, down, velocity, duration, e, s);
+		originalVel = vel;
 	}
 	
 	
@@ -14,8 +15,20 @@ public class Grapple extends Attack {
 		double mag = Math.sqrt(diffX*diffX+diffY+diffY);
 		diffX /= mag;
 		diffY /= mag;
-		RPGGame.getPlayer().moveX(diffX*vel);
-		RPGGame.getPlayer().moveY(diffY*vel);
+		vel=0;
+		for (int i=0;i<10;i++) {
+			if (!this.collides(p)) {
+				RPGGame.getPlayer().moveX(diffX*originalVel/10);
+				RPGGame.getPlayer().moveY(diffY*originalVel/10);
+			}else {
+				RPGGame.getPlayer().moveX(-diffX*originalVel/3);
+				RPGGame.getPlayer().moveY(-diffY*originalVel/3);
+				this.expire=0;
+				return;
+			}
+		}
+		
+		
 	}
 
 }
