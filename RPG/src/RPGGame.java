@@ -15,7 +15,6 @@ public class RPGGame implements KeyListener {
 	public static int ticks = 0;
 
 	// these are all variables that are involved with playing the game
-	private int gameLevel = 1;
 	private static Player player;
 	private double pSpeed = 2.5; // player speed, TRY to keep this a factor of 50, but not obligated
 	public static int lastR, lastD; // last direction the player was facing
@@ -171,6 +170,8 @@ public class RPGGame implements KeyListener {
 						objects.addAll(m.getEObjs());
 						findEmptyPlace("player");
 						objects.remove(p);
+						damagedObjects.clear();
+						enemies.clear();
 					}
 				}
 				if (gameOver == true) {
