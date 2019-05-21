@@ -4,7 +4,7 @@ public class Grapple extends Arrow {
 	public Grapple(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down,
 			int velocity, int duration, double e, String s) {
 		super(x, y, width, height, pWidth, pHeight, right, down, velocity, duration, e, s);
-		originalVel = vel;
+		originalVel = vel*3/2;
 	}
 	
 	
