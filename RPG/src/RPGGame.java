@@ -24,7 +24,6 @@ public class RPGGame implements KeyListener {
 	Portal p;
 	private Floor floor = new Floor();
 	// private Attack pAttack; // player attack
-	private Wall builtWall;
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -311,9 +310,6 @@ public class RPGGame implements KeyListener {
 			if (e.expire()) {
 				toRemove.add(e);
 			}
-		}
-		if (builtWall != null) {
-			builtWall = null;
 		}
 		for (GameObject objs : objects) {
 			while (player.collides(objs) && !objs.throughable && !(player.equals(objs))) {
