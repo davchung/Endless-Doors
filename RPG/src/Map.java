@@ -176,7 +176,9 @@ public class Map {
 	}
 
 	public void addObjs() {
+		eObjs.clear();
 		int index = chooseRoom();
+		roomCount++;
 		for (int r = 0; r < rooms.get(index).length; r++) {
 			for (int c = 0; c < rooms.get(index)[r].length; c++) {
 				switch (rooms.get(index)[r][c]) {

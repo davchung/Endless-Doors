@@ -53,6 +53,11 @@ public abstract class GameObject {
 	}
 
 
+	
+	public void setLoc(int x, int y) {
+		locX = x;
+		locY = y;
+	}
 	public int getgameID() {
 		return gameID;
 	}

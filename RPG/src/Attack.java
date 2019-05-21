@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class Attack extends GameObject {
 	private int vel = 0;
-	private double r;
-	private double d;
+	protected double r;
+	protected double d;
 	private int expire;
 	private double dmg;
 	private boolean reflected = false;
@@ -18,8 +18,8 @@ public class Attack extends GameObject {
 			double e, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
-		super.moveX(-pWidth / 2);// centers drawing on player
-		super.moveY(-pHeight / 2);
+		super.moveX(-width / 2);// centers drawing on player
+		super.moveY(-height / 2);
 		r = right;
 		d = down;
 		super.moveX(right * pWidth);// moves to where the player faces
@@ -32,8 +32,8 @@ public class Attack extends GameObject {
 			int duration, double e, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
-		super.moveX(-pWidth / 2);// centers drawing on player
-		super.moveY(-pHeight / 2);
+		super.moveX(-width / 2);// centers drawing on player
+		super.moveY(-height / 2);
 		r = right;
 		d = down;
 		vel = velocity;
