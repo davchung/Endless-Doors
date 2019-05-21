@@ -20,6 +20,11 @@ public abstract class Player extends MoveableObject {
 		this.current =k;
 	}
 	
+	public void setPlayerLoc(int x, int y) {
+		super.setLoc(x, y);
+		//setRect();
+	}
+	
 	protected Rectangle getRect() {
 		Rectangle r = super.getRect();
 		Rectangle k = new Rectangle((int) (r.getX() + r.getWidth() / 50), (int) (r.getY() + r.getHeight() / 50),
