@@ -11,7 +11,7 @@ public class RPGGame implements KeyListener {
 	private JFrame mainFrame = new JFrame("Role-Playing Game");
 	private JPanel mainPanel;
 	private static Timer timer;
-	private static final int REFRESH_RATE = 50;
+	private static final int REFRESH_RATE = 10;
 	public static int ticks = 0;
 
 	// these are all variables that are involved with playing the game
