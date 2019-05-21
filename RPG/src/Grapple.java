@@ -12,7 +12,7 @@ public class Grapple extends Arrow {
 		Player p = RPGGame.getPlayer();
 		double diffX = this.getCX()-p.getCX();
 		double diffY = this.getCY()-p.getCY();
-		double mag = Math.sqrt(diffX*diffX+diffY+diffY);
+		double mag = Math.sqrt(diffX*diffX+diffY*diffY);
 		diffX /= mag;
 		diffY /= mag;
 		vel=0;
@@ -21,8 +21,8 @@ public class Grapple extends Arrow {
 				RPGGame.getPlayer().moveX(diffX*originalVel/10);
 				RPGGame.getPlayer().moveY(diffY*originalVel/10);
 			}else {
-				RPGGame.getPlayer().moveX(-diffX*originalVel/3);
-				RPGGame.getPlayer().moveY(-diffY*originalVel/3);
+				RPGGame.getPlayer().moveX(-diffX*originalVel/5);
+				RPGGame.getPlayer().moveY(-diffY*originalVel/5);
 				this.expire=0;
 				return;
 			}
