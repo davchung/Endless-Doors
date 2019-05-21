@@ -39,6 +39,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> special = new ArrayList<Attack>();
+	private static ArrayList<Attack> envirAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> primary = new ArrayList<Attack>();
 
 	// these variables are all "switches" (imagine an on/off switch for a light
@@ -61,6 +62,9 @@ public class RPGGame implements KeyListener {
 	}
 
 	public static ArrayList<Attack> getEnemyAttacks() {
+		return enemyAttacks;
+	}
+	public static ArrayList<Attack> envirAttacks() {
 		return enemyAttacks;
 	}
 
@@ -91,7 +95,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		player = new Archer(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2);
+		selectClass();
 		m = new Map();
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
@@ -120,7 +124,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				floor.drawFloor(g); // draws a floor...kinda
+				//floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
@@ -136,6 +140,9 @@ public class RPGGame implements KeyListener {
 				}
 				for (Attack p : primary) {
 					p.draw(g);
+				}
+				for (Attack e : envirAttacks) {
+					e.draw(g);
 				}
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
 
@@ -242,6 +249,9 @@ public class RPGGame implements KeyListener {
 		for (Attack e : special) {
 			e.update();
 		}
+		for (Attack e : envirAttacks) {
+			e.update();
+		}
 		if (enemies.isEmpty()) {
 			levelDone = true;
 		}
@@ -251,6 +261,18 @@ public class RPGGame implements KeyListener {
 		objects.addAll(enemyAttacks);
 		objects.removeAll(special);
 		objects.addAll(special);
+	}
+	
+	private void selectClass() {
+		String[] classes = new String[] {"Archer",  "Knight"};
+		switch(JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
+		case 0:
+			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			break;
+		case 1:
+			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			
+		}
 	}
 
 	protected void drawHitboxes(Graphics g) {
@@ -267,6 +289,10 @@ public class RPGGame implements KeyListener {
 					(int) (r.WIDTH * 8 / 10), (int) (r.HEIGHT * 8 / 10));//
 		}
 		for (Attack p : primary) {
+			g.drawRect((int) (p.getLocX() + p.WIDTH / 10), (int) (p.getLocY() + p.HEIGHT / 10),
+					(int) (p.WIDTH * 8 / 10), (int) (p.HEIGHT * 8 / 10));
+		}
+		for (Attack p : envirAttacks) {
 			g.drawRect((int) (p.getLocX() + p.WIDTH / 10), (int) (p.getLocY() + p.HEIGHT / 10),
 					(int) (p.WIDTH * 8 / 10), (int) (p.HEIGHT * 8 / 10));
 		}
@@ -301,6 +327,11 @@ public class RPGGame implements KeyListener {
 			if (p.expire())
 				toRemove.add(p);
 		}
+		for (Attack a : envirAttacks) {
+			if (a.expire()) {
+				toRemove.add(a);
+			}
+		}
 		for (Attack a : special) {
 			if (a.expire()) {
 				toRemove.add(a);
@@ -334,11 +365,8 @@ public class RPGGame implements KeyListener {
 				}
 			}
 			if (!objs.invincible && !(objs instanceof Enemy)) {
-				if (objs.getHealth() <= 0 && !(objs instanceof Barrel)) {
+				if (objs.getHealth() <= 0) {
 					toRemove.add(objs);
-				}
-				if (objs instanceof Barrel && objs.getHealth() <= 0) {
-					((Barrel) objs).explode();
 				}
 				for (Attack p : primary) {
 					if (p.collides(objs) && !(objs instanceof Player)) {
@@ -379,10 +407,13 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject g : toRemove) {
 			g.uponRemoval();
+			if(g instanceof Barrel)
+				envirAttacks.add(((Barrel)g).explode());
 		}
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
 		primary.removeAll(toRemove);
+		envirAttacks.removeAll(toRemove);
 		special.removeAll(toRemove);
 
 	}
