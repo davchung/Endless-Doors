@@ -11,7 +11,7 @@ public class RPGGame implements KeyListener {
 	private JFrame mainFrame = new JFrame("Role-Playing Game");
 	private JPanel mainPanel;
 	private static Timer timer;
-	private static final int REFRESH_RATE = 10;
+	private static final int REFRESH_RATE = 50;
 	public static int ticks = 0;
 
 	// these are all variables that are involved with playing the game
@@ -335,8 +335,9 @@ public class RPGGame implements KeyListener {
 					if (p.collides(objs)&&!(objs instanceof Player)) {
 						objs.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(objs);
-
 						objDamaged = true;
+						if (player instanceof Archer)
+							toRemove.add(p);
 					}
 				}
 				for (Attack a : enemyAttacks) {
