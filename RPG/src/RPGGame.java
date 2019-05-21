@@ -95,7 +95,6 @@ public class RPGGame implements KeyListener {
 	public void beginGame() {
 		gameLevel = 1;
 		player = new Archer(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2);
-		// player = new Knight(100, 100, 50, 50);
 		m = new Map();
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
@@ -124,7 +123,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				floor.drawFloor(g); //draws a floor...kinda
+				//floor.drawFloor(g); //draws a floor...kinda
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
