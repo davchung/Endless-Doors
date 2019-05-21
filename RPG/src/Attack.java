@@ -6,7 +6,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class Attack extends GameObject {
-	private int vel = 0;
+	protected int vel = 0;
 	protected double r;
 	protected double d;
 	private int expire;

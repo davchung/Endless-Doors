@@ -311,7 +311,7 @@ public class RPGGame implements KeyListener {
 				toRemove.add(e);
 			}
 		}
-		for (GameObject objs : objects) {
+		for (GameObject objs : objects) {// collision for gameobjects
 			while (player.collides(objs) && !objs.throughable && !(player.equals(objs))) {
 				double dx = player.getCX() - objs.getCX();
 				double dy = player.getCY() - objs.getCY();
@@ -345,8 +345,6 @@ public class RPGGame implements KeyListener {
 						objs.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(objs);
 						objDamaged = true;
-						if (player instanceof Archer)
-							toRemove.add(p);
 					}
 				}
 				for (Attack a : enemyAttacks) {
@@ -360,6 +358,12 @@ public class RPGGame implements KeyListener {
 
 			if (player.collides(objs) && objs instanceof Coin) {
 				toRemove.add(objs);
+			}
+			if (!objs.throughable) {
+				for (Attack p:primary) {
+					if (player instanceof Archer&&p.collides(objs))
+						toRemove.add(p);
+				}
 			}
 		}
 
