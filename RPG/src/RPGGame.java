@@ -95,7 +95,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		player = new Archer(StartGame.SCREEN_HEIGHT / 2, StartGame.SCREEN_WIDTH / 2);
+		selectClass();
 		m = new Map();
 		objects.addAll(m.getWalls());
 		objects.addAll(m.getEObjs());
@@ -261,6 +261,18 @@ public class RPGGame implements KeyListener {
 		objects.addAll(enemyAttacks);
 		objects.removeAll(special);
 		objects.addAll(special);
+	}
+	
+	private void selectClass() {
+		String[] classes = new String[] {"Archer",  "Knight"};
+		switch(JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
+		case 0:
+			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			break;
+		case 1:
+			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			
+		}
 	}
 
 	protected void drawHitboxes(Graphics g) {
