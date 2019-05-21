@@ -389,7 +389,7 @@ public class RPGGame implements KeyListener {
 			}
 			if (!objs.throughable) {
 				for (Attack p:primary) {
-					if (player instanceof Archer&&p.collides(objs))
+					if (!(objs instanceof Player)&&player instanceof Archer&&p.collides(objs))
 						toRemove.add(p);
 				}
 			}
