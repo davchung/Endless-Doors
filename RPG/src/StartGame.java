@@ -67,10 +67,8 @@ public class StartGame {
 				super.paintComponent(g);
 				g.drawImage(startImg, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, null);
 				g.setColor(new Color(250, 250, 250)); // white color
-				g.fillRect(0, (SCREEN_HEIGHT / 2) - fontSize, SCREEN_WIDTH, fontSize * 3 / 2);
 				g.setColor(new Color(0, 0, 0)); // black color
 				g.setFont(new Font("Times New Roman", 0, fontSize));
-				g.drawString("Click anywhere to begin game.", SCREEN_WIDTH / 12, SCREEN_HEIGHT / 2);
 			}
 		};
 		// frame doesn't get minimized
