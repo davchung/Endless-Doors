@@ -432,7 +432,7 @@ public class RPGGame implements KeyListener {
 				if (player instanceof Knight)
 					player.addCooldown(60);
 				if (player instanceof Archer)
-					player.addCooldown(20);
+					player.addCooldown(40);
 			}
 		}
 		if (keys.contains("k")) {

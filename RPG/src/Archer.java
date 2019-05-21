@@ -12,7 +12,7 @@ public class Archer extends Player {
 	
 	public Attack getAttack() {
 		Attack arrow = new Arrow((int)this.getCX(), (int)this.getCY(), 10, 10, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,6,200,this.getDamage()/4, "sprites/items/larger_arrow.png");
-		canMove = RPGGame.ticks+5;
+		canMove = RPGGame.ticks;
 		return arrow;
 	}
 	public Attack getSpecial() {
