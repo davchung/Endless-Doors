@@ -310,7 +310,7 @@ public class RPGGame implements KeyListener {
 		}
 		if (e2 instanceof Skeleton) {
 			e2=null;
-			e2 = new Goblin(x * 50, y * 50, 1);
+			e2 = new Skeleton(x * 50, y * 50, 1);
 		}
 
 		for (GameObject w : objects) {
