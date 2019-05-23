@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	private Trader trader;
 	private Map map;
 	private Portal portal;
-	//private Floor floor = new Floor();
+	private Floor floor = new Floor();
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -103,8 +103,8 @@ public class RPGGame implements KeyListener {
 		objects.add(trader);
 
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = null;
-		Demon a = null;
+		Demon d = new Demon(0, 0, 1);
+		Goblin a = new Goblin(0, 0, 1);
 		list.add(d);
 		list.add(a);
 		setEnemies(list);
@@ -122,7 +122,8 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//floor.drawFloor(g); // draws a floor...kinda
+				
+				floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
@@ -142,7 +143,7 @@ public class RPGGame implements KeyListener {
 				for (Attack e : envirAttacks) {
 					e.draw(g);
 				}
-				//drawHitboxes(g); // draws all hitboxes. Dev-only.
+				drawHitboxes(g); // draws all hitboxes. Dev-only.
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : enemies) {
@@ -297,9 +298,16 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns(Enemy e2) {
-		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 150) / 50;
-		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 150) / 50;
+		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 50-e2.WIDTH) / 50;
+		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 50-e2.WIDTH) / 50;
+		if (e2 instanceof Demon) {
+		e2=null;
 		e2 = new Demon(x * 50, y * 50, 1);
+		}
+		if (e2 instanceof Goblin) {
+			e2=null;
+			e2 = new Goblin(x * 50, y * 50, 1);
+		}
 
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
@@ -407,6 +415,7 @@ public class RPGGame implements KeyListener {
 			if(g instanceof Barrel)
 				envirAttacks.add(((Barrel)g).explode());
 		}
+		player.checkBounds();
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
 		primary.removeAll(toRemove);
@@ -431,29 +440,37 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("w")) {
 				player.moveY(-player.getSpeed());
 				down -= 1;
-				while (wallCollision(player)) {
+				int checks=0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveY(player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("a")) {
 				player.moveX(-player.getSpeed());
 				right -= 1;
-				while (wallCollision(player)) {
+				int checks=0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveX(player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("s")) {
 				player.moveY(player.getSpeed());
 				down += 1;
-				while (wallCollision(player)) {
+				int checks=0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveY(-player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("d")) {
 				player.moveX(player.getSpeed());
 				right += 1;
-				while (wallCollision(player)) {
+				int checks = 0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveX(-player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("o")) {
