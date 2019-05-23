@@ -2,20 +2,52 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Demon extends Enemy {
+	private static Animation run = new Animation("big_demon_run", 4);
+	private static Animation idle = new Animation("big_demon_idle", 4);
 	private BufferedImage damage;
 
 	public Demon(double x, double y, int level) {
-		super(x, y, 100, 100, level);
+		super(x, y, 100, 100, level,idle.getFirst());
 		damage = super.getImage("sprites/big_demon_damage.png");
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		if (super.getHittable() > RPGGame.ticks) {
-			super.draw(g, damage);
+			betterDraw(g, damage);
 		} else {
-			super.draw(g);
+			betterDraw(g);
 		}
+	}
+	@Override
+	public Animation getRun() {
+		return run;
+	}
+	@Override
+	public Animation getIdle() {
+		return idle;
+	}
+	
+	public void betterDraw(Graphics g) {
+		double r = getRight() / Math.abs(getRight());
+		int dx = 0;
+		if (r < 0)
+			dx = (int) super.WIDTH + 40;
+		if (getDown() != 0 || getRight() != 0) {
+			g.drawImage(getRun().getImage(), (int) super.locX + dx - 20, (int) super.locY - 40,
+					(int) (r * (super.WIDTH + 40)), (int) super.HEIGHT + 40, null);
+			return;
+		}
+		g.drawImage(getIdle().getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
+				(int) super.HEIGHT + 20, null);
+	}
+	public void betterDraw(Graphics g, BufferedImage i) {
+		double r = getRight() / Math.abs(getRight());
+		int dx = 0;
+		if (r < 0)
+			dx = (int) super.WIDTH + 40;
+		g.drawImage(i, (int) super.locX + dx - 20, (int) super.locY - 40, (int) (r * (super.WIDTH + 40)),
+				(int) super.HEIGHT + 40, null);
 	}
 
 	// these methods are for movement

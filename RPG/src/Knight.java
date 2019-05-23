@@ -26,6 +26,13 @@ public class Knight extends Player {
 			super.hit(damage);
 		}
 	}
+	
+	@Override
+	public void hit(double damage, int gameID) {
+		if (RPGGame.getSpecial().size()==0) {
+			super.hit(damage,gameID);
+		}
+	}
 
 	@Override
 	public boolean canMove() {
