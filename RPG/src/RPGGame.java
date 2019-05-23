@@ -171,6 +171,7 @@ public class RPGGame implements KeyListener {
 					if(player.collides(portal) && keys.contains("j")) {
 						portal.image = portal.getImage("Sprites/doors_leaf_open.png");
 						objects.removeAll(map.getEObjs());
+						objects.removeAll(map.getWalls());
 						map.addObjs();
 						objects.addAll(map.getEObjs());
 						findEmptyPlace("player");
