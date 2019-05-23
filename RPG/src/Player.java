@@ -54,16 +54,16 @@ public abstract class Player extends MoveableObject {
 	protected abstract boolean canSpecial();
 	protected abstract void addSpecialCooldown(int i);
 	public void checkBounds() {
-		while (this.getLocX()<25) {
+		while (this.getLocX()<40) {
 			this.moveX(10);
 		}
-		while (this.getLocY()<25) {
+		while (this.getLocY()<40) {
 			this.moveY(10);
 		}
-		while (this.getLocX()>StartGame.SCREEN_WIDTH-75) {
+		while (this.getLocX()>StartGame.SCREEN_WIDTH-90) {
 			this.moveX(-10);
 		}
-		while (this.getLocY()>StartGame.SCREEN_HEIGHT-75) {
+		while (this.getLocY()>StartGame.SCREEN_HEIGHT-90) {
 			this.moveY(-10);
 		}
 	}
