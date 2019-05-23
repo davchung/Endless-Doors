@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	private Trader trader;
 	private Map map;
 	private Portal portal;
-	//private Floor floor = new Floor();
+	private Floor floor = new Floor();
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -122,7 +122,8 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//floor.drawFloor(g); // draws a floor...kinda
+				
+				floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects

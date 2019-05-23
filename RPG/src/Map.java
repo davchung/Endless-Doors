@@ -203,7 +203,7 @@ public class Map {
 			return 1; // will be boss room
 		} else {
 			return (int) (Math.random() * (rooms.size() - 2)) + 2;
-
+         
 		}
 	}
 

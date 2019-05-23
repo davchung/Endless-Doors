@@ -33,7 +33,7 @@ public class Floor {
 		getImages();
 		for (int r = 0; r < floor.length; r ++) {
 			for (int c = 0; c < floor[r].length; c ++) {
-				floor[r][c] = getRandInd();
+				floor[r][c] = 0; // randind
 			}
 		}
 	}
