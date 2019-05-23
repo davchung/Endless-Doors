@@ -19,10 +19,9 @@ public class RPGGame implements KeyListener {
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Trader trader;
-	private Map m;
-	Portal p;
-	private Floor floor = new Floor();
-	// private Attack pAttack; // player attack
+	private Map map;
+	private Portal portal;
+	//private Floor floor = new Floor();
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -34,7 +33,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<String> keys = new ArrayList<String>();
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<Wall> walls = new ArrayList<Wall>();
+	//private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> special = new ArrayList<Attack>();
@@ -95,9 +94,9 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		selectClass();
-		m = new Map();
-		objects.addAll(m.getWalls());
-		objects.addAll(m.getEObjs());
+		map = new Map();
+		objects.addAll(map.getWalls());
+		objects.addAll(map.getEObjs());
 		objects.add(player);
 
 		trader = new Trader();
@@ -169,12 +168,13 @@ public class RPGGame implements KeyListener {
 
 				if (levelDone == true) {
 					findEmptyPlace("portal");
-					if(player.collides(p) && keys.contains("j")) {
-						objects.removeAll(m.getEObjs());
-						m.addObjs();
-						objects.addAll(m.getEObjs());
+					if(player.collides(portal) && keys.contains("j")) {
+						portal.image = portal.getImage("Sprites/doors_leaf_open.png");
+						objects.removeAll(map.getEObjs());
+						map.addObjs();
+						objects.addAll(map.getEObjs());
 						findEmptyPlace("player");
-						objects.remove(p);
+						objects.remove(portal);
 						damagedObjects.clear();
 						enemies.clear();
 					}
@@ -647,14 +647,14 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void findEmptyPlace(String s) {
-		boolean portal = false;
+		boolean portalCheck = false;
 		for (GameObject g : objects) {
 			if (g instanceof Portal) {
-				portal = true;
+				portalCheck = true;
 			}
 		}
 
-		if (!portal) {
+		if (!portalCheck) {
 			while (true) {
 				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
 				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
@@ -670,10 +670,10 @@ public class RPGGame implements KeyListener {
 				}
 				if (here) {
 					if(s.equals("portal"))
-						p = new Portal(r,c);
+						portal = new Portal(r,c);
 					if(s.equals("player"))
 						player.setPlayerLoc(r, c);
-					objects.add(p);
+					objects.add(portal);
 					return;
 
 				}
