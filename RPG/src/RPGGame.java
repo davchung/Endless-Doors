@@ -16,7 +16,6 @@ public class RPGGame implements KeyListener {
 
 	// these are all variables that are involved with playing the game
 	private static Player player;
-	private double pSpeed = 2.5; // player speed, TRY to keep this a factor of 50, but not obligated
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Trader trader;
@@ -276,9 +275,6 @@ public class RPGGame implements KeyListener {
 	}
 
 	protected void drawHitboxes(Graphics g) {
-		// g.drawRect((int) player.getLocX(), (int) player.getLocY(), (int)
-		// player.WIDTH, (int) player.WIDTH); // hitbox
-
 		for (GameObject e : objects) {
 			if (e instanceof MoveableObject) {
 				g.drawRect((int) e.getLocX(), (int) e.getLocY(), e.WIDTH, e.HEIGHT);
@@ -344,13 +340,7 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject objs : objects) {// collision for gameobjects
 			while (player.collides(objs) && !objs.throughable && !(player.equals(objs))) {
-				double dx = player.getCX() - objs.getCX();
-				double dy = player.getCY() - objs.getCY();
-				double m = Math.sqrt(dx * dx + dy * dy);
-				dx = pSpeed * dx / m;
-				dy = pSpeed * dy / m;
-				player.moveX(dx / 5);
-				player.moveY(dy / 5);
+				player.moveAway(objs);
 			}
 
 			// tests if any enemy collides with the pAttack
@@ -395,6 +385,7 @@ public class RPGGame implements KeyListener {
 				for (Attack s: special) {
 					if (!(objs instanceof Player)&&player instanceof Archer&&s.collides(objs)) {
 						((Grapple) s).pull();
+						((Grapple) s).retract(objs);
 					}
 				}
 			}
@@ -423,7 +414,7 @@ public class RPGGame implements KeyListener {
 
 	}
 
-	private boolean wallCollision(GameObject object) {
+	public boolean wallCollision(GameObject object) {
 		for (GameObject obs : objects) {
 			if (!obs.throughable && object.collides(obs) && !(obs.equals(object)))
 				return true;
@@ -437,31 +428,31 @@ public class RPGGame implements KeyListener {
 		int down = 0, right = 0;
 		if (player.canMove()) {
 			if (keys.contains("w")) {
-				player.moveY(-pSpeed);
+				player.moveY(-player.getSpeed());
 				down -= 1;
 				while (wallCollision(player)) {
-					player.moveY(pSpeed / 5);
+					player.moveY(player.getSpeed() / 5);
 				}
 			}
 			if (keys.contains("a")) {
-				player.moveX(-pSpeed);
+				player.moveX(-player.getSpeed());
 				right -= 1;
 				while (wallCollision(player)) {
-					player.moveX(pSpeed / 5);
+					player.moveX(player.getSpeed() / 5);
 				}
 			}
 			if (keys.contains("s")) {
-				player.moveY(pSpeed);
+				player.moveY(player.getSpeed());
 				down += 1;
 				while (wallCollision(player)) {
-					player.moveY(-pSpeed / 5);
+					player.moveY(-player.getSpeed() / 5);
 				}
 			}
 			if (keys.contains("d")) {
-				player.moveX(pSpeed);
+				player.moveX(player.getSpeed());
 				right += 1;
 				while (wallCollision(player)) {
-					player.moveX(-pSpeed / 5);
+					player.moveX(-player.getSpeed() / 5);
 				}
 			}
 			if (down != 0 || right != 0) {

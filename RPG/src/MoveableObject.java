@@ -8,6 +8,7 @@ public class MoveableObject extends GameObject{
 	protected double right, down; //current direction they're facing
 	private int cooldown = 0;// to move to MO
 	private double loss=0;
+	protected double speed = 1.5; 
 
 
 	public MoveableObject(double x, double y, int width, int height , int startingHealth, BufferedImage b) {
@@ -16,6 +17,10 @@ public class MoveableObject extends GameObject{
 	public double getLoss() {
 		return loss;
 	}
+	public double getSpeed() {
+		return this.speed;
+	}
+
 	public void update() {
 		if (RPGGame.ticks>super.getHittable()) {
 			loss=0;
@@ -76,6 +81,15 @@ public class MoveableObject extends GameObject{
 			loss = damage;
 		}
 		super.hit(damage, ID);
+	}
+	public void moveAway(GameObject objs) {
+		double dx = this.getCX() - objs.getCX();
+		double dy = this.getCY() - objs.getCY();
+		double m = Math.sqrt(dx * dx + dy * dy);
+		dx = this.getSpeed() * dx / m;
+		dy = this.getSpeed() * dy / m;
+		this.moveX(dx / 5);
+		this.moveY(dy / 5);
 	}
 
 }

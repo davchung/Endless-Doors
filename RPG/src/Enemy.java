@@ -6,7 +6,7 @@ public abstract class Enemy extends MoveableObject {
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
 	private static int baseHealth = 10;
-	private double eSpeed = 1.5; // enemy speed
+	// enemy speed
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, int w, int h, int level) {
@@ -14,9 +14,6 @@ public abstract class Enemy extends MoveableObject {
 	}
 
 	// getters and setters are here
-	public double getSpeed() {
-		return this.eSpeed;
-	}
 
 	@Override
 	public void draw(Graphics g) {
@@ -70,8 +67,8 @@ public abstract class Enemy extends MoveableObject {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
-				dx = eSpeed * dx / m;
-				dy = eSpeed * dy / m;
+				dx = this.speed * dx / m;
+				dy = this.speed * dy / m;
 				super.moveX(dx / 10);
 				super.moveY(dy / 10);
 			}

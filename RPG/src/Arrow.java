@@ -29,4 +29,5 @@ public class Arrow extends Attack{
 		g2d.rotate(-angle, this.getCX(), this.getCY());
 	}
 
+
 }
