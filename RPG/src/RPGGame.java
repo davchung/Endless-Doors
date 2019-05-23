@@ -455,6 +455,11 @@ public class RPGGame implements KeyListener {
 					player.moveX(-player.getSpeed() / 5);
 				}
 			}
+			if (keys.contains("o")) {
+				for (Enemy e: enemies) {
+					e.hit(100,1092039090);
+				}
+			}
 			if (down != 0 || right != 0) {
 				lastR = right;
 				lastD = down;
