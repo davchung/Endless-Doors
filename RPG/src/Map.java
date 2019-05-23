@@ -263,7 +263,11 @@ public class Map {
 			for (int c = 0; c < rooms.get(index)[r].length; c++) {
 				switch (rooms.get(index)[r][c]) {
 				case 1:
-					walls.add(new Wall(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					if(r != 0 || c != 0)
+						eObjs.add(new Wall(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					else {
+						walls.add(new Wall(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
+					}
 					break;
 				case 2:
 					eObjs.add(new Crate(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
