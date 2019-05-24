@@ -66,6 +66,7 @@ public abstract class GameObject {
 		int decide = (int) (Math.random() * 100);
 		if (this instanceof Chest) {
 			RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide * 3));
+			RPGGame.getFloor().setChestFloor((int)(this.getLocX()), (int)(this.getLocY()));
 		}
 		if (this instanceof Crate) {
 			if (decide >= 75)

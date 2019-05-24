@@ -34,5 +34,13 @@ public class Animation {
 	public BufferedImage getFirst() {
 		return anim[0];
 	}
+	
+	public BufferedImage getSecond() {
+		return anim[1];
+	}
+	
+	public BufferedImage getThird() {
+		return anim[2];
+	}
 
 }

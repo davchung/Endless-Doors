@@ -17,15 +17,16 @@ public class Grapple extends Arrow {
 		diffX /= mag;
 		diffY /= mag;
 		for (int i=0;i<10;i++) {
-			if (!this.collides(p)) {
-				RPGGame.getPlayer().moveX(diffX*originalVel/10);
-				RPGGame.getPlayer().moveY(diffY*originalVel/10);
-			}else {
+			if (this.collides(p)) {
 				RPGGame.getPlayer().moveX(-diffX*originalVel/5);
 				RPGGame.getPlayer().moveY(-diffY*originalVel/5);
 				this.expire=0;
 				return;
+			}else {
+				RPGGame.getPlayer().moveX(diffX*originalVel/10);
+				RPGGame.getPlayer().moveY(diffY*originalVel/10);
 			}
+			
 		}
 		struck = true;
 		
@@ -45,6 +46,8 @@ public class Grapple extends Arrow {
 
 
 	public void retract(GameObject objs) {
+		if (objs instanceof Enemy)
+			objs.hit(this.getDamage()/4);
 		while (this.collides(objs)) {
 			vel=-originalVel/10;
 			super.update();

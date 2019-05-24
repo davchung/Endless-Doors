@@ -19,10 +19,9 @@ public class RPGGame implements KeyListener {
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
 	private Trader trader;
-	private Map m;
-	Portal p;
-	private Floor floor = new Floor();
-	// private Attack pAttack; // player attack
+	private Map map;
+	private Portal portal;
+	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -34,7 +33,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<String> keys = new ArrayList<String>();
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<Wall> walls = new ArrayList<Wall>();
+	//private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> special = new ArrayList<Attack>();
@@ -58,6 +57,10 @@ public class RPGGame implements KeyListener {
 
 	public static ArrayList<Attack> getPrimary() {
 		return primary;
+	}
+	
+	public static Floor getFloor() {
+		return floor;
 	}
 
 	public static ArrayList<Attack> getEnemyAttacks() {
@@ -95,17 +98,17 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		selectClass();
-		m = new Map();
-		objects.addAll(m.getWalls());
-		objects.addAll(m.getEObjs());
+		map = new Map();
+		objects.addAll(map.getWalls());
+		objects.addAll(map.getEObjs());
 		objects.add(player);
 
 		trader = new Trader();
 		objects.add(trader);
 
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = null;
-		Demon a = null;
+		Demon d = new Demon(0, 0, 1);
+		Skeleton a = new Skeleton(0, 0, 1);
 		list.add(d);
 		list.add(a);
 		setEnemies(list);
@@ -123,7 +126,8 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				//floor.drawFloor(g); // draws a floor...kinda
+				
+				floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
@@ -143,7 +147,7 @@ public class RPGGame implements KeyListener {
 				for (Attack e : envirAttacks) {
 					e.draw(g);
 				}
-				//drawHitboxes(g); // draws all hitboxes. Dev-only.
+				drawHitboxes(g); // draws all hitboxes. Dev-only.
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : enemies) {
@@ -169,12 +173,14 @@ public class RPGGame implements KeyListener {
 
 				if (levelDone == true) {
 					findEmptyPlace("portal");
-					if(player.collides(p) && keys.contains("j")) {
-						objects.removeAll(m.getEObjs());
-						m.addObjs();
-						objects.addAll(m.getEObjs());
+					if(player.collides(portal) && keys.contains("j")) {
+						portal.image = portal.getImage("Sprites/doors_leaf_open.png");
+						objects.removeAll(map.getEObjs());
+						objects.removeAll(map.getWalls());
+						map.addObjs();
+						objects.addAll(map.getEObjs());
 						findEmptyPlace("player");
-						objects.remove(p);
+						objects.remove(portal);
 						damagedObjects.clear();
 						enemies.clear();
 					}
@@ -296,9 +302,20 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns(Enemy e2) {
-		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 150) / 50;
-		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 150) / 50;
+		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 50-e2.WIDTH) / 50;
+		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 50-e2.WIDTH) / 50;
+		if (e2 instanceof Demon) {
+		e2=null;
 		e2 = new Demon(x * 50, y * 50, 1);
+		}
+		if (e2 instanceof Goblin) {
+			e2=null;
+			e2 = new Goblin(x * 50, y * 50, 1);
+		}
+		if (e2 instanceof Skeleton) {
+			e2=null;
+			e2 = new Skeleton(x * 50, y * 50, 1);
+		}
 
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
@@ -406,6 +423,7 @@ public class RPGGame implements KeyListener {
 			if(g instanceof Barrel)
 				envirAttacks.add(((Barrel)g).explode());
 		}
+		player.checkBounds();
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
 		primary.removeAll(toRemove);
@@ -430,29 +448,42 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("w")) {
 				player.moveY(-player.getSpeed());
 				down -= 1;
-				while (wallCollision(player)) {
+				int checks=0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveY(player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("a")) {
 				player.moveX(-player.getSpeed());
 				right -= 1;
-				while (wallCollision(player)) {
+				int checks=0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveX(player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("s")) {
 				player.moveY(player.getSpeed());
 				down += 1;
-				while (wallCollision(player)) {
+				int checks=0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveY(-player.getSpeed() / 5);
+					checks++;
 				}
 			}
 			if (keys.contains("d")) {
 				player.moveX(player.getSpeed());
 				right += 1;
-				while (wallCollision(player)) {
+				int checks = 0;
+				while (wallCollision(player)&&checks<6) {
 					player.moveX(-player.getSpeed() / 5);
+					checks++;
+				}
+			}
+			if (keys.contains("o")) {
+				for (Enemy e: enemies) {
+					e.hit(100,1092039090);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -647,14 +678,14 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void findEmptyPlace(String s) {
-		boolean portal = false;
+		boolean portalCheck = false;
 		for (GameObject g : objects) {
 			if (g instanceof Portal) {
-				portal = true;
+				portalCheck = true;
 			}
 		}
 
-		if (!portal) {
+		if (!portalCheck) {
 			while (true) {
 				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
 				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
@@ -670,10 +701,10 @@ public class RPGGame implements KeyListener {
 				}
 				if (here) {
 					if(s.equals("portal"))
-						p = new Portal(r,c);
+						portal = new Portal(r,c);
 					if(s.equals("player"))
 						player.setPlayerLoc(r, c);
-					objects.add(p);
+					objects.add(portal);
 					return;
 
 				}
