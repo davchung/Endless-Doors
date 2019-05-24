@@ -83,7 +83,7 @@ public class RPGGame implements KeyListener {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
 		int amountE = (int) (Math.random() * 2 + 1) + level / 5;// amount of enemies in the floor
 		for (int c = 0; c < amountE; c++) {
-			int theme = (int) (Math.random() * 3); // gets a random type of enemy
+			int theme = (int) (Math.random() * 4); // gets a random type of enemy
 			switch (theme) {
 			case 0:
 				list.add(new Skeleton(0, 0, 1));
@@ -93,6 +93,9 @@ public class RPGGame implements KeyListener {
 				break;
 			case 2:
 				list.add(new Demon(0, 0, 1));
+				break;
+			case 3:
+				list.add(new Wogol(0, 0, 1));
 				break;
 			}
 		}
@@ -123,13 +126,6 @@ public class RPGGame implements KeyListener {
 		trader = new Trader();
 		objects.add(trader);
 
-		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = new Demon(0, 0, 1);
-		Goblin a = new Goblin(0, 0, 1);
-		Wogol w = new Wogol(0,0,1);
-		list.add(d);
-		list.add(a);
-		list.add(w);
 		setEnemies(Map.roomCount);
 
 		mainFrame.setVisible(true);
