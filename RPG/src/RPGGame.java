@@ -189,17 +189,17 @@ public class RPGGame implements KeyListener {
 				if (levelDone == true) {
 					findEmptyPlace("portal");
 					if (player.collides(portal) && keys.contains("j")) {
-						portal.image = portal.getImage("Sprites/doors_leaf_open.png");
+						enemies.clear();
+						setEnemies(Map.roomCount);
 						objects.removeAll(map.getEObjs());
 						objects.removeAll(map.getWalls());
+						damagedObjects.clear();
+						floor.reset();
 						map.addObjs();
 						objects.addAll(map.getEObjs());
 						findEmptyPlace("player");
+						levelDone = false;
 						objects.remove(portal);
-						damagedObjects.clear();
-						enemies.clear();
-						setEnemies(Map.roomCount);
-						floor.reset();
 					}
 				}
 				if (gameOver == true) {
@@ -708,7 +708,7 @@ public class RPGGame implements KeyListener {
 			}
 		}
 
-		if (!portalCheck) {
+		if (!portalCheck && levelDone == true) {
 			while (true) {
 				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
 				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
