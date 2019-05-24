@@ -32,6 +32,10 @@ public class Map {
 	public ArrayList<Wall> getWalls() {
 		return this.walls;
 	}
+	
+	public void setRoomCount(int x) {
+		roomCount = x;
+	}
 
 	private void getAllRooms() {
 		// 0 is empty space

@@ -87,6 +87,10 @@ public abstract class GameObject {
 		if (this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
 		}
+		
+		if(this instanceof Potion) {
+			((Potion)this).activate();
+		}
 	}
 
 	// getters, setters, and "incrementers" are here
