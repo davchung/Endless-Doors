@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	private Trader trader;
 	private Map map;
 	private Portal portal;
-	private Floor floor = new Floor();
+	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -59,6 +59,10 @@ public class RPGGame implements KeyListener {
 		return primary;
 	}
 
+	public static Floor getFloor() {
+		return floor;
+	}
+
 	public static ArrayList<Attack> getEnemyAttacks() {
 		return enemyAttacks;
 	}
@@ -74,7 +78,23 @@ public class RPGGame implements KeyListener {
 		return RPGGame.objects;
 	}
 
-	public void setEnemies(ArrayList<Enemy> list) {
+	public void setEnemies(int level) {
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		int amountE = (int) (Math.random()*2+1) + level/5;//amount of enemies in the floor
+		for(int c = 0; c < amountE; c++) {
+			int theme = (int) (Math.random()*3); //gets a random type of enemy
+			switch(theme) {
+			case 0:
+				list.add(new Skeleton(0,0,1));
+				break;
+			case 1:
+				list.add(new Goblin(0,0,1));
+				break;
+			case 2:
+				list.add(new Demon(0,0,1));
+				break;
+			}
+		}
 		for (Enemy e : list) {
 			checkSpawns(e);
 		}
@@ -110,6 +130,7 @@ public class RPGGame implements KeyListener {
 		list.add(a);
 		list.add(w);
 		setEnemies(list);
+		setEnemies(map.roomCount);
 
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +145,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				
+
 				floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
@@ -181,6 +202,8 @@ public class RPGGame implements KeyListener {
 						objects.remove(portal);
 						damagedObjects.clear();
 						enemies.clear();
+						setEnemies(map.roomCount);
+						floor.reset();
 					}
 				}
 				if (gameOver == true) {
@@ -265,7 +288,7 @@ public class RPGGame implements KeyListener {
 		objects.removeAll(special);
 		objects.addAll(special);
 	}
-	
+
 	private void selectClass() {
 		String[] classes = new String[] {"Archer",  "Knight"};
 		switch(JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
@@ -274,7 +297,7 @@ public class RPGGame implements KeyListener {
 			break;
 		case 1:
 			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
-			
+
 		}
 	}
 
@@ -313,6 +336,9 @@ public class RPGGame implements KeyListener {
 		if (e2 instanceof Wogol) {
 			e2=null;
 			e2 = new Wogol(x * 50, y * 50, 1);
+		if (e2 instanceof Skeleton) {
+			e2=null;
+			e2 = new Skeleton(x * 50, y * 50, 1);
 		}
 
 		for (GameObject w : objects) {
@@ -389,7 +415,7 @@ public class RPGGame implements KeyListener {
 				}
 			}
 
-			if (player.collides(objs) && objs instanceof Coin) {
+			if (player.collides(objs) && (objs instanceof Coin || objs instanceof Chest)) {
 				toRemove.add(objs);
 			}
 			if (!objs.throughable) {

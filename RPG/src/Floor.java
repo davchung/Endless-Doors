@@ -31,27 +31,39 @@ public class Floor {
 
 	private void makeFloor() {
 		getImages();
-		for (int r = 0; r < floor.length; r ++) {
-			for (int c = 0; c < floor[r].length; c ++) {
+		for (int r = 0; r < floor.length; r++) {
+			for (int c = 0; c < floor[r].length; c++) {
 				floor[r][c] = 0; // randind
 			}
 		}
+
 	}
 
 	private void getImages() {
+		System.out.println("here");
 		for (final File f : dir.listFiles()) {
 
 			try {
 				floors.add(ImageIO.read(f));
-
+				System.out.println("here");
 			} catch (final IOException e) {
 			}
 		}
+		File f = new File("src/img/Sprites/floor_with_chest.png");
+		try {
+			floors.add(ImageIO.read(f));
+			System.out.println("here");
+		} catch (final IOException e) {
 
+		}
 	}
 
-	private int getRandInd() {
-		int r = (int) (Math.random() * floors.size());
-		return r;
+	public void setChestFloor(int xInd, int yInd) {
+		floor[yInd/50][xInd/50] = floors.size()-1;
+	}
+
+	public void reset() {
+		makeFloor();
+		
 	}
 }
