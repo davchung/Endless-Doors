@@ -1,4 +1,3 @@
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public abstract class Enemy extends MoveableObject {
