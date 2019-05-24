@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	private Trader trader;
 	private Map map;
 	private Portal portal;
-	private Floor floor = new Floor();
+	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
 	private static Inventory i = new Inventory();
@@ -57,6 +57,10 @@ public class RPGGame implements KeyListener {
 
 	public static ArrayList<Attack> getPrimary() {
 		return primary;
+	}
+	
+	public static Floor getFloor() {
+		return floor;
 	}
 
 	public static ArrayList<Attack> getEnemyAttacks() {

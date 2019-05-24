@@ -279,8 +279,8 @@ public class Map {
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
 					break;
 				case 5:
-					traderX /= 2;
-					traderY /= 2;
+					traderX  = StartGame.SCREEN_WIDTH/2;
+					traderY = StartGame.SCREEN_HEIGHT/2;
 				}
 			}
 		}
