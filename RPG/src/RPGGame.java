@@ -105,8 +105,10 @@ public class RPGGame implements KeyListener {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
 		Demon d = new Demon(0, 0, 1);
 		Goblin a = new Goblin(0, 0, 1);
+		Wogol w = new Wogol(0,0,1);
 		list.add(d);
 		list.add(a);
+		list.add(w);
 		setEnemies(list);
 
 		mainFrame.setVisible(true);
@@ -307,6 +309,10 @@ public class RPGGame implements KeyListener {
 		if (e2 instanceof Goblin) {
 			e2=null;
 			e2 = new Goblin(x * 50, y * 50, 1);
+		}
+		if (e2 instanceof Wogol) {
+			e2=null;
+			e2 = new Wogol(x * 50, y * 50, 1);
 		}
 
 		for (GameObject w : objects) {
