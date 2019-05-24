@@ -64,10 +64,10 @@ public abstract class GameObject {
 	public void uponRemoval() {
 		int decide = (int) (Math.random() * 100);
 		if (this instanceof Chest) {
-			if(decide >= 80)
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2));
-			else {
+			if(decide <= 20)
 				RPGGame.getObjects().add(new Potion(this.getLocX(),this.getLocY(),"yellow"));
+			else {
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2));
 			}
 			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
