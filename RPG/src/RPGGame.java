@@ -189,8 +189,8 @@ public class RPGGame implements KeyListener {
 				if (levelDone == true) {
 					findEmptyPlace("portal");
 					if (player.collides(portal) && keys.contains("j")) {
+						//dont touchy touchy
 						enemies.clear();
-						setEnemies(Map.roomCount);
 						objects.removeAll(map.getEObjs());
 						objects.removeAll(map.getWalls());
 						damagedObjects.clear();
@@ -198,6 +198,7 @@ public class RPGGame implements KeyListener {
 						map.addObjs();
 						objects.addAll(map.getEObjs());
 						findEmptyPlace("player");
+						setEnemies(Map.roomCount);
 						levelDone = false;
 						objects.remove(portal);
 					}
