@@ -51,6 +51,7 @@ public class Goblin extends Enemy {
 		}
 	}
 
+	// the goblin has a possibility of being slower
 	@Override
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
@@ -61,8 +62,8 @@ public class Goblin extends Enemy {
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
-		this.moveX(x);
-		this.moveY(y);
+		this.moveX(x / GameObject.randInt(1, 2)); // this makes the goblin possibly be slower
+		this.moveY(y / GameObject.randInt(1, 2));
 		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
