@@ -51,7 +51,7 @@ public class Wogol extends Enemy {
 		}
 	}
 
-	// the Wogol now moves away from the player
+	// the Wogol now moves away from the player and can shoot
 	@Override
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
@@ -74,7 +74,7 @@ public class Wogol extends Enemy {
 			this.setRight(1);
 		this.setDown(x);
 		wallCollision();
-		if (GameObject.randInt(1, 2) == 1) {
+		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
 			if (this.canAttack()) {
 				RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
 						HEIGHT, -x, -y, 3, 500, this.getDamage(), "Sprites/fireball_f2.png"));
