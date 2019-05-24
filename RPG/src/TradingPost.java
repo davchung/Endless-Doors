@@ -19,8 +19,8 @@ public class TradingPost extends GameGUI {
 		slot1 = new Weapon(weapons[GameObject.randInt(0, 18)], 100);
 		slot2 = new Weapon(weapons[GameObject.randInt(0, 18)], 200);
 		slot3 = new Weapon(weapons[GameObject.randInt(0, 18)], 300);
-		slot4 = new Potion(potions[GameObject.randInt(0, 3)], 400);
-		slot5 = new Potion(potions[GameObject.randInt(0, 3)], 500);
+		slot4 = new Weapon(weapons[GameObject.randInt(0, 3)], 400);
+		slot5 = new Weapon(weapons[GameObject.randInt(0, 3)], 500);
 	}
 	
 	// these are getters and setters

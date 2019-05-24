@@ -40,19 +40,16 @@ public class Floor {
 	}
 
 	private void getImages() {
-		System.out.println("here");
 		for (final File f : dir.listFiles()) {
 
 			try {
 				floors.add(ImageIO.read(f));
-				System.out.println("here");
 			} catch (final IOException e) {
 			}
 		}
 		File f = new File("src/img/Sprites/floor_with_chest.png");
 		try {
 			floors.add(ImageIO.read(f));
-			System.out.println("here");
 		} catch (final IOException e) {
 
 		}
