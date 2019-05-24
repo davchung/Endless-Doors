@@ -9,6 +9,7 @@ public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
 	protected int health;
+	protected double maxHealth;
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
 	protected Rectangle current;
@@ -30,6 +31,7 @@ public abstract class GameObject {
 		throughable = through;
 		invincible = inv;
 		health = startingHealth;
+		maxHealth = health;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -46,6 +48,7 @@ public abstract class GameObject {
 		throughable = through;
 		invincible = inv;
 		health = startingHealth;
+		maxHealth = startingHealth;
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -88,6 +91,10 @@ public abstract class GameObject {
 
 	public int getHealth() {
 		return this.health;
+	}
+
+	public double getHealthPercent() {
+		return ((double) this.health/this.maxHealth);
 	}
 
 	public void incrementHealth(int amount) {
@@ -163,6 +170,10 @@ public abstract class GameObject {
 
 	public double getCY() {
 		return this.locY + .5 * this.HEIGHT;
+	}
+
+	public int hPBarYLoc() {
+		return (int) (this.getLocY() - 0.4*this.HEIGHT);
 	}
 
 	public boolean collides(GameObject other) {

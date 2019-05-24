@@ -154,6 +154,12 @@ public class RPGGame implements KeyListener {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
 						g.drawString("" + -((MoveableObject) go).getLoss(), (int) go.getCX() - 10, (int) go.getCY());
 					}
+					if (go instanceof MoveableObject) {
+						g.setColor(new Color(0,255,0));
+						g.fillRect((int)go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH*go.getHealthPercent()), 5);
+						g.setColor(new Color(255,0,0));
+						g.fillRect((int)(go.getLocX()+(go.WIDTH*go.getHealthPercent())),go.hPBarYLoc(), (int) (go.WIDTH*(1-go.getHealthPercent())), 5);
+					}
 				}
 				if (objDamaged == true) {
 					for (GameObject go : damagedObjects) {
