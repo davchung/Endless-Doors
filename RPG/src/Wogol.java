@@ -51,12 +51,13 @@ public class Wogol extends Enemy {
 		}
 	}
 
+	// the Wogol now moves away from the player
 	@Override
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = (RPGGame.getPlayer().getCX() - this.getCX());
-		y = (RPGGame.getPlayer().getCY() - this.getCY());
+		y = (RPGGame.getPlayer().getCX() - this.getCX());
+		x = (RPGGame.getPlayer().getCY() - this.getCY());
 
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
@@ -68,10 +69,10 @@ public class Wogol extends Enemy {
 			this.moveY(-y / 10);
 			RPGGame.getPlayer().hit(this.getDamage());
 		}
-		this.setRight(x);
+		this.setRight(y);
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
-		this.setDown(y);
+		this.setDown(x);
 		wallCollision();
 		RPGGame.getObjects().add(this);
 	}
