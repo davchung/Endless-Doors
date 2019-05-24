@@ -165,7 +165,6 @@ public class RPGGame implements KeyListener {
 				drawHitboxes(g); // draws all hitboxes. Dev-only.
 
 				g.setColor(new Color(255, 0, 0));
-				g.drawString("Player health: " + player.getHealth(), 30, 40);
 				for (GameObject go : enemies) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
 						g.drawString("" + -((MoveableObject) go).getLoss(), (int) go.getCX() - 10, (int) go.getCY());
@@ -178,37 +177,27 @@ public class RPGGame implements KeyListener {
 						}
 					}
 				}
-				
+
 				// this is where the player's health bar is drawn
-				g.setColor(new Color(250, 250, 250));
-				g.fillRect(20, 10, StartGame.SCREEN_WIDTH-40, 30);
-				if (player.getHealth() > 0) {
-					g.setColor(new Color(255, 0, 0));
-					g.fillRect(20, 10, (StartGame.SCREEN_WIDTH-40) * player.getHealth() / 50, 30);
-				}
-				if (player.getHealth() >= 20) {
-					g.setColor(new Color(255, 255, 0));
-					g.fillRect(20, 10, (StartGame.SCREEN_WIDTH-40) * player.getHealth() / 50, 30);
-				}
-				if (player.getHealth() >= 40) {
-					g.setColor(new Color(0, 255, 0));
-					g.fillRect(20, 10, (StartGame.SCREEN_WIDTH-40) * player.getHealth() / 50, 30);
-				}
+				g.setColor(new Color(255, 0, 0));
+				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
+				g.setColor(new Color(0, 255, 0));
+				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getTotalHealth(), 15);
 				g.setColor(new Color(0, 0, 0));
-				g.drawString("Player health bar", 20, 25);
-				
+				g.drawString("Player health: " + player.getHealth(), 20, 35);
+
 				if (helpShown == true) {
 					hP.draw(g);
 				}
 				if (helpShown == false) {
 					g.setColor(new Color(255, 255, 255));
-					g.drawString("Press ? for help.", 30, StartGame.SCREEN_HEIGHT - 20);
+					g.drawString("Press ? for help.", 20, 20);
 				}
 
 				if (levelDone == true) {
 					findEmptyPlace("portal");
 					if (player.collides(portal) && keys.contains("j")) {
-						//dont touchy touchy
+						// dont touchy touchy
 						enemies.clear();
 						objects.removeAll(map.getEObjs());
 						objects.removeAll(map.getWalls());
