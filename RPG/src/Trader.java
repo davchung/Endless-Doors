@@ -2,6 +2,6 @@
 public class Trader extends GameObject{
 	
 	public Trader() {
-		super(Map.traderX, Map.traderY, 100, 100, true, false, 100, "trader.png");
+		super(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT, 150, 150, true, true, 100, "trader.png");
 	}
 }

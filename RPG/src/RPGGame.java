@@ -18,9 +18,9 @@ public class RPGGame implements KeyListener {
 	private static Player player;
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
-	private Trader trader;
 	private Map map;
 	private Portal portal;
+	public static Trader trader;
 	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
@@ -118,14 +118,14 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		selectClass();
+		trader = new Trader();
 		map = new Map();
 		objects.addAll(map.getWalls());
 		objects.addAll(map.getEObjs());
 		objects.add(player);
 
-		trader = new Trader();
+		
 		objects.add(trader);
-
 		setEnemies(Map.roomCount);
 
 		mainFrame.setVisible(true);
@@ -602,7 +602,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// trading post
-		if (keys.contains("k") && player.collides(trader)) {
+		if (keys.contains("t") && player.collides(trader)) {
 			tradeOpen = !tradeOpen;
 			mainPanel.repaint();
 			pause();
@@ -613,7 +613,7 @@ public class RPGGame implements KeyListener {
 			if (JOptionPane.showConfirmDialog(null,
 					"Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot1().getGoldCost()) {
-					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+					JOptionPane.showMessageDialog(null, "You don't have ensough gold to cover the purchase.");
 				} else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
 				} else {
