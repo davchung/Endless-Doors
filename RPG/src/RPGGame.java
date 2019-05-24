@@ -81,7 +81,7 @@ public class RPGGame implements KeyListener {
 
 	public void setEnemies(int level) {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int amountE = (int) (Math.random() * 2 + 1) + level / 5;// amount of enemies in the floor
+		int amountE = (int) (Math.random() * 2) + 1 + level / 5;// amount of enemies in the floor
 		for (int c = 0; c < amountE; c++) {
 			int theme = (int) (Math.random() * 4); // gets a random type of enemy
 			switch (theme) {
@@ -288,11 +288,11 @@ public class RPGGame implements KeyListener {
 		String[] classes = new String[] { "Archer", "Knight" };
 		switch (JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
-				case 0:
-					player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
-					break;
-				case 1:
-					player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+		case 0:
+			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			break;
+		case 1:
+			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
 
 		}
 	}
@@ -330,22 +330,23 @@ public class RPGGame implements KeyListener {
 			e2 = new Goblin(x * 50, y * 50, 1);
 		}
 		if (e2 instanceof Wogol) {
-			e2=null;
+			e2 = null;
 			e2 = new Wogol(x * 50, y * 50, 1);
-			if (e2 instanceof Skeleton) {
-				e2 = null;
-				e2 = new Skeleton(x * 50, y * 50, 1);
-			}
-
-			for (GameObject w : objects) {
-				if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
-					checkSpawns(e2);
-					return;
-				}
-			}
-			enemies.add(e2);
-			objects.add(e2);
 		}
+		if (e2 instanceof Skeleton) {
+			e2 = null;
+			e2 = new Skeleton(x * 50, y * 50, 1);
+		}
+
+		for (GameObject w : objects) {
+			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
+				checkSpawns(e2);
+				return;
+			}
+		}
+		enemies.add(e2);
+		objects.add(e2);
+
 	}
 
 	protected void movement() {
@@ -412,7 +413,7 @@ public class RPGGame implements KeyListener {
 				}
 			}
 
-			if(player.collides(objs) && objs instanceof Chest)
+			if (player.collides(objs) && objs instanceof Chest)
 				toRemove.add(objs);
 			if (player.collides(objs) && (objs instanceof Coin || objs instanceof Potion)) {
 				toRemove.add(objs);
