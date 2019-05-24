@@ -6,7 +6,7 @@ public class Chest extends GameObject {
 	private static Animation open = new Animation("chest_full_open", 3);
 
 	public Chest(double x, double y, double gold) {
-		super(x, y, 50, 50, false, false, 1, open.getFirst());
+		super(x, y, 50, 50, true, true, 1, open.getFirst());
 	}
 
 	public void draw(Graphics g) {

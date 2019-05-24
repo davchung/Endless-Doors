@@ -61,4 +61,9 @@ public class Floor {
 	public void setChestFloor(int xInd, int yInd) {
 		floor[yInd/50][xInd/50] = floors.size()-1;
 	}
+
+	public void reset() {
+		makeFloor();
+		
+	}
 }

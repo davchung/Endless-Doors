@@ -52,12 +52,11 @@ public abstract class GameObject {
 		IDAssigner++;
 	}
 
-
-	
 	public void setLoc(int x, int y) {
 		locX = x;
 		locY = y;
 	}
+
 	public int getgameID() {
 		return gameID;
 	}
@@ -65,12 +64,21 @@ public abstract class GameObject {
 	public void uponRemoval() {
 		int decide = (int) (Math.random() * 100);
 		if (this instanceof Chest) {
-			RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide * 3));
-			RPGGame.getFloor().setChestFloor((int)(this.getLocX()), (int)(this.getLocY()));
+			RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2));
+			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
-		if (this instanceof Crate) {
-			if (decide >= 75)
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 10));
+		if (this instanceof Enemy) {
+			
+			if(decide >= 75) {
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 2 + Map.roomCount * 2.75)));
+			}
+			else if(decide >= 50)
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 2.5 + Map.roomCount * 2.75)));
+			else if (decide >= 25)
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 3 + Map.roomCount * 2));
+			else {
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 4 + (int)(Map.roomCount * 1.5)));
+			}
 		}
 		if (this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
@@ -186,12 +194,12 @@ public abstract class GameObject {
 	}
 
 	public void hit(double d) {
-		if (RPGGame.ticks > hittable&&!invincible) {
+		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 26;
 
 		}
-	
+
 	}
 
 }

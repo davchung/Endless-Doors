@@ -78,7 +78,23 @@ public class RPGGame implements KeyListener {
 		return RPGGame.objects;
 	}
 
-	public void setEnemies(ArrayList<Enemy> list) {
+	public void setEnemies(int level) {
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		int amountE = (int) (Math.random()*2+1) + level/5;//amount of enemies in the floor
+		for(int c = 0; c < amountE; c++) {
+			int theme = (int) (Math.random()*3); //gets a random type of enemy
+			switch(theme) {
+			case 0:
+				list.add(new Skeleton(0,0,1));
+				break;
+			case 1:
+				list.add(new Goblin(0,0,1));
+				break;
+			case 2:
+				list.add(new Demon(0,0,1));
+				break;
+			}
+		}
 		for (Enemy e : list) {
 			checkSpawns(e);
 		}
@@ -106,12 +122,7 @@ public class RPGGame implements KeyListener {
 		trader = new Trader();
 		objects.add(trader);
 
-		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = new Demon(0, 0, 1);
-		Skeleton a = new Skeleton(0, 0, 1);
-		list.add(d);
-		list.add(a);
-		setEnemies(list);
+		setEnemies(map.roomCount);
 
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -183,6 +194,8 @@ public class RPGGame implements KeyListener {
 						objects.remove(portal);
 						damagedObjects.clear();
 						enemies.clear();
+						setEnemies(map.roomCount);
+						floor.reset();
 					}
 				}
 				if (gameOver == true) {
@@ -391,7 +404,7 @@ public class RPGGame implements KeyListener {
 				}
 			}
 
-			if (player.collides(objs) && objs instanceof Coin) {
+			if (player.collides(objs) && (objs instanceof Coin || objs instanceof Chest)) {
 				toRemove.add(objs);
 			}
 			if (!objs.throughable) {
