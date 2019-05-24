@@ -184,7 +184,7 @@ public class RPGGame implements KeyListener {
 				g.setColor(new Color(0, 255, 0));
 				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getTotalHealth(), 15);
 				g.setColor(new Color(0, 0, 0));
-				g.drawString("Player health: " + player.getHealth(), 20, 35);
+				g.drawString("Player health: " + player.getHealth(), 20, 38);
 
 				if (helpShown == true) {
 					hP.draw(g);
