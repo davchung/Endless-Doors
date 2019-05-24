@@ -1,11 +1,11 @@
 import java.awt.Graphics;
 
-public class Goblin extends Enemy {
-	private static Animation run = new Animation("goblin_run", 4);
-	private static Animation idle = new Animation("goblin_idle", 4);
+public class Zombie extends Enemy {
+	private static Animation run = new Animation("zombie_run", 4);
+	private static Animation idle = new Animation("zombie_idle", 4);
 
-	public Goblin(double x, double y, int level) {
-		super(x, y, 40, 40, level,idle.getFirst());
+	public Zombie(double x, double y, int level) {
+		super(x, y, 40, 75, level,idle.getFirst());
 		
 	}
 
@@ -51,7 +51,7 @@ public class Goblin extends Enemy {
 		}
 	}
 
-	// the goblin has a possibility of being faster
+	// the zombie has a possibility of being slower
 	@Override
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
@@ -62,8 +62,8 @@ public class Goblin extends Enemy {
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
-		this.moveX(x * GameObject.randInt(1, 2)); // this makes the goblin possibly be faster
-		this.moveY(y * GameObject.randInt(1, 2));
+		this.moveX(x / GameObject.randInt(1, 2)); // this makes the zombie possibly be slower
+		this.moveY(y / GameObject.randInt(1, 2));
 		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
@@ -87,6 +87,6 @@ public class Goblin extends Enemy {
 
 	@Override
 	public String toString() {
-		return "Goblin";
+		return "Zombie";
 	}
 }
