@@ -213,8 +213,7 @@ public class RPGGame implements KeyListener {
 					if (player.collides(portal) && keys.contains("j")) {
 						// dont touchy touchy
 						enemies.clear();
-						objects.removeAll(map.getEObjs());
-						objects.removeAll(map.getWalls());
+						objects.clear();
 						damagedObjects.clear();
 						floor.reset();
 						map.addObjs();
@@ -742,24 +741,25 @@ public class RPGGame implements KeyListener {
 
 		if (!portalCheck && levelDone == true) {
 			while (true) {
-				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
-				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
-				while (!(r % 50 == 0 && c % 50 == 0)) {
-					r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
-					c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
-				}
+				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH)/50;
+				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT)/50;
+				r *= 50;
+				c *= 50;
 				GameObject g = new Wall(r, c, 50, 50);
 				boolean here = true;
 				for (GameObject g1 : RPGGame.getObjects()) {
-					if (g.collides(g1))
+					if (g.collides(g1)) {
 						here = false;
+					}
 				}
 				if (here) {
-					if (s.equals("portal"))
+					if (s.equals("portal")) {
 						portal = new Portal(r, c);
+						objects.add(portal);
+					}
 					if (s.equals("player"))
 						player.setPlayerLoc(r, c);
-					objects.add(portal);
+					
 					return;
 
 				}
