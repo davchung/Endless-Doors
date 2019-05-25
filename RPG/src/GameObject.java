@@ -9,8 +9,8 @@ public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
 	protected int health;
-	protected double maxHealth;
-	protected int totalHealth;
+	protected int maxHealth;
+
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
 	protected Rectangle current;
@@ -33,7 +33,7 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
-		totalHealth = startingHealth;
+
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -51,7 +51,7 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
-		totalHealth = startingHealth;
+
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -112,8 +112,13 @@ public abstract class GameObject {
 	public int getHealth() {
 		return this.health;
 	}
-	public int getTotalHealth() {
-		return this.totalHealth;
+	public int getMaxHealth() {
+		return this.maxHealth;
+	}
+	
+	public void increaseMaxHealth(int amount) {
+		this.health+=amount;
+		this.maxHealth+=amount;
 	}
 
 	public double getHealthPercent() {
@@ -122,7 +127,6 @@ public abstract class GameObject {
 
 	public void incrementHealth(int amount) {
 		this.health += amount;
-		this.totalHealth += amount;
 	}
 
 	protected Rectangle getRect() {

@@ -67,5 +67,6 @@ public abstract class Player extends MoveableObject {
 			this.moveY(-10);
 		}
 	}
+	
 
 }

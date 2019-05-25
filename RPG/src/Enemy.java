@@ -7,7 +7,7 @@ public abstract class Enemy extends MoveableObject {
 
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, int w, int h, int level, BufferedImage i) {
-		super(x, y, w, h, baseHealth + level * 10, i); // uses GameObject's constructor #2
+		super(x, y, w, h, baseHealth + level * 10, i); 
 	}
 
 	// getters and setters are here

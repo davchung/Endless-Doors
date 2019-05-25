@@ -69,10 +69,10 @@ public class Wogol extends Enemy {
 			this.moveY(-y / 10);
 			RPGGame.getPlayer().hit(this.getDamage());
 		}
-		this.setRight(y);
+		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
-		this.setDown(x);
+		this.setDown(y);
 		wallCollision();
 		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
 			if (this.canAttack()) {
@@ -94,6 +94,6 @@ public class Wogol extends Enemy {
 
 	@Override
 	public String toString() {
-		return "Goblin";
+		return "Wogol";
 	}
 }

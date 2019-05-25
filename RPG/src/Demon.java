@@ -9,6 +9,7 @@ public class Demon extends Enemy {
 	public Demon(double x, double y, int level) {
 		super(x, y, 100, 100, level,idle.getFirst());
 		damage = super.getImage("sprites/big_demon_damage.png");
+		this.increaseMaxHealth(this.health);
 	}
 
 	@Override

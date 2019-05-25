@@ -24,8 +24,8 @@ public class Zombie extends Enemy {
 		if (r < 0)
 			dx = (int) super.WIDTH +20;
 		if (getDown() != 0 || getRight() != 0) {
-			g.drawImage(getRun().getImage(), (int) super.locX + dx-10 , (int) super.locY-20 ,
-					(int) (r * (super.WIDTH+20 )), (int) super.HEIGHT+20, null);
+			g.drawImage(getRun().getImage(), (int) super.locX + dx-10 , (int) super.locY ,
+					(int) (r * (super.WIDTH+20 )), (int) super.HEIGHT, null);
 			return;
 		}
 		g.drawImage(getIdle().getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),

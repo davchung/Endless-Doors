@@ -196,7 +196,7 @@ public class RPGGame implements KeyListener {
 				g.setColor(new Color(255, 0, 0));
 				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
 				g.setColor(new Color(0, 255, 0));
-				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getTotalHealth(), 15);
+				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getMaxHealth(), 15);
 				g.setColor(new Color(0, 0, 0));
 				g.drawString("Player health: " + player.getHealth(), 22, 38);
 
@@ -476,8 +476,8 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject g : toRemove) {
 			g.uponRemoval();
-			if (g instanceof Barrel)
-				envirAttacks.add(((Barrel) g).explode());
+			//if (g instanceof Barrel)
+			//	envirAttacks.add(((Barrel) g).explode());
 		}
 		player.checkBounds();
 		objects.removeAll(toRemove);
