@@ -40,19 +40,16 @@ public class Floor {
 	}
 
 	private void getImages() {
-		System.out.println("here");
 		for (final File f : dir.listFiles()) {
 
 			try {
 				floors.add(ImageIO.read(f));
-				System.out.println("here");
 			} catch (final IOException e) {
 			}
 		}
 		File f = new File("src/img/Sprites/floor_with_chest.png");
 		try {
 			floors.add(ImageIO.read(f));
-			System.out.println("here");
 		} catch (final IOException e) {
 
 		}
@@ -60,5 +57,10 @@ public class Floor {
 
 	public void setChestFloor(int xInd, int yInd) {
 		floor[yInd/50][xInd/50] = floors.size()-1;
+	}
+
+	public void reset() {
+		makeFloor();
+		
 	}
 }

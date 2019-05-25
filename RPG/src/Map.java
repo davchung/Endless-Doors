@@ -10,16 +10,13 @@ public class Map {
 	// public variables here
 	public static final int OBJ_WIDTH = 50;
 	public static final int OBJ_HEIGHT = 50;
-	private static int roomCount = 0;
-	public static int traderX;
-	public static int traderY;
+	public static int roomCount = 0;
 
 	public Map() {
 		walls = new ArrayList<Wall>();
 		rooms = new ArrayList<int[][]>();
 		eObjs = new ArrayList<GameObject>();
-		traderX = StartGame.SCREEN_WIDTH;
-		traderY = StartGame.SCREEN_HEIGHT;
+		
 		getAllRooms();
 		addObjs();
 	}
@@ -31,6 +28,10 @@ public class Map {
 
 	public ArrayList<Wall> getWalls() {
 		return this.walls;
+	}
+	
+	public void setRoomCount(int x) {
+		roomCount = x;
 	}
 
 	private void getAllRooms() {
@@ -62,11 +63,11 @@ public class Map {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -273,15 +274,15 @@ public class Map {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 4, 2, 0, 1, 0, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 1, 1, 1, 1, 1, 1, 0, 4, 4, 4, 0, 1, 1, 1, 1, 1, 1, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 4, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0 },
+			{ 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0 },
+			{ 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 4, 2, 0, 2, 0, 0, 0, 0, 2, 0, 0 },
+			{ 0, 0, 2, 2, 2, 2, 2, 2, 0, 4, 4, 4, 0, 2, 2, 2, 2, 2, 2, 0, 0 },
+			{ 0, 0, 2, 0, 0, 0, 0, 2, 0, 2, 4, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0 },
+			{ 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0 },
+			{ 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
@@ -330,13 +331,15 @@ public class Map {
 
 	public int chooseRoom() {
 		if (roomCount % 5 == 0 && roomCount != 0) {
-			return 0; // will be trader room
+			return 1; // will be trader room
 		}
 		if (roomCount % 10 == 0 && roomCount != 0) {
-			return 1; // will be boss room
+			RPGGame.trader.setLoc(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
+			return 0; // will be boss room
 		} else {
+			RPGGame.trader.setLoc(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
 			return (int) (Math.random() * (rooms.size() - 2)) + 2;
-
+			
 		}
 	}
 
@@ -364,8 +367,7 @@ public class Map {
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
 					break;
 				case 5:
-					traderX = StartGame.SCREEN_WIDTH / 2;
-					traderY = StartGame.SCREEN_HEIGHT / 2;
+					RPGGame.trader.setLoc((c-1)*OBJ_WIDTH, (r-1)*OBJ_HEIGHT);
 				}
 			}
 		}

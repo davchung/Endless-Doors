@@ -10,6 +10,7 @@ public abstract class GameObject {
 	// these are the variables that all GameObjects have
 	protected int health;
 	protected double maxHealth;
+	protected int totalHealth;
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
 	protected Rectangle current;
@@ -31,7 +32,8 @@ public abstract class GameObject {
 		throughable = through;
 		invincible = inv;
 		health = startingHealth;
-		maxHealth = health;
+		maxHealth = startingHealth;
+		totalHealth = startingHealth;
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -49,18 +51,19 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
+		totalHealth = startingHealth;
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
 		IDAssigner++;
 	}
 
-
-	
 	public void setLoc(int x, int y) {
 		locX = x;
 		locY = y;
+		current.setLocation(x, y);;
 	}
+
 	public int getgameID() {
 		return gameID;
 	}
@@ -68,15 +71,32 @@ public abstract class GameObject {
 	public void uponRemoval() {
 		int decide = (int) (Math.random() * 100);
 		if (this instanceof Chest) {
-			RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide * 3));
-			RPGGame.getFloor().setChestFloor((int)(this.getLocX()), (int)(this.getLocY()));
+			if(decide <= 20)
+				RPGGame.getObjects().add(new Potion(this.getLocX(),this.getLocY(),"yellow"));
+			else {
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2));
+			}
+			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
-		if (this instanceof Crate) {
-			if (decide >= 75)
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 10));
+		if (this instanceof Enemy) {
+			
+			if(decide >= 75) {
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 2 + Map.roomCount * 2.75)));
+			}
+			else if(decide >= 50)
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 2.5 + Map.roomCount * 2.75)));
+			else if (decide >= 25)
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 3 + Map.roomCount * 2));
+			else {
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 4 + (int)(Map.roomCount * 1.5)));
+			}
 		}
 		if (this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
+		}
+		
+		if(this instanceof Potion) {
+			((Potion)this).activate();
 		}
 	}
 
@@ -92,6 +112,9 @@ public abstract class GameObject {
 	public int getHealth() {
 		return this.health;
 	}
+	public int getTotalHealth() {
+		return this.totalHealth;
+	}
 
 	public double getHealthPercent() {
 		return ((double) this.health/this.maxHealth);
@@ -99,6 +122,7 @@ public abstract class GameObject {
 
 	public void incrementHealth(int amount) {
 		this.health += amount;
+		this.totalHealth += amount;
 	}
 
 	protected Rectangle getRect() {
@@ -197,12 +221,12 @@ public abstract class GameObject {
 	}
 
 	public void hit(double d) {
-		if (RPGGame.ticks > hittable&&!invincible) {
+		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 26;
 
 		}
-	
+
 	}
 
 }

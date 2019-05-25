@@ -1,53 +1,26 @@
 
-public class Potion extends Item {
+public class Potion extends GameObject {
 
 	private String type;
 
-	public Potion(String pathName, int cost) {
-		super(pathName, cost);
-		getInfo(pathName);
-		//activate();
+	public Potion(double x, double y, String color) {
+		super(x + 15 / 2, y + 15 / 2, 35, 35, true, true, 1, "sprites/items/flask_big_" + color + ".png");
+		type = color;
 	}
 
-	private void getInfo(String pathName) {
-		switch (pathName) {
-		case "flask_big_blue.png":
-			type = "Invincibility";
-			break;
-		case "flask_big_green.png":
-			type = "Poison";
-			break;
-		case "flask_big_red.png":
-			type = "Damage";
-			break;
-		case "flask_big_yellow.png":
-			type = "Healing";
-		}
-	}
-
-	private void activate() {
+	public void activate() {
 		if (type.equals("Invincibility")) { // invincibility potion
 			int startTime = RPGGame.ticks;
 			RPGGame.getPlayer().setInvincibility(true);
 			if (RPGGame.ticks == startTime + 1000) { // turns of invincibility after 10 secs
 				RPGGame.getPlayer().setInvincibility(true);
 			}
-		}
-		else if (type.equals("Poison")) {
+		} else if (type.equals("green")) {
 			// to do
-		}
-		else if (type.equals("Damage")) {
+		} else if (type.equals("red")) {
 			// to do
+		} else if (type.equals("yellow")) { // health potion
+			RPGGame.getPlayer().incrementHealth(9 + (int)(Map.roomCount * 1.5)); // total health increase of 25
 		}
-		else if (type.equals("Healing")) { // health potion
-			for (int i = 0; i < 5; i++) {
-				RPGGame.getPlayer().incrementHealth(5); // total health increase of 25
-			}
-		}
-	}
-	
-	@Override
-	public String toString() {
-		return type + " Potion";
 	}
 }

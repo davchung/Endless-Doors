@@ -1,12 +1,12 @@
 import java.awt.Graphics;
 
-public class Goblin extends Enemy {
-	private static Animation run = new Animation("goblin_run", 4);
-	private static Animation idle = new Animation("goblin_idle", 4);
+public class Wogol extends Enemy {
+	private static Animation run = new Animation("wogol_run", 4);
+	private static Animation idle = new Animation("wogol_idle", 4);
 
-	public Goblin(double x, double y, int level) {
-		super(x, y, 40, 40, level,idle.getFirst());
-		
+	public Wogol(double x, double y, int level) {
+		super(x, y, 40, 60, level,idle.getFirst());
+
 	}
 
 	@Override
@@ -51,29 +51,36 @@ public class Goblin extends Enemy {
 		}
 	}
 
-	// the goblin has a possibility of being faster
+	// the Wogol now moves away from the player and can shoot
 	@Override
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = (RPGGame.getPlayer().getCX() - this.getCX());
-		y = (RPGGame.getPlayer().getCY() - this.getCY());
+		y = (RPGGame.getPlayer().getCX() - this.getCX());
+		x = (RPGGame.getPlayer().getCY() - this.getCY());
 
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
-		this.moveX(x * GameObject.randInt(1, 2)); // this makes the goblin possibly be faster
-		this.moveY(y * GameObject.randInt(1, 2));
+		this.moveX(x);
+		this.moveY(y);
 		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
 			RPGGame.getPlayer().hit(this.getDamage());
 		}
-		this.setRight(x);
+		this.setRight(y);
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
-		this.setDown(y);
+		this.setDown(x);
 		wallCollision();
+		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
+			if (this.canAttack()) {
+				RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
+						HEIGHT, -x, -y, 3, 500, this.getDamage(), "Sprites/fireball_f2.png"));
+				this.addCooldown(300);
+			}
+		}
 		RPGGame.getObjects().add(this);
 	}
 	@Override

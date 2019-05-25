@@ -18,9 +18,9 @@ public class RPGGame implements KeyListener {
 	private static Player player;
 	public static int lastR, lastD; // last direction the player was facing
 	private int facing = 1;
-	private Trader trader;
 	private Map map;
 	private Portal portal;
+	public static Trader trader;
 	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
@@ -33,7 +33,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<String> keys = new ArrayList<String>();
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	//private ArrayList<Wall> walls = new ArrayList<Wall>();
+	// private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> special = new ArrayList<Attack>();
@@ -58,7 +58,7 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<Attack> getPrimary() {
 		return primary;
 	}
-	
+
 	public static Floor getFloor() {
 		return floor;
 	}
@@ -66,6 +66,7 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<Attack> getEnemyAttacks() {
 		return enemyAttacks;
 	}
+
 	public static ArrayList<Attack> envirAttacks() {
 		return enemyAttacks;
 	}
@@ -78,7 +79,31 @@ public class RPGGame implements KeyListener {
 		return RPGGame.objects;
 	}
 
-	public void setEnemies(ArrayList<Enemy> list) {
+	public void setEnemies(int level) {
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		int amountE = (int) (Math.random() * 2) + 1 + level / 5;// amount of enemies in the floor
+		for (int c = 0; c < amountE; c++) {
+			int theme = (int) (Math.random() * 6); // gets a random type of enemy
+			switch (theme) {
+			case 0:
+				list.add(new Skeleton(0, 0, 1));
+				break;
+			case 1:
+				list.add(new Goblin(0, 0, 1));
+				break;
+			case 2:
+				list.add(new Demon(0, 0, 1));
+				break;
+			case 3:
+				list.add(new Wogol(0, 0, 1));
+				break;
+			case 4:
+				list.add(new Zombie(0, 0, 1));
+				break;
+			case 5:
+				list.add(new Swampy(0, 0, 1));
+			}
+		}
 		for (Enemy e : list) {
 			checkSpawns(e);
 		}
@@ -98,20 +123,15 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		selectClass();
+		trader = new Trader();
 		map = new Map();
 		objects.addAll(map.getWalls());
 		objects.addAll(map.getEObjs());
 		objects.add(player);
 
-		trader = new Trader();
+		
 		objects.add(trader);
-
-		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		Demon d = new Demon(0, 0, 1);
-		Skeleton a = new Skeleton(0, 0, 1);
-		list.add(d);
-		list.add(a);
-		setEnemies(list);
+		setEnemies(Map.roomCount);
 
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,7 +146,7 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				
+
 				floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
@@ -172,29 +192,41 @@ public class RPGGame implements KeyListener {
 					}
 				}
 
+				// this is where the player's health bar is drawn
+				g.setColor(new Color(255, 0, 0));
+				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
+				g.setColor(new Color(0, 255, 0));
+				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getTotalHealth(), 15);
+				g.setColor(new Color(0, 0, 0));
+				g.drawString("Player health: " + player.getHealth(), 22, 38);
+
 				if (helpShown == true) {
 					hP.draw(g);
 				}
 				if (helpShown == false) {
 					g.setColor(new Color(255, 255, 255));
-					g.drawString("Press ? for help.", 30, 25);
+					g.drawString("Press ? for help.", 22, 18);
 				}
 
 				if (levelDone == true) {
 					findEmptyPlace("portal");
-					if(player.collides(portal) && keys.contains("j")) {
-						portal.image = portal.getImage("Sprites/doors_leaf_open.png");
+					if (player.collides(portal) && keys.contains("j")) {
+						// dont touchy touchy
+						enemies.clear();
 						objects.removeAll(map.getEObjs());
 						objects.removeAll(map.getWalls());
+						damagedObjects.clear();
+						floor.reset();
 						map.addObjs();
 						objects.addAll(map.getEObjs());
 						findEmptyPlace("player");
+						setEnemies(Map.roomCount);
+						levelDone = false;
 						objects.remove(portal);
-						damagedObjects.clear();
-						enemies.clear();
 					}
 				}
 				if (gameOver == true) {
+					map.setRoomCount(0);
 					gO.draw(g);
 
 				}
@@ -230,8 +262,7 @@ public class RPGGame implements KeyListener {
 				update(); // updates movement
 
 				/**
-				 * int <= System.getCurrentTimeMillis();
-				 * 3000
+				 * int <= System.getCurrentTimeMillis(); 3000
 				 */
 				ticks++;
 			}
@@ -276,16 +307,17 @@ public class RPGGame implements KeyListener {
 		objects.removeAll(special);
 		objects.addAll(special);
 	}
-	
+
 	private void selectClass() {
-		String[] classes = new String[] {"Archer",  "Knight"};
-		switch(JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
+		String[] classes = new String[] { "Archer", "Knight" };
+		switch (JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
 		case 0:
 			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
 			break;
 		case 1:
 			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
-			
+
 		}
 	}
 
@@ -311,19 +343,31 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns(Enemy e2) {
-		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 50-e2.WIDTH) / 50;
-		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 50-e2.WIDTH) / 50;
+		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 50 - e2.WIDTH) / 50;
+		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 50 - e2.WIDTH) / 50;
 		if (e2 instanceof Demon) {
-		e2=null;
-		e2 = new Demon(x * 50, y * 50, 1);
+			e2 = null;
+			e2 = new Demon(x * 50, y * 50, 1);
 		}
 		if (e2 instanceof Goblin) {
-			e2=null;
+			e2 = null;
 			e2 = new Goblin(x * 50, y * 50, 1);
 		}
+		if (e2 instanceof Wogol) {
+			e2 = null;
+			e2 = new Wogol(x * 50, y * 50, 1);
+		}
 		if (e2 instanceof Skeleton) {
-			e2=null;
+			e2 = null;
 			e2 = new Skeleton(x * 50, y * 50, 1);
+		}
+		if (e2 instanceof Zombie) {
+			e2 = null;
+			e2 = new Zombie(x * 50, y * 50, 1);
+		}
+		if (e2 instanceof Swampy) {
+			e2 = null;
+			e2 = new Swampy(x * 50, y * 50, 1);
 		}
 
 		for (GameObject w : objects) {
@@ -334,6 +378,7 @@ public class RPGGame implements KeyListener {
 		}
 		enemies.add(e2);
 		objects.add(e2);
+
 	}
 
 	protected void movement() {
@@ -400,16 +445,18 @@ public class RPGGame implements KeyListener {
 				}
 			}
 
-			if (player.collides(objs) && objs instanceof Coin) {
+			if (player.collides(objs) && objs instanceof Chest)
+				toRemove.add(objs);
+			if (player.collides(objs) && (objs instanceof Coin || objs instanceof Potion)) {
 				toRemove.add(objs);
 			}
 			if (!objs.throughable) {
-				for (Attack p:primary) {
-					if (!(objs instanceof Player)&&player instanceof Archer&&p.collides(objs))
+				for (Attack p : primary) {
+					if (!(objs instanceof Player) && player instanceof Archer && p.collides(objs))
 						toRemove.add(p);
 				}
-				for (Attack s: special) {
-					if (!(objs instanceof Player)&&player instanceof Archer&&s.collides(objs)) {
+				for (Attack s : special) {
+					if (!(objs instanceof Player) && player instanceof Archer && s.collides(objs)) {
 						((Grapple) s).pull();
 						((Grapple) s).retract(objs);
 					}
@@ -429,8 +476,8 @@ public class RPGGame implements KeyListener {
 		}
 		for (GameObject g : toRemove) {
 			g.uponRemoval();
-			if(g instanceof Barrel)
-				envirAttacks.add(((Barrel)g).explode());
+			if (g instanceof Barrel)
+				envirAttacks.add(((Barrel) g).explode());
 		}
 		player.checkBounds();
 		objects.removeAll(toRemove);
@@ -457,8 +504,8 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("w")) {
 				player.moveY(-player.getSpeed());
 				down -= 1;
-				int checks=0;
-				while (wallCollision(player)&&checks<6) {
+				int checks = 0;
+				while (wallCollision(player) && checks < 6) {
 					player.moveY(player.getSpeed() / 5);
 					checks++;
 				}
@@ -466,8 +513,8 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("a")) {
 				player.moveX(-player.getSpeed());
 				right -= 1;
-				int checks=0;
-				while (wallCollision(player)&&checks<6) {
+				int checks = 0;
+				while (wallCollision(player) && checks < 6) {
 					player.moveX(player.getSpeed() / 5);
 					checks++;
 				}
@@ -475,8 +522,8 @@ public class RPGGame implements KeyListener {
 			if (keys.contains("s")) {
 				player.moveY(player.getSpeed());
 				down += 1;
-				int checks=0;
-				while (wallCollision(player)&&checks<6) {
+				int checks = 0;
+				while (wallCollision(player) && checks < 6) {
 					player.moveY(-player.getSpeed() / 5);
 					checks++;
 				}
@@ -485,14 +532,14 @@ public class RPGGame implements KeyListener {
 				player.moveX(player.getSpeed());
 				right += 1;
 				int checks = 0;
-				while (wallCollision(player)&&checks<6) {
+				while (wallCollision(player) && checks < 6) {
 					player.moveX(-player.getSpeed() / 5);
 					checks++;
 				}
 			}
 			if (keys.contains("o")) {
-				for (Enemy e: enemies) {
-					e.hit(100,1092039090);
+				for (Enemy e : enemies) {
+					e.hit(100, 1092039090);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -561,7 +608,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// check inventory
-		if (keys.contains("i")) {
+		if (keys.contains("i") && !(player.collides(trader))) {
 			invenShown = !invenShown;
 			mainPanel.repaint();
 			pause();
@@ -576,9 +623,8 @@ public class RPGGame implements KeyListener {
 			mainFrame.dispose();
 		}
 
-
 		// trading post
-		if (keys.contains("k") && player.collides(trader)) {
+		if (keys.contains("i") && player.collides(trader)) {
 			tradeOpen = !tradeOpen;
 			mainPanel.repaint();
 			pause();
@@ -589,7 +635,7 @@ public class RPGGame implements KeyListener {
 			if (JOptionPane.showConfirmDialog(null,
 					"Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot1().getGoldCost()) {
-					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
+					JOptionPane.showMessageDialog(null, "You don't have ensough gold to cover the purchase.");
 				} else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
 				} else {
@@ -694,11 +740,11 @@ public class RPGGame implements KeyListener {
 			}
 		}
 
-		if (!portalCheck) {
+		if (!portalCheck && levelDone == true) {
 			while (true) {
 				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
 				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
-				while(!(r %50 == 0 && c %50 ==0)) {
+				while (!(r % 50 == 0 && c % 50 == 0)) {
 					r = (int) (Math.random() * StartGame.SCREEN_WIDTH);
 					c = (int) (Math.random() * StartGame.SCREEN_HEIGHT);
 				}
@@ -709,9 +755,9 @@ public class RPGGame implements KeyListener {
 						here = false;
 				}
 				if (here) {
-					if(s.equals("portal"))
-						portal = new Portal(r,c);
-					if(s.equals("player"))
+					if (s.equals("portal"))
+						portal = new Portal(r, c);
+					if (s.equals("player"))
 						player.setPlayerLoc(r, c);
 					objects.add(portal);
 					return;
@@ -722,7 +768,6 @@ public class RPGGame implements KeyListener {
 		}
 
 	}
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {
