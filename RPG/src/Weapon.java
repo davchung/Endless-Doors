@@ -13,98 +13,79 @@ public class Weapon extends Item {
 	private void getInfo(String pathName) {
 		switch (pathName) {
 		case "axe.png":
-			atkSpeed = 2;
-			dmg = 15;
+			dmg = 1.5;
 			name = "Battle Axe";
 			break;
 		case "big_hammer.png":
-			atkSpeed = 2;
-			dmg = 30;
+			dmg = 3;
 			name = "Big Hammer";
 			break;
 		case "diamond_cleaver.png":
-			atkSpeed = 1.5;
-			dmg = 25;
+			dmg = 2.5;
 			name = "Diamond Cleaver";
 			break;
 		case "diamond_great_sword.png":
-			atkSpeed = 1;
-			dmg = 20;
+			dmg = 2;
 			name = "Diamond Great Sword";
 			break;
 		case "dueling_sword.png":
-			atkSpeed = .25;
-			dmg = 10;
+			dmg = 1;
 			name = "Dueling Sword";
 			break;
 		case "golden_sword.png":
-			atkSpeed = 1;
-			dmg = 30;
+			dmg = 3;
 			name = "Golden Sword";
 			break;
 		case "green_staff.png":
-			atkSpeed = 2;
-			dmg = 20;
+			dmg = 2;
 			name = "Green Staff";
 			break;
 		case "hammer.png":
-			atkSpeed = 2.5;
-			dmg = 20;
+			dmg = 2;
 			name = "Hammer";
 			break;
 		case "katana.png":
-			atkSpeed = .75;
-			dmg = 15;
+			dmg = 1.5;
 			name = "Katana";
 			break;
 		case "lavish_gold_sword.png":
-			atkSpeed = 2;
-			dmg = 50;
+			dmg = 5;
 			name = "Lavish Gold Sword";
 			break;
 		case "mace.png":
-			atkSpeed = 1.25;
-			dmg = 20;
+			dmg = 2;
 			name = "Mace";
 			break;
 		case "machete.png":
-			atkSpeed = 1;
-			dmg = 20;
+			dmg = 2;
 			name = "Machete";
 			break;
 		case "platinum_sword.png":
-			atkSpeed = 1;
-			dmg = 25;
+			dmg = 2.5;
 			name = "Platinum Sword";
 			break;
 		case "red_gem_sword.png":
-			atkSpeed = 1.25;
-			dmg = 30;
+			dmg = 3;
 			name = "Red Gem Sword";
 			break;
 		case "red_magic_staff.png":
-			atkSpeed = 3;
-			dmg = 60;
+			dmg = 6;
 			name = "Red Magic Staff";
 			break;
 		case "regular_sword.png":
-			atkSpeed = 1;
-			dmg = 10;
+			dmg = 1;
 			name = "Regular Sword";
 			break;
 		case "rusty_sword.png":
-			atkSpeed = 1;
-			dmg = 5;
+			dmg = .5;
 			name = "Rusty Sword";
 			break;
 		case "saw_sword.png":
-			atkSpeed = 1;
-			dmg = 15;
+			dmg= 1.5;
 			name = "Saw Sword";
 			break;
 		case "spiked_baton.png":
-			atkSpeed = 2;
-			dmg = 30;
+			dmg = 3;
 			name = "Spiked Baton";
 			break;
 
