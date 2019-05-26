@@ -1,5 +1,6 @@
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -41,7 +42,7 @@ public class Floor {
 
 	private void getImages() {
 		String fn ="img/sprites/floors/floor_";
-		for (int i = 1;i<9;i++) {
+		for (int i = 1;i<10;i++) {
 			BufferedImage img = null;
 			try {
 				img = GameObject.tint(ImageIO.read(this.getClass().getResource(fn + i+ ".png")),Color.gray);
