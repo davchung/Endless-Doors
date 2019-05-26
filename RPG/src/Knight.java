@@ -52,6 +52,12 @@ public class Knight extends Player {
 	protected void addSpecialCooldown(int i) {
 		canSpecial = RPGGame.ticks+i;
 	}
+	
+	public void drawTutorial(Graphics g) {
+		int shift = this.HEIGHT*2/5;
+		g.drawImage(idle.startScreen(), (int)super.locX, (int)super.locY-shift, (int)(super.WIDTH), (int)super.HEIGHT+shift, null);
+	}
+	
 	public void draw(Graphics g, int r) {
 		int dx = 0; 
 		if (r<0) 

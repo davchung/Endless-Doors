@@ -125,11 +125,11 @@ public class RPGGame implements KeyListener {
 	private void makeTutorial() {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
 		int difficulty = 100;
-		list.add(new Skeleton(50, 300, difficulty));
-		list.add(new Goblin(50, 450, difficulty));
-		list.add(new Wogol(50, 600, difficulty));
-		list.add(new Zombie(900, 300, difficulty));
-		list.add(new Swampy(900, 450, difficulty));
+		list.add(new Skeleton(75, 310, difficulty));
+		list.add(new Goblin(75, 475, difficulty));
+		list.add(new Wogol(75, 610, difficulty));
+		list.add(new Zombie(925, 325, difficulty));
+		list.add(new Swampy(925, 475, difficulty));
 		list.add(new Demon(900, 600, difficulty));
 		player.setLoc(500, 600);
 		portal = new Portal(500, 50);
@@ -155,7 +155,6 @@ public class RPGGame implements KeyListener {
 	}
 
 	public void beginGame() {
-		selectClass();
 		map = new Map();
 		objects.addAll(map.getWalls());
 		objects.addAll(map.getEObjs());
@@ -176,7 +175,6 @@ public class RPGGame implements KeyListener {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-
 				floor.drawFloor(g); // draws a floor...kinda
 
 				for (GameObject go : objects) {
@@ -368,16 +366,14 @@ public class RPGGame implements KeyListener {
 		objects.addAll(primary);
 	}
 
-	private void selectClass() {
-		String[] classes = new String[] { "Archer", "Knight" };
-		switch (JOptionPane.showOptionDialog(null, "Select a player class.", "Class Selection",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, classes, null)) {
+	public static void selectClass(int which) {
+		switch (which){
 		case 0:
-			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
 			break;
 		case 1:
-			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
-
+			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			break;
 		}
 	}
 
