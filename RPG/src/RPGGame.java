@@ -160,7 +160,7 @@ public class RPGGame implements KeyListener {
 		objects.add(player);
 
 		setEnemies(Map.getLevel());
-
+		StartGame.startFrame.dispose();
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {

@@ -23,6 +23,7 @@ public class StartGame {
 	public static Clip clip;
 	public static int ticks;
 	private static final int REFRESH_RATE = 10;
+	public static JFrame startFrame;
 	Timer timer;
 
 	public static void main(String[] args) {
@@ -47,7 +48,7 @@ public class StartGame {
 		k.expandPlayer(4);
 		Archer a = new Archer(1050-163-200,275);
 		a.expandPlayer(4);
-		JFrame startFrame = new JFrame("Welcome to RPG!");
+		startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		startFrame.setVisible(true);
 		startPanel = new JPanel() {
@@ -83,8 +84,6 @@ public class StartGame {
 		startPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent me) {
-				startFrame.setVisible(false);
-				startFrame.setEnabled(false);
 				if (me.getX()<SCREEN_WIDTH/2) {
 					RPGGame.selectClass(0);
 				}else {
@@ -94,6 +93,9 @@ public class StartGame {
 			}
 		});
 		
+	}
+	public void closeFrame() {
+		startFrame.dispose();
 	}
 
 	public static void center(JFrame frame) {
