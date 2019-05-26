@@ -44,7 +44,7 @@ public class Floor {
 		for (int i = 1;i<9;i++) {
 			BufferedImage img = null;
 			try {
-				img = ImageIO.read(this.getClass().getResource(fn + i+ ".png"));
+				img = GameObject.tint(ImageIO.read(this.getClass().getResource(fn + i+ ".png")),Color.gray);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
