@@ -378,7 +378,7 @@ public class Map {
 		}
 	}
 
-	public int getLevel() {
+	public static int getLevel() {
 		return roomCount-1;
 	}
 }

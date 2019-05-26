@@ -4,18 +4,19 @@ import java.awt.image.BufferedImage;
 public class Demon extends Enemy {
 	private static Animation run = new Animation("big_demon_run", 4);
 	private static Animation idle = new Animation("big_demon_idle", 4);
-	private BufferedImage damage;
+	private BufferedImage dmg;
 
 	public Demon(double x, double y, int level) {
 		super(x, y, 100, 100, level,idle.getFirst());
-		damage = super.getImage("sprites/big_demon_damage.png");
-		this.increaseMaxHealth(this.health);
+		dmg = super.getImage("sprites/big_demon_damage.png");
+		this.increaseMaxHealth(this.health+20);
+		damage+=level*2;
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		if (super.getHittable() > RPGGame.ticks) {
-			betterDraw(g, damage);
+			betterDraw(g, dmg);
 		} else {
 			betterDraw(g);
 		}
