@@ -265,7 +265,7 @@ public class Map {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		rooms.add(new int[][] { // 00 columns and 05 rows
+		rooms.add(new int[][] { // 21 columns and 15 rows
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -281,7 +281,7 @@ public class Map {
 				{ 0, 0, 0, 1, 1, 0, 0, 0, 0, 4, 2, 4, 0, 0, 0, 0, 1, 1, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		rooms.add(new int[][] { // 00 columns and 05 rows
+		rooms.add(new int[][] { // 21 columns and 15 rows
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0 },
@@ -297,7 +297,7 @@ public class Map {
 				{ 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		rooms.add(new int[][] { // 00 columns and 05 rows
+		rooms.add(new int[][] { // 21 columns and 15 rows
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 },
@@ -333,12 +333,6 @@ public class Map {
 			room[14][c] = 1;
 		}
 	}
-
-	/*
-	 * private void outlineChests(int[][] room) { while (numChest > 0) { int randR =
-	 * GameObject.randInt(4, 13); int randC = GameObject.randInt(5, 19); if
-	 * (room[randR][randC] == 0) { room[randR][randC] = 4; numChest--; } } }
-	 */
 
 	public int chooseRoom() {
 		if (roomCount == 0) {
@@ -382,7 +376,6 @@ public class Map {
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
 					break;
 				case 5:
-					RPGGame.trader = new Trader();
 					RPGGame.trader.setLoc((c - 1) * OBJ_WIDTH, (r - 1) * OBJ_HEIGHT);
 					RPGGame.getObjects().add(RPGGame.trader);
 					break;

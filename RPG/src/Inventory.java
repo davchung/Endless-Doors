@@ -51,7 +51,6 @@ public class Inventory extends GameGUI {
 		for (int i = 0; i < inventory.size(); i++) {
 			yVal += 40;
 			g.drawString("[" + (i+1) + "] " + inventory.get(i), LEFT_MARGIN+END_FONT, yVal);
-			g.drawImage(inventory.get(i).getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		}
 
 		g.setFont(new Font("Chelsea", 0, END_FONT));
