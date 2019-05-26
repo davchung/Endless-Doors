@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
-	protected int health;
-	protected int maxHealth;
+	protected double health;
+	protected double maxHealth;
 
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
@@ -109,16 +109,16 @@ public abstract class GameObject {
 		invincible = value;
 	}
 
-	public int getHealth() {
+	public double getHealth() {
 		return this.health;
 	}
-	public int getMaxHealth() {
+	public double getMaxHealth() {
 		return this.maxHealth;
 	}
 	
-	public void increaseMaxHealth(int amount) {
-		this.health+=amount;
-		this.maxHealth+=amount;
+	public void increaseMaxHealth(double d) {
+		this.health+=d;
+		this.maxHealth+=d;
 	}
 
 	public double getHealthPercent() {
@@ -236,6 +236,31 @@ public abstract class GameObject {
 				}
 		}
 
+	}
+	public static BufferedImage colorImage(BufferedImage loadImg, int red, int green, int blue) {
+	    BufferedImage img = new BufferedImage(loadImg.getWidth(), loadImg.getHeight(),
+	        BufferedImage.TRANSLUCENT);
+	    Graphics2D graphics = img.createGraphics(); 
+	    Color newColor = new Color(red, green, blue, 0 /* alpha needs to be zero */);
+	    graphics.setXORMode(newColor);
+	    graphics.drawImage(loadImg, null, 0, 0);
+	    graphics.dispose();
+	    return img;
+	}
+	public static BufferedImage tint(BufferedImage image, Color color) {
+		BufferedImage copy = image;
+	    for (int x = 0; x < image.getWidth(); x++) {
+	        for (int y = 0; y < image.getHeight(); y++) {
+	            Color pixelColor = new Color(image.getRGB(x, y), true);
+	            int r = (pixelColor.getRed() + color.getRed()) / 2;
+	            int g = (pixelColor.getGreen() + color.getGreen()) / 2;
+	            int b = (pixelColor.getBlue() + color.getBlue()) / 2;
+	            int a = pixelColor.getAlpha();
+	            int rgba = (a << 24) | (r << 16) | (g << 8) | b;
+	            copy.setRGB(x, y, rgba);
+	        }
+	    }
+	    return copy;
 	}
 
 }

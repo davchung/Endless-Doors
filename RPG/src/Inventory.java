@@ -29,8 +29,8 @@ public class Inventory extends GameGUI {
 		return Inventory.gold;
 	}
 
-	public void addGold(int gold) {
-		Inventory.gold += gold;
+	public void addGold(double health) {
+		Inventory.gold += health;
 	}
 
 	public void subtractGold(int gold) {

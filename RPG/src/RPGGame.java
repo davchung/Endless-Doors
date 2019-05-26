@@ -79,12 +79,17 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
+
 	public static ArrayList<GameObject> getDamagedObjects() {
 		return RPGGame.damagedObjects;
 	}
-	
 
 	public void setEnemies(int level) {
+		if (level == 0) {
+			makeTutorial();
+			levelDone=true;
+			return;
+		}
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
 		int amountE = (int) (Math.random() * 2) + 1 + level / 5;// amount of enemies in the floor
 		int difficulty = Map.getLevel() / 7 + 1;
@@ -110,11 +115,31 @@ public class RPGGame implements KeyListener {
 			}
 		}
 		if (level % 7 == 0) {
-			list.add(new Demon(0,0,difficulty));
+			list.add(new Demon(0, 0, difficulty));
 		}
 		for (Enemy e : list) {
-			checkSpawns(e);
+			checkSpawns(e,difficulty);
 		}
+	}
+
+	private void makeTutorial() {
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		int difficulty = 100;
+		list.add(new Skeleton(50, 300, difficulty));
+		list.add(new Goblin(50, 450, difficulty));
+		list.add(new Wogol(50, 600, difficulty));
+		list.add(new Zombie(900, 300, difficulty));
+		list.add(new Swampy(900, 450, difficulty));
+		list.add(new Demon(900, 600, difficulty));
+		player.setLoc(500, 600);
+		portal = new Portal(500, 50);
+		objects.add(portal);
+		for (Enemy e : list) {
+			e.addCooldown(100000);
+			objects.add(e);
+			enemies.add(e);
+		}
+
 	}
 
 	public static ArrayList<Enemy> getEnemies() {
@@ -187,15 +212,16 @@ public class RPGGame implements KeyListener {
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : enemies) {
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
-						g.drawString("" + -((MoveableObject) go).getLoss(), (int) go.getCX() - 10, (int) go.getCY());
+						g.drawString("" + -(int) ((MoveableObject) go).getLoss(), (int) go.getCX() - 10,
+								(int) go.getCY());
 					}
 				}
-				if (objDamaged == true) {
-					for (GameObject go : damagedObjects) {
-						if (go.getHealth() < 100 && go.getHealth() > 0 && !go.getInvincibility()) {
-							g.drawString("" + go.getHealth(), (int) go.getCX() - 8, (int) go.getCY());
-						}
+
+				for (GameObject go : damagedObjects) {
+					if (!(go instanceof Enemy) && !go.getInvincibility() && go.getHealth() > 0) {
+						g.drawString("" + (int) go.getHealth(), (int) go.getCX() - 8, (int) go.getCY());
 					}
+
 				}
 
 				// this is where the player's health bar is drawn
@@ -208,7 +234,8 @@ public class RPGGame implements KeyListener {
 				g.setColor(new Color(255, 0, 0));
 				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
 				g.setColor(new Color(0, 255, 0));
-				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getMaxHealth(), 15);
+				g.fillRect(20, 25,
+						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 15);
 				g.setColor(new Color(0, 0, 0));
 				g.drawString("Player health: " + player.getHealth(), 22, 38);
 				if (helpShown == true) {
@@ -229,7 +256,7 @@ public class RPGGame implements KeyListener {
 						special.clear();
 						enemyAttacks.clear();
 						damagedObjects.clear();
-						levelTicks=ticks;
+						levelTicks = ticks;
 						floor.reset();
 						map.addObjs();
 						objects.addAll(map.getEObjs());
@@ -270,7 +297,7 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				if (ticks-levelTicks > 50 || ticks-levelTicks == 0)
+				if (ticks - levelTicks > 50 || ticks - levelTicks == 0)
 					movement();
 				collision();
 				update(); // updates movement
@@ -288,15 +315,15 @@ public class RPGGame implements KeyListener {
 	protected void attractCoins() {
 		for (GameObject m : objects) {
 			if (m instanceof Coin) {
-				double x = player.getCX()-m.getCX();
-				double y = player.getCY()-m.getCY();
-				double mag = Math.sqrt(x*x+y*y);
-				x/=mag;
-				y/=mag;
-				double speed = 100/mag;
-				if (mag<300) {
-				m.moveX(x*speed);
-				m.moveY(y*speed);
+				double x = player.getCX() - m.getCX();
+				double y = player.getCY() - m.getCY();
+				double mag = Math.sqrt(x * x + y * y);
+				x /= mag;
+				y /= mag;
+				double speed = 100 / mag;
+				if (mag < 300) {
+					m.moveX(x * speed);
+					m.moveY(y * speed);
 				}
 			}
 		}
@@ -375,37 +402,37 @@ public class RPGGame implements KeyListener {
 
 	}
 
-	private void checkSpawns(Enemy e2) {
+	private void checkSpawns(Enemy e2, int level) {
 		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 50 - e2.WIDTH) / 50;
 		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 50 - e2.WIDTH) / 50;
 		if (e2 instanceof Demon) {
 			e2 = null;
-			e2 = new Demon(x * 50, y * 50, 1);
+			e2 = new Demon(x * 50, y * 50, level);
 		}
 		if (e2 instanceof Goblin) {
 			e2 = null;
-			e2 = new Goblin(x * 50, y * 50, 1);
+			e2 = new Goblin(x * 50, y * 50, level);
 		}
 		if (e2 instanceof Wogol) {
 			e2 = null;
-			e2 = new Wogol(x * 50, y * 50, 1);
+			e2 = new Wogol(x * 50, y * 50, level);
 		}
 		if (e2 instanceof Skeleton) {
 			e2 = null;
-			e2 = new Skeleton(x * 50, y * 50, 1);
+			e2 = new Skeleton(x * 50, y * 50, level);
 		}
 		if (e2 instanceof Zombie) {
 			e2 = null;
-			e2 = new Zombie(x * 50, y * 50, 1);
+			e2 = new Zombie(x * 50, y * 50, level);
 		}
 		if (e2 instanceof Swampy) {
 			e2 = null;
-			e2 = new Swampy(x * 50, y * 50, 1);
+			e2 = new Swampy(x * 50, y * 50, level);
 		}
 
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
-				checkSpawns(e2);
+				checkSpawns(e2,level);
 				return;
 			}
 		}

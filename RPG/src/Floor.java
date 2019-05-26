@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,9 +42,9 @@ public class Floor {
 
 	private void getImages() {
 		for (final File f : dir.listFiles()) {
-
 			try {
-				floors.add(ImageIO.read(f));
+				//floors.add(GameObject.colorImage(ImageIO.read(f), 0, 0, 0));
+				floors.add(GameObject.tint(ImageIO.read(f),Color.GRAY));
 			} catch (final IOException e) {
 			}
 		}
@@ -56,11 +57,11 @@ public class Floor {
 	}
 
 	public void setChestFloor(int xInd, int yInd) {
-		floor[yInd/50][xInd/50] = floors.size()-1;
+		floor[yInd / 50][xInd / 50] = floors.size() - 1;
 	}
 
 	public void reset() {
 		makeFloor();
-		
+
 	}
 }

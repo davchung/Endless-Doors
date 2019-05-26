@@ -1,6 +1,14 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public abstract class Enemy extends MoveableObject {
+	protected Animation run;
+	protected Animation idle;
+	protected int moveDown = -20;
+	protected int addLength = 0;
+	protected int moveLeft = 10;
+	protected boolean moving= true;
 
 	private static int baseHealth = 10;
 	// enemy speed
@@ -9,9 +17,40 @@ public abstract class Enemy extends MoveableObject {
 	public Enemy(double x, double y, int w, int h, int level, BufferedImage i) {
 		super(x, y, w, h, baseHealth + level * 10, i); 
 	}
+	protected void setRun(Animation running) {
+		run = running;
+	}
+	protected void setIdle(Animation idling) {
+		idle = idling;
+	}
+	
+	protected void drawDamage(Graphics g) {
+		double r = getRight() / Math.abs(getRight());
+		int dx = 0;
+		if (r < 0)
+			dx = (int) super.WIDTH +moveLeft*2;
+		if (getDown() != 0 || getRight() != 0) {
+			g.drawImage(GameObject.tint(run.getImage(),Color.WHITE), (int) super.locX + dx -moveLeft, (int) super.locY + moveDown,
+					(int) (r * (super.WIDTH+moveLeft*2 )), (int) super.HEIGHT+addLength, null);
+			return;
+		}
+		g.drawImage(GameObject.tint(idle.getImage(), Color.WHITE), (int) super.locX + dx-moveLeft , (int) super.locY +moveDown,
+				(int) (r * (super.WIDTH+moveLeft*2 )), (int) super.HEIGHT+addLength, null);
+	}
 
-	// getters and setters are here
-
+	protected void betterDraw(Graphics g) {
+		double r = getRight() / Math.abs(getRight());
+		int dx = 0;
+		if (r < 0)
+			dx = (int) super.WIDTH +moveLeft*2;
+		if (moving) {
+			g.drawImage(run.getImage(), (int) super.locX + dx-moveLeft , (int) super.locY+moveDown ,
+					(int) (r * (super.WIDTH+moveLeft*2 )), (int) super.HEIGHT+addLength, null);
+			return;
+		}
+		g.drawImage(idle.getImage(), (int) super.locX + dx-moveLeft , (int) super.locY+moveDown ,
+				(int) (r * (super.WIDTH+moveLeft*2 )), (int) super.HEIGHT+addLength, null);
+	}
 
 	public void autoMove() {
 		// makes the enemy follow the player
