@@ -61,7 +61,7 @@ public abstract class GameObject {
 	public void setLoc(int x, int y) {
 		locX = x;
 		locY = y;
-		current.setLocation(x, y);;
+		current.setLocation(x, y);
 	}
 
 	public int getgameID() {

@@ -330,12 +330,12 @@ public class Map {
 	 */
 
 	public int chooseRoom() {
-		if (roomCount % 5 == 0 && roomCount != 0) {
-			return 1; // will be trader room
-		}
 		if (roomCount % 10 == 0 && roomCount != 0) {
+			return 0; // boss room
+		}
+		if (roomCount % 5 == 0 && roomCount != 0) {
 			RPGGame.trader.setLoc(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
-			return 0; // will be boss room
+			return 1; // trader room
 		} else {
 			RPGGame.trader.setLoc(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
 			return (int) (Math.random() * (rooms.size() - 2)) + 2;
@@ -368,6 +368,7 @@ public class Map {
 					break;
 				case 5:
 					RPGGame.trader.setLoc((c-1)*OBJ_WIDTH, (r-1)*OBJ_HEIGHT);
+					break;
 				}
 			}
 		}
