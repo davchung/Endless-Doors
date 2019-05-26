@@ -1,35 +1,25 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Wogol extends Enemy {
-	private static Animation run = new Animation("wogol_run", 4);
-	private static Animation idle = new Animation("wogol_idle", 4);
+
 
 	public Wogol(double x, double y, int level) {
-		super(x, y, 40, 60, level,idle.getFirst());
-
+		super(x, y, 40, 60, level,null);
+		run = new Animation("wogol_run", 4);
+		idle = new Animation("wogol_idle", 4);
+		moveDown= -20;
+		addLength = 20;
+		moveLeft = 10;
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		if (super.getHittable() > RPGGame.ticks) {
-			//super.draw(g, damage);
+			drawDamage(g);
 		} else {
 			betterDraw(g);
 		}
-	}
-
-	private void betterDraw(Graphics g) {
-		double r = getRight() / Math.abs(getRight());
-		int dx = 0;
-		if (r < 0)
-			dx = (int) super.WIDTH +20;
-		if (getDown() != 0 || getRight() != 0) {
-			g.drawImage(getRun().getImage(), (int) super.locX + dx-10 , (int) super.locY-20 ,
-					(int) (r * (super.WIDTH+20 )), (int) super.HEIGHT+20, null);
-			return;
-		}
-		g.drawImage(getIdle().getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
-				(int) super.HEIGHT + 20, null);	
 	}
 
 	// these methods are for movement
@@ -56,24 +46,11 @@ public class Wogol extends Enemy {
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		y = (RPGGame.getPlayer().getCX() - this.getCX());
-		x = (RPGGame.getPlayer().getCY() - this.getCY());
-
+		x = -(RPGGame.getPlayer().getCX() - this.getCX());
+		y = -(RPGGame.getPlayer().getCY() - this.getCY());
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
-		this.moveX(x);
-		this.moveY(y);
-		while (this.collides(RPGGame.getPlayer())) {
-			this.moveX(-x / 10);
-			this.moveY(-y / 10);
-			RPGGame.getPlayer().hit(this.getDamage());
-		}
-		this.setRight(y);
-		if (Math.abs(x) < getSpeed() / 8)
-			this.setRight(1);
-		this.setDown(x);
-		wallCollision();
 		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
 			if (this.canAttack()) {
 				RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
@@ -81,6 +58,23 @@ public class Wogol extends Enemy {
 				this.addCooldown(300);
 			}
 		}
+		if (mag<250) {
+			this.moveX(x);
+			this.moveY(y);
+			moving = true;
+		} else {
+		moving = false;
+		}
+		while (this.collides(RPGGame.getPlayer())) {
+			this.moveX(-x / 10);
+			this.moveY(-y / 10);
+			RPGGame.getPlayer().hit(this.getDamage());
+		}
+		this.setRight(x);
+		if (Math.abs(x) < getSpeed() / 8)
+			this.setRight(1);
+		this.setDown(y);
+		wallCollision();
 		RPGGame.getObjects().add(this);
 	}
 	@Override
@@ -94,6 +88,6 @@ public class Wogol extends Enemy {
 
 	@Override
 	public String toString() {
-		return "Goblin";
+		return "Wogol";
 	}
 }

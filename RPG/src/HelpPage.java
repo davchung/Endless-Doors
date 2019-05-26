@@ -17,10 +17,10 @@ public class HelpPage extends GameGUI {
 		super.draw(g);
 		
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Optima", 0, TITLE_FONT));
+		g.setFont(new Font("Chelsea", 0, TITLE_FONT));
 		g.drawString("HELP PAGE", LEFT_MARGIN, yVal);
 		
-		g.setFont(new Font("Arial", 0, BODY_FONT));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT));
 		yVal += 80;
 		g.drawString("W A S D to move the character.", LEFT_MARGIN, yVal);
 		yVal += 40;
@@ -34,7 +34,7 @@ public class HelpPage extends GameGUI {
 		yVal += 40;
 		g.drawString("P to pause/play the game.", LEFT_MARGIN, yVal);
 
-		g.setFont(new Font("Optima", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		yVal += 80;
 		g.drawString("Press ? to return to game.", LEFT_MARGIN, yVal);
 		yVal += 25;

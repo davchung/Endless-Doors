@@ -2,7 +2,6 @@ import java.awt.Graphics;
 
 public class Chest extends GameObject {
 
-	private double amountOfGold;
 	private static Animation open = new Animation("chest_full_open", 3);
 
 	public Chest(double x, double y, double gold) {

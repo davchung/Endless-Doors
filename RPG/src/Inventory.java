@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Inventory extends GameGUI {
 
-	private int numWalls = 0;
 	private static int gold = 0;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
@@ -17,20 +16,13 @@ public class Inventory extends GameGUI {
 	public static ArrayList<Item> getItems(){
 		return inventory;
 	}
-	public void addWalls(int num) {
-		numWalls += num;
-	}
-
-	public void removeWalls(int num) {
-		numWalls -= num;
-	}
 	
 	public static int getGold() {
 		return Inventory.gold;
 	}
 
-	public void addGold(int gold) {
-		Inventory.gold += gold;
+	public void addGold(double health) {
+		Inventory.gold += health;
 	}
 
 	public void subtractGold(int gold) {
@@ -44,10 +36,10 @@ public class Inventory extends GameGUI {
 		super.draw(g);
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Herculanum", 0, TITLE_FONT));
+		g.setFont(new Font("Chelsea", 0, TITLE_FONT));
 		g.drawString("INVENTORY", LEFT_MARGIN, yVal);
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT));
 		yVal += 80;
 		g.drawString("Amount of gold: " + gold, LEFT_MARGIN, yVal);
 		yVal += 40;
@@ -62,7 +54,7 @@ public class Inventory extends GameGUI {
 			g.drawImage(inventory.get(i).getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		}
 
-		g.setFont(new Font("Herculanum", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		yVal += 80;
 		g.drawString("Press I to return to game.", LEFT_MARGIN, yVal);
 		yVal += 25;
