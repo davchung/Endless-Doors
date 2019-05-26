@@ -155,7 +155,6 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		map = new Map();
-		objects.addAll(map.getWalls());
 		objects.addAll(map.getEObjs());
 		objects.add(player);
 
