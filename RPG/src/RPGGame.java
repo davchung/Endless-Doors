@@ -692,7 +692,7 @@ public class RPGGame implements KeyListener {
 			if (JOptionPane.showConfirmDialog(null,
 					"Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot1().getGoldCost()) {
-					JOptionPane.showMessageDialog(null, "You don't have ensough gold to cover the purchase.");
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
 				} else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
 				} else {
