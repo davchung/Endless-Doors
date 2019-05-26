@@ -29,7 +29,11 @@ public abstract class Player extends MoveableObject {
 				(int) (r.getWidth() * 48 / 50), (int) (r.getHeight() * 48 / 50));
 		return k;
 	}
-	
+	//only use this for title screen or smth
+	public void expandPlayer(int factor) {
+		WIDTH*=factor;
+		HEIGHT*=factor;
+	}
 	// these are methods related to drawing
 
 	@Override
@@ -40,6 +44,7 @@ public abstract class Player extends MoveableObject {
 		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
 		return shield;
 	}
+
 
 	// this will allow Player to "build" a wall
 	public boolean build(int ticks) {

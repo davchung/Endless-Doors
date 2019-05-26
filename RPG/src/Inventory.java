@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Inventory extends GameGUI {
 
-	private int numWalls = 0;
 	private static int gold = 0;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
@@ -17,20 +16,13 @@ public class Inventory extends GameGUI {
 	public static ArrayList<Item> getItems(){
 		return inventory;
 	}
-	public void addWalls(int num) {
-		numWalls += num;
-	}
-
-	public void removeWalls(int num) {
-		numWalls -= num;
-	}
 	
 	public static int getGold() {
 		return Inventory.gold;
 	}
 
-	public void addGold(int gold) {
-		Inventory.gold += gold;
+	public void addGold(double health) {
+		Inventory.gold += health;
 	}
 
 	public void subtractGold(int gold) {

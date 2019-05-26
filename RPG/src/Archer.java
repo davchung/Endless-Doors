@@ -27,6 +27,10 @@ public class Archer extends Player {
 			super.hit(damage);
 		}
 	}
+	public void drawTutorial(Graphics g) {
+		int shift = this.HEIGHT*2/5;
+		g.drawImage(idle.startScreen(), (int)super.locX, (int)super.locY-shift, (int)(super.WIDTH), (int)super.HEIGHT+shift, null);
+	}
 
 	@Override
 	public boolean canMove() {

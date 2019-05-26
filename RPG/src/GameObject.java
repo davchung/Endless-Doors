@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 public abstract class GameObject {
 
 	// these are the variables that all GameObjects have
-	protected int health;
-	protected int maxHealth;
+	protected double health;
+	protected double maxHealth;
 
 	protected double locX, locY;
 	protected int WIDTH, HEIGHT;
@@ -109,16 +109,16 @@ public abstract class GameObject {
 		invincible = value;
 	}
 
-	public int getHealth() {
+	public double getHealth() {
 		return this.health;
 	}
-	public int getMaxHealth() {
+	public double getMaxHealth() {
 		return this.maxHealth;
 	}
 	
-	public void increaseMaxHealth(int amount) {
-		this.health+=amount;
-		this.maxHealth+=amount;
+	public void increaseMaxHealth(double d) {
+		this.health+=d;
+		this.maxHealth+=d;
 	}
 
 	public double getHealthPercent() {
@@ -216,7 +216,9 @@ public abstract class GameObject {
 			health -= d;
 			hittable = RPGGame.ticks + 10;
 			wasHit.add(iD);
-			RPGGame.getDamagedObjects().add(this);
+			if (!(this instanceof Enemy)) {
+				RPGGame.getDamagedObjects().add(this);
+				}
 		}
 	}
 
@@ -229,9 +231,34 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 26;
-			RPGGame.getDamagedObjects().add(this);
-		}
+			if (!(this instanceof Enemy)) {
+				RPGGame.getDamagedObjects().add(this);
+				}
+		} 
 
+	}
+	public static BufferedImage copyImage(BufferedImage source){
+	    BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+	    Graphics g = b.getGraphics();
+	    g.drawImage(source, 0, 0, null);
+	    g.dispose();
+	    return b;
+	}
+
+	public static BufferedImage tint(BufferedImage image, Color color) {
+		BufferedImage copy = copyImage(image);
+	    for (int x = 0; x < copy.getWidth(); x++) {
+	        for (int y = 0; y < copy.getHeight(); y++) {
+	            Color pixelColor = new Color(copy.getRGB(x, y), true);
+	            int r = (pixelColor.getRed() + color.getRed()) / 2;
+	            int g = (pixelColor.getGreen() + color.getGreen()) / 2;
+	            int b = (pixelColor.getBlue() + color.getBlue()) / 2;
+	            int a = pixelColor.getAlpha();
+	            int rgba = (a << 24) | (r << 16) | (g << 8) | b;
+	            copy.setRGB(x, y, rgba);
+	        }
+	    }
+	    return copy;
 	}
 
 }
