@@ -11,7 +11,6 @@ public abstract class GameGUI{
 	protected double WIDTH = StartGame.SCREEN_WIDTH * 8 / 10;
 	protected double HEIGHT = StartGame.SCREEN_HEIGHT * 8 / 10;
 	
-	private boolean pauseGame; // whether it pauses the game or not
 	public final static String PATH_PREFIX = "img/gui/";
 	protected BufferedImage img;
 	
@@ -21,12 +20,10 @@ public abstract class GameGUI{
 
 	// constructor #1 for GameGUI
 	public GameGUI(boolean pg, BufferedImage i) {
-		pauseGame = pg;
 	}
 
 	// constructor #2 for GameGUI
 	public GameGUI(boolean pg, String s) {
-		pauseGame = pg;
 	}
 
 	public void draw(Graphics g) {

@@ -1,8 +1,8 @@
 
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,11 +40,11 @@ public class Floor {
 	
 
 	private void getImages() {
-		String fn ="img/sprites/floors/floor_";
-		for (int i = 1;i<9;i++) {
+		String fn ="img/Sprites/floors/floor_";
+		for (int i = 1;i<10;i++) {
 			BufferedImage img = null;
 			try {
-				img = GameObject.tint(ImageIO.read(this.getClass().getResource(fn + i+ ".png")),Color.gray);
+				img = ImageIO.read(this.getClass().getResource(fn + i+".png"));
 			} catch (IOException e) {
 
 			}
