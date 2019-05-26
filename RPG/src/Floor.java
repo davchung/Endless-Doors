@@ -50,6 +50,13 @@ public class Floor {
 			}
 			floors.add(img);
 		}
+		File f = new File("src/img/Sprites/floor_with_chest.png");
+		try {
+			floors.add(ImageIO.read(f));
+			System.out.println("here");
+		} catch (final IOException e) {
+
+		}
 		
 	}
 
