@@ -121,14 +121,12 @@ public class RPGGame implements KeyListener {
 
 	public void beginGame() {
 		selectClass();
-		trader = new Trader();
 		map = new Map();
 		objects.addAll(map.getWalls());
 		objects.addAll(map.getEObjs());
 		objects.add(player);
 
 		
-		objects.add(trader);
 		setEnemies(Map.roomCount);
 
 		mainFrame.setVisible(true);

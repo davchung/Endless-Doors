@@ -341,7 +341,6 @@ public class Map {
 		else
 
 		{
-			RPGGame.trader.setLoc(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
 			return (int) (Math.random() * (rooms.size() - 2)) + 2;
 		}
 
@@ -371,7 +370,9 @@ public class Map {
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
 					break;
 				case 5:
+					RPGGame.trader = new Trader();
 					RPGGame.trader.setLoc((c - 1) * OBJ_WIDTH, (r - 1) * OBJ_HEIGHT);
+					RPGGame.getObjects().add(RPGGame.trader);
 					break;
 				}
 			}
