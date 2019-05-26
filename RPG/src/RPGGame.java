@@ -268,7 +268,7 @@ public class RPGGame implements KeyListener {
 					movement();
 				collision();
 				update(); // updates movement
-
+				attractCoins();
 				/**
 				 * int <= System.getCurrentTimeMillis(); 3000
 				 */
@@ -277,6 +277,21 @@ public class RPGGame implements KeyListener {
 
 		});
 		timer.start();
+	}
+
+	protected void attractCoins() {
+		for (GameObject m : objects) {
+			if (m instanceof Coin) {
+				double x = player.getCX()-m.getCX();
+				double y = player.getCY()-m.getCY();
+				double mag = Math.sqrt(x*x+y*y);
+				x/=mag;
+				y/=mag;
+				double speed = 100/mag;
+				m.moveX(x*speed);
+				m.moveY(y*speed);
+			}
+		}
 	}
 
 	protected void update() {
