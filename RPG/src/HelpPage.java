@@ -24,11 +24,11 @@ public class HelpPage extends GameGUI {
 		yVal += 80;
 		g.drawString("W A S D to move the character.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("J to attack and destroy blocks.", LEFT_MARGIN, yVal);
+		g.drawString("J to do main attack.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("K to activate shield and access the Trading Post (if near the Trader).", LEFT_MARGIN, yVal);
+		g.drawString("K to use special power.", LEFT_MARGIN, yVal);
 		yVal += 60;
-		g.drawString("I to access the Inventory page.", LEFT_MARGIN, yVal);
+		g.drawString("I to access the Inventory page, or Trading Post if near Trader.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("? to access the Help Page.", LEFT_MARGIN, yVal);
 		yVal += 40;

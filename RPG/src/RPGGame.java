@@ -631,7 +631,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// help button
-		if (keys.contains("?")) {
+		if (keys.contains("?") || keys.contains("/")) {
 			helpShown = !helpShown;
 			mainPanel.repaint();
 			/*

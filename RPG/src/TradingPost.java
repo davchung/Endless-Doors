@@ -104,7 +104,7 @@ public class TradingPost extends GameGUI {
 		yVal += 40;
 
 		g.setFont(new Font("Chelsea", 0, END_FONT));
-		g.drawString("Press K to return to game.", LEFT_MARGIN, yVal);
+		g.drawString("Press I to return to game.", LEFT_MARGIN, yVal);
 		yVal += 20;
 		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
 	}
