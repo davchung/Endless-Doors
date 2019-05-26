@@ -661,7 +661,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// check inventory
-		if (keys.contains("i")) {
+		if (keys.contains("i") && !(player.collides(trader))) {
 			invenShown = !invenShown;
 			mainPanel.repaint();
 			pause();
