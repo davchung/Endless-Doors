@@ -40,11 +40,11 @@ public class Floor {
 	
 
 	private void getImages() {
-		String fn ="img/Sprites/floors/floor_";
+		String fn ="img/sprites/floors/floor_";
 		for (int i = 1;i<9;i++) {
 			BufferedImage img = null;
 			try {
-				img = ImageIO.read(this.getClass().getResource(fn + i+".png"));
+				img = ImageIO.read(this.getClass().getResource(fn + i+ ".png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
