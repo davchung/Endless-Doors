@@ -44,7 +44,7 @@ public class Inventory extends GameGUI {
 		super.draw(g);
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Herculanum", 0, TITLE_FONT));
+		g.setFont(new Font("Chelsea", 0, TITLE_FONT));
 		g.drawString("INVENTORY", LEFT_MARGIN, yVal);
 
 		g.setFont(new Font("Papyrus", 0, BODY_FONT));

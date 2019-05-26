@@ -17,7 +17,7 @@ public class HelpPage extends GameGUI {
 		super.draw(g);
 		
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Optima", 0, TITLE_FONT));
+		g.setFont(new Font("Chelsea", 0, TITLE_FONT));
 		g.drawString("HELP PAGE", LEFT_MARGIN, yVal);
 		
 		g.setFont(new Font("Arial", 0, BODY_FONT));
