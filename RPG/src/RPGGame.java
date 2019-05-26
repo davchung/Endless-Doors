@@ -21,7 +21,7 @@ public class RPGGame implements KeyListener {
 	private int facing = 1;
 	private Map map;
 	private Portal portal;
-	public static Trader trader;
+	public static Trader trader = new Trader();
 	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
@@ -661,7 +661,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// check inventory
-		if (keys.contains("i") && !(player.collides(trader))) {
+		if (keys.contains("i")) {
 			invenShown = !invenShown;
 			mainPanel.repaint();
 			pause();
