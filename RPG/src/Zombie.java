@@ -5,7 +5,7 @@ public class Zombie extends Enemy {
 	private static Animation idle = new Animation("zombie_idle", 4);
 
 	public Zombie(double x, double y, int level) {
-		super(x, y, 40, 75, level,idle.getFirst());
+		super(x, y, 40, 60, level,idle.getFirst());
 		
 	}
 
