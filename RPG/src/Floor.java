@@ -41,23 +41,15 @@ public class Floor {
 
 	private void getImages() {
 		String fn ="img/Sprites/floors/floor_";
-		for (int i = 1;i<9;i++) {
+		for (int i = 1;i<10;i++) {
 			BufferedImage img = null;
 			try {
 				img = ImageIO.read(this.getClass().getResource(fn + i+".png"));
 			} catch (IOException e) {
-				e.printStackTrace();
+
 			}
 			floors.add(img);
 		}
-		File f = new File("src/img/Sprites/floor_with_chest.png");
-		try {
-			floors.add(ImageIO.read(f));
-			System.out.println("here");
-		} catch (final IOException e) {
-
-		}
-		
 	}
 
 	public void setChestFloor(int xInd, int yInd) {
