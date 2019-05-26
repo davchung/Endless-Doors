@@ -216,9 +216,9 @@ public abstract class GameObject {
 			health -= d;
 			hittable = RPGGame.ticks + 10;
 			wasHit.add(iD);
-			if (this instanceof Enemy) {
-			RPGGame.getDamagedObjects().add(this);
-			}
+			if (!(this instanceof Enemy)) {
+				RPGGame.getDamagedObjects().add(this);
+				}
 		}
 	}
 
@@ -231,27 +231,18 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 26;
-			if (this instanceof Enemy) {
+			if (!(this instanceof Enemy)) {
 				RPGGame.getDamagedObjects().add(this);
 				}
 		}
 
 	}
-	public static BufferedImage colorImage(BufferedImage loadImg, int red, int green, int blue) {
-	    BufferedImage img = new BufferedImage(loadImg.getWidth(), loadImg.getHeight(),
-	        BufferedImage.TRANSLUCENT);
-	    Graphics2D graphics = img.createGraphics(); 
-	    Color newColor = new Color(red, green, blue, 0 /* alpha needs to be zero */);
-	    graphics.setXORMode(newColor);
-	    graphics.drawImage(loadImg, null, 0, 0);
-	    graphics.dispose();
-	    return img;
-	}
+
 	public static BufferedImage tint(BufferedImage image, Color color) {
 		BufferedImage copy = image;
-	    for (int x = 0; x < image.getWidth(); x++) {
-	        for (int y = 0; y < image.getHeight(); y++) {
-	            Color pixelColor = new Color(image.getRGB(x, y), true);
+	    for (int x = 0; x < copy.getWidth(); x++) {
+	        for (int y = 0; y < copy.getHeight(); y++) {
+	            Color pixelColor = new Color(copy.getRGB(x, y), true);
 	            int r = (pixelColor.getRed() + color.getRed()) / 2;
 	            int g = (pixelColor.getGreen() + color.getGreen()) / 2;
 	            int b = (pixelColor.getBlue() + color.getBlue()) / 2;

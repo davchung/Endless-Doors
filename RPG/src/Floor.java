@@ -39,6 +39,7 @@ public class Floor {
 		}
 
 	}
+	
 
 	private void getImages() {
 		for (final File f : dir.listFiles()) {

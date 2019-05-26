@@ -25,6 +25,9 @@ public abstract class Enemy extends MoveableObject {
 	}
 	
 	protected void drawDamage(Graphics g) {
+//		betterDraw(g);
+//		if (true)
+//			return;
 		double r = getRight() / Math.abs(getRight());
 		int dx = 0;
 		if (r < 0)
@@ -103,5 +106,7 @@ public abstract class Enemy extends MoveableObject {
 	public Animation getRun() {
 		return null;
 	}
+	
+	
 
 }
