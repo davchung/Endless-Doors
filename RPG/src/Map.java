@@ -10,7 +10,7 @@ public class Map {
 	// public variables here
 	public static final int OBJ_WIDTH = 50;
 	public static final int OBJ_HEIGHT = 50;
-	public static int roomCount = 0;
+	public static int roomCount = 1;
 
 	public Map() {
 		walls = new ArrayList<Wall>();

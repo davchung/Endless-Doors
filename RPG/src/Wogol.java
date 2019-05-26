@@ -3,6 +3,7 @@ import java.awt.Graphics;
 public class Wogol extends Enemy {
 	private static Animation run = new Animation("wogol_run", 4);
 	private static Animation idle = new Animation("wogol_idle", 4);
+	boolean moving;
 
 	public Wogol(double x, double y, int level) {
 		super(x, y, 40, 60, level,idle.getFirst());
@@ -23,13 +24,13 @@ public class Wogol extends Enemy {
 		int dx = 0;
 		if (r < 0)
 			dx = (int) super.WIDTH +20;
-		if (getDown() != 0 || getRight() != 0) {
+		if (moving) {
 			g.drawImage(getRun().getImage(), (int) super.locX + dx-10 , (int) super.locY-20 ,
 					(int) (r * (super.WIDTH+20 )), (int) super.HEIGHT+20, null);
 			return;
 		}
-		g.drawImage(getIdle().getImage(), (int) super.locX + dx, (int) super.locY - 20, (int) (r * super.WIDTH),
-				(int) super.HEIGHT + 20, null);	
+		g.drawImage(getIdle().getImage(), (int) super.locX + dx-10 , (int) super.locY-20 ,
+				(int) (r * (super.WIDTH+20 )), (int) super.HEIGHT+20, null);
 	}
 
 	// these methods are for movement
@@ -56,14 +57,25 @@ public class Wogol extends Enemy {
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		y = (RPGGame.getPlayer().getCX() - this.getCX());
-		x = (RPGGame.getPlayer().getCY() - this.getCY());
-
+		x = -(RPGGame.getPlayer().getCX() - this.getCX());
+		y = -(RPGGame.getPlayer().getCY() - this.getCY());
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
-		this.moveX(x);
-		this.moveY(y);
+		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
+			if (this.canAttack()) {
+				RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
+						HEIGHT, -x, -y, 3, 500, this.getDamage(), "Sprites/fireball_f2.png"));
+				this.addCooldown(300);
+			}
+		}
+		if (mag<300) {
+			this.moveX(x);
+			this.moveY(y);
+			moving = true;
+		} else {
+		moving = false;
+		}
 		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
@@ -74,13 +86,6 @@ public class Wogol extends Enemy {
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
-		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
-			if (this.canAttack()) {
-				RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
-						HEIGHT, -x, -y, 3, 500, this.getDamage(), "Sprites/fireball_f2.png"));
-				this.addCooldown(300);
-			}
-		}
 		RPGGame.getObjects().add(this);
 	}
 	@Override
