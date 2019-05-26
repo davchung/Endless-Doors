@@ -371,4 +371,8 @@ public class Map {
 			}
 		}
 	}
+
+	public int getLevel() {
+		return roomCount;
+	}
 }
