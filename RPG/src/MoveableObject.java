@@ -1,5 +1,4 @@
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class MoveableObject extends GameObject{
 	//private field variables

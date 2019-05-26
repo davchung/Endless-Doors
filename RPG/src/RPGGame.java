@@ -43,7 +43,6 @@ public class RPGGame implements KeyListener {
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
-	private boolean objDamaged = false;
 	private boolean helpShown = false; // this makes the help page show up when
 	// the user first opens the game so that they know how to play the game
 	private boolean gameOver = false;
@@ -489,14 +488,12 @@ public class RPGGame implements KeyListener {
 					if (p.collides(objs) && !(objs instanceof Player)) {
 						objs.hit(p.getDamage(), p.getgameID());
 						damagedObjects.add(objs);
-						objDamaged = true;
 					}
 				}
 				for (Attack a : enemyAttacks) {
 					if (a.collides(objs)) {
 						objs.hit(a.getDamage(), a.getgameID());
 						damagedObjects.add(objs);
-						objDamaged = true;
 					}
 				}
 			}

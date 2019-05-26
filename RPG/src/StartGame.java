@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -9,21 +8,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
 
 import java.io.*;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class StartGame {
 	private JPanel startPanel;
-	private BufferedImage startImg;
 	public static int SCREEN_WIDTH = 1050;
 	public static int SCREEN_HEIGHT = 750;
 	public static Clip clip;
@@ -56,12 +50,6 @@ public class StartGame {
 		JFrame startFrame = new JFrame("Welcome to RPG!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		startFrame.setVisible(true);
-		try {
-			startImg = ImageIO.read(this.getClass().getResource("img/startImg.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		startPanel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
