@@ -234,12 +234,19 @@ public abstract class GameObject {
 			if (!(this instanceof Enemy)) {
 				RPGGame.getDamagedObjects().add(this);
 				}
-		}
+		} 
 
+	}
+	public static BufferedImage copyImage(BufferedImage source){
+	    BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+	    Graphics g = b.getGraphics();
+	    g.drawImage(source, 0, 0, null);
+	    g.dispose();
+	    return b;
 	}
 
 	public static BufferedImage tint(BufferedImage image, Color color) {
-		BufferedImage copy = image;
+		BufferedImage copy = copyImage(image);
 	    for (int x = 0; x < copy.getWidth(); x++) {
 	        for (int y = 0; y < copy.getHeight(); y++) {
 	            Color pixelColor = new Color(copy.getRGB(x, y), true);
