@@ -104,7 +104,7 @@ public class RPGGame implements KeyListener {
 				}
 			}
 		}
-		if (difficulty % 7 == 0) {
+		if (level % 7 == 0) {
 			list.add(new Demon(0,0,difficulty));
 		}
 		for (Enemy e : list) {
