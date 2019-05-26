@@ -288,8 +288,10 @@ public class RPGGame implements KeyListener {
 				x/=mag;
 				y/=mag;
 				double speed = 100/mag;
+				if (mag<300) {
 				m.moveX(x*speed);
 				m.moveY(y*speed);
+				}
 			}
 		}
 	}
