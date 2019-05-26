@@ -191,13 +191,14 @@ public class RPGGame implements KeyListener {
 				}
 
 				// this is where the player's health bar is drawn
+				g.setColor(Color.WHITE);
+				g.drawString("Level: " + map.getLevel(), StartGame.SCREEN_WIDTH-75, 18);
 				g.setColor(new Color(255, 0, 0));
 				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
 				g.setColor(new Color(0, 255, 0));
 				g.fillRect(20, 25, ((StartGame.SCREEN_WIDTH / 4) * player.getHealth()) / player.getMaxHealth(), 15);
 				g.setColor(new Color(0, 0, 0));
 				g.drawString("Player health: " + player.getHealth(), 22, 38);
-
 				if (helpShown == true) {
 					hP.draw(g);
 				}
