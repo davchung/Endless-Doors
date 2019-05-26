@@ -592,7 +592,7 @@ public class RPGGame implements KeyListener {
 			}
 			if (keys.contains("o")) {
 				for (Enemy e : enemies) {
-					e.hit(100, 1092039090);
+					e.hit(Integer.MAX_VALUE, Integer.MAX_VALUE);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -671,8 +671,12 @@ public class RPGGame implements KeyListener {
 		if (gameOver == true && (keys.contains("n"))) {
 			objects.clear();
 			enemies.clear();
+			primary.clear();
+			special.clear();
 			enemyAttacks.clear();
-			new RPGGame().beginGame();
+			damagedObjects.clear();
+			floor.reset();
+			new StartGame().init();
 			mainFrame.dispose();
 		}
 
