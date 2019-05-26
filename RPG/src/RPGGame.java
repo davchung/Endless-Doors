@@ -222,7 +222,7 @@ public class RPGGame implements KeyListener {
 						objects.clear();
 						primary.clear();
 						special.clear();
-						enemyAttacks.clear();dd
+						enemyAttacks.clear();
 						damagedObjects.clear();
 						floor.reset();
 						map.addObjs();
