@@ -13,6 +13,7 @@ public class RPGGame implements KeyListener {
 	private static Timer timer;
 	private static final int REFRESH_RATE = 10;
 	public static int ticks = 0;
+	private static int levelTicks;
 
 	// these are all variables that are involved with playing the game
 	private static Player player;
@@ -34,7 +35,7 @@ public class RPGGame implements KeyListener {
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	// private ArrayList<Wall> walls = new ArrayList<Wall>();
-	private ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
+	private static ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> special = new ArrayList<Attack>();
 	private static ArrayList<Attack> envirAttacks = new ArrayList<Attack>();
@@ -78,6 +79,10 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<GameObject> getObjects() {
 		return RPGGame.objects;
 	}
+	public static ArrayList<GameObject> getDamagedObjects() {
+		return RPGGame.damagedObjects;
+	}
+	
 
 	public void setEnemies(int level) {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
@@ -224,6 +229,7 @@ public class RPGGame implements KeyListener {
 						special.clear();
 						enemyAttacks.clear();
 						damagedObjects.clear();
+						levelTicks=ticks;
 						floor.reset();
 						map.addObjs();
 						objects.addAll(map.getEObjs());
@@ -264,7 +270,7 @@ public class RPGGame implements KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				mainPanel.repaint();
 				controls();
-				if (ticks > 50 || ticks == 0)
+				if (ticks-levelTicks > 50 || ticks-levelTicks == 0)
 					movement();
 				collision();
 				update(); // updates movement

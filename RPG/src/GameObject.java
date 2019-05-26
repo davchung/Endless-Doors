@@ -216,6 +216,7 @@ public abstract class GameObject {
 			health -= d;
 			hittable = RPGGame.ticks + 10;
 			wasHit.add(iD);
+			RPGGame.getDamagedObjects().add(this);
 		}
 	}
 
@@ -228,7 +229,7 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 26;
-
+			RPGGame.getDamagedObjects().add(this);
 		}
 
 	}

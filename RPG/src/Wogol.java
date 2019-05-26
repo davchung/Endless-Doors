@@ -69,7 +69,7 @@ public class Wogol extends Enemy {
 				this.addCooldown(300);
 			}
 		}
-		if (mag<300) {
+		if (mag<250) {
 			this.moveX(x);
 			this.moveY(y);
 			moving = true;
