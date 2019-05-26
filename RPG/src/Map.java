@@ -330,10 +330,10 @@ public class Map {
 	 */
 
 	public int chooseRoom() {
-		if (roomCount % 7 == 6 ) {
+		if (roomCount % 7 == 0 ) {
 			return 0; // boss room
 		}
-		if (roomCount % 7 == 0) {
+		if (roomCount % 7 == 6) {
 			return 1; // will be trader room
 		}
 		RPGGame.trader.setLoc(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
