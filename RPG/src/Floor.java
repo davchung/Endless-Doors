@@ -10,8 +10,6 @@ import javax.imageio.ImageIO;
 
 public class Floor {
 
-	static final File dir = new File("src/img/Sprites/floors");
-
 	int[][] floor;
 	ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
 
@@ -42,19 +40,17 @@ public class Floor {
 	
 
 	private void getImages() {
-		for (final File f : dir.listFiles()) {
+		String fn ="img/Sprites/floors/floor_";
+		for (int i = 1;i<9;i++) {
+			BufferedImage img = null;
 			try {
-				//floors.add(GameObject.colorImage(ImageIO.read(f), 0, 0, 0));
-				floors.add(GameObject.tint(ImageIO.read(f),Color.GRAY));
-			} catch (final IOException e) {
+				img = ImageIO.read(this.getClass().getResource(fn + i+".png"));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+			floors.add(img);
 		}
-		File f = new File("src/img/Sprites/floor_with_chest.png");
-		try {
-			floors.add(ImageIO.read(f));
-		} catch (final IOException e) {
-
-		}
+		
 	}
 
 	public void setChestFloor(int xInd, int yInd) {
