@@ -48,11 +48,11 @@ public class TradingPost extends GameGUI {
 		super.draw(g);
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Herculanum", 0, TITLE_FONT-25));
+		g.setFont(new Font("Chelsea", 0, TITLE_FONT-25));
 		g.drawString("TRADING POST", LEFT_MARGIN, yVal);
 		yVal += 50;
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT-5));
 		g.drawString("Welcome to my shop, traveler.", LEFT_MARGIN, yVal);
 		yVal += 35;
 
@@ -63,47 +63,47 @@ public class TradingPost extends GameGUI {
 		g.drawString("[1] " + slot1, LEFT_MARGIN, yVal);
 		g.drawImage(slot1.getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		yVal += 25;
-		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		g.drawString("Cost: " + slot1.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
 		
-		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT-5));
 		g.drawString("[2] " + slot2, LEFT_MARGIN, yVal);
 		g.drawImage(slot2.getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		yVal += 25;
-		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		g.drawString("Cost: " + slot2.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
 		
-		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT-5));
 		g.drawString("[3] " + slot3, LEFT_MARGIN, yVal);
 		g.drawImage(slot3.getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		yVal += 25;
-		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		g.drawString("Cost: " + slot3.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
 		
-		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT-5));
 		g.drawString("[4] " + slot4, LEFT_MARGIN, yVal);
 		g.drawImage(slot4.getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		yVal += 25;
-		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		g.drawString("Cost: " + slot4.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
 		
-		g.setFont(new Font("Papyrus", 0, BODY_FONT-5));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT-5));
 		g.drawString("[5] " + slot5, LEFT_MARGIN, yVal);
 		g.drawImage(slot5.getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		yVal += 25;
-		g.setFont(new Font("Comic Sans MS", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		g.drawString("Cost: " + slot5.getGoldCost(), LEFT_MARGIN + LEFT_INDENT, yVal);
 		yVal += 40;
 
-		g.setFont(new Font("Herculanum", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		g.drawString("Press K to return to game.", LEFT_MARGIN, yVal);
 		yVal += 20;
 		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);

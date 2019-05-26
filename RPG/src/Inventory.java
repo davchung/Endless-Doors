@@ -47,7 +47,7 @@ public class Inventory extends GameGUI {
 		g.setFont(new Font("Chelsea", 0, TITLE_FONT));
 		g.drawString("INVENTORY", LEFT_MARGIN, yVal);
 
-		g.setFont(new Font("Papyrus", 0, BODY_FONT));
+		g.setFont(new Font("Chelsea", 0, BODY_FONT));
 		yVal += 80;
 		g.drawString("Amount of gold: " + gold, LEFT_MARGIN, yVal);
 		yVal += 40;
@@ -62,7 +62,7 @@ public class Inventory extends GameGUI {
 			g.drawImage(inventory.get(i).getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		}
 
-		g.setFont(new Font("Herculanum", 0, END_FONT));
+		g.setFont(new Font("Chelsea", 0, END_FONT));
 		yVal += 80;
 		g.drawString("Press I to return to game.", LEFT_MARGIN, yVal);
 		yVal += 25;

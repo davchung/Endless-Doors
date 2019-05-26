@@ -13,9 +13,9 @@ public class GameOver extends GameGUI {
 		super.draw(g);;
 
 		g.setColor(new Color(255, 255, 255));
-		g.setFont(new Font("Times New Roman", 0, 102));
+		g.setFont(new Font("Chelsea", 0, 102));
 		g.drawString("Game Over!", StartGame.SCREEN_WIDTH * 1 / 4, StartGame.SCREEN_HEIGHT * 4 / 10);
-		g.setFont(new Font("Arial", 0, 60));
+		g.setFont(new Font("Chelsea", 0, 60));
 		g.drawString("Press N to return to start.", StartGame.SCREEN_WIDTH * 1 / 5, StartGame.SCREEN_HEIGHT * 6 / 10);
 	}
 }
