@@ -3,10 +3,12 @@ import java.awt.Graphics;
 public class Goblin extends Enemy {
 	private static Animation run = new Animation("goblin_run", 4);
 	private static Animation idle = new Animation("goblin_idle", 4);
+	private static double faceR=Math.random()-.5;
+	private static double faceD=Math.random()-.5;
 
 	public Goblin(double x, double y, int level) {
 		super(x, y, 40, 40, level,idle.getFirst());
-		
+		speed=2.5;
 	}
 
 	@Override
@@ -56,14 +58,13 @@ public class Goblin extends Enemy {
 	public void autoMove() {
 		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = (RPGGame.getPlayer().getCX() - this.getCX());
-		y = (RPGGame.getPlayer().getCY() - this.getCY());
-
+		x = faceR;
+		y = faceD;
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
-		this.moveX(x * GameObject.randInt(1, 2)); // this makes the goblin possibly be faster
-		this.moveY(y * GameObject.randInt(1, 2));
+		this.moveX(x); // this makes the goblin possibly be faster
+		this.moveY(y);
 		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
@@ -76,6 +77,39 @@ public class Goblin extends Enemy {
 		wallCollision();
 		RPGGame.getObjects().add(this);
 	}
+	@Override
+	protected void wallCollision() {
+		for (GameObject i : RPGGame.getObjects()) {
+			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
+				double dx = this.getCX() - i.getCX();
+				double dy = this.getCY() - i.getCY();
+				double m = Math.sqrt(dx * dx + dy * dy);
+				dx = super.getSpeed() * dx / m;
+				dy = super.getSpeed() * dy / m;
+				super.moveX(dx / 5);
+				super.moveY(dy / 5);
+				if (!(i instanceof Enemy)) {
+					i.hit(this.getDamage()/2);
+				}
+				if(!(i.equals(RPGGame.getPlayer()))){
+					pickRandomDirection();
+				}
+			}
+
+		}
+		for (GameObject i : RPGGame.getObjects()) {
+			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
+				wallCollision();
+			}
+		}
+
+	}
+	
+	private void pickRandomDirection() {
+		faceR= (int)(Math.random()*101)-50;
+		faceD= (int)(Math.random()*101)-50;
+	}
+
 	@Override
 	public Animation getRun() {
 		return run;

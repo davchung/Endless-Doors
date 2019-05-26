@@ -220,6 +220,9 @@ public class RPGGame implements KeyListener {
 						// dont touchy touchy
 						enemies.clear();
 						objects.clear();
+						primary.clear();
+						special.clear();
+						enemyAttacks.clear();dd
 						damagedObjects.clear();
 						floor.reset();
 						map.addObjs();
@@ -311,6 +314,8 @@ public class RPGGame implements KeyListener {
 		objects.addAll(enemyAttacks);
 		objects.removeAll(special);
 		objects.addAll(special);
+		objects.removeAll(primary);
+		objects.addAll(primary);
 	}
 
 	private void selectClass() {
