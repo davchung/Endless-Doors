@@ -161,7 +161,7 @@ public class RPGGame implements KeyListener {
 		map = new Map();
 		objects.addAll(map.getEObjs());
 		objects.add(player);
-		test.start();
+		test.loop();
 		setEnemies(Map.getLevel());
 		StartGame.startFrame.dispose();
 		mainFrame.setVisible(true);
