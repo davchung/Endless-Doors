@@ -44,14 +44,14 @@ public class RPGGame implements KeyListener {
 
 	// these variables are all "switches" (imagine an on/off switch for a light
 	// bulb)
-	private boolean helpShown = false; // this makes the help page show up when
-	// the user first opens the game so that they know how to play the game
+	private boolean helpShown = false;
 	private boolean gameOver = false;
 	private boolean invenShown = false; // inventory shown
 	private boolean levelDone = false;
 	private boolean tradeOpen = false;
 	private boolean pHit = false;
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// these are getters for variables
 	public static Player getPlayer() {
 		return RPGGame.player;
@@ -97,64 +97,7 @@ public class RPGGame implements KeyListener {
 		return i;
 	}
 
-	public void setEnemies(int level) {
-		if (level == 0) {
-			makeTutorial();
-			levelDone = true;
-			return;
-		}
-		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int amountE = (int) (Math.random() * 2) + 1 + level / 7;// amount of enemies in the floor
-		int difficulty = Map.getLevel() / 7 + 1;
-		if (!((level % 7 == 0) || (level % 7 == 6))) {
-			for (int c = 0; c < amountE; c++) {
-				int theme = (int) (Math.random() * 5); // gets a random type of enemy
-				switch (theme) {
-				case 0:
-					list.add(new Skeleton(0, 0, difficulty));
-					break;
-				case 1:
-					list.add(new Goblin(0, 0, difficulty));
-					break;
-				case 2:
-					list.add(new Wogol(0, 0, difficulty));
-					break;
-				case 3:
-					list.add(new Zombie(0, 0, difficulty));
-					break;
-				case 4:
-					list.add(new Swampy(0, 0, difficulty));
-					break;
-				}
-			}
-		}
-		if (level % 7 == 0) {
-			list.add(new Demon(0, 0, difficulty));
-		}
-		for (Enemy e : list) {
-			checkSpawns(e, difficulty);
-		}
-	}
-
-	private void makeTutorial() {
-		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int difficulty = 100;
-		list.add(new Skeleton(75, 310, difficulty));
-		list.add(new Goblin(75, 475, difficulty));
-		list.add(new Wogol(75, 610, difficulty));
-		list.add(new Zombie(925, 325, difficulty));
-		list.add(new Swampy(925, 475, difficulty));
-		list.add(new Demon(900, 600, difficulty));
-		player.setLoc(500, 600);
-		portal = new Portal(500, 50);
-		objects.add(portal);
-		for (Enemy e : list) {
-			e.addCooldown(100000);
-			objects.add(e);
-			enemies.add(e);
-		}
-
-	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public void beginGame() {
 		i = new Inventory();
@@ -221,7 +164,6 @@ public class RPGGame implements KeyListener {
 					if (!(go instanceof Enemy) && !go.getInvincibility() && go.getHealth() > 0) {
 						g.drawString("" + (int) go.getHealth(), (int) go.getCX() - 8, (int) go.getCY());
 					}
-
 				}
 
 				// this is where the player's health bar is drawn
@@ -247,7 +189,7 @@ public class RPGGame implements KeyListener {
 					timer.setDelay(5);
 					pHit=false;
 				}
-					*/
+				 */
 				if (helpShown == true) {
 					hP.draw(g);
 				}
@@ -255,11 +197,10 @@ public class RPGGame implements KeyListener {
 					g.setColor(new Color(255, 255, 255));
 					g.drawString("Press ? for help.", 22, 18);
 				}
-
 				if (levelDone == true) {
 					findEmptyPlace("portal");
 					if (player.collides(portal) && keys.contains("j")) {
-						// dont touchy touchy
+						// don't touchy touchy
 						enemies.clear();
 						objects.clear();
 						primary.clear();
@@ -281,7 +222,6 @@ public class RPGGame implements KeyListener {
 					gO.draw(g);
 
 				}
-
 				if (invenShown == true) {
 					i.draw(g);
 				}
@@ -320,6 +260,63 @@ public class RPGGame implements KeyListener {
 
 		});
 		timer.start();
+	}
+
+	public void setEnemies(int level) {
+		if (level == 0) {
+			makeTutorial();
+			levelDone = true;
+			return;
+		}
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		int amountE = (int) (Math.random() * 2) + 1 + level / 7;// amount of enemies in the floor
+		int difficulty = Map.getLevel() / 7 + 1;
+		if (!((level % 7 == 0) || (level % 7 == 6))) {
+			for (int c = 0; c < amountE; c++) {
+				int theme = (int) (Math.random() * 5); // gets a random type of enemy
+				switch (theme) {
+				case 0:
+					list.add(new Skeleton(0, 0, difficulty));
+					break;
+				case 1:
+					list.add(new Goblin(0, 0, difficulty));
+					break;
+				case 2:
+					list.add(new Wogol(0, 0, difficulty));
+					break;
+				case 3:
+					list.add(new Zombie(0, 0, difficulty));
+					break;
+				case 4:
+					list.add(new Swampy(0, 0, difficulty));
+				}
+			}
+		}
+		if (level % 7 == 0) {
+			list.add(new Demon(0, 0, difficulty));
+		}
+		for (Enemy e : list) {
+			checkSpawns(e, difficulty);
+		}
+	}
+
+	private void makeTutorial() {
+		ArrayList<Enemy> list = new ArrayList<Enemy>();
+		int difficulty = 100;
+		list.add(new Skeleton(75, 310, difficulty));
+		list.add(new Goblin(75, 475, difficulty));
+		list.add(new Wogol(75, 610, difficulty));
+		list.add(new Zombie(925, 325, difficulty));
+		list.add(new Swampy(925, 475, difficulty));
+		list.add(new Demon(900, 600, difficulty));
+		player.setLoc(500, 600);
+		portal = new Portal(500, 50);
+		objects.add(portal);
+		for (Enemy e : list) {
+			e.addCooldown(100000);
+			objects.add(e);
+			enemies.add(e);
+		}
 	}
 
 	protected void attractCoins() {
@@ -471,7 +468,6 @@ public class RPGGame implements KeyListener {
 		for (Enemy enemy : enemies) {
 			enemy.autoMove();
 		}
-
 	}
 
 	protected void collision() {
@@ -575,7 +571,6 @@ public class RPGGame implements KeyListener {
 		primary.removeAll(toRemove);
 		envirAttacks.removeAll(toRemove);
 		special.removeAll(toRemove);
-
 	}
 
 	public boolean wallCollision(GameObject object) {
@@ -584,9 +579,9 @@ public class RPGGame implements KeyListener {
 				return true;
 		}
 		return false;
-
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// this allows the player to be controlled by W A S D
 	private void controls() {
 		int down = 0, right = 0;
@@ -727,6 +722,11 @@ public class RPGGame implements KeyListener {
 			pause();
 		}
 
+		tradingPostBuying();
+
+	}
+
+	private void tradingPostBuying() {
 		// trading post - buy option 1
 		if (keys.contains("1") && tradeOpen == true) {
 			if (JOptionPane.showConfirmDialog(null,
@@ -817,6 +817,7 @@ public class RPGGame implements KeyListener {
 			}
 			keys.remove(keys.indexOf("5"));
 		}
+
 		mainPanel.repaint();
 
 	}
@@ -858,19 +859,12 @@ public class RPGGame implements KeyListener {
 					}
 					if (s.equals("player"))
 						player.setPlayerLoc(r, c);
-
 					return;
-
 				}
 			}
-
 		}
-
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-
-	}
-
+	public void keyTyped(KeyEvent e) { }
 }
