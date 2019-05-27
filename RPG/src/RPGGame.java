@@ -82,13 +82,15 @@ public class RPGGame implements KeyListener {
 	public static ArrayList<GameObject> getDamagedObjects() {
 		return RPGGame.damagedObjects;
 	}
-	
+
 	public static ArrayList<Enemy> getEnemies() {
 		return RPGGame.enemies;
 	}
+
 	public static ArrayList<Attack> getSpecial() {
 		return RPGGame.special;
 	}
+
 	public static Inventory getInventory() {
 		return i;
 	}
@@ -96,7 +98,7 @@ public class RPGGame implements KeyListener {
 	public void setEnemies(int level) {
 		if (level == 0) {
 			makeTutorial();
-			levelDone=true;
+			levelDone = true;
 			return;
 		}
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
@@ -127,7 +129,7 @@ public class RPGGame implements KeyListener {
 			list.add(new Demon(0, 0, difficulty));
 		}
 		for (Enemy e : list) {
-			checkSpawns(e,difficulty);
+			checkSpawns(e, difficulty);
 		}
 	}
 
@@ -351,6 +353,18 @@ public class RPGGame implements KeyListener {
 			e.update();
 		}
 		if (enemies.isEmpty()) {
+			if (levelDone == false) {
+				for (GameObject obj : objects) {
+					if (obj.health > 5) {
+						if (obj instanceof Crate) {
+							obj.health = 5;
+						}
+						if (obj instanceof Barrel) {
+							obj.health = 5;
+						}
+					}
+				}
+			}
 			levelDone = true;
 		}
 		objects.removeAll(enemies);
@@ -364,7 +378,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	public static void selectClass(int which) {
-		switch (which){
+		switch (which) {
 		case 0:
 			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
 			break;
@@ -425,7 +439,7 @@ public class RPGGame implements KeyListener {
 
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
-				checkSpawns(e2,level);
+				checkSpawns(e2, level);
 				return;
 			}
 		}
@@ -485,7 +499,7 @@ public class RPGGame implements KeyListener {
 				for (Attack p : primary) {
 					if (p.collides(objs) && !(objs instanceof Player)) {
 						if (player instanceof Archer) {
-							objs.hit(p.getDamage()*2, p.getgameID());
+							objs.hit(p.getDamage() * 2, p.getgameID());
 						}
 						if (player instanceof Knight) {
 							objs.hit(p.getDamage(), p.getgameID());
