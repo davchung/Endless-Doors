@@ -2,12 +2,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,19 +34,19 @@ public class StartGame {
 	}
 
 	public void init() {
-		/**
+		
 		try { 
 			AudioInputStream audioIn;
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/bgm.wav"));
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			if (!clip.isRunning()) {
-				clip.loop(clip.LOOP_CONTINUOUSLY);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
 			}
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 			e1.printStackTrace();
 		}
-		**/
+		
 		Knight k = new Knight(163,275);
 		k.expandPlayer(4);
 		Archer a = new Archer(1050-163-200,275);
