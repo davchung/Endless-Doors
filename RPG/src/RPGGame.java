@@ -484,7 +484,12 @@ public class RPGGame implements KeyListener {
 				}
 				for (Attack p : primary) {
 					if (p.collides(objs) && !(objs instanceof Player)) {
-						objs.hit(p.getDamage(), p.getgameID());
+						if (player instanceof Archer) {
+							objs.hit(p.getDamage()*2, p.getgameID());
+						}
+						if (player instanceof Knight) {
+							objs.hit(p.getDamage(), p.getgameID());
+						}
 						damagedObjects.add(objs);
 					}
 				}
