@@ -54,10 +54,6 @@ public class StartGame {
 				g.drawString("Archer", SCREEN_WIDTH * 7 / 10 - 20, SCREEN_HEIGHT * 4 / 5);	
 				k.drawTutorial(g);
 				a.drawTutorial(g);
-				g.drawLine(525, 125, 525, 750);
-				g.setColor(new Color(0, 0, 0));
-				g.setFont(new Font("Chelsea", 0, GameGUI.TITLE_FONT));
-				g.setFont(new Font("Chelsea", 0, GameGUI.BODY_FONT*2));
 			}
 		};
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
