@@ -69,32 +69,36 @@ public abstract class GameObject {
 	public void uponRemoval() {
 		int decide = (int) (Math.random() * 100);
 		if (this instanceof Chest) {
-			if(decide <= 20)
-				RPGGame.getObjects().add(new Potion(this.getLocX(),this.getLocY(),"yellow"));
+			if (decide <= 20)
+				RPGGame.getObjects().add(new Potion(this.getLocX(), this.getLocY(), "yellow"));
 			else {
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 4 + (int)(Map.roomCount * 1.5)));
+				RPGGame.getObjects()
+						.add(new Coin(this.getLocX(), this.getLocY(), decide / 5 + (int) (Map.roomCount * 1.5)));
 			}
 			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
 		if (this instanceof Enemy) {
-			
-			if(decide >= 75) {
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 4 + Map.roomCount * .75)));
-			}
-			else if(decide >= 50)
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 3 + Map.roomCount * 1)));
+
+			if (decide >= 75) {
+				RPGGame.getObjects()
+						.add(new Coin(this.getLocX(), this.getLocY(), (int) (decide / 5 + Map.roomCount * .75)));
+			} else if (decide >= 50)
+				RPGGame.getObjects()
+						.add(new Coin(this.getLocX(), this.getLocY(), (int) (decide / 4 + Map.roomCount * 1)));
 			else if (decide >= 25)
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2 + (int)(Map.roomCount * 1.15)));
+				RPGGame.getObjects()
+						.add(new Coin(this.getLocX(), this.getLocY(), decide / 3 + (int) (Map.roomCount * 1.15)));
 			else {
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide + (int)(Map.roomCount * 1.25)));
+				RPGGame.getObjects()
+						.add(new Coin(this.getLocX(), this.getLocY(), decide / 2 + (int) (Map.roomCount * 1.25)));
 			}
 		}
 		if (this instanceof Coin) {
 			RPGGame.getInventory().addGold(health);
 		}
-		
-		if(this instanceof Potion) {
-			((Potion)this).activate();
+
+		if (this instanceof Potion) {
+			((Potion) this).activate();
 		}
 	}
 
@@ -110,22 +114,23 @@ public abstract class GameObject {
 	public double getHealth() {
 		return this.health;
 	}
+
 	public double getMaxHealth() {
 		return this.maxHealth;
 	}
-	
+
 	public void increaseMaxHealth(double d) {
-		this.health+=d;
-		this.maxHealth+=d;
+		this.health += d;
+		this.maxHealth += d;
 	}
 
 	public double getHealthPercent() {
-		return ((double) this.health/this.maxHealth);
+		return ((double) this.health / this.maxHealth);
 	}
 
 	public void incrementHealth(int amount) {
-		if ((this.health+=amount)>this.maxHealth)
-		this.health += amount;
+		if ((this.health += amount) > this.maxHealth)
+			this.health += amount;
 	}
 
 	protected Rectangle getRect() {
@@ -200,7 +205,7 @@ public abstract class GameObject {
 	}
 
 	public int hPBarYLoc() {
-		return (int) (this.getLocY() - 0.4*this.HEIGHT);
+		return (int) (this.getLocY() - 0.4 * this.HEIGHT);
 	}
 
 	public boolean collides(GameObject other) {
@@ -215,9 +220,9 @@ public abstract class GameObject {
 			health -= d;
 			hittable = RPGGame.ticks + 15;
 			wasHit.add(iD);
-			if (!(this instanceof Enemy)&&!(this instanceof Player)) {
+			if (!(this instanceof Enemy) && !(this instanceof Player)) {
 				RPGGame.getDamagedObjects().add(this);
-				}
+			}
 		}
 	}
 
@@ -230,34 +235,35 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 30;
-			if (!(this instanceof Enemy)&&!(this instanceof Player)) {
+			if (!(this instanceof Enemy) && !(this instanceof Player)) {
 				RPGGame.getDamagedObjects().add(this);
-				}
-		} 
+			}
+		}
 
 	}
-	public static BufferedImage copyImage(BufferedImage source){
-	    BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
-	    Graphics g = b.getGraphics();
-	    g.drawImage(source, 0, 0, null);
-	    g.dispose();
-	    return b;
+
+	public static BufferedImage copyImage(BufferedImage source) {
+		BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+		Graphics g = b.getGraphics();
+		g.drawImage(source, 0, 0, null);
+		g.dispose();
+		return b;
 	}
 
 	public static BufferedImage tint(BufferedImage image, Color color) {
 		BufferedImage copy = copyImage(image);
-	    for (int x = 0; x < copy.getWidth(); x++) {
-	        for (int y = 0; y < copy.getHeight(); y++) {
-	            Color pixelColor = new Color(copy.getRGB(x, y), true);
-	            int r = (pixelColor.getRed() + color.getRed()) / 2;
-	            int g = (pixelColor.getGreen() + color.getGreen()) / 2;
-	            int b = (pixelColor.getBlue() + color.getBlue()) / 2;
-	            int a = pixelColor.getAlpha();
-	            int rgba = (a << 24) | (r << 16) | (g << 8) | b;
-	            copy.setRGB(x, y, rgba);
-	        }
-	    }
-	    return copy;
+		for (int x = 0; x < copy.getWidth(); x++) {
+			for (int y = 0; y < copy.getHeight(); y++) {
+				Color pixelColor = new Color(copy.getRGB(x, y), true);
+				int r = (pixelColor.getRed() + color.getRed()) / 2;
+				int g = (pixelColor.getGreen() + color.getGreen()) / 2;
+				int b = (pixelColor.getBlue() + color.getBlue()) / 2;
+				int a = pixelColor.getAlpha();
+				int rgba = (a << 24) | (r << 16) | (g << 8) | b;
+				copy.setRGB(x, y, rgba);
+			}
+		}
+		return copy;
 	}
 
 }
