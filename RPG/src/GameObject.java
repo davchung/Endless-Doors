@@ -129,8 +129,9 @@ public abstract class GameObject {
 	}
 
 	public void incrementHealth(int amount) {
+		this.health += amount;
 		if ((this.health += amount) > this.maxHealth)
-			this.health += amount;
+			this.health=this.maxHealth;
 	}
 
 	protected Rectangle getRect() {

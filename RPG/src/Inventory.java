@@ -30,8 +30,8 @@ public class Inventory extends GameGUI {
 		Inventory.gold -= gold;
 	}
 	
-	public int getTotalDmg() {
-		int dmg = 0;
+	public double getTotalDmg() {
+		double dmg = 0;
 		for(Item i: inventory) {
 			if(i instanceof Weapon) {
 				dmg += ((Weapon) i).getAtkDmg();

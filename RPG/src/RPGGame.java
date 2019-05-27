@@ -718,6 +718,7 @@ public class RPGGame implements KeyListener {
 		// trading post
 		if (keys.contains("i") && player.collides(trader)) {
 			tradeOpen = !tradeOpen;
+			player.setDamage(5+ RPGGame.getInventory().getTotalDmg());
 			mainPanel.repaint();
 			pause();
 		}

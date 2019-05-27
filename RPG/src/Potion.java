@@ -20,7 +20,7 @@ public class Potion extends GameObject {
 		} else if (type.equals("red")) {
 			// to do
 		} else if (type.equals("yellow")) { // health potion
-			RPGGame.getPlayer().incrementHealth(9 + (int)(Map.roomCount * 1.5)); // total health increase of 25
+			RPGGame.getPlayer().incrementHealth(5 + (int)(Map.roomCount * 1.5)); // total health increase of 25
 		}
 	}
 }
