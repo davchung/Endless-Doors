@@ -723,7 +723,6 @@ public class RPGGame implements KeyListener {
 		}
 
 		tradingPostBuying();
-
 	}
 
 	private void tradingPostBuying() {
@@ -817,9 +816,7 @@ public class RPGGame implements KeyListener {
 			}
 			keys.remove(keys.indexOf("5"));
 		}
-
 		mainPanel.repaint();
-
 	}
 
 	@Override
