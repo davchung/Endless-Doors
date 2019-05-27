@@ -16,6 +16,7 @@ public abstract class Enemy extends MoveableObject {
 	// constructor #1 for Enemy
 	public Enemy(double x, double y, int w, int h, int level, BufferedImage i) {
 		super(x, y, w, h, baseHealth + level * 10, i); 
+		this.addDamage(level*2-2);
 	}
 	protected void setRun(Animation running) {
 		run = running;
