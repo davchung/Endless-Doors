@@ -16,7 +16,7 @@ public class Knight extends Player {
 		return sword;
 	}
 	public Attack getSpecial() {
-		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);
+		Attack shield = new Shield((int)this.getLocX(), (int)this.getLocY(), this.WIDTH, this.HEIGHT,50);	
 		return shield;
 	}
 	

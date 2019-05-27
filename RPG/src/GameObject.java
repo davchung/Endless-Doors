@@ -72,21 +72,21 @@ public abstract class GameObject {
 			if(decide <= 20)
 				RPGGame.getObjects().add(new Potion(this.getLocX(),this.getLocY(),"yellow"));
 			else {
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 4 + Map.roomCount * 2));
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 4 + (int)(Map.roomCount * 1.5)));
 			}
 			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
 		if (this instanceof Enemy) {
 			
 			if(decide >= 75) {
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 4 + Map.roomCount * 1)));
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 4 + Map.roomCount * .75)));
 			}
 			else if(decide >= 50)
 				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), (int)(decide / 3 + Map.roomCount * 1)));
 			else if (decide >= 25)
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2 + (int)(Map.roomCount * 1.25)));
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide / 2 + (int)(Map.roomCount * 1.15)));
 			else {
-				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide + (int)(Map.roomCount * 1.5)));
+				RPGGame.getObjects().add(new Coin(this.getLocX(), this.getLocY(), decide + (int)(Map.roomCount * 1.25)));
 			}
 		}
 		if (this instanceof Coin) {
