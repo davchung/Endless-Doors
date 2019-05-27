@@ -663,7 +663,7 @@ public class RPGGame implements KeyListener {
 			test.stop();
 			timer.stop();
 		} else {
-			test.start();
+			test.loop();
 			timer.start();
 		}
 	}

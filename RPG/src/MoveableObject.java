@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 
 public class MoveableObject extends GameObject{
 	//private field variables
-	protected int damage = 5;
+	protected double damage = 5;
 	protected double pastX, pastY; // how much they moved in their last frame
 	protected double right, down; //current direction they're facing
 	private int cooldown = 0;// to move to MO
