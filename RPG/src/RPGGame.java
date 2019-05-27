@@ -355,12 +355,12 @@ public class RPGGame implements KeyListener {
 		if (enemies.isEmpty()) {
 			if (levelDone == false) {
 				for (GameObject obj : objects) {
-					if (obj.health > 5) {
+					if (obj.health > 1) {
 						if (obj instanceof Crate) {
-							obj.health = 5;
+							obj.health = 1;
 						}
 						if (obj instanceof Barrel) {
-							obj.health = 5;
+							obj.health = 1;
 						}
 					}
 				}
