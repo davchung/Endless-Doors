@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 public class Inventory extends GameGUI {
 
-	private static int gold = 0;
+	private static int gold;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
 	public Inventory() {
 		super(true, "InventoryBckgrnd.jpg");
+		gold = 0;
+		inventory.clear();
 	}
 	
 	public static ArrayList<Item> getItems(){

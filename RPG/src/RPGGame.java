@@ -25,7 +25,7 @@ public class RPGGame implements KeyListener {
 	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
-	private static Inventory i = new Inventory();
+	private static Inventory i;
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
 	private TradingPost tP = new TradingPost();
@@ -81,6 +81,16 @@ public class RPGGame implements KeyListener {
 
 	public static ArrayList<GameObject> getDamagedObjects() {
 		return RPGGame.damagedObjects;
+	}
+	
+	public static ArrayList<Enemy> getEnemies() {
+		return RPGGame.enemies;
+	}
+	public static ArrayList<Attack> getSpecial() {
+		return RPGGame.special;
+	}
+	public static Inventory getInventory() {
+		return i;
 	}
 
 	public void setEnemies(int level) {
@@ -141,19 +151,8 @@ public class RPGGame implements KeyListener {
 
 	}
 
-	public static ArrayList<Enemy> getEnemies() {
-		return RPGGame.enemies;
-	}
-
-	public static ArrayList<Attack> getSpecial() {
-		return RPGGame.special;
-	}
-
-	public static Inventory getInventory() {
-		return i;
-	}
-
 	public void beginGame() {
+		i = new Inventory();
 		map = new Map();
 		objects.addAll(map.getEObjs());
 		objects.add(player);
