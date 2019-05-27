@@ -29,6 +29,16 @@ public class Inventory extends GameGUI {
 	public void subtractGold(int gold) {
 		Inventory.gold -= gold;
 	}
+	
+	public int getTotalDmg() {
+		int dmg = 0;
+		for(Item i: inventory) {
+			if(i instanceof Weapon) {
+				dmg += ((Weapon) i).getAtkDmg();
+			}
+		}
+		return dmg;
+	}
 
 	public void draw(Graphics g) {
 		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;

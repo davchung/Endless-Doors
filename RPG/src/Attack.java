@@ -78,6 +78,10 @@ public class Attack extends GameObject {
 	public double getDamage() {
 		return dmg;
 	}
+	
+	public void addToDamage(int add) {
+		dmg += add;
+	}
 
 	public void update() {
 		double mag = Math.sqrt(r * r + d * d);
