@@ -40,7 +40,7 @@ public class Floor {
 	
 
 	private void getImages() {
-		String fn ="img/Sprites/floors/floor_";
+		String fn ="img/sprites/floors/floor_";
 		for (int i = 1;i<10;i++) {
 			BufferedImage img = null;
 			try {
