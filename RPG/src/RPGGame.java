@@ -817,10 +817,6 @@ public class RPGGame implements KeyListener {
 			}
 			keys.remove(keys.indexOf("5"));
 		}
-		else if (keys.contains("0") && tradeOpen == true) {
-			JOptionPane.showMessageDialog(null, "You have " + Inventory.getGold() + " gold.");
-			keys.remove(keys.indexOf("0"));
-		}
 
 	}
 
