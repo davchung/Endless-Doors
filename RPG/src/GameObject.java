@@ -126,6 +126,7 @@ public abstract class GameObject {
 	}
 
 	public void incrementHealth(int amount) {
+		if ((this.health+=amount)>this.maxHealth)
 		this.health += amount;
 	}
 

@@ -49,6 +49,7 @@ public class RPGGame implements KeyListener {
 	private boolean invenShown = false; // inventory shown
 	private boolean levelDone = false;
 	private boolean tradeOpen = false;
+	private boolean pHit = false;
 
 	// these are getters for variables
 	public static Player getPlayer() {
@@ -235,6 +236,16 @@ public class RPGGame implements KeyListener {
 						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 15);
 				g.setColor(new Color(0, 0, 0));
 				g.drawString("Player health: " + player.getHealth(), 22, 38);
+				/*if(pHit) {
+					g.setColor(new Color(255,0,0));
+					g.fillRect(0,0,1050,100);
+					g.fillRect(0,0,100,750);
+					g.fillRect(950,0,100,750);
+					g.fillRect(0,650,1050,100);
+					timer.setDelay(5);
+					pHit=false;
+				}
+					*/
 				if (helpShown == true) {
 					hP.draw(g);
 				}
@@ -525,6 +536,7 @@ public class RPGGame implements KeyListener {
 		for (Attack e : enemyAttacks) {
 			if (e.collides(player)) {
 				player.hit(e.getDamage(), e.getgameID());
+				//pHit = true;
 			}
 		}
 		for (GameObject g : toRemove) {
