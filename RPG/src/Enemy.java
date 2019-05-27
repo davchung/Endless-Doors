@@ -86,7 +86,7 @@ public abstract class Enemy extends MoveableObject {
 				super.moveX(dx / 5);
 				super.moveY(dy / 5);
 				if (!(i instanceof Enemy)) {
-					i.hit(this.getDamage()/2);
+					i.hit(this.getDamage());
 				}
 			}
 

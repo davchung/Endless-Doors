@@ -54,7 +54,7 @@ public class Wogol extends Enemy {
 		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
 			if (this.canAttack()) {
 				RPGGame.setEnemyAttack(new Arrow((int) getCX(), (int) getCY(), WIDTH * 3 / 4, WIDTH * 3 / 4, WIDTH,
-						HEIGHT, -x, -y, 3, 500, this.getDamage(), "sprites/fireball_f2.png"));
+						HEIGHT, -x, -y, 3, 500, this.getDamage()*2, "sprites/fireball_f2.png"));
 				this.addCooldown(300);
 			}
 		}

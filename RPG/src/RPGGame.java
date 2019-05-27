@@ -23,7 +23,7 @@ public class RPGGame implements KeyListener {
 	private Portal portal;
 	public static Trader trader = new Trader();
 	public static Floor floor = new Floor();
-	private AudioClip test = new AudioClip("boss");
+	private static AudioClip test = new AudioClip("boss");
 
 	// these are all variables related to GUIs
 	private static Inventory i;
@@ -454,6 +454,7 @@ public class RPGGame implements KeyListener {
 		double mag = Math.sqrt(dx*dx+dy*dy);
 		if (mag<150) {
 			checkSpawns(e2, level);
+			return;
 		}
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
@@ -664,8 +665,10 @@ public class RPGGame implements KeyListener {
 
 	public static void pause() {
 		if (timer.isRunning()) {
+			test.stop();
 			timer.stop();
 		} else {
+			test.start();
 			timer.start();
 		}
 	}
