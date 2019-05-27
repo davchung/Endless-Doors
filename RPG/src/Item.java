@@ -9,14 +9,17 @@ public abstract class Item {
 	public static final String PATH_PREFIX = "img/sprites/items/";
 	
 	// constructor
-	public Item(String pN, int cost) {
-		goldCost = cost;
+	public Item(String pN) {
 		img = getImage(pN);
 	}
 	
 	// these are getters
 	public int getGoldCost() {
 		return goldCost;
+	}
+	
+	public void setGoldCost(int gold) {
+		goldCost = gold;
 	}
 	public BufferedImage getImg() {
 		return img;
