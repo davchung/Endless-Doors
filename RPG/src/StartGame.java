@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
@@ -60,11 +61,16 @@ public class StartGame {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.setColor(new Color(250, 250, 250)); // white color
 				g.setColor(new Color(0, 0, 0)); // black color
+				g.drawLine(525, 0, 525, 750);
+				
+				g.setFont(new Font("Chelsea", 0, 50));
+				g.drawString("Select a player class.", SCREEN_WIDTH * 3 / 10 - 20, SCREEN_HEIGHT * 1 / 5);
+				g.drawString("Knight", SCREEN_WIDTH / 5 - 20, SCREEN_HEIGHT * 4 / 5);
+				g.drawString("Archer", SCREEN_WIDTH * 7 / 10 - 20, SCREEN_HEIGHT * 4 / 5);
+				
 				k.drawTutorial(g);
 				a.drawTutorial(g);
-				g.drawLine(525, 0, 525, 750);
 			}
 		};
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
