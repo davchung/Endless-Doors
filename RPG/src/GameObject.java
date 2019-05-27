@@ -33,7 +33,6 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
-
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -51,7 +50,6 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
-
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
