@@ -73,7 +73,7 @@ public abstract class GameObject {
 				RPGGame.getObjects().add(new Potion(this.getLocX(), this.getLocY(), "yellow"));
 			else {
 				RPGGame.getObjects()
-						.add(new Coin(this.getLocX(), this.getLocY(), decide / 5 + (int) (Map.roomCount * 1.5)));
+						.add(new Coin(this.getLocX(), this.getLocY(), decide / 6 + (int) (Map.roomCount * 1.5)));
 			}
 			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
