@@ -23,6 +23,7 @@ public class RPGGame implements KeyListener {
 	private Portal portal;
 	public static Trader trader = new Trader();
 	public static Floor floor = new Floor();
+	private AudioClip test = new AudioClip("boss");
 
 	// these are all variables related to GUIs
 	private static Inventory i;
@@ -103,7 +104,7 @@ public class RPGGame implements KeyListener {
 			return;
 		}
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int amountE = (int) (Math.random() * 2) + 1 + level / 5;// amount of enemies in the floor
+		int amountE = (int) (Math.random() * 2) + 1 + level / 7;// amount of enemies in the floor
 		int difficulty = Map.getLevel() / 7 + 1;
 		if (!((level % 7 == 0) || (level % 7 == 6))) {
 			for (int c = 0; c < amountE; c++) {
@@ -123,6 +124,7 @@ public class RPGGame implements KeyListener {
 					break;
 				case 4:
 					list.add(new Swampy(0, 0, difficulty));
+					break;
 				}
 			}
 		}
@@ -159,7 +161,7 @@ public class RPGGame implements KeyListener {
 		map = new Map();
 		objects.addAll(map.getEObjs());
 		objects.add(player);
-
+		test.start();
 		setEnemies(Map.getLevel());
 		StartGame.startFrame.dispose();
 		mainFrame.setVisible(true);
@@ -447,7 +449,12 @@ public class RPGGame implements KeyListener {
 			e2 = null;
 			e2 = new Swampy(x * 50, y * 50, level);
 		}
-
+		double dx= player.getCX()-e2.getCX();
+		double dy = player.getCY()-e2.getCY();
+		double mag = Math.sqrt(dx*dx+dy*dy);
+		if (mag<150) {
+			checkSpawns(e2, level);
+		}
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
 				checkSpawns(e2, level);
@@ -698,6 +705,7 @@ public class RPGGame implements KeyListener {
 
 		// game over
 		if (gameOver == true && (keys.contains("n"))) {
+			test.stop();
 			objects.clear();
 			enemies.clear();
 			primary.clear();

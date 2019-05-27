@@ -24,7 +24,6 @@ public class StartGame {
 	private JPanel startPanel;
 	public static int SCREEN_WIDTH = 1050;
 	public static int SCREEN_HEIGHT = 750;
-	public static Clip clip;
 	public static int ticks;
 	private static final int REFRESH_RATE = 10;
 	public static JFrame startFrame;
@@ -35,19 +34,6 @@ public class StartGame {
 	}
 
 	public void init() {
-		
-		try { 
-			AudioInputStream audioIn;
-			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/bgm.wav"));
-			clip = AudioSystem.getClip();
-			clip.open(audioIn);
-			if (!clip.isRunning()) {
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-			}
-		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			e1.printStackTrace();
-		}
-		
 		Knight k = new Knight(163,275);
 		k.expandPlayer(4);
 		Archer a = new Archer(1050-163-200,275);
@@ -63,22 +49,15 @@ public class StartGame {
 				super.paintComponent(g);
 				g.setColor(new Color(0, 0, 0)); // black color
 				g.drawLine(525, 0, 525, 750);
-				
 				g.setFont(new Font("Chelsea", 0, 50));
-				g.drawString("Select a player class.", SCREEN_WIDTH * 3 / 10 - 20, SCREEN_HEIGHT * 1 / 5);
 				g.drawString("Knight", SCREEN_WIDTH / 5 - 20, SCREEN_HEIGHT * 4 / 5);
-				g.drawString("Archer", SCREEN_WIDTH * 7 / 10 - 20, SCREEN_HEIGHT * 4 / 5);
-				
+				g.drawString("Archer", SCREEN_WIDTH * 7 / 10 - 20, SCREEN_HEIGHT * 4 / 5);	
 				k.drawTutorial(g);
 				a.drawTutorial(g);
 				g.drawLine(525, 125, 525, 750);
-				g.drawLine(0, 125, 1050, 125);
 				g.setColor(new Color(0, 0, 0));
 				g.setFont(new Font("Chelsea", 0, GameGUI.TITLE_FONT));
-				g.drawString("CHOOSE A CLASS", 180 ,95);
 				g.setFont(new Font("Chelsea", 0, GameGUI.BODY_FONT*2));
-				g.drawString("Knight", 195,570);
-				g.drawString("Archer", 190+1050/2,570);
 			}
 		};
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));

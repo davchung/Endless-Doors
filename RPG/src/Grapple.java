@@ -47,7 +47,7 @@ public class Grapple extends Arrow {
 
 	public void retract(GameObject objs) {
 		if (objs instanceof Enemy)
-			objs.hit(this.getDamage()/4);
+			objs.hit(this.getDamage());
 		while (this.collides(objs)) {
 			vel=-originalVel/10;
 			super.update();
