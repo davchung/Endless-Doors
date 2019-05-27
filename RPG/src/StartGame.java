@@ -71,6 +71,14 @@ public class StartGame {
 				
 				k.drawTutorial(g);
 				a.drawTutorial(g);
+				g.drawLine(525, 125, 525, 750);
+				g.drawLine(0, 125, 1050, 125);
+				g.setColor(new Color(0, 0, 0));
+				g.setFont(new Font("Chelsea", 0, GameGUI.TITLE_FONT));
+				g.drawString("CHOOSE A CLASS", 180 ,95);
+				g.setFont(new Font("Chelsea", 0, GameGUI.BODY_FONT*2));
+				g.drawString("Knight", 195,570);
+				g.drawString("Archer", 190+1050/2,570);
 			}
 		};
 		startPanel.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
