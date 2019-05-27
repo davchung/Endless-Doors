@@ -33,7 +33,6 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
-
 		image = getImage(s);
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -51,7 +50,6 @@ public abstract class GameObject {
 		invincible = inv;
 		health = startingHealth;
 		maxHealth = startingHealth;
-
 		image = b;
 		current = new Rectangle((int) locX, (int) locY, (int) WIDTH, (int) HEIGHT);
 		gameID = IDAssigner;
@@ -217,7 +215,7 @@ public abstract class GameObject {
 			health -= d;
 			hittable = RPGGame.ticks + 10;
 			wasHit.add(iD);
-			if (!(this instanceof Enemy)) {
+			if (!(this instanceof Enemy)&&!(this instanceof Player)) {
 				RPGGame.getDamagedObjects().add(this);
 				}
 		}
@@ -232,7 +230,7 @@ public abstract class GameObject {
 		if (RPGGame.ticks > hittable && !invincible) {
 			health -= d;
 			hittable = RPGGame.ticks + 26;
-			if (!(this instanceof Enemy)) {
+			if (!(this instanceof Enemy)&&!(this instanceof Player)) {
 				RPGGame.getDamagedObjects().add(this);
 				}
 		} 

@@ -9,7 +9,7 @@ public class Demon extends Enemy {
 	public Demon(double x, double y, int level) {
 		super(x, y, 100, 100, level,idle.getFirst());
 		dmg = super.getImage("sprites/big_demon_damage.png");
-		this.increaseMaxHealth(this.health+20);
+		this.increaseMaxHealth(this.health);
 		damage+=level*2;
 	}
 
@@ -96,7 +96,7 @@ public class Demon extends Enemy {
 		wallCollision();
 		if (this.canAttack()) {
 			RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
-					HEIGHT, x, y, 3, 500,this.getDamage(), "Sprites/fireball.png"));
+					HEIGHT, x, y, 3, 500,this.getDamage(), "sprites/fireball.png"));
 			this.addCooldown(300);
 		}
 		RPGGame.getObjects().add(this);

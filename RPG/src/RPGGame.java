@@ -21,11 +21,11 @@ public class RPGGame implements KeyListener {
 	private int facing = 1;
 	private Map map;
 	private Portal portal;
-	public static Trader trader;
+	public static Trader trader = new Trader();
 	public static Floor floor = new Floor();
 
 	// these are all variables related to GUIs
-	private static Inventory i = new Inventory();
+	private static Inventory i;
 	private HelpPage hP = new HelpPage();
 	private GameOver gO = new GameOver();
 	private TradingPost tP = new TradingPost();
@@ -84,10 +84,22 @@ public class RPGGame implements KeyListener {
 		return RPGGame.damagedObjects;
 	}
 
+	public static ArrayList<Enemy> getEnemies() {
+		return RPGGame.enemies;
+	}
+
+	public static ArrayList<Attack> getSpecial() {
+		return RPGGame.special;
+	}
+
+	public static Inventory getInventory() {
+		return i;
+	}
+
 	public void setEnemies(int level) {
 		if (level == 0) {
 			makeTutorial();
-			levelDone=true;
+			levelDone = true;
 			return;
 		}
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
@@ -118,7 +130,7 @@ public class RPGGame implements KeyListener {
 			list.add(new Demon(0, 0, difficulty));
 		}
 		for (Enemy e : list) {
-			checkSpawns(e,difficulty);
+			checkSpawns(e, difficulty);
 		}
 	}
 
@@ -142,21 +154,9 @@ public class RPGGame implements KeyListener {
 
 	}
 
-	public static ArrayList<Enemy> getEnemies() {
-		return RPGGame.enemies;
-	}
-
-	public static ArrayList<Attack> getSpecial() {
-		return RPGGame.special;
-	}
-
-	public static Inventory getInventory() {
-		return i;
-	}
-
 	public void beginGame() {
+		i = new Inventory();
 		map = new Map();
-		objects.addAll(map.getWalls());
 		objects.addAll(map.getEObjs());
 		objects.add(player);
 
@@ -364,6 +364,18 @@ public class RPGGame implements KeyListener {
 			e.update();
 		}
 		if (enemies.isEmpty()) {
+			if (levelDone == false) {
+				for (GameObject obj : objects) {
+					if (obj.health > 1) {
+						if (obj instanceof Crate) {
+							obj.health = 1;
+						}
+						if (obj instanceof Barrel) {
+							obj.health = 1;
+						}
+					}
+				}
+			}
 			levelDone = true;
 		}
 		objects.removeAll(enemies);
@@ -377,7 +389,7 @@ public class RPGGame implements KeyListener {
 	}
 
 	public static void selectClass(int which) {
-		switch (which){
+		switch (which) {
 		case 0:
 			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
 			break;
@@ -438,7 +450,7 @@ public class RPGGame implements KeyListener {
 
 		for (GameObject w : objects) {
 			if (!e2.equals(w) && !w.throughable && e2.collides(w)) {
-				checkSpawns(e2,level);
+				checkSpawns(e2, level);
 				return;
 			}
 		}
@@ -497,7 +509,12 @@ public class RPGGame implements KeyListener {
 				}
 				for (Attack p : primary) {
 					if (p.collides(objs) && !(objs instanceof Player)) {
-						objs.hit(p.getDamage(), p.getgameID());
+						if (player instanceof Archer) {
+							objs.hit(p.getDamage() * 2, p.getgameID());
+						}
+						if (player instanceof Knight) {
+							objs.hit(p.getDamage(), p.getgameID());
+						}
 						damagedObjects.add(objs);
 					}
 				}
@@ -604,7 +621,7 @@ public class RPGGame implements KeyListener {
 			}
 			if (keys.contains("o")) {
 				for (Enemy e : enemies) {
-					e.hit(100, 1092039090);
+					e.hit(Integer.MAX_VALUE, Integer.MAX_VALUE);
 				}
 			}
 			if (down != 0 || right != 0) {
@@ -663,7 +680,7 @@ public class RPGGame implements KeyListener {
 		}
 
 		// help button
-		if (keys.contains("?")) {
+		if (keys.contains("?") || keys.contains("/")) {
 			helpShown = !helpShown;
 			mainPanel.repaint();
 			/*
@@ -683,8 +700,12 @@ public class RPGGame implements KeyListener {
 		if (gameOver == true && (keys.contains("n"))) {
 			objects.clear();
 			enemies.clear();
+			primary.clear();
+			special.clear();
 			enemyAttacks.clear();
-			new RPGGame().beginGame();
+			damagedObjects.clear();
+			floor.reset();
+			new StartGame().init();
 			mainFrame.dispose();
 		}
 
@@ -700,7 +721,7 @@ public class RPGGame implements KeyListener {
 			if (JOptionPane.showConfirmDialog(null,
 					"Are you sure you want to purchase [1] ?") == JOptionPane.YES_OPTION) {
 				if (Inventory.getGold() < tP.getSlot1().getGoldCost()) {
-					JOptionPane.showMessageDialog(null, "You don't have ensough gold to cover the purchase.");
+					JOptionPane.showMessageDialog(null, "You don't have enough gold to cover the purchase.");
 				} else if (Inventory.getItems().indexOf(tP.getSlot1()) > -1) {
 					JOptionPane.showMessageDialog(null, "You already have this item in your Inventory.");
 				} else {

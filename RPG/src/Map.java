@@ -3,7 +3,6 @@ import java.util.*;
 public class Map {
 
 	// private instance variables here
-	private ArrayList<Wall> walls;
 	public ArrayList<int[][]> rooms;
 	private ArrayList<GameObject> eObjs;
 
@@ -13,7 +12,6 @@ public class Map {
 	public static int roomCount = 0;
 
 	public Map() {
-		walls = new ArrayList<Wall>();
 		rooms = new ArrayList<int[][]>();
 		eObjs = new ArrayList<GameObject>();
 
@@ -26,9 +24,7 @@ public class Map {
 		return this.eObjs;
 	}
 
-	public ArrayList<Wall> getWalls() {
-		return this.walls;
-	}
+
 
 	public void setRoomCount(int x) {
 		roomCount = x;
@@ -74,7 +70,7 @@ public class Map {
 				{ 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
 		rooms.add(new int[][] { // 21 columns and 15 rows //TUTORIAL ROOM
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //IDK WHAT IM DOING
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // IDK WHAT IM DOING
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -150,7 +146,7 @@ public class Map {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0 },
 				{ 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0 },
 				{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 0, 2, 3, 0, 0 },
 				{ 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
 		rooms.add(new int[][] { // 21 columns and 15 rows
@@ -265,7 +261,7 @@ public class Map {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		rooms.add(new int[][] { // 00 columns and 05 rows
+		rooms.add(new int[][] { // 21 columns and 15 rows
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -281,7 +277,7 @@ public class Map {
 				{ 0, 0, 0, 1, 1, 0, 0, 0, 0, 4, 2, 4, 0, 0, 0, 0, 1, 1, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		rooms.add(new int[][] { // 00 columns and 05 rows
+		rooms.add(new int[][] { // 21 columns and 15 rows
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0 },
@@ -297,7 +293,7 @@ public class Map {
 				{ 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		rooms.add(new int[][] { // 00 columns and 05 rows
+		rooms.add(new int[][] { // 21 columns and 15 rows
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 },
@@ -313,9 +309,6 @@ public class Map {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, });
-		for (int[][] r : rooms) {
-			outlineWalls(r); // walls on the outside will be added later on
-		}
 		// please keep this here - it is to debug the 2D array
 		/*
 		 * for (int r = 0; r < room1.length; r++) { for (int c = 0; c < room1[r].length;
@@ -326,35 +319,34 @@ public class Map {
 	private void outlineWalls(int[][] room) {
 		for (int r = 0; r < room.length; r++) {
 			room[r][0] = 1;
-			room[r][20] = 1;
+			room[r][room[r].length - 1] = 1;
 		}
 		for (int c = 1; c < room[0].length; c++) {
 			room[0][c] = 1;
-			room[14][c] = 1;
+			room[room.length - 1][c] = 1;
 		}
 	}
 
-	/*
-	 * private void outlineChests(int[][] room) { while (numChest > 0) { int randR =
-	 * GameObject.randInt(4, 13); int randC = GameObject.randInt(5, 19); if
-	 * (room[randR][randC] == 0) { room[randR][randC] = 4; numChest--; } } }
-	 */
-
 	public int chooseRoom() {
 		if (roomCount == 0) {
+			outlineWalls(rooms.get(2));
 			return 2;
 		}
 		if (roomCount % 7 == 0) {
+			outlineWalls(rooms.get(0));
 			return 0; // boss room
 		}
 		if (roomCount % 7 == 6) {
+			outlineWalls(rooms.get(1));
 			return 1; // will be trader room
 		}
 
 		else
 
 		{
-			return (int) (Math.random() * (rooms.size() - 3)) + 3;
+			int num = (int) (Math.random() * (rooms.size() - 3)) + 3;
+			outlineWalls(rooms.get(num));
+			return num;
 		}
 	}
 
@@ -366,11 +358,7 @@ public class Map {
 			for (int c = 0; c < rooms.get(index)[r].length; c++) {
 				switch (rooms.get(index)[r][c]) {
 				case 1:
-					if (r != 0 || c != 0)
-						eObjs.add(new Wall(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
-					else {
-						walls.add(new Wall(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
-					}
+					eObjs.add(new Wall(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
 					break;
 				case 2:
 					eObjs.add(new Crate(c * OBJ_WIDTH, r * OBJ_HEIGHT, OBJ_WIDTH, OBJ_HEIGHT));
@@ -382,7 +370,6 @@ public class Map {
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
 					break;
 				case 5:
-					RPGGame.trader = new Trader();
 					RPGGame.trader.setLoc((c - 1) * OBJ_WIDTH, (r - 1) * OBJ_HEIGHT);
 					RPGGame.getObjects().add(RPGGame.trader);
 					break;

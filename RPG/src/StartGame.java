@@ -3,16 +3,19 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
 
-import java.io.*;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -32,19 +35,19 @@ public class StartGame {
 	}
 
 	public void init() {
-		/**
+		
 		try { 
 			AudioInputStream audioIn;
 			audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource("sounds/bgm.wav"));
 			clip = AudioSystem.getClip();
 			clip.open(audioIn);
 			if (!clip.isRunning()) {
-				clip.loop(clip.LOOP_CONTINUOUSLY);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
 			}
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 			e1.printStackTrace();
 		}
-		**/
+		
 		Knight k = new Knight(163,275);
 		k.expandPlayer(4);
 		Archer a = new Archer(1050-163-200,275);
@@ -58,8 +61,14 @@ public class StartGame {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.setColor(new Color(250, 250, 250)); // white color
 				g.setColor(new Color(0, 0, 0)); // black color
+				g.drawLine(525, 0, 525, 750);
+				
+				g.setFont(new Font("Chelsea", 0, 50));
+				g.drawString("Select a player class.", SCREEN_WIDTH * 3 / 10 - 20, SCREEN_HEIGHT * 1 / 5);
+				g.drawString("Knight", SCREEN_WIDTH / 5 - 20, SCREEN_HEIGHT * 4 / 5);
+				g.drawString("Archer", SCREEN_WIDTH * 7 / 10 - 20, SCREEN_HEIGHT * 4 / 5);
+				
 				k.drawTutorial(g);
 				a.drawTutorial(g);
 				g.drawLine(525, 125, 525, 750);

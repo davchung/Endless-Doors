@@ -1,16 +1,17 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Inventory extends GameGUI {
 
-	private static int gold = 0;
+	private static int gold;
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
 
 	public Inventory() {
 		super(true, "InventoryBckgrnd.jpg");
+		gold = 0;
+		inventory.clear();
 	}
 	
 	public static ArrayList<Item> getItems(){
@@ -51,7 +52,6 @@ public class Inventory extends GameGUI {
 		for (int i = 0; i < inventory.size(); i++) {
 			yVal += 40;
 			g.drawString("[" + (i+1) + "] " + inventory.get(i), LEFT_MARGIN+END_FONT, yVal);
-			g.drawImage(inventory.get(i).getImg(), LEFT_MARGIN * 2, yVal-END_FONT, 50, 50, null);
 		}
 
 		g.setFont(new Font("Chelsea", 0, END_FONT));

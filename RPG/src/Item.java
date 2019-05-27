@@ -6,7 +6,7 @@ public abstract class Item {
 
 	private int goldCost;
 	private BufferedImage img;
-	public static final String PATH_PREFIX = "img/Sprites/items/";
+	public static final String PATH_PREFIX = "img/sprites/items/";
 	
 	// constructor
 	public Item(String pN, int cost) {

@@ -10,7 +10,7 @@ public abstract class Enemy extends MoveableObject {
 	protected int moveLeft = 10;
 	protected boolean moving= true;
 
-	private static int baseHealth = 10;
+	private static int baseHealth = 0;
 	// enemy speed
 
 	// constructor #1 for Enemy

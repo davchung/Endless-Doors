@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Player extends MoveableObject {
 
-	private static int playerHealth = 50;
+	private static int playerHealth = 60;
 	// constructor #1 for Player
 	public Player(double x, double y, int w, int h, BufferedImage img) {
 		super(x, y, w, h, playerHealth, img); // uses GameObject's constructor #2
