@@ -33,7 +33,11 @@ public class Floor {
 		getImages();
 		for (int r = 0; r < floor.length; r++) {
 			for (int c = 0; c < floor[r].length; c++) {
-				floor[r][c] = 0; // randind
+				int randInt = (int)(Math.random()*30);
+				if (randInt>7) {
+					randInt = 0;
+				}
+				floor[r][c] = randInt; // randind
 			}
 		}
 
