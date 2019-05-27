@@ -724,7 +724,6 @@ public class RPGGame implements KeyListener {
 		}
 
 		tradingPostBuying();
-
 	}
 
 	private void tradingPostBuying() {
@@ -818,11 +817,7 @@ public class RPGGame implements KeyListener {
 			}
 			keys.remove(keys.indexOf("5"));
 		}
-		// type 0 to show amount of gold
-		else if (keys.contains("0") && tradeOpen == true) {
-			JOptionPane.showMessageDialog(null, "You have " + Inventory.getGold() + " gold.");
-			keys.remove(keys.indexOf("0"));
-		}
+		mainPanel.repaint();
 	}
 
 	@Override
