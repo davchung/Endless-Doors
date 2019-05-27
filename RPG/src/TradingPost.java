@@ -42,7 +42,7 @@ public class TradingPost extends GameGUI {
 	public void draw(Graphics g) {
 		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
 		int LEFT_INDENT = 25;
-		int yVal = StartGame.SCREEN_HEIGHT * 1 / 5;
+		int yVal = StartGame.SCREEN_HEIGHT * 1 / 5 - 18;
 		g.setColor(new Color(35, 140, 35)); // color: green
 		super.draw(g);
 
@@ -53,6 +53,8 @@ public class TradingPost extends GameGUI {
 
 		g.setFont(new Font("Chelsea", 0, BODY_FONT));
 		g.drawString("Welcome to my shop, traveler.", LEFT_MARGIN, yVal);
+		yVal += 35;
+		g.drawString("Type 0 to check how much gold you have.", LEFT_MARGIN, yVal);
 		yVal += 35;
 
 		g.drawString("Type the corresponding number to purchase an item.", LEFT_MARGIN, yVal);

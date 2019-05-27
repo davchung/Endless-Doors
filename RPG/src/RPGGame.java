@@ -161,7 +161,7 @@ public class RPGGame implements KeyListener {
 		map = new Map();
 		objects.addAll(map.getEObjs());
 		objects.add(player);
-		test.start();
+		test.loop();
 		setEnemies(Map.getLevel());
 		StartGame.startFrame.dispose();
 		mainFrame.setVisible(true);
@@ -816,6 +816,10 @@ public class RPGGame implements KeyListener {
 				JOptionPane.showMessageDialog(null, "Purchase of [5] has been aborted.");
 			}
 			keys.remove(keys.indexOf("5"));
+		}
+		else if (keys.contains("0") && tradeOpen == true) {
+			JOptionPane.showMessageDialog(null, "You have " + Inventory.getGold() + " gold.");
+			keys.remove(keys.indexOf("0"));
 		}
 
 	}

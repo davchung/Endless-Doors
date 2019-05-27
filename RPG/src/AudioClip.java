@@ -22,6 +22,9 @@ public class AudioClip {
 	}
 	
 	public void start() {
+		clip.start();
+	}
+	public void loop() {
 		if (!clip.isRunning()) {
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
