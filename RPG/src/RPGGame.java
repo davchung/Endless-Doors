@@ -36,6 +36,9 @@ public class RPGGame implements KeyListener {
 
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
+	private ArrayList<StringGraphic> displayStrings = new ArrayList<StringGraphic>();  //list of strings to draw
+		private Font tutFont = new Font("Chelsea",0,25);
+		private Color tutColor = new Color (255,255,255);
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
@@ -52,7 +55,6 @@ public class RPGGame implements KeyListener {
 	private boolean invenShown = false; // inventory shown
 	private boolean levelDone = false;
 	private boolean tradeOpen = false;
-	private boolean pHit = false;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// these are getters for variables

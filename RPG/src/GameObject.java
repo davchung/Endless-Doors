@@ -71,6 +71,7 @@ public abstract class GameObject {
 		if (this instanceof Chest) {
 			if (decide <= 20)
 				RPGGame.getObjects().add(new Potion(this.getLocX(), this.getLocY(), "yellow"));
+			
 			else {
 				RPGGame.getObjects()
 						.add(new Coin(this.getLocX(), this.getLocY(), decide / 6 + (int) (Map.roomCount * 1.5)));
