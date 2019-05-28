@@ -27,7 +27,7 @@ public class StartGame {
 	public static int ticks;
 	private static final int REFRESH_RATE = 10;
 	public static JFrame startFrame;
-	Timer timer;
+	public static Timer timer;
 
 	public static void main(String[] args) {
 		new StartGame().init();
@@ -87,6 +87,8 @@ public class StartGame {
 		
 	}
 	public void closeFrame() {
+		ticks=0;
+		timer.stop();
 		startFrame.dispose();
 	}
 

@@ -198,7 +198,7 @@ public class RPGGame implements KeyListener {
 				g.fillRect(20, 25,
 						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 16);
 				g.setColor(new Color(255, 255, 255)); // color: white
-				g.drawString("Player health: " + player.getHealth(), 22, 38);
+				g.drawString("Player health: " + (int)player.getHealth(), 22, 38);
 				/*if(pHit) {
 					g.setColor(new Color(255,0,0));
 					g.fillRect(0,0,1050,100);
@@ -346,13 +346,12 @@ public class RPGGame implements KeyListener {
 
 	private void makeTutorial() {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int DIFFICULTY = 1;
-		list.add(new Skeleton(75, 310, DIFFICULTY));
-		list.add(new Goblin(75, 475, DIFFICULTY));
-		list.add(new Wogol(75, 610, DIFFICULTY));
-		list.add(new Zombie(925, 325, DIFFICULTY));
-		list.add(new Swampy(925, 475, DIFFICULTY));
-		list.add(new Demon(900, 600, DIFFICULTY));
+		list.add(new Skeleton(75, 310, 1));
+		list.add(new Goblin(75, 475, 1));
+		list.add(new Wogol(75, 610, 1));
+		list.add(new Zombie(925, 325, 1));
+		list.add(new Swampy(925, 475, 1));
+		list.add(new Demon(900, 600, 1));
 		player.setLoc(500, 600);
 		portal = new Portal(500, 50);
 		objects.add(portal);
@@ -516,6 +515,9 @@ public class RPGGame implements KeyListener {
 
 	protected void collision() {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
+		if (Map.getLevel()==0) {
+			toRemove.addAll(enemyAttacks);
+		}
 		for (Attack p : primary) {
 			if (p.expire())
 				toRemove.add(p);
@@ -534,6 +536,8 @@ public class RPGGame implements KeyListener {
 			if (e.expire()) {
 				toRemove.add(e);
 			}
+			if (ticks-levelTicks<20)
+				toRemove.add(e);
 		}
 		for (GameObject objs : objects) {// collision for gameobjects
 			while (player.collides(objs) && !objs.throughable && !(player.equals(objs))) {
@@ -748,13 +752,16 @@ public class RPGGame implements KeyListener {
 
 		// game over
 		if (gameOver == true && (keys.contains("n"))) {
+			keys.clear();
 			test.stop();
 			objects.clear();
 			enemies.clear();
 			primary.clear();
 			special.clear();
+			walls.clear();
 			enemyAttacks.clear();
 			damagedObjects.clear();
+			envirAttacks.clear();
 			floor.reset();
 			new StartGame().init();
 			mainFrame.dispose();
