@@ -1,8 +1,8 @@
 import java.awt.Graphics;
 
 public class Goblin extends Enemy {
-	private static double faceR=Math.random()-.5;
-	private static double faceD=Math.random()-.5;
+	private double faceR=Math.random()-.5;
+	private double faceD=Math.random()-.5;
 
 	public Goblin(double x, double y, int level) {
 		super(x, y, 40, 40, level,null);
@@ -96,8 +96,14 @@ public class Goblin extends Enemy {
 	}
 	
 	private void pickRandomDirection() {
-		faceR= (int)(Math.random()*101)-50;
-		faceD= (int)(Math.random()*101)-50;
+		int choice = (int)(Math.random()*4);
+		if (choice ==0) {
+			faceR = (RPGGame.getPlayer().getCX() - this.getCX());
+			faceD = (RPGGame.getPlayer().getCY() - this.getCY()); 
+		}else {
+			faceR= (int)(Math.random()*101)-50;
+			faceD= (int)(Math.random()*101)-50;
+		}
 	}
 
 	@Override
