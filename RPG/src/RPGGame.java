@@ -249,6 +249,7 @@ public class RPGGame implements KeyListener {
 						setEnemies(Map.getLevel());
 						levelDone = false;
 						objects.remove(portal);
+						tP.refreshItems();
 					}
 				}
 				if (gameOver == true) {
