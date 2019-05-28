@@ -22,6 +22,8 @@ public class RPGGame implements KeyListener {
 	public static int lastR, lastD=-1; // last direction the player was facing
 	private int facing = 1;
 	private Map map;
+	private int lev;
+	private int lastLev;
 	private Portal portal;
 	public static Trader trader = new Trader();
 	public static Floor floor = new Floor();
@@ -185,15 +187,17 @@ public class RPGGame implements KeyListener {
 				// this is where level number is drawn
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Chelsea", 0, 15));
-				int lev = Map.getLevel() % 7;
+				lev = Map.getLevel() % 7;
 				if (lev > 5)
 					lev = 5;
 				lev = (Map.getLevel() / 7) * 5 + lev;
+				if (lev > 0)
+				lastLev = lev;
 				if (lev == 0) {
 					g.drawString("Level: tutorial", StartGame.SCREEN_WIDTH - 110, 18);
 				}
 				else {
-					g.drawString("Level: " + lev, StartGame.SCREEN_WIDTH - 75, 18);
+					g.drawString("Level: " + lastLev, StartGame.SCREEN_WIDTH - 75, 18);
 				}
 
 				// this is where the player's health bar is drawn
@@ -255,8 +259,12 @@ public class RPGGame implements KeyListener {
 					}
 				}
 				if (gameOver == true) {
+					gO.draw(g, lastLev);
+					enemies.clear();
+					pause();
+					StartGame.timer.stop();
 					map.setRoomCount(0);
-					gO.draw(g, lev);
+			
 
 					/*if (JOptionPane.showConfirmDialog(null, "Would you like to be entered into the record?", "Record Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						try {
