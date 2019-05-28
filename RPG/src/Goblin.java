@@ -71,6 +71,9 @@ public class Goblin extends Enemy {
 	protected void wallCollision() {
 		for (GameObject i : RPGGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
+				if(!(i.equals(RPGGame.getPlayer()))){
+					pickRandomDirection();
+				}
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
 				double m = Math.sqrt(dx * dx + dy * dy);
@@ -80,9 +83,6 @@ public class Goblin extends Enemy {
 				super.moveY(dy / 5);
 				if (!(i instanceof Enemy)) {
 					i.hit(this.getDamage()/2);
-				}
-				if(!(i.equals(RPGGame.getPlayer()))){
-					pickRandomDirection();
 				}
 			}
 
