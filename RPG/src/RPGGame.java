@@ -160,8 +160,8 @@ public class RPGGame implements KeyListener {
 						g.setColor(new Color(255, 0, 0));
 						g.fillRect((int) (go.getLocX() + (go.WIDTH * go.getHealthPercent())), go.hPBarYLoc(),
 								(int) (go.WIDTH * (1 - go.getHealthPercent())), 5);
-						g.setColor(new Color(255,255,255));
-						g.drawRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH * go.getHealthPercent()), 5);
+						g.setColor(new Color(0,0,0));
+						g.drawRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH ), 5);
 					}
 				}
 
