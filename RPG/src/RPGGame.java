@@ -38,7 +38,7 @@ public class RPGGame implements KeyListener {
 	private ArrayList<String> keys = new ArrayList<String>();
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	// private ArrayList<Wall> walls = new ArrayList<Wall>();
+	private ArrayList<Wall> walls = new ArrayList<Wall>();
 	private static ArrayList<GameObject> damagedObjects = new ArrayList<GameObject>();
 	private static ArrayList<Attack> enemyAttacks = new ArrayList<Attack>();
 	private static ArrayList<Attack> special = new ArrayList<Attack>();
@@ -182,19 +182,19 @@ public class RPGGame implements KeyListener {
 					lev = 5;
 				lev = (Map.getLevel() / 7) * 5 + lev;
 				if (lev == 0) {
-					g.drawString("Level: tutorial", StartGame.SCREEN_WIDTH - 100, 18);
+					g.drawString("Level: tutorial", StartGame.SCREEN_WIDTH - 110, 18);
 				}
 				else {
 					g.drawString("Level: " + lev, StartGame.SCREEN_WIDTH - 75, 18);
 				}
 
 				// this is where the player's health bar is drawn
-				g.setColor(new Color(255, 0, 0));
-				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
-				g.setColor(new Color(0, 255, 0));
+				g.setColor(new Color(255, 0, 0)); // color: red
+				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 16);
+				g.setColor(new Color(0, 255, 0)); // color: green
 				g.fillRect(20, 25,
-						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 15);
-				g.setColor(new Color(0, 0, 0));
+						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 16);
+				g.setColor(new Color(255, 255, 255)); // color: white
 				g.drawString("Player health: " + player.getHealth(), 22, 38);
 				/*if(pHit) {
 					g.setColor(new Color(255,0,0));
@@ -206,6 +206,17 @@ public class RPGGame implements KeyListener {
 					pHit=false;
 				}
 				 */
+
+				// this is where the special power cooldown status is drawn
+				g.setColor(new Color(0, 0, 255));
+				g.fillRect(StartGame.SCREEN_WIDTH * 4 / 5 + 24, 25, 181, 16);
+				g.setColor(new Color(255, 255, 255)); // color: white
+				if (player.canSpecial()) {
+					g.drawString("Special power: available", StartGame.SCREEN_WIDTH * 4 / 5 + 33, 38);
+				}
+				else {
+					g.drawString("Special power: unavailable", StartGame.SCREEN_WIDTH * 4 / 5 + 25, 38);
+				}
 
 				if (helpShown == true) {
 					hP.draw(g);
@@ -237,7 +248,7 @@ public class RPGGame implements KeyListener {
 				if (gameOver == true) {
 					map.setRoomCount(0);
 					gO.draw(g, lev);
-					
+
 					/*if (JOptionPane.showConfirmDialog(null, "Would you like to be entered into the record?", "Record Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						try {
 							String entry = JOptionPane.showInputDialog("Enter your name.") + "   " + lev + System.getProperty("line.separator");
