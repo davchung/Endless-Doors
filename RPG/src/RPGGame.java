@@ -19,7 +19,7 @@ public class RPGGame implements KeyListener {
 
 	// these are all variables that are involved with playing the game
 	private static Player player;
-	public static int lastR, lastD; // last direction the player was facing
+	public static int lastR, lastD=-1; // last direction the player was facing
 	private int facing = 1;
 	private Map map;
 	private Portal portal;
