@@ -133,7 +133,6 @@ public class RPGGame implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
-				player.draw(g, facing); // draws the player
 				for (Attack a : special) {
 					if (!a.expire()) {
 						a.draw(g);
@@ -144,6 +143,7 @@ public class RPGGame implements KeyListener {
 						e.draw(g);// draws all enemy attacks
 					}
 				}
+				player.draw(g, facing); // draws the player
 				for (Attack p : primary) {
 					p.draw(g);
 				}
