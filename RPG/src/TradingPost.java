@@ -26,6 +26,14 @@ public class TradingPost extends GameGUI {
 		slot5 = new Weapon(weapons[GameObject.randInt(16, 18)]);
 	}
 
+	
+	public void refreshItems() {
+		slot1 = new Weapon(weapons[GameObject.randInt(0, 3)]);
+		slot2 = new Weapon(weapons[GameObject.randInt(4, 7)]);
+		slot3 = new Weapon(weapons[GameObject.randInt(8, 11)]);
+		slot4 = new Weapon(weapons[GameObject.randInt(12, 15)]);
+		slot5 = new Weapon(weapons[GameObject.randInt(16, 18)]);
+	}
 	// these are getters and setters
 	public Item getSlot1() {
 		return this.slot1;
