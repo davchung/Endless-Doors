@@ -134,15 +134,6 @@ public class RPGGame implements KeyListener {
 					go.draw(g); // draws all objects
 				}
 				player.draw(g, facing); // draws the player
-				for (GameObject go : objects) {
-					if (go instanceof MoveableObject && go.health < go.maxHealth) {
-						g.setColor(new Color(0, 255, 0));
-						g.fillRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH * go.getHealthPercent()), 5);
-						g.setColor(new Color(255, 0, 0));
-						g.fillRect((int) (go.getLocX() + (go.WIDTH * go.getHealthPercent())), go.hPBarYLoc(),
-								(int) (go.WIDTH * (1 - go.getHealthPercent())), 5);
-					}
-				}
 				for (Attack a : special) {
 					if (!a.expire()) {
 						a.draw(g);
@@ -161,6 +152,18 @@ public class RPGGame implements KeyListener {
 				}
 				g.setColor(new Color(0, 0, 0));
 				//drawHitboxes(g); // draws all hitboxes. Dev-only.
+				
+				for (GameObject go : objects) {// draws the health bars
+					if (go instanceof MoveableObject && go.health < go.maxHealth) {
+						g.setColor(new Color(0, 255, 0));
+						g.fillRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH * go.getHealthPercent()), 5);
+						g.setColor(new Color(255, 0, 0));
+						g.fillRect((int) (go.getLocX() + (go.WIDTH * go.getHealthPercent())), go.hPBarYLoc(),
+								(int) (go.WIDTH * (1 - go.getHealthPercent())), 5);
+						g.setColor(new Color(255,255,255));
+						g.drawRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH * go.getHealthPercent()), 5);
+					}
+				}
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : enemies) {
@@ -302,6 +305,8 @@ public class RPGGame implements KeyListener {
 
 		});
 		timer.start();
+		player.addCooldown(10);
+		player.addSpecialCooldown(10);
 	}
 
 	public void setEnemies(int level) {
