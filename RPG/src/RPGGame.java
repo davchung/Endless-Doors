@@ -4,6 +4,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.Timer;
 import javax.swing.JOptionPane;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class RPGGame implements KeyListener {
 
@@ -24,6 +26,7 @@ public class RPGGame implements KeyListener {
 	public static Trader trader = new Trader();
 	public static Floor floor = new Floor();
 	private static AudioClip test = new AudioClip("boss");
+	private FileWriter fW;
 
 	// these are all variables related to GUIs
 	private static Inventory i;
@@ -100,6 +103,11 @@ public class RPGGame implements KeyListener {
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public void beginGame() {
+		try {
+			fW = new FileWriter("record.txt");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		i = new Inventory();
 		map = new Map();
 		objects.addAll(map.getEObjs());
@@ -179,7 +187,7 @@ public class RPGGame implements KeyListener {
 				else {
 					g.drawString("Level: " + lev, StartGame.SCREEN_WIDTH - 75, 18);
 				}
-				
+
 				// this is where the player's health bar is drawn
 				g.setColor(new Color(255, 0, 0));
 				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
@@ -198,7 +206,7 @@ public class RPGGame implements KeyListener {
 					pHit=false;
 				}
 				 */
-				
+
 				if (helpShown == true) {
 					hP.draw(g);
 				}
@@ -229,7 +237,18 @@ public class RPGGame implements KeyListener {
 				if (gameOver == true) {
 					map.setRoomCount(0);
 					gO.draw(g, lev);
-
+					
+					/*if (JOptionPane.showConfirmDialog(null, "Would you like to be entered into the record?", "Record Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						try {
+							String entry = JOptionPane.showInputDialog("Enter your name.") + "   " + lev + System.getProperty("line.separator");
+							fW.append(entry);
+							fW.close();
+						} catch (HeadlessException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}*/
 				}
 				if (invenShown == true) {
 					i.draw(g);
@@ -273,10 +292,12 @@ public class RPGGame implements KeyListener {
 
 	public void setEnemies(int level) {
 		if (level == 0) {
+			player.setInvincibility(true);
 			makeTutorial();
 			levelDone = true;
 			return;
 		}
+		player.setInvincibility(false);
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
 		int amountE = (int) (Math.random() * 2) + 1 + level / 7;// amount of enemies in the floor
 		int difficulty = Map.getLevel() / 7 + 1;
@@ -311,13 +332,13 @@ public class RPGGame implements KeyListener {
 
 	private void makeTutorial() {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int difficulty = 100;
-		list.add(new Skeleton(75, 310, difficulty));
-		list.add(new Goblin(75, 475, difficulty));
-		list.add(new Wogol(75, 610, difficulty));
-		list.add(new Zombie(925, 325, difficulty));
-		list.add(new Swampy(925, 475, difficulty));
-		list.add(new Demon(900, 600, difficulty));
+		int DIFFICULTY = 1;
+		list.add(new Skeleton(75, 310, DIFFICULTY));
+		list.add(new Goblin(75, 475, DIFFICULTY));
+		list.add(new Wogol(75, 610, DIFFICULTY));
+		list.add(new Zombie(925, 325, DIFFICULTY));
+		list.add(new Swampy(925, 475, DIFFICULTY));
+		list.add(new Demon(900, 600, DIFFICULTY));
 		player.setLoc(500, 600);
 		portal = new Portal(500, 50);
 		objects.add(portal);
