@@ -168,11 +168,17 @@ public class RPGGame implements KeyListener {
 
 				// this is where the player's health bar is drawn
 				g.setColor(Color.WHITE);
+				g.setFont(new Font("Chelsea", 0, 15));
 				int lev = Map.getLevel() % 7;
 				if (lev > 5)
 					lev = 5;
 				lev = (Map.getLevel() / 7) * 5 + lev;
-				g.drawString("Level: " + lev, StartGame.SCREEN_WIDTH - 75, 18);
+				if (lev == 0) {
+					g.drawString("Level: tutorial", StartGame.SCREEN_WIDTH - 100, 18);
+				}
+				else {
+					g.drawString("Level: " + lev, StartGame.SCREEN_WIDTH - 75, 18);
+				}
 				g.setColor(new Color(255, 0, 0));
 				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
 				g.setColor(new Color(0, 255, 0));
@@ -195,7 +201,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (helpShown == false) {
 					g.setColor(new Color(255, 255, 255));
-					g.drawString("Press ? for help.", 22, 18);
+					g.drawString("Type ? for help.", 22, 18);
 				}
 				if (levelDone == true) {
 					findEmptyPlace("portal");

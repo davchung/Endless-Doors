@@ -12,13 +12,17 @@ public class Potion extends GameObject {
 		if (type.equals("Invincibility")) { // invincibility potion
 			int startTime = RPGGame.ticks;
 			RPGGame.getPlayer().setInvincibility(true);
-			if (RPGGame.ticks == startTime + 1000) { // turns of invincibility after 10 secs
-				RPGGame.getPlayer().setInvincibility(true);
+			if (RPGGame.ticks == startTime + 1000) { // turns off invincibility after 10 secs
+				RPGGame.getPlayer().setInvincibility(false);
 			}
-		} else if (type.equals("green")) {
-			// to do
-		} else if (type.equals("red")) {
-			// to do
+		} else if (type.equals("green")) { // expansion potion
+			int startTime = RPGGame.ticks;
+			RPGGame.getPlayer().expandPlayer(3);
+			if (RPGGame.ticks == startTime + 1000) { // turns off expansion after 10 secs
+				RPGGame.getPlayer().expandPlayer(1/3);
+			}
+		} else if (type.equals("red")) { // attack damage potion
+			// attack.addToDamage(1);
 		} else if (type.equals("yellow")) { // health potion
 			RPGGame.getPlayer().incrementHealth(5 + (int)(Map.roomCount * 1.5)); // total health increase of 25
 		}

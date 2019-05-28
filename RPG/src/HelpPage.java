@@ -27,10 +27,13 @@ public class HelpPage extends GameGUI {
 		g.drawString("J to do main attack.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("K to use special power.", LEFT_MARGIN, yVal);
-		yVal += 60;
-		g.drawString("I to access the Inventory page, or Trading Post if near Trader.", LEFT_MARGIN, yVal);
 		yVal += 40;
-		g.drawString("? to access the Help Page.", LEFT_MARGIN, yVal);
+		g.drawString("O to deploy the super secret weapon.", LEFT_MARGIN, yVal);
+		yVal += 60;
+		
+		g.drawString("I to access the Inventory, or the Trading Post if near Trader.", LEFT_MARGIN, yVal);
+		yVal += 40;
+		g.drawString("? to view the Help Page.", LEFT_MARGIN, yVal);
 		yVal += 40;
 		g.drawString("P to pause/play the game.", LEFT_MARGIN, yVal);
 
@@ -38,6 +41,6 @@ public class HelpPage extends GameGUI {
 		yVal += 80;
 		g.drawString("Press ? to return to game.", LEFT_MARGIN, yVal);
 		yVal += 25;
-		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
+		g.drawString("Read the README.md file for more information.", LEFT_MARGIN, yVal);
 	}
 }

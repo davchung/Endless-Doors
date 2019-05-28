@@ -16,7 +16,7 @@ public abstract class GameGUI{
 	
 	public static final int TITLE_FONT = 75;
 	public static final int BODY_FONT = 25;
-	public static final int END_FONT = 15;
+	public static final int END_FONT = 20;
 
 	// constructor #1 for GameGUI
 	public GameGUI(boolean pg, BufferedImage i) {
