@@ -19,7 +19,7 @@ public class RPGGame implements KeyListener {
 
 	// these are all variables that are involved with playing the game
 	private static Player player;
-	public static int lastR, lastD; // last direction the player was facing
+	public static int lastR, lastD=-1; // last direction the player was facing
 	private int facing = 1;
 	private Map map;
 	private Portal portal;
@@ -135,16 +135,6 @@ public class RPGGame implements KeyListener {
 				for (GameObject go : objects) {
 					go.draw(g); // draws all objects
 				}
-				player.draw(g, facing); // draws the player
-				for (GameObject go : objects) {
-					if (go instanceof MoveableObject && go.health < go.maxHealth) {
-						g.setColor(new Color(0, 255, 0));
-						g.fillRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH * go.getHealthPercent()), 5);
-						g.setColor(new Color(255, 0, 0));
-						g.fillRect((int) (go.getLocX() + (go.WIDTH * go.getHealthPercent())), go.hPBarYLoc(),
-								(int) (go.WIDTH * (1 - go.getHealthPercent())), 5);
-					}
-				}
 				for (Attack a : special) {
 					if (!a.expire()) {
 						a.draw(g);
@@ -155,6 +145,7 @@ public class RPGGame implements KeyListener {
 						e.draw(g);// draws all enemy attacks
 					}
 				}
+				player.draw(g, facing); // draws the player
 				for (Attack p : primary) {
 					p.draw(g);
 				}
@@ -163,6 +154,18 @@ public class RPGGame implements KeyListener {
 				}
 				g.setColor(new Color(0, 0, 0));
 				//drawHitboxes(g); // draws all hitboxes. Dev-only.
+				
+				for (GameObject go : objects) {// draws the health bars
+					if (go instanceof MoveableObject && go.health < go.maxHealth) {
+						g.setColor(new Color(0, 255, 0));
+						g.fillRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH * go.getHealthPercent()), 5);
+						g.setColor(new Color(255, 0, 0));
+						g.fillRect((int) (go.getLocX() + (go.WIDTH * go.getHealthPercent())), go.hPBarYLoc(),
+								(int) (go.WIDTH * (1 - go.getHealthPercent())), 5);
+						g.setColor(new Color(0,0,0));
+						g.drawRect((int) go.getLocX(), go.hPBarYLoc(), (int) (go.WIDTH ), 5);
+					}
+				}
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : enemies) {
@@ -200,7 +203,7 @@ public class RPGGame implements KeyListener {
 				g.fillRect(20, 25,
 						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 16);
 				g.setColor(new Color(255, 255, 255)); // color: white
-				g.drawString("Player health: " + player.getHealth(), 22, 38);
+				g.drawString("Player health: " + (int)player.getHealth(), 22, 38);
 				/*if(pHit) {
 					g.setColor(new Color(255,0,0));
 					g.fillRect(0,0,1050,100);
@@ -248,6 +251,7 @@ public class RPGGame implements KeyListener {
 						setEnemies(Map.getLevel());
 						levelDone = false;
 						objects.remove(portal);
+						tP.refreshItems();
 					}
 				}
 				if (gameOver == true) {
@@ -304,6 +308,8 @@ public class RPGGame implements KeyListener {
 
 		});
 		timer.start();
+		player.addCooldown(10);
+		player.addSpecialCooldown(10);
 	}
 
 	public void setEnemies(int level) {
@@ -348,13 +354,12 @@ public class RPGGame implements KeyListener {
 
 	private void makeTutorial() {
 		ArrayList<Enemy> list = new ArrayList<Enemy>();
-		int DIFFICULTY = 1;
-		list.add(new Skeleton(75, 310, DIFFICULTY));
-		list.add(new Goblin(75, 475, DIFFICULTY));
-		list.add(new Wogol(75, 610, DIFFICULTY));
-		list.add(new Zombie(925, 325, DIFFICULTY));
-		list.add(new Swampy(925, 475, DIFFICULTY));
-		list.add(new Demon(900, 600, DIFFICULTY));
+		list.add(new Skeleton(75, 310, 1));
+		list.add(new Goblin(75, 475, 1));
+		list.add(new Wogol(75, 610, 1));
+		list.add(new Zombie(925, 325, 1));
+		list.add(new Swampy(925, 475, 1));
+		list.add(new Demon(900, 600, 1));
 		player.setLoc(500, 600);
 		portal = new Portal(500, 50);
 		objects.add(portal);
@@ -518,6 +523,9 @@ public class RPGGame implements KeyListener {
 
 	protected void collision() {
 		ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
+		if (Map.getLevel()==0) {
+			toRemove.addAll(enemyAttacks);
+		}
 		for (Attack p : primary) {
 			if (p.expire())
 				toRemove.add(p);
@@ -536,6 +544,8 @@ public class RPGGame implements KeyListener {
 			if (e.expire()) {
 				toRemove.add(e);
 			}
+			if (ticks-levelTicks<20)
+				toRemove.add(e);
 		}
 		for (GameObject objs : objects) {// collision for gameobjects
 			while (player.collides(objs) && !objs.throughable && !(player.equals(objs))) {
@@ -750,13 +760,16 @@ public class RPGGame implements KeyListener {
 
 		// game over
 		if (gameOver == true && (keys.contains("n"))) {
+			keys.clear();
 			test.stop();
 			objects.clear();
 			enemies.clear();
 			primary.clear();
 			special.clear();
+			walls.clear();
 			enemyAttacks.clear();
 			damagedObjects.clear();
+			envirAttacks.clear();
 			floor.reset();
 			new StartGame().init();
 			mainFrame.dispose();

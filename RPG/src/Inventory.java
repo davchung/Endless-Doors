@@ -57,10 +57,10 @@ public class Inventory extends GameGUI {
 		yVal += 40;
 		g.drawString("Items in inventory: ", LEFT_MARGIN, yVal);
 		if (RPGGame.getPlayer() instanceof Knight) {
-			g.drawString("Attack damage: " + (int)(getTotalDmg() + RPGGame.getPlayer().getDamage()), LEFT_MARGIN * 3, yVal);
+			g.drawString("Attack damage: " + (int)(RPGGame.getPlayer().getDamage()), LEFT_MARGIN * 3, yVal);
 		}
 		else {
-			g.drawString("Attack damage: " + (int)(getTotalDmg() + RPGGame.getPlayer().getDamage() / 2), LEFT_MARGIN * 3, yVal);
+			g.drawString("Attack damage: " + (int)(RPGGame.getPlayer().getDamage() / 2), LEFT_MARGIN * 3, yVal);
 		}
 		if (inventory.size() == 0) {
 			yVal += 40;
