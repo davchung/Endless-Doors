@@ -3,10 +3,18 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Arrow extends Attack{
-
+	private Animation anim;
+	private Boolean animated;
 	public Arrow(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
 			int duration, double e, String s) {
 		super(x, y, width, height, pWidth, pHeight, right, down, velocity, duration, e, s);
+		animated = false;
+	}
+	public Arrow(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
+			int duration, double e, Animation an) {
+		super(x, y, width, height, pWidth, pHeight, right, down, velocity, duration, e, an);
+		animated = true;
+		anim = an;
 	}
 	
 	@Override
@@ -21,7 +29,12 @@ public class Arrow extends Attack{
 			angle += Math.PI;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-		BufferedImage i = this.getImg();
+		BufferedImage i;
+		if (animated) {
+			i=anim.getImage();
+		}else {
+			i = this.getImg();
+		}
 		double ratio = (50) / i.getHeight();
 		double shiftX = (this.WIDTH - i.getWidth() * ratio) / 2;
 		g2d.rotate(angle, this.getCX(), this.getCY());

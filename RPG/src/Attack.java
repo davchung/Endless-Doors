@@ -10,6 +10,8 @@ public class Attack extends GameObject {
 	protected int expire;
 	private double dmg;
 	private boolean reflected = false;
+	private boolean animated;
+	private Animation anim;
 
 	// this is the constructor for a melee attack;
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,
@@ -39,13 +41,37 @@ public class Attack extends GameObject {
 		super.moveY(d * pHeight / 2);
 		dmg = e;
 	}
+	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
+			int duration, double e, Animation s) {
+		super(x, y, width, height, true, true, 1, s.getFirst()); 
+		expire = RPGGame.ticks + duration;
+		super.moveX(-width / 2);// centers drawing on player
+		super.moveY(-height / 2);
+		r = right;
+		d = down;
+		vel = velocity;
+		super.moveX(r * pWidth / 2);// moves to where the player faces
+		super.moveY(d * pHeight / 2);
+		dmg = e;
+		anim = s;
+		animated = true;
+	}
 
-	public Attack(int x, int y, int width, int height, int duration, int damage, String s) {
+	public Attack(int x, int y, int width, int height, int duration, double damage, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
 		expire = RPGGame.ticks + duration;
 		vel = 0;
 		dmg = damage;
 	}
+	
+	//can't get this one to work, can't figure out why.
+	public Attack(int x, int y, int width, int height, int duration, double damage, BufferedImage img) {
+		super(x, y, width, height, true, true, 1, img);
+		expire = RPGGame.ticks + duration;
+		vel = 0;
+		dmg = damage;
+	}
+
 
 
 	@Override
@@ -67,11 +93,20 @@ public class Attack extends GameObject {
 			angle += Math.PI;
 		}
 		Graphics2D g2d = (Graphics2D) g;
-		BufferedImage i = this.getImg();
+		BufferedImage i;
+		if (animated) {
+			i = anim.getImage();
+		}else {
+			i = this.getImg();
+		}
 		double ratio = ((double) HEIGHT) / i.getHeight();
 		double shiftX = (this.WIDTH - i.getWidth() * ratio) / 2;
 		g2d.rotate(angle, this.getCX(), this.getCY());
-		g.drawImage(i, (int) (locX + shiftX), (int) locY, (int) (i.getWidth() * ratio), (int) HEIGHT, null);
+		if (animated) {
+			g.drawImage(anim.getImage(), (int) (locX + shiftX), (int) locY, (int) (i.getWidth() * ratio), (int) HEIGHT, null);
+		}else {
+			g.drawImage(i, (int) (locX + shiftX), (int) locY, (int) (i.getWidth() * ratio), (int) HEIGHT, null);
+		}
 		g2d.rotate(-angle, this.getCX(), this.getCY());
 	}
 
@@ -84,6 +119,8 @@ public class Attack extends GameObject {
 	}
 
 	public void update() {
+		if (vel == 0)
+			return;
 		double mag = Math.sqrt(r * r + d * d);
 		r = r / mag;
 		d = d / mag;
@@ -93,7 +130,7 @@ public class Attack extends GameObject {
 
 	public boolean expire() {
 		if (RPGGame.ticks > expire) {
-			return true;
+			return true;	
 		}
 		return false;
 	}

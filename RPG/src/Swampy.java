@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class Swampy extends Enemy {
 
@@ -9,6 +11,8 @@ public class Swampy extends Enemy {
 		moveDown= 0;
 		addLength = 0;
 		moveLeft = 10;
+		this.speed=1;
+		this.increaseMaxHealth(this.health);
 	}
 
 	@Override
@@ -61,6 +65,10 @@ public class Swampy extends Enemy {
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
+		if (this.canAttack()) {
+			RPGGame.setEnemyAttack(new Attack((int) (getLocX()), (int) (getLocY()+HEIGHT/2), WIDTH, HEIGHT/2, 400,this.getDamage()/3, "sprites/goo.png"));
+			this.addCooldown(20);
+		}
 		RPGGame.getObjects().add(this);
 	}
 	@Override

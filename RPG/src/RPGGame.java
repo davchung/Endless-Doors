@@ -149,7 +149,9 @@ public class RPGGame implements KeyListener {
 					}
 				}
 				for (Attack e : enemyAttacks) {
-					e.draw(g);// draws all enemy attacks
+					if (!e.expire()) {
+						e.draw(g);// draws all enemy attacks
+					}
 				}
 				for (Attack p : primary) {
 					p.draw(g);
@@ -158,10 +160,11 @@ public class RPGGame implements KeyListener {
 					e.draw(g);
 				}
 				g.setColor(new Color(0, 0, 0));
-				//sddrawHitboxes(g); // draws all hitboxes. Dev-only.
+				//drawHitboxes(g); // draws all hitboxes. Dev-only.
 
 				g.setColor(new Color(255, 0, 0));
 				for (GameObject go : enemies) {
+					go.draw(g);//TESTING
 					if (go instanceof MoveableObject && ((MoveableObject) go).getLoss() != 0) {
 						g.drawString("" + -(int) ((MoveableObject) go).getLoss(), (int) go.getCX() - 10,
 								(int) go.getCY());
@@ -610,6 +613,7 @@ public class RPGGame implements KeyListener {
 		objects.removeAll(toRemove);
 		enemies.removeAll(toRemove);
 		primary.removeAll(toRemove);
+		enemyAttacks.removeAll(toRemove);
 		envirAttacks.removeAll(toRemove);
 		special.removeAll(toRemove);
 	}
