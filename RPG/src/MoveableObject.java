@@ -6,7 +6,7 @@ public class MoveableObject extends GameObject{
 	protected double pastX, pastY; // how much they moved in their last frame
 	protected double right, down; //current direction they're facing
 	private int cooldown = 0;// to move to MO
-	private double loss=0;
+	private double loss = 0;
 	protected double speed = 1.5; 
 
 

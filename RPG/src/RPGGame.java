@@ -166,7 +166,7 @@ public class RPGGame implements KeyListener {
 					}
 				}
 
-				// this is where the player's health bar is drawn
+				// this is where level number is drawn
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Chelsea", 0, 15));
 				int lev = Map.getLevel() % 7;
@@ -179,6 +179,8 @@ public class RPGGame implements KeyListener {
 				else {
 					g.drawString("Level: " + lev, StartGame.SCREEN_WIDTH - 75, 18);
 				}
+				
+				// this is where the player's health bar is drawn
 				g.setColor(new Color(255, 0, 0));
 				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 15);
 				g.setColor(new Color(0, 255, 0));
@@ -196,6 +198,7 @@ public class RPGGame implements KeyListener {
 					pHit=false;
 				}
 				 */
+				
 				if (helpShown == true) {
 					hP.draw(g);
 				}
@@ -225,7 +228,7 @@ public class RPGGame implements KeyListener {
 				}
 				if (gameOver == true) {
 					map.setRoomCount(0);
-					gO.draw(g);
+					gO.draw(g, lev);
 
 				}
 				if (invenShown == true) {
@@ -319,7 +322,7 @@ public class RPGGame implements KeyListener {
 		portal = new Portal(500, 50);
 		objects.add(portal);
 		for (Enemy e : list) {
-			e.addCooldown(100000);
+			e.addCooldown(Integer.MAX_VALUE);
 			objects.add(e);
 			enemies.add(e);
 		}
