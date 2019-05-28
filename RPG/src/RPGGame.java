@@ -10,7 +10,7 @@ import java.io.IOException;
 public class RPGGame implements KeyListener {
 
 	// these are all variables that allow the game to run
-	private JFrame mainFrame = new JFrame("Role-Playing Game");
+	private JFrame mainFrame = new JFrame("Endless Doors");
 	private JPanel mainPanel;
 	private static Timer timer;
 	private static final int REFRESH_RATE = 10;
@@ -39,8 +39,8 @@ public class RPGGame implements KeyListener {
 	// these variables are all ArrayLists of other variables
 	private ArrayList<String> keys = new ArrayList<String>();
 	private ArrayList<StringGraphic> displayStrings = new ArrayList<StringGraphic>();  //list of strings to draw
-		private Font tutFont = new Font("Chelsea",0,25);
-		private Color tutColor = new Color (255,255,255);
+	private Font tutFont = new Font("Chelsea",0,25);
+	private Color tutColor = new Color (255,255,255);
 	private static ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	private static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Wall> walls = new ArrayList<Wall>();
@@ -156,7 +156,7 @@ public class RPGGame implements KeyListener {
 				}
 				g.setColor(new Color(0, 0, 0));
 				//drawHitboxes(g); // draws all hitboxes. Dev-only.
-				
+
 				for (GameObject go : objects) {// draws the health bars
 					if (go instanceof MoveableObject && go.health < go.maxHealth) {
 						g.setColor(new Color(0, 255, 0));
@@ -192,7 +192,7 @@ public class RPGGame implements KeyListener {
 					lev = 5;
 				lev = (Map.getLevel() / 7) * 5 + lev;
 				if (lev > 0)
-				lastLev = lev;
+					lastLev = lev;
 				if (lev == 0) {
 					g.drawString("Level: tutorial", StartGame.SCREEN_WIDTH - 110, 18);
 				}
@@ -264,7 +264,7 @@ public class RPGGame implements KeyListener {
 					pause();
 					StartGame.timer.stop();
 					map.setRoomCount(0);
-			
+
 
 					/*if (JOptionPane.showConfirmDialog(null, "Would you like to be entered into the record?", "Record Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						try {

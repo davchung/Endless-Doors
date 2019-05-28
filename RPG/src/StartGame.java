@@ -38,7 +38,7 @@ public class StartGame {
 		k.expandPlayer(4);
 		Archer a = new Archer(1050-163-200,275);
 		a.expandPlayer(4);
-		startFrame = new JFrame("Welcome to RPG!");
+		startFrame = new JFrame("Welcome to Endless Doors!");
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		startFrame.setVisible(true);
 		startPanel = new JPanel() {

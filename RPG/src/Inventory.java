@@ -77,7 +77,7 @@ public class Inventory extends GameGUI {
 		yVal += 80;
 		g.drawString("Press I to return to game.", LEFT_MARGIN, yVal);
 		yVal += 25;
-		g.drawString("Thanks for playing our game!", LEFT_MARGIN, yVal);
+		g.drawString("Thanks for playing Endless Doors!", LEFT_MARGIN, yVal);
 
 		RPGGame.pause();
 	}
