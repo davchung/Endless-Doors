@@ -65,10 +65,10 @@ public abstract class Player extends MoveableObject {
 		while (this.getLocY()<40) {
 			this.moveY(10);
 		}
-		while (this.getLocX()>StartGame.SCREEN_WIDTH-90) {
+		while (this.getLocX()>EndlessDoorsRunner.SCREEN_WIDTH-90) {
 			this.moveX(-10);
 		}
-		while (this.getLocY()>StartGame.SCREEN_HEIGHT-90) {
+		while (this.getLocY()>EndlessDoorsRunner.SCREEN_HEIGHT-90) {
 			this.moveY(-10);
 		}
 	}

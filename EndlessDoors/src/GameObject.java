@@ -70,32 +70,32 @@ public abstract class GameObject {
 		int decide = (int) (Math.random() * 100);
 		if (this instanceof Chest) {
 			if (decide <= 20)
-				RPGGame.getObjects().add(new Potion(this.getLocX(), this.getLocY(), "yellow"));
+				EndlessDoorsGame.getObjects().add(new Potion(this.getLocX(), this.getLocY(), "yellow"));
 			
 			else {
-				RPGGame.getObjects()
+				EndlessDoorsGame.getObjects()
 						.add(new Coin(this.getLocX(), this.getLocY(), decide / 6 + (int) (Map.roomCount * 1.5)));
 			}
-			RPGGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
+			EndlessDoorsGame.getFloor().setChestFloor((int) (this.getLocX()), (int) (this.getLocY()));
 		}
 		if (this instanceof Enemy) {
 
 			if (decide >= 75) {
-				RPGGame.getObjects()
+				EndlessDoorsGame.getObjects()
 						.add(new Coin(this.getLocX(), this.getLocY(), (int) (decide / 5 + Map.roomCount * .75)));
 			} else if (decide >= 50)
-				RPGGame.getObjects()
+				EndlessDoorsGame.getObjects()
 						.add(new Coin(this.getLocX(), this.getLocY(), (int) (decide / 4 + Map.roomCount * 1)));
 			else if (decide >= 25)
-				RPGGame.getObjects()
+				EndlessDoorsGame.getObjects()
 						.add(new Coin(this.getLocX(), this.getLocY(), decide / 3 + (int) (Map.roomCount * 1.15)));
 			else {
-				RPGGame.getObjects()
+				EndlessDoorsGame.getObjects()
 						.add(new Coin(this.getLocX(), this.getLocY(), decide / 2 + (int) (Map.roomCount * 1.25)));
 			}
 		}
 		if (this instanceof Coin) {
-			RPGGame.getInventory().addGold(health);
+			EndlessDoorsGame.getInventory().addGold(health);
 		}
 
 		if (this instanceof Potion) {
@@ -220,10 +220,10 @@ public abstract class GameObject {
 	public void hit(double d, int iD) {
 		if (!invincible && (!wasHit.contains(iD))) {
 			health -= d;
-			hittable = RPGGame.ticks + 15;
+			hittable = EndlessDoorsGame.ticks + 15;
 			wasHit.add(iD);
 			if (!(this instanceof Enemy) && !(this instanceof Player)) {
-				RPGGame.getDamagedObjects().add(this);
+				EndlessDoorsGame.getDamagedObjects().add(this);
 			}
 		}
 	}
@@ -234,11 +234,11 @@ public abstract class GameObject {
 	}
 
 	public void hit(double d) {
-		if (RPGGame.ticks > hittable && !invincible) {
+		if (EndlessDoorsGame.ticks > hittable && !invincible) {
 			health -= d;
-			hittable = RPGGame.ticks + 30;
+			hittable = EndlessDoorsGame.ticks + 30;
 			if (!(this instanceof Enemy) && !(this instanceof Player)) {
-				RPGGame.getDamagedObjects().add(this);
+				EndlessDoorsGame.getDamagedObjects().add(this);
 			}
 		}
 

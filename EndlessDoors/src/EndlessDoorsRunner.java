@@ -20,7 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class StartGame {
+public class EndlessDoorsRunner {
 	private JPanel startPanel;
 	public static int SCREEN_WIDTH = 1050;
 	public static int SCREEN_HEIGHT = 750;
@@ -30,7 +30,7 @@ public class StartGame {
 	public static Timer timer;
 
 	public static void main(String[] args) {
-		new StartGame().init();
+		new EndlessDoorsRunner().init();
 	}
 
 	public void init() {
@@ -77,11 +77,11 @@ public class StartGame {
 			@Override
 			public void mousePressed(MouseEvent me) {
 				if (me.getX()<SCREEN_WIDTH/2) {
-					RPGGame.selectClass(0);
+					EndlessDoorsGame.selectClass(0);
 				}else {
-					RPGGame.selectClass(1);
+					EndlessDoorsGame.selectClass(1);
 				}
-				(new RPGGame()).beginGame();
+				(new EndlessDoorsGame()).beginGame();
 			}
 		});
 		

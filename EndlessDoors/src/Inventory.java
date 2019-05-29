@@ -41,8 +41,8 @@ public class Inventory extends GameGUI {
 	}
 
 	public void draw(Graphics g) {
-		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
-		int yVal = StartGame.SCREEN_HEIGHT * 1 / 4;
+		int LEFT_MARGIN = EndlessDoorsRunner.SCREEN_WIDTH * 2 / 10;
+		int yVal = EndlessDoorsRunner.SCREEN_HEIGHT * 1 / 4;
 		g.setColor(new Color(145, 130, 10)); // color: brown
 		super.draw(g);
 
@@ -53,14 +53,14 @@ public class Inventory extends GameGUI {
 		g.setFont(new Font("Chelsea", 0, BODY_FONT));
 		yVal += 80;
 		g.drawString("Amount of gold: " + gold, LEFT_MARGIN, yVal);
-		g.drawString("Player health: " + RPGGame.getPlayer().getHealth(), LEFT_MARGIN * 3, yVal);
+		g.drawString("Player health: " + EndlessDoorsGame.getPlayer().getHealth(), LEFT_MARGIN * 3, yVal);
 		yVal += 40;
 		g.drawString("Items in inventory: ", LEFT_MARGIN, yVal);
-		if (RPGGame.getPlayer() instanceof Knight) {
-			g.drawString("Attack damage: " + (int)(RPGGame.getPlayer().getDamage()), LEFT_MARGIN * 3, yVal);
+		if (EndlessDoorsGame.getPlayer() instanceof Knight) {
+			g.drawString("Attack damage: " + (int)(EndlessDoorsGame.getPlayer().getDamage()), LEFT_MARGIN * 3, yVal);
 		}
 		else {
-			g.drawString("Attack damage: " + (int)(RPGGame.getPlayer().getDamage() / 2), LEFT_MARGIN * 3, yVal);
+			g.drawString("Attack damage: " + (int)(EndlessDoorsGame.getPlayer().getDamage() / 2), LEFT_MARGIN * 3, yVal);
 		}
 		if (inventory.size() == 0) {
 			yVal += 40;
@@ -79,6 +79,6 @@ public class Inventory extends GameGUI {
 		yVal += 25;
 		g.drawString("Thanks for playing Endless Doors!", LEFT_MARGIN, yVal);
 
-		RPGGame.pause();
+		EndlessDoorsGame.pause();
 	}
 }

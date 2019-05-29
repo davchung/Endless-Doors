@@ -26,7 +26,7 @@ public class Animation {
 	}
 	
 	public BufferedImage startScreen() {
-		int ticks = StartGame.ticks / 10;
+		int ticks = EndlessDoorsRunner.ticks / 10;
 		ticks = ticks % anim.length;
 		//System.out.println("this is working");
 		return (anim[ticks]);
@@ -34,7 +34,7 @@ public class Animation {
 	}
 
 	public BufferedImage getImage() {
-		int ticks = RPGGame.ticks / 10;
+		int ticks = EndlessDoorsGame.ticks / 10;
 		ticks = ticks % anim.length;
 		return (anim[ticks]);
 	}

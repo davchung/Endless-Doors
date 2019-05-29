@@ -59,12 +59,12 @@ public abstract class Enemy extends MoveableObject {
 	public void autoMove() {
 		// makes the enemy follow the player
 		double x = 0, y = 0;
-		if (this.getLocX() - RPGGame.getPlayer().getLocX() > 0) {
+		if (this.getLocX() - EndlessDoorsGame.getPlayer().getLocX() > 0) {
 			x = -this.getSpeed();
 		} else {
 			x = this.getSpeed();
 		}
-		if (this.getLocY() - RPGGame.getPlayer().getLocY() > 0) {
+		if (this.getLocY() - EndlessDoorsGame.getPlayer().getLocY() > 0) {
 			y = -this.getSpeed();
 		} else {
 			y = this.getSpeed();
@@ -77,7 +77,7 @@ public abstract class Enemy extends MoveableObject {
 
 
 	protected void wallCollision() {
-		for (GameObject i : RPGGame.getObjects()) {
+		for (GameObject i : EndlessDoorsGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
@@ -92,7 +92,7 @@ public abstract class Enemy extends MoveableObject {
 			}
 
 		}
-		for (GameObject i : RPGGame.getObjects()) {
+		for (GameObject i : EndlessDoorsGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				wallCollision();
 			}

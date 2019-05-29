@@ -16,7 +16,7 @@ public class Goblin extends Enemy {
 
 	@Override
 	public void draw(Graphics g) {
-		if (super.getHittable() > RPGGame.ticks) {
+		if (super.getHittable() > EndlessDoorsGame.ticks) {
 			drawDamage(g);
 		} else {
 			betterDraw(g);
@@ -27,7 +27,7 @@ public class Goblin extends Enemy {
 	// these methods are for movement
 	@Override
 	public void moveX(double howMuch) {
-		if (RPGGame.ticks > getHittable()) {
+		if (EndlessDoorsGame.ticks > getHittable()) {
 			super.moveX(howMuch);
 		} else {
 			super.moveX(-howMuch / 3);
@@ -36,7 +36,7 @@ public class Goblin extends Enemy {
 
 	@Override
 	public void moveY(double howMuch) {
-		if (RPGGame.ticks > getHittable()) {
+		if (EndlessDoorsGame.ticks > getHittable()) {
 			super.moveY(howMuch);
 		} else {
 			super.moveY(-howMuch / 3);
@@ -46,7 +46,7 @@ public class Goblin extends Enemy {
 	// the goblin has a possibility of being faster
 	@Override
 	public void autoMove() {
-		RPGGame.getObjects().remove(this);
+		EndlessDoorsGame.getObjects().remove(this);
 		double x = 0, y = 0;
 		x = faceR;
 		y = faceD;
@@ -55,23 +55,23 @@ public class Goblin extends Enemy {
 		y = this.getSpeed() * y / mag;
 		this.moveX(x); // this makes the goblin possibly be faster
 		this.moveY(y);
-		while (this.collides(RPGGame.getPlayer())) {
+		while (this.collides(EndlessDoorsGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
-			RPGGame.getPlayer().hit(this.getDamage());
+			EndlessDoorsGame.getPlayer().hit(this.getDamage());
 		}
 		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
-		RPGGame.getObjects().add(this);
+		EndlessDoorsGame.getObjects().add(this);
 	}
 	@Override
 	protected void wallCollision() {
-		for (GameObject i : RPGGame.getObjects()) {
+		for (GameObject i : EndlessDoorsGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
-				if(!(i.equals(RPGGame.getPlayer()))){
+				if(!(i.equals(EndlessDoorsGame.getPlayer()))){
 					pickRandomDirection();
 				}
 				double dx = this.getCX() - i.getCX();
@@ -87,7 +87,7 @@ public class Goblin extends Enemy {
 			}
 
 		}
-		for (GameObject i : RPGGame.getObjects()) {
+		for (GameObject i : EndlessDoorsGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				wallCollision();
 			}
@@ -98,8 +98,8 @@ public class Goblin extends Enemy {
 	private void pickRandomDirection() {
 		int choice = (int)(Math.random()*4);
 		if (choice ==0) {
-			faceR = (RPGGame.getPlayer().getCX() - this.getCX());
-			faceD = (RPGGame.getPlayer().getCY() - this.getCY()); 
+			faceR = (EndlessDoorsGame.getPlayer().getCX() - this.getCX());
+			faceD = (EndlessDoorsGame.getPlayer().getCY() - this.getCY()); 
 		}else {
 			faceR= (int)(Math.random()*101)-50;
 			faceD= (int)(Math.random()*101)-50;

@@ -11,8 +11,8 @@ public class Knight extends Player {
 	}
 	
 	public Attack getAttack() {
-		Attack sword = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,20,this.getDamage() , "sprites/items/lavish_gold_sword.png");
-		canMove = RPGGame.ticks+20;
+		Attack sword = new Attack((int)this.getCX(), (int)this.getCY(), this.WIDTH, this.HEIGHT, this.WIDTH, this.HEIGHT,EndlessDoorsGame.lastR,EndlessDoorsGame.lastD,20,this.getDamage() , "sprites/items/lavish_gold_sword.png");
+		canMove = EndlessDoorsGame.ticks+20;
 		return sword;
 	}
 	public Attack getSpecial() {
@@ -22,35 +22,35 @@ public class Knight extends Player {
 	
 	@Override
 	public void hit(double damage) {
-		if (RPGGame.getSpecial().size()==0) {
+		if (EndlessDoorsGame.getSpecial().size()==0) {
 			super.hit(damage);
 		}
 	}
 	
 	@Override
 	public void hit(double damage, int gameID) {
-		if (RPGGame.getSpecial().size()==0) {
+		if (EndlessDoorsGame.getSpecial().size()==0) {
 			super.hit(damage,gameID);
 		}
 	}
 
 	@Override
 	public boolean canMove() {
-		if (RPGGame.ticks>canMove)
+		if (EndlessDoorsGame.ticks>canMove)
 			return true;
 		return false;
 	}
 
 	@Override
 	protected boolean canSpecial() {
-		if (RPGGame.ticks>canSpecial)
+		if (EndlessDoorsGame.ticks>canSpecial)
 			return true;
 		return false;
 	}
 
 	@Override
 	protected void addSpecialCooldown(int i) {
-		canSpecial = RPGGame.ticks+i;
+		canSpecial = EndlessDoorsGame.ticks+i;
 	}
 	
 	public void drawTutorial(Graphics g) {

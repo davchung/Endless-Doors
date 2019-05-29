@@ -15,7 +15,7 @@ public class Wogol extends Enemy {
 
 	@Override
 	public void draw(Graphics g) {
-		if (super.getHittable() > RPGGame.ticks) {
+		if (super.getHittable() > EndlessDoorsGame.ticks) {
 			drawDamage(g);
 		} else {
 			betterDraw(g);
@@ -25,7 +25,7 @@ public class Wogol extends Enemy {
 	// these methods are for movement
 	@Override
 	public void moveX(double howMuch) {
-		if (RPGGame.ticks > getHittable()) {
+		if (EndlessDoorsGame.ticks > getHittable()) {
 			super.moveX(howMuch);
 		} else {
 			super.moveX(-howMuch / 3);
@@ -34,7 +34,7 @@ public class Wogol extends Enemy {
 
 	@Override
 	public void moveY(double howMuch) {
-		if (RPGGame.ticks > getHittable()) {
+		if (EndlessDoorsGame.ticks > getHittable()) {
 			super.moveY(howMuch);
 		} else {
 			super.moveY(-howMuch / 3);
@@ -44,16 +44,16 @@ public class Wogol extends Enemy {
 	// the Wogol now moves away from the player and can shoot
 	@Override
 	public void autoMove() {
-		RPGGame.getObjects().remove(this);
+		EndlessDoorsGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = -(RPGGame.getPlayer().getCX() - this.getCX());
-		y = -(RPGGame.getPlayer().getCY() - this.getCY());
+		x = -(EndlessDoorsGame.getPlayer().getCX() - this.getCX());
+		y = -(EndlessDoorsGame.getPlayer().getCY() - this.getCY());
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
 		if (GameObject.randInt(1, 2) == 1) { // this gives the Wogol the ability to shoot
 			if (this.canAttack()) {
-				RPGGame.setEnemyAttack(new Arrow((int) getCX(), (int) getCY(), WIDTH * 3 / 4, WIDTH * 3 / 4, WIDTH,
+				EndlessDoorsGame.setEnemyAttack(new Arrow((int) getCX(), (int) getCY(), WIDTH * 3 / 4, WIDTH * 3 / 4, WIDTH,
 						HEIGHT, -x, -y, 3, 500, this.getDamage()*2, attack));
 				this.addCooldown(300);
 			}
@@ -65,17 +65,17 @@ public class Wogol extends Enemy {
 		} else {
 		moving = false;
 		}
-		while (this.collides(RPGGame.getPlayer())) {
+		while (this.collides(EndlessDoorsGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
-			RPGGame.getPlayer().hit(this.getDamage());
+			EndlessDoorsGame.getPlayer().hit(this.getDamage());
 		}
 		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
-		RPGGame.getObjects().add(this);
+		EndlessDoorsGame.getObjects().add(this);
 	}
 	@Override
 	public Animation getRun() {

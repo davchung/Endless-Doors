@@ -12,18 +12,18 @@ public class Archer extends Player {
 	
 	public Attack getAttack() {
 
-		Attack arrow = new Arrow((int)this.getCX(), (int)this.getCY(), 10, 10, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,15,200,this.getDamage()/2, "sprites/items/larger_arrow.png");
-		canMove = RPGGame.ticks;
+		Attack arrow = new Arrow((int)this.getCX(), (int)this.getCY(), 10, 10, this.WIDTH, this.HEIGHT,EndlessDoorsGame.lastR,EndlessDoorsGame.lastD,15,200,this.getDamage()/2, "sprites/items/larger_arrow.png");
+		canMove = EndlessDoorsGame.ticks;
 		return arrow;
 	}
 	public Attack getSpecial() {
-		Grapple grapple = new Grapple((int)this.getCX(), (int)this.getCY(), 10,10, this.WIDTH, this.HEIGHT,RPGGame.lastR,RPGGame.lastD,12,200,this.getDamage(), "sprites/items/mace.png");
+		Grapple grapple = new Grapple((int)this.getCX(), (int)this.getCY(), 10,10, this.WIDTH, this.HEIGHT,EndlessDoorsGame.lastR,EndlessDoorsGame.lastD,12,200,this.getDamage(), "sprites/items/mace.png");
 		return grapple;
 	}
 	
 	@Override
 	public void hit(double damage) {
-		if (RPGGame.getSpecial().size()==0) {
+		if (EndlessDoorsGame.getSpecial().size()==0) {
 			super.hit(damage);
 		}
 	}
@@ -34,21 +34,21 @@ public class Archer extends Player {
 
 	@Override
 	public boolean canMove() {
-		if (RPGGame.ticks>canMove)
+		if (EndlessDoorsGame.ticks>canMove)
 			return true;
 		return false;
 	}
 
 	@Override
 	protected boolean canSpecial() {
-		if (RPGGame.ticks>canSpecial)
+		if (EndlessDoorsGame.ticks>canSpecial)
 			return true;
 		return false;
 	}
 
 	@Override
 	protected void addSpecialCooldown(int i) {
-		canSpecial = RPGGame.ticks+i;
+		canSpecial = EndlessDoorsGame.ticks+i;
 	}
 
 	@Override

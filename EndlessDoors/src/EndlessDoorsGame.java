@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class RPGGame implements KeyListener {
+public class EndlessDoorsGame implements KeyListener {
 
 	// these are all variables that allow the game to run
 	private JFrame mainFrame = new JFrame("Endless Doors");
@@ -61,7 +61,7 @@ public class RPGGame implements KeyListener {
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// these are getters for variables
 	public static Player getPlayer() {
-		return RPGGame.player;
+		return EndlessDoorsGame.player;
 	}
 
 	public static ArrayList<Attack> getPrimary() {
@@ -85,19 +85,19 @@ public class RPGGame implements KeyListener {
 	}
 
 	public static ArrayList<GameObject> getObjects() {
-		return RPGGame.objects;
+		return EndlessDoorsGame.objects;
 	}
 
 	public static ArrayList<GameObject> getDamagedObjects() {
-		return RPGGame.damagedObjects;
+		return EndlessDoorsGame.damagedObjects;
 	}
 
 	public static ArrayList<Enemy> getEnemies() {
-		return RPGGame.enemies;
+		return EndlessDoorsGame.enemies;
 	}
 
 	public static ArrayList<Attack> getSpecial() {
-		return RPGGame.special;
+		return EndlessDoorsGame.special;
 	}
 
 	public static Inventory getInventory() {
@@ -118,7 +118,7 @@ public class RPGGame implements KeyListener {
 		objects.add(player);
 		test.loop();
 		setEnemies(Map.getLevel());
-		StartGame.startFrame.dispose();
+		EndlessDoorsRunner.startFrame.dispose();
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel() {
@@ -194,18 +194,18 @@ public class RPGGame implements KeyListener {
 				if (lev > 0)
 					lastLev = lev;
 				if (lev == 0) {
-					g.drawString("Level: tutorial", StartGame.SCREEN_WIDTH - 110, 18);
+					g.drawString("Level: tutorial", EndlessDoorsRunner.SCREEN_WIDTH - 110, 18);
 				}
 				else {
-					g.drawString("Level: " + lastLev, StartGame.SCREEN_WIDTH - 75, 18);
+					g.drawString("Level: " + lastLev, EndlessDoorsRunner.SCREEN_WIDTH - 75, 18);
 				}
 
 				// this is where the player's health bar is drawn
 				g.setColor(new Color(255, 0, 0)); // color: red
-				g.fillRect(20, 25, StartGame.SCREEN_WIDTH / 4, 16);
+				g.fillRect(20, 25, EndlessDoorsRunner.SCREEN_WIDTH / 4, 16);
 				g.setColor(new Color(0, 255, 0)); // color: green
 				g.fillRect(20, 25,
-						(int) (((StartGame.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 16);
+						(int) (((EndlessDoorsRunner.SCREEN_WIDTH / 4) * (int) player.getHealth()) / player.getMaxHealth()), 16);
 				g.setColor(new Color(255, 255, 255)); // color: white
 				g.drawString("Player health: " + (int)player.getHealth(), 22, 38);
 				/*if(pHit) {
@@ -221,13 +221,13 @@ public class RPGGame implements KeyListener {
 
 				// this is where the special power cooldown status is drawn
 				g.setColor(new Color(0, 0, 255));
-				g.fillRect(StartGame.SCREEN_WIDTH * 4 / 5 + 24, 25, 181, 16);
+				g.fillRect(EndlessDoorsRunner.SCREEN_WIDTH * 4 / 5 + 24, 25, 181, 16);
 				g.setColor(new Color(255, 255, 255)); // color: white
 				if (player.canSpecial()) {
-					g.drawString("Special power: available", StartGame.SCREEN_WIDTH * 4 / 5 + 33, 38);
+					g.drawString("Special power: available", EndlessDoorsRunner.SCREEN_WIDTH * 4 / 5 + 33, 38);
 				}
 				else {
-					g.drawString("Special power: unavailable", StartGame.SCREEN_WIDTH * 4 / 5 + 25, 38);
+					g.drawString("Special power: unavailable", EndlessDoorsRunner.SCREEN_WIDTH * 4 / 5 + 25, 38);
 				}
 
 				if (helpShown == true) {
@@ -262,7 +262,7 @@ public class RPGGame implements KeyListener {
 					gO.draw(g, lastLev);
 					enemies.clear();
 					pause();
-					StartGame.timer.stop();
+					EndlessDoorsRunner.timer.stop();
 					map.setRoomCount(0);
 
 
@@ -289,10 +289,10 @@ public class RPGGame implements KeyListener {
 
 		mainPanel.setBackground(new Color(40, 200, 240));
 		// frame doesn't get minimized
-		mainPanel.setPreferredSize(new Dimension(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT));
+		mainPanel.setPreferredSize(new Dimension(EndlessDoorsRunner.SCREEN_WIDTH, EndlessDoorsRunner.SCREEN_HEIGHT));
 		mainFrame.add(mainPanel);
 		// frame gets placed a little way from top and left side
-		StartGame.center(mainFrame);
+		EndlessDoorsRunner.center(mainFrame);
 		mainFrame.pack();
 		mainFrame.addKeyListener(this);
 		// this timer controls the actions in the game and then repaints after each
@@ -449,10 +449,10 @@ public class RPGGame implements KeyListener {
 	public static void selectClass(int which) {
 		switch (which) {
 		case 0:
-			player = new Knight(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			player = new Knight(EndlessDoorsRunner.SCREEN_HEIGHT / 4, EndlessDoorsRunner.SCREEN_WIDTH / 4);
 			break;
 		case 1:
-			player = new Archer(StartGame.SCREEN_HEIGHT / 4, StartGame.SCREEN_WIDTH / 4);
+			player = new Archer(EndlessDoorsRunner.SCREEN_HEIGHT / 4, EndlessDoorsRunner.SCREEN_WIDTH / 4);
 			break;
 		}
 	}
@@ -479,8 +479,8 @@ public class RPGGame implements KeyListener {
 	}
 
 	private void checkSpawns(Enemy e2, int level) {
-		int x = GameObject.randInt(300, StartGame.SCREEN_WIDTH - 50 - e2.WIDTH) / 50;
-		int y = GameObject.randInt(300, StartGame.SCREEN_HEIGHT - 50 - e2.WIDTH) / 50;
+		int x = GameObject.randInt(300, EndlessDoorsRunner.SCREEN_WIDTH - 50 - e2.WIDTH) / 50;
+		int y = GameObject.randInt(300, EndlessDoorsRunner.SCREEN_HEIGHT - 50 - e2.WIDTH) / 50;
 		if (e2 instanceof Demon) {
 			e2 = null;
 			e2 = new Demon(x * 50, y * 50, level);
@@ -779,14 +779,14 @@ public class RPGGame implements KeyListener {
 			damagedObjects.clear();
 			envirAttacks.clear();
 			floor.reset();
-			new StartGame().init();
+			new EndlessDoorsRunner().init();
 			mainFrame.dispose();
 		}
 
 		// trading post
 		if (keys.contains("i") && player.collides(trader)) {
 			tradeOpen = !tradeOpen;
-			player.setDamage(5+ RPGGame.getInventory().getTotalDmg());
+			player.setDamage(5+ EndlessDoorsGame.getInventory().getTotalDmg());
 			mainPanel.repaint();
 			pause();
 		}
@@ -907,13 +907,13 @@ public class RPGGame implements KeyListener {
 
 		if (!portalCheck && levelDone == true) {
 			while (true) {
-				int r = (int) (Math.random() * StartGame.SCREEN_WIDTH) / 50;
-				int c = (int) (Math.random() * StartGame.SCREEN_HEIGHT) / 50;
+				int r = (int) (Math.random() * EndlessDoorsRunner.SCREEN_WIDTH) / 50;
+				int c = (int) (Math.random() * EndlessDoorsRunner.SCREEN_HEIGHT) / 50;
 				r *= 50;
 				c *= 50;
 				GameObject g = new Wall(r, c, 50, 50);
 				boolean here = true;
-				for (GameObject g1 : RPGGame.getObjects()) {
+				for (GameObject g1 : EndlessDoorsGame.getObjects()) {
 					if (g.collides(g1)) {
 						here = false;
 					}

@@ -21,7 +21,7 @@ public class MoveableObject extends GameObject{
 	}
 
 	public void update() {
-		if (RPGGame.ticks>super.getHittable()) {
+		if (EndlessDoorsGame.ticks>super.getHittable()) {
 			loss=0;
 		}
 	}
@@ -61,12 +61,12 @@ public class MoveableObject extends GameObject{
 		this.cooldown = cd;
 	}
 	public boolean canAttack() {
-		if (cooldown >= RPGGame.ticks)
+		if (cooldown >= EndlessDoorsGame.ticks)
 			return false;
 		return true;
 	}
 	public void addCooldown(int ticks) {
-		cooldown=RPGGame.ticks+ticks;
+		cooldown=EndlessDoorsGame.ticks+ticks;
 	}
 	@Override
 	public void moveX(double howMuch) {
@@ -80,7 +80,7 @@ public class MoveableObject extends GameObject{
 	}
 	@Override
 	public void hit(double damage, int ID) {
-		if (RPGGame.ticks>super.getHittable()) {
+		if (EndlessDoorsGame.ticks>super.getHittable()) {
 			//cooldown=26+RPGGame.ticks;
 			loss = damage;
 		}

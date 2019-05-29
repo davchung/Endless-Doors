@@ -7,14 +7,14 @@ public class Shield extends Attack {
 
 	@Override
 	public void update() {
-		this.locX = RPGGame.getPlayer().locX - 20;
-		this.locY = RPGGame.getPlayer().locY - 20;
+		this.locX = EndlessDoorsGame.getPlayer().locX - 20;
+		this.locY = EndlessDoorsGame.getPlayer().locY - 20;
 	}
 
 	public void change(Attack e) {
 		((Attack) e).reflect(this.getCX(), this.getCY());
-		RPGGame.getPrimary().add((Attack) e);
-		RPGGame.getEnemyAttacks().remove(e);
+		EndlessDoorsGame.getPrimary().add((Attack) e);
+		EndlessDoorsGame.getEnemyAttacks().remove(e);
 	}
 
 }
