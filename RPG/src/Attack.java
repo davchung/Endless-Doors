@@ -17,7 +17,7 @@ public class Attack extends GameObject {
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, int right, int down, int duration,
 			double e, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
-		expire = EndlessDoorsGame.ticks + duration;
+		expire = RPGGame.ticks + duration;
 		super.moveX(-width / 2);// centers drawing on player
 		super.moveY(-height / 2);
 		r = right;
@@ -31,7 +31,7 @@ public class Attack extends GameObject {
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
 			int duration, double e, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
-		expire = EndlessDoorsGame.ticks + duration;
+		expire = RPGGame.ticks + duration;
 		super.moveX(-width / 2);// centers drawing on player
 		super.moveY(-height / 2);
 		r = right;
@@ -44,7 +44,7 @@ public class Attack extends GameObject {
 	public Attack(int x, int y, int width, int height, int pWidth, int pHeight, double right, double down, int velocity,
 			int duration, double e, Animation s) {
 		super(x, y, width, height, true, true, 1, s.getFirst()); 
-		expire = EndlessDoorsGame.ticks + duration;
+		expire = RPGGame.ticks + duration;
 		super.moveX(-width / 2);// centers drawing on player
 		super.moveY(-height / 2);
 		r = right;
@@ -59,7 +59,7 @@ public class Attack extends GameObject {
 
 	public Attack(int x, int y, int width, int height, int duration, double damage, String s) {
 		super(x, y, width, height, true, true, 1, s); // uses GameObject's constructor #1
-		expire = EndlessDoorsGame.ticks + duration;
+		expire = RPGGame.ticks + duration;
 		vel = 0;
 		dmg = damage;
 	}
@@ -67,7 +67,7 @@ public class Attack extends GameObject {
 	//can't get this one to work, can't figure out why.
 	public Attack(int x, int y, int width, int height, int duration, double damage, BufferedImage img) {
 		super(x, y, width, height, true, true, 1, img);
-		expire = EndlessDoorsGame.ticks + duration;
+		expire = RPGGame.ticks + duration;
 		vel = 0;
 		dmg = damage;
 	}
@@ -129,7 +129,7 @@ public class Attack extends GameObject {
 	}
 
 	public boolean expire() {
-		if (EndlessDoorsGame.ticks > expire) {
+		if (RPGGame.ticks > expire) {
 			return true;	
 		}
 		return false;

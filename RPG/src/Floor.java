@@ -15,7 +15,7 @@ public class Floor {
 	ArrayList<BufferedImage> floors = new ArrayList<BufferedImage>();
 
 	public Floor() {
-		floor = new int[EndlessDoorsRunner.SCREEN_HEIGHT / Map.OBJ_HEIGHT][EndlessDoorsRunner.SCREEN_WIDTH / Map.OBJ_WIDTH];
+		floor = new int[StartGame.SCREEN_HEIGHT / Map.OBJ_HEIGHT][StartGame.SCREEN_WIDTH / Map.OBJ_WIDTH];
 		makeFloor();
 	}
 

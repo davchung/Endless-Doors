@@ -13,7 +13,7 @@ public class Skeleton extends Enemy {
 
 	@Override
 	public void draw(Graphics g) {
-		if (super.getHittable() > EndlessDoorsGame.ticks) {
+		if (super.getHittable() > RPGGame.ticks) {
 			drawDamage(g);
 		} else {
 			betterDraw(g);
@@ -23,7 +23,7 @@ public class Skeleton extends Enemy {
 	// these methods are for movement
 	@Override
 	public void moveX(double howMuch) {
-		if (EndlessDoorsGame.ticks > getHittable()) {
+		if (RPGGame.ticks > getHittable()) {
 			super.moveX(howMuch);
 		} else {
 			super.moveX(-howMuch / 3);
@@ -32,7 +32,7 @@ public class Skeleton extends Enemy {
 
 	@Override
 	public void moveY(double howMuch) {
-		if (EndlessDoorsGame.ticks > getHittable()) {
+		if (RPGGame.ticks > getHittable()) {
 			super.moveY(howMuch);
 		} else {
 			super.moveY(-howMuch / 3);
@@ -41,27 +41,27 @@ public class Skeleton extends Enemy {
 
 	@Override
 	public void autoMove() {
-		EndlessDoorsGame.getObjects().remove(this);
+		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = (EndlessDoorsGame.getPlayer().getCX() - this.getCX());
-		y = (EndlessDoorsGame.getPlayer().getCY() - this.getCY());
+		x = (RPGGame.getPlayer().getCX() - this.getCX());
+		y = (RPGGame.getPlayer().getCY() - this.getCY());
 
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
 		this.moveX(x);
 		this.moveY(y);
-		while (this.collides(EndlessDoorsGame.getPlayer())) {
+		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
-			EndlessDoorsGame.getPlayer().hit(this.getDamage());
+			RPGGame.getPlayer().hit(this.getDamage());
 		}
 		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
 			this.setRight(1);
 		this.setDown(y);
 		wallCollision();
-		EndlessDoorsGame.getObjects().add(this);
+		RPGGame.getObjects().add(this);
 	}
 	@Override
 	public Animation getRun() {

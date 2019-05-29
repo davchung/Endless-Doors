@@ -370,8 +370,8 @@ public class Map {
 					eObjs.add(new Chest(c * OBJ_WIDTH, r * OBJ_HEIGHT, GameObject.randInt(10, 50)));
 					break;
 				case 5:
-					EndlessDoorsGame.trader.setLoc((c - 1) * OBJ_WIDTH, (r - 1) * OBJ_HEIGHT);
-					EndlessDoorsGame.getObjects().add(EndlessDoorsGame.trader);
+					RPGGame.trader.setLoc((c - 1) * OBJ_WIDTH, (r - 1) * OBJ_HEIGHT);
+					RPGGame.getObjects().add(RPGGame.trader);
 					break;
 				}
 			}

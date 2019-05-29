@@ -6,10 +6,10 @@ import javax.imageio.ImageIO;
 
 public abstract class GameGUI{
 
-	protected double locX = EndlessDoorsRunner.SCREEN_WIDTH * 1 / 10;
-	protected double locY = EndlessDoorsRunner.SCREEN_HEIGHT * 1 / 10;
-	protected double WIDTH = EndlessDoorsRunner.SCREEN_WIDTH * 8 / 10;
-	protected double HEIGHT = EndlessDoorsRunner.SCREEN_HEIGHT * 8 / 10;
+	protected double locX = StartGame.SCREEN_WIDTH * 1 / 10;
+	protected double locY = StartGame.SCREEN_HEIGHT * 1 / 10;
+	protected double WIDTH = StartGame.SCREEN_WIDTH * 8 / 10;
+	protected double HEIGHT = StartGame.SCREEN_HEIGHT * 8 / 10;
 	
 	public final static String PATH_PREFIX = "img/gui/";
 	protected BufferedImage img;

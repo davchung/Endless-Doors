@@ -9,11 +9,11 @@ public class Chest extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		if (Math.abs(EndlessDoorsGame.getPlayer().getRect().getCenterX() - this.getRect().getCenterX()) <= 150
-				&& Math.abs(EndlessDoorsGame.getPlayer().getRect().getCenterY() - this.getRect().getCenterY()) <= 150)
+		if (Math.abs(RPGGame.getPlayer().getRect().getCenterX() - this.getRect().getCenterX()) <= 150
+				&& Math.abs(RPGGame.getPlayer().getRect().getCenterY() - this.getRect().getCenterY()) <= 150)
 			super.draw(g, open.getSecond());
-		else if(Math.abs(EndlessDoorsGame.getPlayer().getRect().getCenterX() - this.getRect().getCenterX()) <= 150
-				&& Math.abs(EndlessDoorsGame.getPlayer().getRect().getCenterY() - this.getRect().getCenterY()) <= 150)
+		else if(Math.abs(RPGGame.getPlayer().getRect().getCenterX() - this.getRect().getCenterX()) <= 150
+				&& Math.abs(RPGGame.getPlayer().getRect().getCenterY() - this.getRect().getCenterY()) <= 150)
 			super.draw(g,open.getThird());
 		else {
 			super.draw(g,open.getFirst());

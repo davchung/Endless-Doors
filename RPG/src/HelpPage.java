@@ -11,8 +11,8 @@ public class HelpPage extends GameGUI {
 
 
 	public void draw(Graphics g) {
-		int LEFT_MARGIN = EndlessDoorsRunner.SCREEN_WIDTH * 1 / 6;
-		int yVal = EndlessDoorsRunner.SCREEN_HEIGHT * 1 / 4;
+		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 1 / 6;
+		int yVal = StartGame.SCREEN_HEIGHT * 1 / 4;
 		g.setColor(new Color(0, 130, 255)); // color: blue
 		super.draw(g);
 		

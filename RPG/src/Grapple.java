@@ -10,7 +10,7 @@ public class Grapple extends Arrow {
 	
 	
 	public void pull() {
-		Player p = EndlessDoorsGame.getPlayer();
+		Player p = RPGGame.getPlayer();
 		double diffX = this.getCX()-p.getCX();
 		double diffY = this.getCY()-p.getCY();
 		double mag = Math.sqrt(diffX*diffX+diffY*diffY);
@@ -18,13 +18,13 @@ public class Grapple extends Arrow {
 		diffY /= mag;
 		for (int i=0;i<10;i++) {
 			if (this.collides(p)) {
-				EndlessDoorsGame.getPlayer().moveX(-diffX*originalVel/5);
-				EndlessDoorsGame.getPlayer().moveY(-diffY*originalVel/5);
+				RPGGame.getPlayer().moveX(-diffX*originalVel/5);
+				RPGGame.getPlayer().moveY(-diffY*originalVel/5);
 				this.expire=0;
 				return;
 			}else {
-				EndlessDoorsGame.getPlayer().moveX(diffX*originalVel/10);
-				EndlessDoorsGame.getPlayer().moveY(diffY*originalVel/10);
+				RPGGame.getPlayer().moveX(diffX*originalVel/10);
+				RPGGame.getPlayer().moveY(diffY*originalVel/10);
 			}
 			
 		}

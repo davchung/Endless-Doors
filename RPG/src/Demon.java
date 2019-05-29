@@ -15,7 +15,7 @@ public class Demon extends Enemy {
 
 	@Override
 	public void draw(Graphics g) {
-		if (super.getHittable() > EndlessDoorsGame.ticks) {
+		if (super.getHittable() > RPGGame.ticks) {
 			betterDraw(g, dmg);
 		} else {
 			betterDraw(g);
@@ -55,7 +55,7 @@ public class Demon extends Enemy {
 	// these methods are for movement
 	@Override
 	public void moveX(double howMuch) {
-		if (EndlessDoorsGame.ticks > getHittable()) {
+		if (RPGGame.ticks > getHittable()) {
 			super.moveX(howMuch);
 		} else {
 			super.moveX(-howMuch / 3);
@@ -64,7 +64,7 @@ public class Demon extends Enemy {
 
 	@Override
 	public void moveY(double howMuch) {
-		if (EndlessDoorsGame.ticks > getHittable()) {
+		if (RPGGame.ticks > getHittable()) {
 			super.moveY(howMuch);
 		} else {
 			super.moveY(-howMuch / 3);
@@ -74,20 +74,20 @@ public class Demon extends Enemy {
 	@Override
 	public void autoMove() {
 		// makes the enemy follow the player
-		EndlessDoorsGame.getObjects().remove(this);
+		RPGGame.getObjects().remove(this);
 		double x = 0, y = 0;
-		x = (EndlessDoorsGame.getPlayer().getCX() - this.getCX());
-		y = (EndlessDoorsGame.getPlayer().getCY() - this.getCY());
+		x = (RPGGame.getPlayer().getCX() - this.getCX());
+		y = (RPGGame.getPlayer().getCY() - this.getCY());
 
 		double mag = Math.sqrt(x * x + y * y);
 		x = this.getSpeed() * x / mag;
 		y = this.getSpeed() * y / mag;
 		this.moveX(x);
 		this.moveY(y);
-		while (this.collides(EndlessDoorsGame.getPlayer())) {
+		while (this.collides(RPGGame.getPlayer())) {
 			this.moveX(-x / 10);
 			this.moveY(-y / 10);
-			EndlessDoorsGame.getPlayer().hit(this.getDamage());
+			RPGGame.getPlayer().hit(this.getDamage());
 		}
 		this.setRight(x);
 		if (Math.abs(x) < getSpeed() / 8)
@@ -95,16 +95,16 @@ public class Demon extends Enemy {
 		this.setDown(y);
 		wallCollision();
 		if (this.canAttack()) {
-			EndlessDoorsGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
+			RPGGame.setEnemyAttack(new Attack((int) getCX(), (int) getCY(), WIDTH * 3 / 4, HEIGHT * 3 / 4, WIDTH,
 					HEIGHT, x, y, 3, 500,this.getDamage(), "sprites/fireball.png"));		
 			this.addCooldown(300);
 		}
-		EndlessDoorsGame.getObjects().add(this);
+		RPGGame.getObjects().add(this);
 	}
 
 	@Override
 	protected void wallCollision() {
-		for (GameObject i : EndlessDoorsGame.getObjects()) {
+		for (GameObject i : RPGGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				double dx = this.getCX() - i.getCX();
 				double dy = this.getCY() - i.getCY();
@@ -119,7 +119,7 @@ public class Demon extends Enemy {
 			}
 
 		}
-		for (GameObject i : EndlessDoorsGame.getObjects()) {
+		for (GameObject i : RPGGame.getObjects()) {
 			if (!this.equals(i) && this.collides(i) && (!i.throughable)) {
 				wallCollision();
 			}

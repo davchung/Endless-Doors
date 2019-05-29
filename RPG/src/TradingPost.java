@@ -52,9 +52,9 @@ public class TradingPost extends GameGUI {
 	}
 
 	public void draw(Graphics g) {
-		int LEFT_MARGIN = EndlessDoorsRunner.SCREEN_WIDTH * 2 / 10;
+		int LEFT_MARGIN = StartGame.SCREEN_WIDTH * 2 / 10;
 		int LEFT_INDENT = 25;
-		int yVal = EndlessDoorsRunner.SCREEN_HEIGHT * 1 / 5 - 18;
+		int yVal = StartGame.SCREEN_HEIGHT * 1 / 5 - 18;
 		g.setColor(new Color(35, 140, 35)); // color: green
 		super.draw(g);
 
